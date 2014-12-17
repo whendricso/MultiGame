@@ -1,0 +1,211 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &100000
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 400000}
+  - 108: {fileID: 10800000}
+  - 111: {fileID: 11100000}
+  - 114: {fileID: 11400000}
+  - 123: {fileID: 12300000}
+  m_Layer: 0
+  m_Name: DayNightSystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &400000
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_LocalRotation: {x: .408217937, y: -.234569728, z: .109381661, w: .875426114}
+  m_LocalPosition: {x: -15.4790716, y: 26.8378792, z: 27.956686}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+--- !u!108 &10800000
+Light:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Type: 1
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Intensity: .189999998
+  m_Range: 10
+  m_SpotAngle: 30
+  m_CookieSize: 10
+  m_Shadows:
+    m_Type: 2
+    m_Resolution: -1
+    m_Strength: 1
+    m_Bias: .0500000007
+    m_Softness: 4
+    m_SoftnessFade: 1
+  m_Cookie: {fileID: 0}
+  m_DrawHalo: 0
+  m_ActuallyLightmapped: 0
+  m_Flare: {fileID: 0}
+  m_RenderMode: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_Lightmapping: 1
+  m_ShadowSamples: 1
+  m_ShadowRadius: 0
+  m_ShadowAngle: 0
+  m_IndirectIntensity: 1
+  m_AreaSize: {x: 1, y: 1}
+--- !u!111 &11100000
+Animation:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 656a58452d7fe9f45bbf12d598a776ba, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 656a58452d7fe9f45bbf12d598a776ba, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e364035ab6d79d4d863b02b5faf58b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cycleDuration: 60
+  useSkyLighting: 0
+  skyColor:
+    key0:
+      serializedVersion: 2
+      rgba: 4289320447
+    key1:
+      serializedVersion: 2
+      rgba: 4292013038
+    key2:
+      serializedVersion: 2
+      rgba: 16629934
+    key3:
+      serializedVersion: 2
+      rgba: 16695727
+    key4:
+      serializedVersion: 2
+      rgba: 12265471
+    key5:
+      serializedVersion: 2
+      rgba: 2827555
+    key6:
+      serializedVersion: 2
+      rgba: 1446158
+    key7:
+      serializedVersion: 2
+      rgba: 11064574
+    ctime0: 0
+    ctime1: 2120
+    ctime2: 17155
+    ctime3: 22745
+    ctime4: 30455
+    ctime5: 32768
+    ctime6: 60909
+    ctime7: 65535
+    atime0: 0
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_NumColorKeys: 8
+    m_NumAlphaKeys: 2
+  lightColor:
+    key0:
+      serializedVersion: 2
+      rgba: 4283679231
+    key1:
+      serializedVersion: 2
+      rgba: 4291361535
+    key2:
+      serializedVersion: 2
+      rgba: 16771031
+    key3:
+      serializedVersion: 2
+      rgba: 10562559
+    key4:
+      serializedVersion: 2
+      rgba: 11944808
+    key5:
+      serializedVersion: 2
+      rgba: 6046781
+    key6:
+      serializedVersion: 2
+      rgba: 3352356
+    key7:
+      serializedVersion: 2
+      rgba: 5488894
+    ctime0: 0
+    ctime1: 2891
+    ctime2: 24672
+    ctime3: 30262
+    ctime4: 31418
+    ctime5: 32768
+    ctime6: 61102
+    ctime7: 65535
+    atime0: 0
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_NumColorKeys: 8
+    m_NumAlphaKeys: 2
+  isDaytime: 1
+  lensFlare: {fileID: 0}
+  saveInterval: 5
+--- !u!123 &12300000
+LensFlare:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_Flare: {fileID: 12100000, guid: 09ebe82dbd1113c3d000dc0b8d76c639, type: 2}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_Brightness: 1
+  m_FadeSpeed: 3
+  m_IgnoreLayers:
+    serializedVersion: 2
+    m_Bits: 6
+  m_Directional: 1
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 100000}
+  m_IsPrefabParent: 1
+  m_IsExploded: 1
