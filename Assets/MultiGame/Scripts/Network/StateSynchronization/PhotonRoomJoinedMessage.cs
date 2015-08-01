@@ -10,6 +10,10 @@ public class PhotonRoomJoinedMessage : Photon.MonoBehaviour {
 			message.target = gameObject;
 	}
 
+	void OnValidate () {
+		MessageManager.UpdateMessageGUI(ref message, gameObject);
+	}
+
 	void OnJoinedRoom () {
 		MessageManager.Send(message);
 	}

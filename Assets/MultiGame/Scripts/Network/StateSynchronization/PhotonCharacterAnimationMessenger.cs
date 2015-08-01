@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 [RequireComponent (typeof(PhotonView))]
@@ -110,7 +110,7 @@ public class PhotonCharacterAnimationMessenger : Photon.MonoBehaviour {
 		}
 	}
 
-	[RPC]
+	[PunRPC]
 	void ActivateAnimation (int id) {
 		if (animations[id].animType == CharacterAnimation.AnimTypes.Boolean)
 			animator.SetBool(animations[id].animTransitionName, true);
@@ -118,7 +118,7 @@ public class PhotonCharacterAnimationMessenger : Photon.MonoBehaviour {
 			animator.SetTrigger(animations[id].animTransitionName);
 	}
 
-	[RPC]
+	[PunRPC]
 	void DeactivateAnimation (int id) {
 		if (animations[id].animType == CharacterAnimation.AnimTypes.Boolean)
 			animator.SetBool(animations[id].animTransitionName, false);
@@ -126,7 +126,7 @@ public class PhotonCharacterAnimationMessenger : Photon.MonoBehaviour {
 			animator.ResetTrigger(animations[id].animTransitionName);
 	}
 
-	[RPC]
+	[PunRPC]
 	void ToggleAnimation (int id) {
 		switch (animations[id].animType) {
 		case CharacterAnimation.AnimTypes.Boolean:

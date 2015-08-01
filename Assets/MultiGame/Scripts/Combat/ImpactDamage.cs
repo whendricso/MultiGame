@@ -9,9 +9,10 @@ public class ImpactDamage : MonoBehaviour {
 	public TargetingMode targetingMode = TargetingMode.Both;
 	public float speedThreshold = 20.0f;
 	public Health health;
+	public bool debug = false;
 
 	void Start () {
-		if (collider == null || rigidbody == null) {
+		if (GetComponent<Collider>() == null || GetComponent<Rigidbody>() == null) {
 			Debug.Log ("Impact Damage " + gameObject.name + " needs a rigidbody and collider!");
 			enabled = false;
 			return;
@@ -27,7 +28,8 @@ public class ImpactDamage : MonoBehaviour {
 	
 	void OnCollisionEnter (Collision collision) {
 		if (collision.relativeVelocity.magnitude >= speedThreshold) {
-			Debug.Log ("Apply impact damage");
+			if (debug)
+				Debug.Log ("Apply impact damage");
 			if (targetingMode == TargetingMode.Self || targetingMode == TargetingMode.Both)
 				gameObject.BroadcastMessage("ModifyHealth", damage * collision.relativeVelocity.magnitude, SendMessageOptions.DontRequireReceiver);
 			if (targetingMode == TargetingMode.Other || targetingMode == TargetingMode.Both)

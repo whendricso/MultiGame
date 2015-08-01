@@ -19,25 +19,25 @@ public class MessageToggle : MonoBehaviour {
 			previousVal = !gameObjectTargets[0].activeSelf;
 		else {
 			previousVal = false;
-			gameObjectTargets[0] = gameObject;
+//			gameObjectTargets[0] = gameObject;
 		}
 		if (invert)
 			previousVal = !previousVal;
 	}
 
-	void ToggleOn () {
+	public void ToggleOn () {
 		Toggle(true);
 	}
 
-	void ToggleOff () {
+	public void ToggleOff () {
 		Toggle(false);
 	}
 
-	void SwapToggle () {
+	public void SwapToggle () {
 		Toggle(previousVal);
 	}
 
-	void Toggle(bool val) {
+	public void Toggle(bool val) {
 		if (debug)
 			Debug.Log("Toggle " + val);
 		previousVal = !val;
@@ -45,17 +45,20 @@ public class MessageToggle : MonoBehaviour {
 			lightTarget.enabled = val;
 		if (gameObjectTargets.Length > 0) {
 			foreach (GameObject target in gameObjectTargets)
-				target.SetActive(val);
+				if (target != null)
+					target.SetActive(val);
 		}
 		if (scriptTargets.Length > 0) {
-			foreach (MonoBehaviour target in scriptTargets) 
-				target.enabled = val;
+			foreach (MonoBehaviour target in scriptTargets) {
+				if (target != null)
+					target.enabled = val;
+			}
 			
 		}
 
 	}
 
-	void Activate () {
+	public void Activate () {
 		SwapToggle();
 	}
 }

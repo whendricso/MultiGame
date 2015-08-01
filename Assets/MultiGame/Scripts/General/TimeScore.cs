@@ -15,16 +15,39 @@ public class TimeScore : MonoBehaviour {
 	public bool started = false;
 	[HideInInspector]
 	public float previousTime = 0.0f;
+	[System.NonSerialized]
+	public float bestTime = 0f;
 
 	public bool startOnStart = true;
+	private bool showLastTime = false;
+	private bool showBestTime = false;
+
+	private float timeSinceStart = 0;
 
 	void Start () {
+		timeSinceStart = 0;
 		if (timeUpMessage.target == null)
 			timeUpMessage.target = gameObject;
-		if (PlayerPrefs.HasKey("timeScorePreviousTime"))
+		if (PlayerPrefs.HasKey("timeScoreBestTime")) {
+			bestTime = PlayerPrefs.GetFloat("timeScoreBestTime");
+			showBestTime = true;
+		}
+		if (PlayerPrefs.HasKey("timeScorePreviousTime")) {
 			previousTime = PlayerPrefs.GetFloat("timeScorePreviousTime");
+			showLastTime = true;
+		}
 		if (startOnStart)
 			Begin();
+	}
+
+	void OnValidate () {
+		MessageManager.UpdateMessageGUI(ref timeUpMessage, gameObject);
+	}
+
+	void Update() {
+		timeSinceStart += Time.deltaTime;
+		if (Input.GetKeyUp(KeyCode.T))
+			showGUI = !showGUI;
 	}
 
 	void OnGUI () {
@@ -33,15 +56,27 @@ public class TimeScore : MonoBehaviour {
 	}
 
 	void TimeScoreWindow (int id) {
-		GUILayout.Label("Time Spent: \n" + (Time.time - startTime));
+		if (GUILayout.Button("Reset"))
+			ResetTimes();
+		if (showLastTime && previousTime > 0)
+			GUILayout.Label("Last Time: " + Mathf.FloorToInt(previousTime));
+		if (showBestTime && bestTime > 0)
+			GUILayout.Label("Best Time:" + Mathf.FloorToInt(bestTime));
+		GUILayout.Label("Time Spent: \n" + Mathf.FloorToInt(Time.time - startTime));
 		if (totalTime > 0.0f) {
-			GUILayout.Label("Time Left: \n" +  (totalTime - Time.time));
+			GUILayout.Label("Time Left: \n" +  Mathf.FloorToInt(totalTime - Time.time));
 		}
+
 	}
 
 	void RecordTime () {
 		previousTime = Time.time - startTime;
 		PlayerPrefs.SetFloat("timeScorePreviousTime", previousTime);
+		if (timeSinceStart < bestTime || !PlayerPrefs.HasKey("timeScoreBestTime")) {
+			bestTime = timeSinceStart;
+			if (bestTime > 0)
+				PlayerPrefs.SetFloat("timeScoreBestTime", previousTime);
+		}
 	}
 
 	IEnumerator TimeUp () {
@@ -54,6 +89,11 @@ public class TimeScore : MonoBehaviour {
 		started = true;
 		if (totalTime > 0.0f)
 			StartCoroutine(TimeUp());
+	}
+
+	void ResetTimes () {
+		PlayerPrefs.DeleteKey("timeScorePreviousTime");
+		PlayerPrefs.DeleteKey("timeScoreBestTime");
 	}
 
 	void OnDestroy () {

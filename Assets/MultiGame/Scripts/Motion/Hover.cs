@@ -15,7 +15,7 @@ public class Hover : MonoBehaviour {
 		RaycastHit hinfo;
 		bool didHit = Physics.Raycast(transform.position + rayOffset, -Vector3.up, out hinfo, rayDistance, hoverRayMask);
 		if (didHit)
-			rigidbody.AddForce(Vector3.up * hoverForce, ForceMode.Force);
+			GetComponent<Rigidbody>().AddForce(Vector3.up * hoverForce, ForceMode.Force);
 
 		if (debug) {
 			Debug.DrawRay(transform.position + rayOffset, -Vector3.up);

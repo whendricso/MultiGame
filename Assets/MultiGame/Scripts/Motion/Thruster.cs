@@ -16,7 +16,7 @@ public class Thruster : MonoBehaviour {
 	private bool useTargetRigidbody = false;
 
 	void Start () {
-		if (rigidbody == null && target == null) {
+		if (GetComponent<Rigidbody>() == null && target == null) {
 			Debug.LogError("Thruster " + gameObject.name + "must have attached rigidbody or a target with a rigidbody to work!");
 			enabled = false;
 			return;
@@ -37,7 +37,7 @@ public class Thruster : MonoBehaviour {
 			if (thrusting) {
 				if (space == Space.Self) {
 					if (!useTargetRigidbody)
-						rigidbody.AddRelativeForce(thrust, ForceMode.Force);
+						GetComponent<Rigidbody>().AddRelativeForce(thrust, ForceMode.Force);
 					else
 						rigid.AddRelativeForce(thrust, ForceMode.Force);
 						
@@ -45,7 +45,7 @@ public class Thruster : MonoBehaviour {
 				}
 				else {
 					if (!useTargetRigidbody)
-						rigidbody.AddForce(thrust, ForceMode.Force);
+						GetComponent<Rigidbody>().AddForce(thrust, ForceMode.Force);
 					else
 						rigid.AddForce(thrust, ForceMode.Force);
 						
@@ -56,14 +56,14 @@ public class Thruster : MonoBehaviour {
 			if ( Mathf.Abs(Input.GetAxis(axis)) > inputSensitivity) {
 				if (space == Space.Self) {
 					if (!useTargetRigidbody)
-						rigidbody.AddRelativeForce(thrust * Input.GetAxis(axis), ForceMode.Force);
+						GetComponent<Rigidbody>().AddRelativeForce(thrust * Input.GetAxis(axis), ForceMode.Force);
 					else
 						rigid.AddRelativeForce(thrust * Input.GetAxis(axis), ForceMode.Force);
 						
 				}
 				else {
 					if (!useTargetRigidbody)
-						rigidbody.AddForce(thrust * Input.GetAxis(axis), ForceMode.Force);
+						GetComponent<Rigidbody>().AddForce(thrust * Input.GetAxis(axis), ForceMode.Force);
 					else
 						rigid.AddForce(thrust * Input.GetAxis(axis), ForceMode.Force);
 						
@@ -83,18 +83,18 @@ public class Thruster : MonoBehaviour {
 	public void ThrustAmount (float scalar) {
 		if (scalar != 0.0f) {
 			if (space == Space.Self)
-				rigidbody.AddRelativeForce(thrust * scalar);
+				GetComponent<Rigidbody>().AddRelativeForce(thrust * scalar);
 			else
-				rigidbody.AddForce(thrust * scalar, ForceMode.Force);
+				GetComponent<Rigidbody>().AddForce(thrust * scalar, ForceMode.Force);
 		}
 	}
 
 	public void ThrustVector (Vector3 input) {
 		Debug.Log("Thrust " + input);
 		if (space == Space.Self)
-			rigidbody.AddRelativeForce(new Vector3( input.x * thrust.x, input.y * thrust.y, input.z * thrust.z));
+			GetComponent<Rigidbody>().AddRelativeForce(new Vector3( input.x * thrust.x, input.y * thrust.y, input.z * thrust.z));
 		else
-			rigidbody.AddForce(new Vector3( input.x * thrust.x, input.y * thrust.y, input.z * thrust.z));
+			GetComponent<Rigidbody>().AddForce(new Vector3( input.x * thrust.x, input.y * thrust.y, input.z * thrust.z));
 	}
 }
 //Copyright 2014 William Hendrickson

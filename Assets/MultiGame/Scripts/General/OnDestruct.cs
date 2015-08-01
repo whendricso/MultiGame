@@ -4,17 +4,23 @@ using System.Collections;
 public class OnDestruct : MonoBehaviour {
 
 	public GameObject target;
-	public string message = "";
+	public MessageManager.ManagedMessage message;
 
 	void Start () {
 		if (target == null)
 			target = gameObject;
+		if (message.target == null)
+			message.target = target;
+	}
+
+	void OnValidate () {
+		MessageManager.UpdateMessageGUI(ref message, gameObject);
 	}
 
 	void OnDestroy () {
-		if (message == "")
+		if (message.message == "")
 			return;
 
-		target.SendMessage(message, SendMessageOptions.DontRequireReceiver);
+		MessageManager.Send(message);
 	}
 }

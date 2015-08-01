@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Clickable : MonoBehaviour {
 	
@@ -12,6 +13,10 @@ public class Clickable : MonoBehaviour {
 		if (message.target == null) {
 			message.target = gameObject;
 		}
+	}
+
+	void OnValidate () {
+		MessageManager.UpdateMessageGUI(ref message, gameObject);
 	}
 	
 	void OnMouseUpAsButton() {

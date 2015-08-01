@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class PhotonTeamObject : Photon.MonoBehaviour {
@@ -30,11 +30,15 @@ public class PhotonTeamObject : Photon.MonoBehaviour {
 		view = GetComponent<PhotonView>();
 	}
 
+	void OnValidate () {
+		MessageManager.UpdateMessageGUI(ref teamChangedMessage, gameObject);
+	}
+
 	void SetTeam (int _team) {
 		view.RPC("RemoteSetTeam", PhotonTargets.AllBufferedViaServer, _team);
 	}
 
-	[RPC]
+	[PunRPC]
 	void RemoteSetTeam (int _team) {
 		currentTeam = _team;
 		MessageManager.Send(teamChangedMessage);
@@ -43,9 +47,9 @@ public class PhotonTeamObject : Photon.MonoBehaviour {
 
 	void TeamChanged (int _team) {
 		foreach (TeamColorObject _tobject in teamColorObjects) {
-			_tobject.coloredObject.renderer.sharedMaterials[_tobject.coloredMaterialIndex] = teamColors[_team].teamColor;
+			_tobject.coloredObject.GetComponent<Renderer>().sharedMaterials[_tobject.coloredMaterialIndex] = teamColors[_team].teamColor;
 			if (teamColors[_team].colorModifier != Color.white)
-				_tobject.coloredObject.renderer.materials[_tobject.coloredMaterialIndex].color = teamColors[_team].colorModifier;
+				_tobject.coloredObject.GetComponent<Renderer>().materials[_tobject.coloredMaterialIndex].color = teamColors[_team].colorModifier;
 		}
 	}
 }

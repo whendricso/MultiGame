@@ -23,5 +23,9 @@ public class JointBreakMessage : MonoBehaviour {
 	void OnJointBreak () {
 		MessageManager.Send(message);
 	}
+
+	void OnValidate () {
+		MessageManager.UpdateMessageGUI(ref message, gameObject);
+	}
 }
 //Copyright 2014 William Hendrickson

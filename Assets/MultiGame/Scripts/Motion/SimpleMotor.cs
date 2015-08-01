@@ -8,6 +8,6 @@ public class SimpleMotor : MonoBehaviour {
 	
 	void Update () {
 		transform.position += impetus * Time.deltaTime;
-		transform.localPosition += localImpetus * Time.deltaTime;
+		transform.Translate(localImpetus, Space.Self);//transform.localPosition += localImpetus * Time.deltaTime;
 	}
 }

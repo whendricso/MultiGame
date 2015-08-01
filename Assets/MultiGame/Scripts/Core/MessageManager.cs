@@ -1,15 +1,21 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 
 public class MessageManager : MonoBehaviour {
-
+	
 	public static List<ManagedMessage> managedMessages = new List<ManagedMessage>();
 
 	[System.Serializable]
 	public class ManagedMessage {
 		public GameObject target;
 		public string message;
+		public bool msgOverride = false;
+		public int messageIndex = 0;
+		[HideInInspector]
+		public string[] possibleMessages;
+		public bool isDirty = true;
 		public enum SendMessageTypes {Send, Broadcast};
 		public SendMessageTypes sendMessageType = SendMessageTypes.Send;
 		public string parameter;
@@ -28,6 +34,8 @@ public class MessageManager : MonoBehaviour {
 			parameter = _parameter;
 			parameterMode = _parameterModeType;
 		}
+
+
 	}
 
 	public static void SendAll () {
@@ -37,10 +45,14 @@ public class MessageManager : MonoBehaviour {
 	}
 
 	public static void SendTo (ManagedMessage managedMessage, GameObject target) {
-		Send(new ManagedMessage(target, managedMessage.message));
+		if (managedMessage.message == "--none--")
+			return;
+		Send(new ManagedMessage(target, managedMessage.message, managedMessage.sendMessageType, managedMessage.parameter, managedMessage.parameterMode));
 	}
 
 	public static void Send (ManagedMessage managedMessage) {
+		if (managedMessage.message == "--none--")
+			return;
 //		if (string.IsNullOrEmpty( managedMessage.message))
 //			managedMessage.message = "Activate";
 		switch (managedMessage.parameterMode) {
@@ -76,6 +88,82 @@ public class MessageManager : MonoBehaviour {
 			break;
 		}
 	}
-	
+
+	public static void UpdateMessageGUI (ref ManagedMessage _msg , GameObject _self) {
+//		if (!_msg.isDirty)
+//			return;
+		
+		List<Component> components = new List<Component>();
+		if (_msg.target == null)
+			components.AddRange(_self.GetComponentsInChildren(typeof(MonoBehaviour)));
+		else
+			components.AddRange(_msg.target.GetComponentsInChildren(typeof(MonoBehaviour)));
+		List<string> possibleMessages = new List<string>();
+
+		foreach (Component component in components) {
+			foreach(MethodInfo info in component.GetType().GetMethods(BindingFlags.Public|BindingFlags.Instance|BindingFlags.DeclaredOnly) ) {
+				if (info.GetParameters().Length <= 1) {
+					if (info.GetParameters().Length > 0) {
+						if(CheckIsValidParam(info.GetParameters()[0]))
+							possibleMessages.Add(info.Name);
+					}
+					else
+						possibleMessages.Add(info.Name);
+
+				}
+
+//				bool _successfullyAssignedParamType = false;
+//				if (info.GetParameters().Length < 1) {
+//					_msg.parameterMode = ManagedMessage.ParameterModeTypes.None;
+//					_successfullyAssignedParamType = true;
+//				}
+//				else {
+//					if (info.GetParameters()[0].GetType() == typeof(int)) {
+//						_msg.parameterMode = ManagedMessage.ParameterModeTypes.Integer;
+//						_successfullyAssignedParamType = true;
+//					}
+//					if (info.GetParameters()[0].GetType() == typeof(bool)) {
+//						_msg.parameterMode = ManagedMessage.ParameterModeTypes.Bool;
+//						_successfullyAssignedParamType = true;
+//					}
+//					if (info.GetParameters()[0].GetType() == typeof(string)) {
+//						_msg.parameterMode = ManagedMessage.ParameterModeTypes.String;
+//						_successfullyAssignedParamType = true;
+//					}
+//					if (info.GetParameters()[0].GetType() == typeof(float)) {
+//						_msg.parameterMode = ManagedMessage.ParameterModeTypes.FloatingPoint;
+//						_successfullyAssignedParamType = true;
+//					}
+//				}
+//				if (!_successfullyAssignedParamType) {
+//					_msg.parameterMode = ManagedMessage.ParameterModeTypes.None;
+//					_successfullyAssignedParamType = true;
+//				}
+			}
+		}
+		
+//		Debug.Log("Rebuilt possible messages array");
+		
+		if (possibleMessages != null)
+			_msg.possibleMessages = possibleMessages.ToArray();
+		
+		_msg.isDirty = false;
+	}
+
+	public static bool CheckIsValidParam (ParameterInfo _paramInfo) {
+		bool _ret = false;
+
+		if (_paramInfo.ParameterType == typeof(int))
+			_ret = true;
+		if (_paramInfo.ParameterType == typeof(bool))
+			_ret = true;
+		if (_paramInfo.ParameterType == typeof(string))
+			_ret = true;
+		if (_paramInfo.ParameterType == typeof(float))
+			_ret = true;
+
+		return _ret;
+	}
+
 }
 //Copyright 2014 William Hendrickson

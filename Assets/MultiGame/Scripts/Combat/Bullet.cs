@@ -9,6 +9,7 @@ public class Bullet : MonoBehaviour {
 	public GameObject bulletSplash;
 	private bool fired = false;
 	private Vector3 lastPosition;
+	public LayerMask rayMask;
 
 	public MessageManager.ManagedMessage message;
 
@@ -17,19 +18,27 @@ public class Bullet : MonoBehaviour {
 	
 	[HideInInspector]
 	public RaycastHit hinfo;
+
+	public bool debug = false;
 	
 	void Start () {
 		if (message.target == null)
 			message.target = gameObject;
 		lastPosition = transform.position;
 	}
-	
+
+	void OnValidate () {
+		MessageManager.UpdateMessageGUI(ref message, gameObject);
+	}
+
 	void FixedUpdate () {
 		if (!fired) {
 			fired = true;
-			rigidbody.AddRelativeForce(0.0f,0.0f,muzzleVelocity,ForceMode.VelocityChange);
+			GetComponent<Rigidbody>().AddRelativeForce(0.0f,0.0f,muzzleVelocity,ForceMode.VelocityChange);
 		}
-		if(Physics.Linecast(lastPosition, transform.position, out hinfo)) {
+		if(Physics.Linecast(lastPosition, transform.position, out hinfo, rayMask)) {
+			if (debug)
+				Debug.Log("Bullet " + gameObject.name + " hit " + hinfo.collider.gameObject);
 			transform.position = hinfo.point;
 			RegisterDamage(hinfo);
 		}
@@ -42,9 +51,11 @@ public class Bullet : MonoBehaviour {
 		if (bulletSplash != null) {
 			Instantiate(bulletSplash, rayhit.point, transform.rotation);
 		}
-		GameObject myTrail = transform.FindChild("BulletTrail").gameObject;
-		if (myTrail != null)
-			myTrail.transform.parent = null;
+		if(transform.FindChild("BulletTrail") != null) {
+			GameObject myTrail = transform.FindChild("BulletTrail").gameObject;
+			if (myTrail != null)
+				myTrail.transform.parent = null;
+		}
 		Destroy(gameObject);
 	}
 	

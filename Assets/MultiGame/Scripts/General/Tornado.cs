@@ -16,10 +16,10 @@ public class Tornado : MonoBehaviour {
 	public CharacterController characterController;
 	
 	void Start () {
-		if (audio.clip == null)
+		if (GetComponent<AudioSource>().clip == null)
 			Debug.LogError("Unable to play sound, none provided to the Audio Source " + gameObject.name);
-		if (audio.clip != null && !audio.playOnAwake)
-			audio.Play();
+		if (GetComponent<AudioSource>().clip != null && !GetComponent<AudioSource>().playOnAwake)
+			GetComponent<AudioSource>().Play();
 		characterController = GetComponent<CharacterController>();
 	}
 	
@@ -34,7 +34,7 @@ public class Tornado : MonoBehaviour {
 			return;
 		SpringJoint spring = hit.gameObject.AddComponent<SpringJoint>();
 		hit.gameObject.SendMessage("ModifyHealth", initialDamage, SendMessageOptions.DontRequireReceiver);
-		spring.connectedBody = twister.rigidbody;
+		spring.connectedBody = twister.GetComponent<Rigidbody>();
 		spring.anchor = spring.anchor + new Vector3(0.0f, lift, 0.0f);
 		spring.spring = suction;
 		StartCoroutine(TossDetatch(objectPickupTime + Random.Range(-variance, variance), spring));

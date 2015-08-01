@@ -78,8 +78,8 @@ public class MeleeInputController : MonoBehaviour {
 		if (mode != Modes.Idle) {
 			if (mode == Modes.Block) {
 				if (image != null) {
-					if (image.animation != null) {
-						image.animation.CrossFade (blockAnimation, animFadeTime);
+					if (image.GetComponent<Animation>() != null) {
+						image.GetComponent<Animation>().CrossFade (blockAnimation, animFadeTime);
 					}
 				}
 			}
@@ -93,7 +93,7 @@ public class MeleeInputController : MonoBehaviour {
 							StopAllCoroutines();
 							StartCoroutine(Ready(attackTimesMax[selector]));
 							controller.SendMessage("ToggleMovementAnimations", false, SendMessageOptions.DontRequireReceiver);
-							image.animation.CrossFade(attackAnimations[selector], animFadeTime);
+							image.GetComponent<Animation>().CrossFade(attackAnimations[selector], animFadeTime);
 							StartCoroutine(PlaySoundDelayed(attackSoundDelays[selector]));
 							StartCoroutine(ResetAnimation(attackTimesMax[selector]));
 						}
@@ -103,7 +103,7 @@ public class MeleeInputController : MonoBehaviour {
 				if (Input.GetMouseButtonUp(0)) {
 					if (attackTimesMin[selector] < (Time.time - lastClick) && (Time.time - lastClick) < attackTimesMax[selector]) {
 						if (image != null) {
-							if (image.animation != null && attackAnimations.Length > 0) {
+							if (image.GetComponent<Animation>() != null && attackAnimations.Length > 0) {
 								StartCoroutine(ResetAnimation(attackTimesMin[selector]));
 							}
 						}
@@ -124,7 +124,7 @@ public class MeleeInputController : MonoBehaviour {
 
 	IEnumerator PlaySoundDelayed (float delay) {
 		yield return new WaitForSeconds(delay);
-		audio.PlayOneShot(attackSounds[selector]);
+		GetComponent<AudioSource>().PlayOneShot(attackSounds[selector]);
 
 	}
 
@@ -132,8 +132,8 @@ public class MeleeInputController : MonoBehaviour {
 		yield return new WaitForSeconds(delay);
 
 		if (image != null) {
-			if (image.animation != null) {
-				image.animation.CrossFade (readyAnimation, animFadeTime);
+			if (image.GetComponent<Animation>() != null) {
+				image.GetComponent<Animation>().CrossFade (readyAnimation, animFadeTime);
 			}
 		}
 

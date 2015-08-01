@@ -17,7 +17,7 @@ public class AnimatorFloatReceiver : MonoBehaviour {
 		}
 	}
 
-	void Animate (float _val) {
+	public void Animate (float _val) {
 		if (enabled == false)
 			return;
 

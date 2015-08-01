@@ -9,6 +9,8 @@ public class TargetingSensor : MonoBehaviour {
 	private bool canRetarget = true;
 	public float maxDistance = 25.0f;
 	public string[] targetTags;
+
+	public bool debug = false;
 	
 	void Start () {
 		if (messageReceiver == null) {
@@ -16,7 +18,7 @@ public class TargetingSensor : MonoBehaviour {
 			enabled = false;
 			return;
 		}
-		collider.isTrigger = true;
+		GetComponent<Collider>().isTrigger = true;
 	}
 	
 	void Update () {
@@ -28,18 +30,6 @@ public class TargetingSensor : MonoBehaviour {
 		}
 	}
 	
-	void OnTriggerEnter (Collider other) {
-		if (canRetarget) {
-			if (!CheckIsValidTarget(other.gameObject))
-				return;
-			lastTarget = other.gameObject;
-			messageReceiver.SendMessage("SetTarget", lastTarget, SendMessageOptions.DontRequireReceiver);
-			canRetarget = false;
-			StartCoroutine(ReEnableTargeting());
-		}
-		
-	}
-	
 	void OnTriggerStay (Collider other) {
 		if (!canRetarget)
 			return;
@@ -47,6 +37,10 @@ public class TargetingSensor : MonoBehaviour {
 			return;
 		if (lastTarget != null)
 			return;
+		if (debug)
+			Debug.Log("Targeting Sensor " + gameObject.name + " set it's target to " + other.gameObject.name);
+		canRetarget = false;
+		StartCoroutine(ReEnableTargeting());
 		lastTarget = other.gameObject;
 		messageReceiver.SendMessage("SetTarget", lastTarget, SendMessageOptions.DontRequireReceiver);
 	}
@@ -64,5 +58,5 @@ public class TargetingSensor : MonoBehaviour {
 		}
 		return ret;
 	}
-	
+
 }

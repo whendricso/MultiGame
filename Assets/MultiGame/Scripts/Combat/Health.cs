@@ -7,7 +7,7 @@ public class Health : MultiModule {
 	public float maxHP = 100.0f;
 	public bool autodestruct = true;
 	public GameObject[] deathPrefabs;
-	public GameObject deathCam;//optional camera to be spawned, which watches the first death prefab
+	//public GameObject deathCam;//optional camera to be spawned, which watches the first death prefab
 	
 	public GUISkin guiSkin;
 	public bool showHealthBarGUI = false;
@@ -15,16 +15,23 @@ public class Health : MultiModule {
 	public bool autoHide = true;//if health is full, hide this bar
 	public Color barColor = Color.white;
 	public MessageManager.ManagedMessage healthGoneMessage;
+	public MessageManager.ManagedMessage hitMessage;
+	public bool debug = false;
 	
 	void Start () {
 		hp = maxHP;
 		if (healthGoneMessage.target == null)
 			healthGoneMessage.target = gameObject;
 	}
+
+	void OnValidate () {
+		MessageManager.UpdateMessageGUI(ref healthGoneMessage, gameObject);
+		MessageManager.UpdateMessageGUI(ref hitMessage, gameObject);
+	}
 	
 	void Update () {
-		if (hp <= 0)
-			Die();
+//		if (hp <= 0)
+//			Die();
 		if (hp > maxHP)
 			hp = maxHP;
 	}
@@ -33,6 +40,8 @@ public class Health : MultiModule {
 		if (hp == maxHP && autoHide)
 			return;
 		if (showHealthBarGUI) {
+			if (debug)
+				Debug.Log("Showing Health Bar GUI at " + healthBar.x + "," + healthBar.y);
 			GUI.skin = guiSkin;
 			GUI.color = barColor;
 			GUILayout.BeginArea(new Rect(healthBar.x * Screen.width, healthBar.y * Screen.height, (healthBar.width * Screen.width) * (hp / maxHP), healthBar.height * Screen.height));
@@ -42,39 +51,36 @@ public class Health : MultiModule {
 	}
 	
 	public void Die() {
+		if (debug)
+			Debug.Log("Health component " + gameObject.name + " has died!");
 		MessageManager.Send( healthGoneMessage);
-		if (!autodestruct)
-			return;
-		
 
 		
+		if (deathPrefabs.Length > 0)
+		for (int i = 0; i < deathPrefabs.Length; i++) {
+			/*GameObject dFab = */Instantiate(deathPrefabs[i], transform.position, transform.rotation)/* as GameObject*/;
+		}
+		if (!autodestruct)
+			return;
 		Destroy(gameObject);
 	}
 
-	void OnDestroy () {
-		if (deathPrefabs.Length > 0)
-		for (int i = 0; i < deathPrefabs.Length; i++) {
-			GameObject dFab = Instantiate(deathPrefabs[i], transform.position, transform.rotation) as GameObject;
-			
-			if (i == 0 && deathCam != null) {//set the optional deathCam to watch this one!
-				Transform mainCam = transform.Find("Main Camera");
-				GameObject dCam = Instantiate(deathCam, mainCam.transform.position, mainCam.transform.rotation) as GameObject;
-				dCam.GetComponent<SmoothLookAt>().target = dFab.transform;
-				
-			}
-		}
-	}
-	
 	public void ModifyHealth (float val) {
+		if (debug)
+			Debug.Log("Modifying health for " + gameObject.name + " by " + val);
+		MessageManager.Send(hitMessage);
 		hp += val;
 		if (hp <= 0.0f) {
-			if (deathPrefabs.Length > 0) {
-				foreach (GameObject pfab in deathPrefabs) {
-					Instantiate(pfab, transform.position, transform.rotation);
-				}
-			}
-			Destroy(gameObject);
+			Die ();
+			if (!autodestruct)
+				return;
 		}
+	}
+
+	public void ModifyMaxHealth (float val) {
+		if (debug)
+			Debug.Log("Modifying health for " + gameObject.name + " by " + val);
+		maxHP += val;
 	}
 }
 //Copyright 2014 William Hendrickson

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 //MultiMenu Copyright 2013 William Hendrickson and Tech Drone
 
@@ -17,18 +18,38 @@ public class MultiMenu : MonoBehaviour {
 	[System.Serializable]
 	public class Button {
 		public string button;
+		[HideInInspector]
 		public MessageManager.ManagedMessage message;
+		public List<MessageManager.ManagedMessage> messages = new List<MessageManager.ManagedMessage>();
 	}
 
 	public Button[] buttons;
 
+	void Awake () {
+		foreach (Button button in buttons) {
+			if (button.message != null && !button.messages.Contains(button.message))
+				button.messages.Add(button.message);
+		}
+	}
+
 	void Start () {
 		foreach(Button button in buttons) {
-			if (button.message.target == null)
-				button.message.target = gameObject;
+			foreach(MessageManager.ManagedMessage msg in button.messages) {
+				if (msg.target == null)
+					msg.target = gameObject;
+			}
 		}
 		if (persistent)
 			DontDestroyOnLoad(gameObject);
+	}
+
+	void OnValidate () {
+		for (int i = 0; i < buttons.Length; i++) {
+			for (int j = 0; j < buttons[i].messages.Count; j++) {
+				MessageManager.ManagedMessage _msg = buttons[i].messages[j];
+				MessageManager.UpdateMessageGUI(ref _msg, gameObject);
+			}
+		}
 	}
 	
 	void OnGUI () {
@@ -37,12 +58,14 @@ public class MultiMenu : MonoBehaviour {
 		if (guiSkin != null)
 			GUI.skin = guiSkin;
 		GUILayout.BeginArea(new Rect(screenArea.x * Screen.width, screenArea.y * Screen.height, screenArea.width * Screen.width, screenArea.height * Screen.height),"","box");
+		if(!string.IsNullOrEmpty(infoText))
 		GUILayout.Label(infoText, "label");
 		for(int i = 0; i < buttons.Length; i++) {
 			if (GUILayout.Button(buttons[i].button)) {
 				if (closeOnSelect)
 					showMenu = false;
-				MessageManager.Send(buttons[i].message);
+				foreach (MessageManager.ManagedMessage msg in buttons[i].messages)
+					MessageManager.Send(msg);
 
 			}
 		}
@@ -50,19 +73,19 @@ public class MultiMenu : MonoBehaviour {
 
 	}
 
-	void OpenMenu () {
+	public void OpenMenu () {
 		if (debug)
 			Debug.Log("Open");
 		showMenu = true;
 	}
 
-	void CloseMenu () {
+	public void CloseMenu () {
 		if (debug)
 			Debug.Log("Close");
 		showMenu = false;
 	}
 
-	void ToggleMenu() {
+	public void ToggleMenu() {
 		if (debug)
 			Debug.Log("Toggle");
 		showMenu = !showMenu;

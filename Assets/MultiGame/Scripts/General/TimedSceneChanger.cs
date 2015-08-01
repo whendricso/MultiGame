@@ -12,10 +12,6 @@ public class TimedSceneChanger : MonoBehaviour {
 	
 	IEnumerator ChangeTheScene (float delay) {
 		yield return new WaitForSeconds(delay);
-		if (Application.loadedLevelName == "test") {
-			Application.LoadLevel("test");
-		}
-		else
-			Application.LoadLevel(targetScene);
+		Application.LoadLevel(targetScene);
 	}
 }

@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 //used to synchronize Mecanim state machines over Photon
@@ -36,7 +36,7 @@ public class PhotonMecanimRelay : Photon.MonoBehaviour {
 		}
 	}
 
-	[RPC]
+	[PunRPC]
 	void AnimateByMecanim (string triggerName) {
 		animator.SetTrigger(triggerName);
 	}

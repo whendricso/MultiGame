@@ -46,9 +46,9 @@ public class ActiveObject : MonoBehaviour {
 		inventory.Pick(kvp);
 		if(debug)
 			Debug.Log("Stowed pickable: " + pickable);
-		if (audio != null) {
-			if (audio.clip != null)
-				audio.Play();
+		if (GetComponent<AudioSource>() != null) {
+			if (GetComponent<AudioSource>().clip != null)
+				GetComponent<AudioSource>().Play();
 		}
 		Destroy(gameObject);
 	}
@@ -56,9 +56,9 @@ public class ActiveObject : MonoBehaviour {
 	public void Drop () {
 		if(debug)
 			Debug.Log("Dropped pickable: " + pickable);
-		if (audio != null) {
-			if (audio.clip != null)
-				audio.Play();
+		if (GetComponent<AudioSource>() != null) {
+			if (GetComponent<AudioSource>().clip != null)
+				GetComponent<AudioSource>().Play();
 		}
 		Instantiate(pickable, transform.position, transform.rotation);
 		Destroy(gameObject);

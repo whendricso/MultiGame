@@ -29,8 +29,8 @@ public class MusicManager : MonoBehaviour {
 	
 	void Start () {
 		if (startSplashSound != null) {
-			audio.clip = startSplashSound;
-			audio.Play();
+			GetComponent<AudioSource>().clip = startSplashSound;
+			GetComponent<AudioSource>().Play();
 			if (enableMusic)
 				StartCoroutine( ScheduleNextClip(startSplashSound.length));
 		}
@@ -78,15 +78,15 @@ public class MusicManager : MonoBehaviour {
 	IEnumerator ScheduleNextClip (float delay) {
 		yield return new WaitForSeconds(delay);
 		enableMusic = true;
-		audio.volume = musicVolume;
+		GetComponent<AudioSource>().volume = musicVolume;
 		switch (musicCategory) {
 		case MusicCategories.One:
 			if (current1 < category1.Length - 1)
 				current1++;
 			else
 				current1 = 0;
-			audio.clip = category1[current1];
-			audio.Play();
+			GetComponent<AudioSource>().clip = category1[current1];
+			GetComponent<AudioSource>().Play();
 			StartCoroutine(ScheduleNextClip(category1[current1].length));
 			break;
 		case MusicCategories.Two:
@@ -94,8 +94,8 @@ public class MusicManager : MonoBehaviour {
 				current2++;
 			else
 				current2 = 0;
-			audio.clip = category2[current2];
-			audio.Play();
+			GetComponent<AudioSource>().clip = category2[current2];
+			GetComponent<AudioSource>().Play();
 			StartCoroutine(ScheduleNextClip(category2[current2].length));
 			break;
 		case MusicCategories.Three:
@@ -103,8 +103,8 @@ public class MusicManager : MonoBehaviour {
 				current3++;
 			else
 				current3 = 0;
-			audio.clip = category3[current3];
-			audio.Play();
+			GetComponent<AudioSource>().clip = category3[current3];
+			GetComponent<AudioSource>().Play();
 			StartCoroutine(ScheduleNextClip(category3[current3].length));
 			break;
 		}
@@ -115,12 +115,12 @@ public class MusicManager : MonoBehaviour {
 	}
 	
 	void ToggleMusic () {
-		if (audio.clip == null && category1.Length > 0)
-			audio.clip = category1[0];
+		if (GetComponent<AudioSource>().clip == null && category1.Length > 0)
+			GetComponent<AudioSource>().clip = category1[0];
 		if (enableMusic)
-			audio.Stop();
+			GetComponent<AudioSource>().Stop();
 		else
-			audio.Play();
+			GetComponent<AudioSource>().Play();
 		enableMusic = !enableMusic;
 	}
 }

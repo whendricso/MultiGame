@@ -11,14 +11,14 @@ public class GridSnap : MonoBehaviour {
 	void Start () {
 		if (!snapOnStart)
 			return;
-		SnapToGrid(gridSetting);
+		SnapToGrid();
 	}
 
 	public void SnapToGrid () { 
-		SnapToGrid(gridSetting);
+		SnapToSpecificGrid(gridSetting);
 	}
 	
-	public void SnapToGrid(Vector3 gridSpace) {
+	public void SnapToSpecificGrid(Vector3 gridSpace) {
 		//Debug.Log("Snap!");
 		float newX = Mathf.Round (transform.position.x / gridSpace.x) * gridSpace.x;
 		float newY = Mathf.Round (transform.position.y / gridSpace.y) * gridSpace.y;

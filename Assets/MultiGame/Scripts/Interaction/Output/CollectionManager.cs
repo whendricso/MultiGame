@@ -7,7 +7,7 @@ public class CollectionManager : MonoBehaviour {
 	public string windowTitle = "";
 	public int windowID = 53346;
 	public int max = 0;
-	public string collectionMessage = "";
+	public MessageManager.ManagedMessage collectionMessage;
 	public GameObject target;
 	public bool closeOnCompletion = false;
 
@@ -19,8 +19,14 @@ public class CollectionManager : MonoBehaviour {
 	void Start () {
 		if (target == null)
 			target = gameObject;
+		if (collectionMessage.target == null)
+			collectionMessage.target = target;
 		if (windowTitle == "")
 			windowTitle = "Collect";
+	}
+
+	void OnValidate () {
+		MessageManager.UpdateMessageGUI(ref collectionMessage, gameObject);
 	}
 
 	void OnGUI () {
@@ -32,8 +38,8 @@ public class CollectionManager : MonoBehaviour {
 	void Collect () {
 		collected ++;
 		if (collected >= max) {
-			if( collectionMessage != "")
-				target.SendMessage(collectionMessage, SendMessageOptions.DontRequireReceiver);
+			if( collectionMessage.message != "")
+				MessageManager.Send(collectionMessage);
 			if (closeOnCompletion)
 				showGUI = false;
 		}

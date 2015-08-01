@@ -12,8 +12,8 @@ public class GameManager : MonoBehaviour {
 
 	[System.Serializable]
 	public class VictoryCondition {
-		public enum VictoryTypes { Score, Message};
-		public VictoryTypes victoryType = VictoryTypes.Message;
+//		public enum VictoryTypes { Score, Message};
+//		public VictoryTypes victoryType = VictoryTypes.Message;
 		public int magicNumber = Random.Range(0 , 100);
 	}
 
@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour {
 		if (!(victoryConditions.Length > 0))
 			return;
 		for (int i = 0; i < victoryConditions.Length; i++) {
-			if(victoryConditions[i].victoryType == VictoryCondition.VictoryTypes.Score && victoryConditions[i].magicNumber <= score) {
+			if(/*victoryConditions[i].victoryType == VictoryCondition.VictoryTypes.Score && */victoryConditions[i].magicNumber <= score) {
 				MessageManager.Send(victoryMessage);
 				enabled = false;
 				return;
@@ -49,11 +49,15 @@ public class GameManager : MonoBehaviour {
 		enabled = true;
 	}
 
-	void Score() {
+	public void Score() {
 		score += goalBaseValue;
 	}
 
-	void Victory() {
+	public void ScoreCustomValue (int _val) {
+		score += _val;
+	}
+
+	public void Victory() {
 		MessageManager.Send (victoryMessage);
 	}
 		

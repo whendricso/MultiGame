@@ -3,11 +3,11 @@ using System.Collections;
 
 public class MissionRestarter : MonoBehaviour {
 
-	void RestartMission () {
+	public void RestartMission () {
 		Application.LoadLevel(Application.loadedLevel);
 	}
 
-	void Activate () {
+	public void Activate () {
 		RestartMission();
 	}
 }

@@ -7,7 +7,9 @@ public class ActiveZone : MultiModule {
 	
 	public GameObject target;
 	public bool playerOnly = true;
+	[HideInInspector]
 	public string animEnter;
+	[HideInInspector]
 	public string animExit;
 	public string mecanimTrigger;
 	[HideInInspector]
@@ -21,8 +23,12 @@ public class ActiveZone : MultiModule {
 	public bool debug = false;
 	
 	void Start () {
+		Rigidbody _body = GetComponent<Rigidbody>();
+		if (!_body.isKinematic)
+			_body.isKinematic = true;
 
-		if (collider == null && GetComponentInChildren<Collider>() == null) {
+
+		if (GetComponent<Collider>() == null && GetComponentInChildren<Collider>() == null) {
 			Debug.LogError("Active Zone " + gameObject.name + " needs a collider on itself or one of it's children to function!");
 		}
 
@@ -31,16 +37,22 @@ public class ActiveZone : MultiModule {
 
 		if (message.target == null)
 			message.target = target;
-		if (messageToEnteringEntity.target == null)
-			messageToEnteringEntity.target = target;
+//		if (messageToEnteringEntity.target == null)
+//			messageToEnteringEntity.target = target;
 		if (exitMessage.target == null)
 			exitMessage.target = target;
 
 		animator = target.GetComponent<Animator>();
-		rigidbody.useGravity = false;
-		rigidbody.isKinematic = true;
-		if (collider != null)
-			collider.isTrigger = true;
+		GetComponent<Rigidbody>().useGravity = false;
+		GetComponent<Rigidbody>().isKinematic = true;
+		if (GetComponent<Collider>() != null)
+			GetComponent<Collider>().isTrigger = true;
+	}
+
+	void OnValidate () {
+		MessageManager.UpdateMessageGUI(ref message, gameObject);
+		MessageManager.UpdateMessageGUI(ref messageToEnteringEntity, gameObject);
+		MessageManager.UpdateMessageGUI(ref exitMessage, gameObject);
 	}
 	
 	void OnTriggerEnter (Collider other) {
@@ -49,14 +61,14 @@ public class ActiveZone : MultiModule {
 		if (playerOnly && other.gameObject.tag != "Player")
 			return;
 		if (!string.IsNullOrEmpty(messageToEnteringEntity.message)) {
-			MessageManager.SendTo(messageToEnteringEntity,other.gameObject);
+			other.gameObject.SendMessage(messageToEnteringEntity.message, SendMessageOptions.DontRequireReceiver);//MessageManager.SendTo(messageToEnteringEntity,other.gameObject);
 		}
 
 		if (animator != null && CheckStringExists(mecanimTrigger))
 			animator.SetTrigger(mecanimTrigger);
-		if (target.animation != null) {
+		if (target.GetComponent<Animation>() != null) {
 			if (CheckStringExists(animEnter))
-				target.animation.Play(animEnter);
+				target.GetComponent<Animation>().Play(animEnter);
 		}
 		if (!string.IsNullOrEmpty( message.message)) {
 			MessageManager.Send(message);
@@ -70,9 +82,9 @@ public class ActiveZone : MultiModule {
 			Debug.Log("Exit " + target.name);
 		if (playerOnly && other.gameObject.tag != "Player")
 			return;
-		if (target.animation != null) {
+		if (target.GetComponent<Animation>() != null) {
 			if (CheckStringExists(animExit))
-				target.animation.Play(animExit);
+				target.GetComponent<Animation>().Play(animExit);
 		}
 		if (messageOnExit) {
 			if (!string.IsNullOrEmpty( exitMessage.message)) {

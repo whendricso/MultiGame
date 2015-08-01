@@ -21,11 +21,11 @@ public class ActiveCollider : MonoBehaviour {
 	void Start () {
 		if (target == null)
 			target = gameObject;
-		if (collider == null) {
-			Debug.LogError("Active Collider " + gameObject.name + " requires some type of 3D collider on this object.");
-			enabled = false;
-			return;
-		}
+//		if (GetComponent<Collider>() == null) {
+//			Debug.LogError("Active Collider " + gameObject.name + " requires some type of 3D collider on this object.");
+//			enabled = false;
+//			return;
+//		}
 
 		if (message.target == null)
 			message.target = target;
@@ -35,8 +35,14 @@ public class ActiveCollider : MonoBehaviour {
 			exitMessage.target = target;
 	}
 
+	void OnValidate () {
+		MessageManager.UpdateMessageGUI(ref message, gameObject);
+		MessageManager.UpdateMessageGUI(ref messageToEnteringEntity, gameObject);
+		MessageManager.UpdateMessageGUI(ref exitMessage, gameObject);
+	}
+
 	void OnControllerColliderHit (ControllerColliderHit hit) {
-		OnCharacterCollision(hit.gameObject.collider);
+		OnCharacterCollision(hit.gameObject.GetComponent<Collider>());
 	}
 
 	void OnCharacterCollision (Collider other) {
@@ -55,9 +61,9 @@ public class ActiveCollider : MonoBehaviour {
 			));
 		}
 		if (target != null) {
-			if (target.animation != null) {
+			if (target.GetComponent<Animation>() != null) {
 				if (CheckStringExists(animEnter))
-					target.animation.Play(animEnter);
+					target.GetComponent<Animation>().Play(animEnter);
 			}
 			MessageManager.Send(message);
 		}
@@ -87,9 +93,9 @@ public class ActiveCollider : MonoBehaviour {
 		}
 
 		if (target != null) {
-			if (target.animation != null) {
+			if (target.GetComponent<Animation>() != null) {
 				if (CheckStringExists(animEnter))
-					target.animation.Play(animEnter);
+					target.GetComponent<Animation>().Play(animEnter);
 			}
 			MessageManager.Send(message);
 
@@ -105,9 +111,9 @@ public class ActiveCollider : MonoBehaviour {
 		if (debug)
 			Debug.Log("Collision detected with " + collision.gameObject.name);
 		if (target != null) {
-			if (target.animation != null) {
+			if (target.GetComponent<Animation>() != null) {
 				if (CheckStringExists(animExit))
-					target.animation.Play(animExit);
+					target.GetComponent<Animation>().Play(animExit);
 			}
 			if (messageOnExit) {
 				if (!string.IsNullOrEmpty( exitMessage.message)) {

@@ -13,7 +13,7 @@ public class SpinMotor : MonoBehaviour {
 		if (GetComponent<Rigidbody>() == null) {
 			transform.Rotate(impetus * Time.deltaTime);
 		} else {
-			rigidbody.AddRelativeTorque(impetus);
+			GetComponent<Rigidbody>().AddRelativeTorque(impetus);
 		}
 	}
 }

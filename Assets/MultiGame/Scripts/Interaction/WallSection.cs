@@ -13,8 +13,7 @@ public class WallSection : MonoBehaviour {
 	public GameObject tIntersection;//the short road should run down the relative -z
 	public GameObject intersection;//a 4-way intersection
 	public GameObject dogLeg;//L-bend, with the roads going down the relative -Z and +X axes
-
-	public float smoothTime = 0.25f;
+	
 	public Vector3 raycastOffset = Vector3.up;
 	public float rayLength = 2.0f;
 	public LayerMask rayMask;
@@ -32,6 +31,10 @@ public class WallSection : MonoBehaviour {
 			rayLength = Mathf.Infinity;
 		}
 		myWall = Instantiate(lone, transform.position, transform.rotation) as GameObject;
+		StartCoroutine(UpdateWallSection());
+	}
+
+	public void UpdateWall () {
 		StartCoroutine(UpdateWallSection());
 	}
 	

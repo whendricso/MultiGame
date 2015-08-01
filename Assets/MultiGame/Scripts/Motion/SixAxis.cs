@@ -62,7 +62,7 @@ public class SixAxis : MonoBehaviour {
 		thrustVec.x = stickInput.x * sidewaysThrust;
 
 
-		rigidbody.AddRelativeForce(thrustVec);
+		GetComponent<Rigidbody>().AddRelativeForce(thrustVec);
 		
 	}
 }

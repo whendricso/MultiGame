@@ -13,6 +13,6 @@ public class InputTorqueMotor : MonoBehaviour {
 	}
 	
 	void FixedUpdate () {
-		rigidbody.AddRelativeTorque((power * Input.GetAxis(axis)) * outputAxes);
+		GetComponent<Rigidbody>().AddRelativeTorque((power * Input.GetAxis(axis)) * outputAxes);
 	}
 }

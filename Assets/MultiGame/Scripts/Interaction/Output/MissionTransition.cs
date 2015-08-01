@@ -21,7 +21,7 @@ public class MissionTransition : MonoBehaviour {
 		Application.LoadLevel(mission);
 	}
 
-	void Activate () {
+	public void Activate () {
 		ChangeMission();
 	}
 

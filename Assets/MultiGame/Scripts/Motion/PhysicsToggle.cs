@@ -10,15 +10,15 @@ public class PhysicsToggle : MonoBehaviour {
 	public float brakingDrag = 10.0f;
 
 	MeshCollider _coll/* = GetComponent<MeshCollider>()*/;
-	private float originalDrag;
-	private float originalAngular;
+//	private float originalDrag;
+//	private float originalAngular;
 
 	void Start () {
-		originalDrag = rigidbody.drag;
-		originalAngular = rigidbody.angularDrag;
+//		originalDrag = GetComponent<Rigidbody>().drag;
+//		originalAngular = GetComponent<Rigidbody>().angularDrag;
 		_coll = GetComponent<MeshCollider>();
 		if (_coll != null) {
-			if (rigidbody.isKinematic)
+			if (GetComponent<Rigidbody>().isKinematic)
 				_coll.convex = false;
 			else
 				_coll.convex = true;
@@ -27,8 +27,8 @@ public class PhysicsToggle : MonoBehaviour {
 
 	void FixedUpdate () {
 		if (nullifyMotion) {
-			rigidbody.velocity = Vector3.zero;
-			rigidbody.angularVelocity = Vector3.zero;
+			GetComponent<Rigidbody>().velocity = Vector3.zero;
+			GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
 		}
 	}
 
@@ -47,18 +47,18 @@ public class PhysicsToggle : MonoBehaviour {
 	public IEnumerator TogglePhysics(bool val) {
 		yield return new WaitForSeconds(delay);
 		if (!val && nullifyMotion)
-			rigidbody.velocity = Vector3.zero;
+			GetComponent<Rigidbody>().velocity = Vector3.zero;
 		if (toggleGravity)
-			rigidbody.useGravity = val;
-		rigidbody.isKinematic = !val;
+			GetComponent<Rigidbody>().useGravity = val;
+		GetComponent<Rigidbody>().isKinematic = !val;
 		if (_coll != null)
 			_coll.convex = val;
 		if (val)
-			rigidbody.WakeUp();
+			GetComponent<Rigidbody>().WakeUp();
 	}
 
 	public void SwapPhysics () {
-		if (!rigidbody.isKinematic)
+		if (!GetComponent<Rigidbody>().isKinematic)
 			StartCoroutine( TogglePhysics(false));
 		else
 			StartCoroutine( TogglePhysics(true));

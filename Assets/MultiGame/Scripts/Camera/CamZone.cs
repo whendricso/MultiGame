@@ -10,7 +10,7 @@ public class CamZone : MonoBehaviour {
 			gameObject.SetActive(false);
 			return;
 		}
-		collider.isTrigger = true;
+		GetComponent<Collider>().isTrigger = true;
 		if (GetComponentInChildren<Camera>() == null) {	
 			Debug.LogError("CamZone needs a camera in one of it's child objects.");
 			gameObject.SetActive(false);

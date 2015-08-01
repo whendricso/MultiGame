@@ -35,15 +35,7 @@ public class TransformWindow : MonoBehaviour {
 
 	void Update () {
 		if (Input.GetMouseButtonDown(mouseButton)) {
-			RaycastHit hinfo;
-			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-			if(Physics.Raycast(ray, out hinfo, Mathf.Infinity, (int)rayMask)) {
-				target = hinfo.collider.gameObject;
-				if (transformer != null)
-					Destroy(transformer);
-				transformer = target.AddComponent<Transformer>();
-				transformer.updateMode = Transformer.UpdateModes.Screen;
-			}
+			InitiateTransformByMouse();
 		}
 	}
 	
@@ -63,15 +55,15 @@ public class TransformWindow : MonoBehaviour {
 			GUILayout.Label("Snap to: ");
 			GUILayout.BeginHorizontal();
 			if(GUILayout.Button("X"))
-				target.SendMessage("SnapToGrid",Vector3.right * gridSize);
+				target.SendMessage("SnapToSpecificGrid",Vector3.right * gridSize);
 			if(GUILayout.Button("Y"))
-				target.SendMessage("SnapToGrid",Vector3.up * gridSize);
+				target.SendMessage("SnapToSpecificGrid",Vector3.up * gridSize);
 			if(GUILayout.Button("Z"))
-				target.SendMessage("SnapToGrid",Vector3.forward * gridSize);
+				target.SendMessage("SnapToSpecificGrid",Vector3.forward * gridSize);
 			GUILayout.EndHorizontal();
 			GUILayout.BeginHorizontal();
 			GUILayout.Label("Grid Size:");
-			gridSize = System.Convert.ToSingle( GUILayout.TextField("1.0"));
+			gridSize = System.Convert.ToSingle( GUILayout.TextField(gridSize.ToString()));
 			GUILayout.EndHorizontal();
 			GUILayout.EndVertical();
 			if (GUILayout.Button("Done")) {
@@ -81,6 +73,22 @@ public class TransformWindow : MonoBehaviour {
 		}
 	}
 
+	public void InitiateTransformByMouse () {
+		RaycastHit hinfo;
+		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+		if(Physics.Raycast(ray, out hinfo, Mathf.Infinity, (int)rayMask)) {
+			target = hinfo.collider.gameObject;
+			InitiateTransform(target);
+		}
+	}
+	
+	void InitiateTransform (GameObject _target) {
+		if (transformer != null)
+			Destroy(transformer);
+		transformer = target.AddComponent<Transformer>();
+		transformer.updateMode = Transformer.UpdateModes.Screen;
+	}
+	
 	void UpdateTransformerSettings () {
 		if (currentMode == 0)
 			transformer.transformationType = Transformer.TransformationTypes.Position;

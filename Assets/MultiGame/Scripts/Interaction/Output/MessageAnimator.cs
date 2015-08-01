@@ -22,11 +22,11 @@ public class MessageAnimator : MonoBehaviour {
 		}
 	}
 
-	void Activate () {
-		TriggerAnimation();
-	}
+//	void Activate () {
+//		TriggerAnimation();
+//	}
 
-	void TriggerAnimation () {
+	public void TriggerAnimation () {
 		triggerSet = !triggerSet;
 
 		if (!triggerSet)

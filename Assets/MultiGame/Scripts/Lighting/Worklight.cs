@@ -7,6 +7,6 @@ public class Worklight : MonoBehaviour {
 	
 	
 	void Start () {
-		light.enabled = false;
+		GetComponent<Light>().enabled = false;
 	}
 }

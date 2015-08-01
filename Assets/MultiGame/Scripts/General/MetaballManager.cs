@@ -483,7 +483,7 @@ public class MetaballManager: MonoBehaviour {
 		//Update FPS and counters every second
 		if(lt+1<Time.time) {
 			lt=Time.time;
-			GUIText guit=(GUIText) GameObject.Find("guit").guiText;
+			GUIText guit=(GUIText) GameObject.Find("guit").GetComponent<GUIText>();
 			guit.text="T:"+triP+" V:"+vertP+" C:"+cubec+" FPS:"+(int)(1f/Time.deltaTime);
 		}
 		blobs[0][0] = metaBalls[0].transform.position.x;

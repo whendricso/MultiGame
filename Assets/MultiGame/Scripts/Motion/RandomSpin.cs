@@ -17,7 +17,7 @@ public class RandomSpin : MonoBehaviour {
 	// Update is called once per frame
 	void FixedUpdate () {
 
-		if (rigidbody.isKinematic || GetComponent<Rigidbody>() == null) {
+		if (GetComponent<Rigidbody>().isKinematic || GetComponent<Rigidbody>() == null) {
 			if (oneShot && didStart) 
 				return;
 			didStart = true;
@@ -27,7 +27,7 @@ public class RandomSpin : MonoBehaviour {
 			if (oneShot && didStart) 
 				return;
 			didStart = true;
-				rigidbody.AddRelativeTorque(new Vector3(Random.Range(-power, power),Random.Range(-power, power),Random.Range(-power, power)));
+				GetComponent<Rigidbody>().AddRelativeTorque(new Vector3(Random.Range(-power, power),Random.Range(-power, power),Random.Range(-power, power)));
 			
 		}
 	}

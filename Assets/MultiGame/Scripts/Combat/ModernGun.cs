@@ -118,7 +118,7 @@ public class ModernGun : MonoBehaviour {
 		
 		if (magazineCount <= 0 && !reloading) {
 			if (ammoExhaustedClick != null)
-				audio.PlayOneShot(ammoExhaustedClick);
+				GetComponent<AudioSource>().PlayOneShot(ammoExhaustedClick);
 			if (reloadMessageReceiver != null)
 				reloadMessageReceiver.SendMessage("Reload",SendMessageOptions.DontRequireReceiver);
 			if (reloadMessageReceiver != gameObject)
@@ -158,7 +158,7 @@ public class ModernGun : MonoBehaviour {
 					Destroy(flash, flashDuration);
 			}
 			if (fireSound != null)
-				audio.PlayOneShot(fireSound);
+				GetComponent<AudioSource>().PlayOneShot(fireSound);
 		}
 	}
 	

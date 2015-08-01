@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using Parse;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.IO;
 
 public class Inventory : MonoBehaviour {
 	
@@ -29,18 +30,14 @@ public class Inventory : MonoBehaviour {
 	public float weaponSwapSensitivity = 0.25f;
 	private GameObject lastWeapon;
 	private string lastKey;
-	
-	void Start () {
-		
-//		inventoryPath = Path.Combine(Application.persistentDataPath, "Inventory.xml");
-//		Inventory loaded = Load(inventoryPath);
-//		if (loaded == null)
-//			return;
-//		inv.Clear();
-//		foreach (GameObject activ in loaded.inv.Values) {
-//			ActiveObject activObj = activ.GetComponent<ActiveObject>();
-//			inv.Add(activObj.inventoryKey, activ);
-//		}
+	public string fileName = "inv";
+
+	public struct InventoryData {
+		public Dictionary<string, int> invData;
+
+		public InventoryData (Dictionary<string,int> _data) {
+			invData = _data;
+		}
 	}
 	
 	void Update () {
@@ -58,7 +55,45 @@ public class Inventory : MonoBehaviour {
 		if (allowNumberKeys)
 			ProcessNumberKeys();
 	}
-	
+
+	public void Save () {
+		BinaryFormatter formatter = new BinaryFormatter();
+		FileStream stream = File.Open(Application.persistentDataPath + "/" + fileName, FileMode.Create);
+
+		Dictionary<string, int> _data = new Dictionary<string, int>();
+
+		foreach (KeyValuePair<string, GameObject> _kvp in inv) {
+			foreach (KeyValuePair<string, int> _kvpCount in invCount) {
+				_data.Add(_kvp.Value.name, _kvpCount.Value);
+			}
+		}
+
+		formatter.Serialize(stream, _data);
+	}
+
+	public void Load () {
+		BinaryFormatter formatter = new BinaryFormatter();
+		FileStream stream;
+		try {
+			stream = File.Open(Application.persistentDataPath + "/" + fileName, FileMode.Open);
+		}
+		catch {
+			return;
+		}
+		
+		inv.Clear();
+		invCount.Clear();
+
+		Dictionary<string, int> _data = new Dictionary<string, int>(formatter.Deserialize(stream) as Dictionary<string, int>);
+		foreach (KeyValuePair<string, int> _kvp in _data) {
+			GameObject _newEntry = Resources.Load(_kvp.Key) as GameObject;
+			string _invKey = _newEntry.GetComponent<ActiveObject>().inventoryKey;
+			inv.Add(_invKey, _newEntry);
+			invCount.Add(_invKey, _kvp.Value);
+		}
+
+	}
+
 	void OnGUI () {
 		if (!showInventoryGUI)
 			return;
@@ -149,7 +184,7 @@ public class Inventory : MonoBehaviour {
 		GUILayout.EndArea();
 		
 	}
-	
+
 	void MountObject (GameObject activeObj, GameObject mount) {
 		if (mount.transform.childCount > 0)
 			activeObj.SendMessage("Stow");

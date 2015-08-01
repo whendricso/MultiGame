@@ -16,52 +16,52 @@ public class DayNightManager : MonoBehaviour {
 	
 	void Start () {	
 		lensFlare = GetComponent<LensFlare>();
-		animation[animation.clip.name].speed = (animation.clip.length / cycleDuration);
+		GetComponent<Animation>()[GetComponent<Animation>().clip.name].speed = (GetComponent<Animation>().clip.length / cycleDuration);
 		StartCoroutine(Save(saveInterval));
 		if(PlayerPrefs.HasKey("Time")) {
-			animation[animation.clip.name].normalizedTime = PlayerPrefs.GetFloat("Time");
+			GetComponent<Animation>()[GetComponent<Animation>().clip.name].normalizedTime = PlayerPrefs.GetFloat("Time");
 		}
 	}
 	
 	void Update () {
 		if (lensFlare != null)
-			lensFlare.color = light.color;
-		if (animation[animation.clip.name].normalizedTime > 1)
-			animation[animation.clip.name].normalizedTime = 0;
+			lensFlare.color = GetComponent<Light>().color;
+		if (GetComponent<Animation>()[GetComponent<Animation>().clip.name].normalizedTime > 1)
+			GetComponent<Animation>()[GetComponent<Animation>().clip.name].normalizedTime = 0;
 		if (useSkyLighting) {
-			light.color = skyColor.Evaluate( animation[animation.clip.name].normalizedTime);
+			GetComponent<Light>().color = skyColor.Evaluate( GetComponent<Animation>()[GetComponent<Animation>().clip.name].normalizedTime);
 		}
 		else {
-			light.color = lightColor.Evaluate( animation[animation.clip.name].normalizedTime);
+			GetComponent<Light>().color = lightColor.Evaluate( GetComponent<Animation>()[GetComponent<Animation>().clip.name].normalizedTime);
 		}
-		RenderSettings.fogColor = skyColor.Evaluate( animation[animation.clip.name].normalizedTime);
+		RenderSettings.fogColor = skyColor.Evaluate( GetComponent<Animation>()[GetComponent<Animation>().clip.name].normalizedTime);
 		if (Camera.main)
-			Camera.main.backgroundColor = skyColor.Evaluate(animation[animation.clip.name].normalizedTime);
+			Camera.main.backgroundColor = skyColor.Evaluate(GetComponent<Animation>()[GetComponent<Animation>().clip.name].normalizedTime);
 		GameObject[] cams = GameObject.FindGameObjectsWithTag("Camera");
 		foreach (GameObject cam in cams) {
-				cam.camera.backgroundColor = skyColor.Evaluate(animation[animation.clip.name].normalizedTime);
+				cam.GetComponent<Camera>().backgroundColor = skyColor.Evaluate(GetComponent<Animation>()[GetComponent<Animation>().clip.name].normalizedTime);
 		}
 	}
 
 	public IEnumerator Load (float delay) {
 		yield return new WaitForSeconds(delay);
 		if (PlayerPrefs.HasKey("Time")) {
-			animation[animation.clip.name].normalizedTime = PlayerPrefs.GetFloat("Time");
+			GetComponent<Animation>()[GetComponent<Animation>().clip.name].normalizedTime = PlayerPrefs.GetFloat("Time");
 		}
 	}
 	
 	public IEnumerator Save (float delay) {
 		yield return new WaitForSeconds(delay);
-		PlayerPrefs.SetFloat("Time", animation[animation.clip.name].normalizedTime);
+		PlayerPrefs.SetFloat("Time", GetComponent<Animation>()[GetComponent<Animation>().clip.name].normalizedTime);
 		StartCoroutine(Save(saveInterval));
 	}
 	
 	public void ToggleDaylight () {
 		isDaytime = !isDaytime;
 		if (!isDaytime)
-			animation[animation.clip.name].normalizedTime = 0.5f;
+			GetComponent<Animation>()[GetComponent<Animation>().clip.name].normalizedTime = 0.5f;
 		else
-			animation[animation.clip.name].normalizedTime = 0.0f;
+			GetComponent<Animation>()[GetComponent<Animation>().clip.name].normalizedTime = 0.0f;
 	}
 	
 }

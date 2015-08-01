@@ -11,6 +11,10 @@ public class PhotonInstantiator : Photon.MonoBehaviour {
 
 	private GameObject spawnedEntity;
 
+	void OnValidate () {
+		MessageManager.UpdateMessageGUI(ref messageToSpawnedEntity, gameObject);
+	}
+
 	public void Spawn (string prefabResourceName) {
 		if (PhotonNetwork.room == null)
 			return;

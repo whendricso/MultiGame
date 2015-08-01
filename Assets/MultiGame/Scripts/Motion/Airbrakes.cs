@@ -13,7 +13,7 @@ public class Airbrakes : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		if (myRigidbody == null)
-			myRigidbody = rigidbody;
+			myRigidbody = GetComponent<Rigidbody>();
 		if (myRigidbody == null) {
 			Debug.LogError("Airbrakes " + gameObject.name + "needs a rigidbody assigned!");
 			enabled = false;

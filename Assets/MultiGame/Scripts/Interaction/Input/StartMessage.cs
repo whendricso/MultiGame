@@ -11,4 +11,10 @@ public class StartMessage : MonoBehaviour {
 		}
 	}
 
+	void OnValidate () {
+		for (int i = 0; i < this.messages.Length; i++) {
+			MessageManager.ManagedMessage _msg = messages[i];
+			MessageManager.UpdateMessageGUI(ref _msg, gameObject);
+		}
+	}
 }

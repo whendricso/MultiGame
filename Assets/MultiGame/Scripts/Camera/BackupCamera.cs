@@ -6,7 +6,7 @@ public class BackupCamera : MonoBehaviour {
 	private AudioListener listener;
 
 	void Start () {
-		if (camera == null) {
+		if (GetComponent<Camera>() == null) {
 			Debug.LogError ("Backup Camera " + gameObject.name + " needs a camera component attached to work! Disabling...");
 			enabled = false;
 			return;
@@ -22,8 +22,8 @@ public class BackupCamera : MonoBehaviour {
 				listener.enabled = true;
 		}
 		if (Camera.main != null)
-			camera.enabled = false;
+			GetComponent<Camera>().enabled = false;
 		else
-			camera.enabled = true;
+			GetComponent<Camera>().enabled = true;
 	}
 }

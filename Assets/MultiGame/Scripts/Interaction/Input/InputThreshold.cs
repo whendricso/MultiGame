@@ -33,7 +33,12 @@ public class InputThreshold : MonoBehaviour {
 			return;
 		}
 	}
-	
+
+	void OnValidate () {
+		MessageManager.UpdateMessageGUI(ref message, gameObject);
+		MessageManager.UpdateMessageGUI(ref lowerMessage, gameObject);
+	}
+
 	// Update is called once per frame
 	void Update () {
 		if (!previouslyAbove) {

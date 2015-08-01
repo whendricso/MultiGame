@@ -21,7 +21,11 @@ public class InputVector : MonoBehaviour {
 		else
 			stickInput = stickInput.normalized * ((stickInput.magnitude - deadzone) / (1 - deadzone));
 	}
-	
+
+	void OnValidate () {
+		MessageManager.UpdateMessageGUI(ref managedMessage, gameObject);
+	}
+
 	// Update is called once per frame
 	void Update () {
 		stickInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));

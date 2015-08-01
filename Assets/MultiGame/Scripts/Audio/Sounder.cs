@@ -7,30 +7,45 @@ public class Sounder : MonoBehaviour {
 	public AudioClip[] clips;
 	public float cooldown = 0.3f;
 	private bool canSound = true;
+	public float pitchVariance = 0f;
+	private float originalPitch;
 
-	void PlayASound (AudioClip clip) {
+	[System.NonSerialized]
+	public AudioSource source;
+
+	public bool debug = false;
+
+	void Start () {
+		source = GetComponent<AudioSource>();
+		originalPitch = source.pitch;
+	}
+
+	public void PlayASound (AudioClip clip) {
 		if (!canSound) return;
-		audio.PlayOneShot( clip);
+		Sound( clip);
 		InitiateCooldown();
 	}
 
-	void PlaySound () {
+	public void PlaySound () {
 		if (!canSound) return;
-		audio.Play();
+		Sound(source.clip);
 		InitiateCooldown();
 	}
 
-	void PlayRandomSound () {
+	public void PlayRandomSound () {
 		if (!canSound) return;
 		PlaySelectedSound(Random.Range(0, clips.Length));
 		InitiateCooldown();
 	}
 
-	void PlaySelectedSound (int selector) {
+	public void PlaySelectedSound (int selector) {
+
 		if (!canSound) return;
-		if (clips.Length < selector) {
+		if (debug)
+			Debug.Log("Sounder " + gameObject.name + " is playing sound with selector " + selector);
+		if (clips.Length >= selector) {
 			if (clips[selector] != null)
-				audio.PlayOneShot(clips[selector]);
+				Sound(clips[selector]);
 		}
 		InitiateCooldown();
 	}
@@ -43,6 +58,15 @@ public class Sounder : MonoBehaviour {
 	IEnumerator ResetCooldown(float delay) {
 		yield return new WaitForSeconds(delay);
 		canSound = true;
+	}
+
+	void Sound(AudioClip clip) {
+		if (debug)
+			Debug.Log("Sounder " + gameObject.name + " is playing sound " + clip.name);
+		if (pitchVariance > 0) {
+			source.pitch = originalPitch + Random.Range(-pitchVariance, pitchVariance);
+		}
+		source.PlayOneShot(clip);
 	}
 }
 //Copyright 2014 William Hendrickson

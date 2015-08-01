@@ -21,7 +21,7 @@ public class FighterInputController : MonoBehaviour {
 	
 	void FixedUpdate () {
 		if (constantThrust > 0)
-			rigidbody.AddRelativeForce(0.0f, 0.0f, constantThrust, ForceMode.Force);
+			GetComponent<Rigidbody>().AddRelativeForce(0.0f, 0.0f, constantThrust, ForceMode.Force);
 		ProcessInputThrust();
 	}
 	
@@ -37,13 +37,13 @@ public class FighterInputController : MonoBehaviour {
 		
 		else
 		
-		rigidbody.AddRelativeForce(axisX, axisY, axisZ, ForceMode.Force);
-		rigidbody.AddRelativeTorque(Input.GetAxis("Mouse Y") * yawTorque * -1, Input.GetAxis("Mouse X") * rudderTorque, 0.0f);
+		GetComponent<Rigidbody>().AddRelativeForce(axisX, axisY, axisZ, ForceMode.Force);
+		GetComponent<Rigidbody>().AddRelativeTorque(Input.GetAxis("Mouse Y") * yawTorque * -1, Input.GetAxis("Mouse X") * rudderTorque, 0.0f);
 		
 		if (Input.GetKey(pitchCW))
-			rigidbody.AddRelativeTorque(0.0f, 0.0f, -pitchTorque);
+			GetComponent<Rigidbody>().AddRelativeTorque(0.0f, 0.0f, -pitchTorque);
 		if (Input.GetKey(pitchCCW))
-			rigidbody.AddRelativeTorque(0.0f, 0.0f, pitchTorque);
+			GetComponent<Rigidbody>().AddRelativeTorque(0.0f, 0.0f, pitchTorque);
 		
 
 	}

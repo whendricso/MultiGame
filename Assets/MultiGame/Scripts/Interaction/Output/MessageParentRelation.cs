@@ -11,26 +11,26 @@ public class MessageParentRelation : MonoBehaviour {
 			target = gameObject;
 	}
 	
-	void Parent () {
+	public void Parent () {
 		target.transform.parent = targetParent.transform;
 	}
 
-	void Unparent () {
+	public void Unparent () {
 		target.transform.parent = null;
 	}
 
-	void SetParent (GameObject newParent) {
+	public void SetParent (GameObject newParent) {
 		target.transform.parent = newParent.transform;
 	}
 
-	void ToggleParent () {
+	public void ToggleParent () {
 		if (transform.parent == null)
 			transform.parent = targetParent.transform;
 		else
 			transform.parent = null;
 	}
 
-	void Activate () {
+	public void Activate () {
 		Unparent();
 	}
 }

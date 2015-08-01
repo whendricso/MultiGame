@@ -6,7 +6,7 @@ public class TagBroadcaster : MonoBehaviour {
 	public string targetTag = "";
 	public MessageManager.ManagedMessage message;
 
-	public bool onStart = true;
+	public bool onStart = false;
 	public bool onUpdate = false;
 
 	void Start () {
@@ -16,14 +16,18 @@ public class TagBroadcaster : MonoBehaviour {
 			Broadcast();
 		}
 	}
-	
+
+	void OnValidate () {
+		MessageManager.UpdateMessageGUI(ref message, gameObject);
+	}
+
 	void Update () {
 		if (onUpdate) {
 			Broadcast();
 		}
 	}
 
-	void Broadcast () {
+	public void Broadcast () {
 		if (message.target != null)
 			MessageManager.SendTo(message, message.target);
 		else {

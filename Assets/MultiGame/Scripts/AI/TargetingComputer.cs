@@ -8,6 +8,8 @@ public class TargetingComputer : MonoBehaviour
 	public GameObject target;
 	public bool autoLook = true;//Automatically look at the target position?
 	public bool constrainX = false;
+
+	public bool debug = false;
 	
 	//velocities
 	//Vector3 shooterVelocity = shooter.rigidbody ? shooter.rigidbody.velocity : Vector3.zero;
@@ -27,7 +29,7 @@ public class TargetingComputer : MonoBehaviour
 	void FixedUpdate() {
 		if ((target != null) && (autoLook)) {
 			//Debug.Log("Target body: " + target.GetComponent<BodyRegister>().myBody);
-			if(target.rigidbody != null)
+			if(target.GetComponent<Rigidbody>() != null)
 				transform.LookAt(FirstOrderIntercept(target.transform.GetComponent<Rigidbody>().velocity));
 			else
 				transform.LookAt(target.transform);
@@ -83,10 +85,14 @@ public class TargetingComputer : MonoBehaviour
 	}
 	
 	public void SetTarget (GameObject tgt) {
+		if (debug)
+			Debug.Log("Targeting Computer " + gameObject.name + " is firing at " + tgt.name);
 		target = tgt;
 	}
 	
 	public void ClearTarget () {
+		if (debug)
+			Debug.Log("Targeting Computer " + gameObject.name + " is clearing it's target.");
 		target = null;
 	}
 	

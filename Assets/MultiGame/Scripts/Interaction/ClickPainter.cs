@@ -8,7 +8,7 @@ public class ClickPainter : MonoBehaviour {
 	public Material[] materials;
 	public string[] paintableTags;
 
-	private int currentButton = 0;
+//	private int currentButton = 0;
 	private int selector = 0;
 	[HideInInspector]
 	public bool painting = false;
@@ -18,7 +18,7 @@ public class ClickPainter : MonoBehaviour {
 //	public int previousIndex = 0;
 //	public Material previousMaterial;
 //	public GameObject previousObject;
-
+	[HideInInspector]
 	public Material[] _mats;
 
 	void OnGUI () {
@@ -49,11 +49,11 @@ public class ClickPainter : MonoBehaviour {
 			}
 			GUILayout.Label("[Right Mouse]Material:\n" + this.materials[selector].name);
 			if (paintingTarget != null) {
-				_mats = paintingTarget.renderer.sharedMaterials;
+				_mats = paintingTarget.GetComponent<Renderer>().sharedMaterials;
 				for (int i = 0; i < _mats.Length; i++) {
 					if (GUILayout.Button("[" + _mats[i].name + "]", GUILayout.ExpandHeight(true))) {
 						_mats[i] = this.materials[selector];
-						paintingTarget.renderer.sharedMaterials = _mats;
+						paintingTarget.GetComponent<Renderer>().sharedMaterials = _mats;
 					}
 				}
 			}
@@ -75,8 +75,8 @@ public class ClickPainter : MonoBehaviour {
 				if (hinfo.collider.gameObject.tag == paintableTag) {
 
 					//single material object
-					if (hinfo.collider.renderer.sharedMaterials.Length == 1) {
-						hinfo.collider.renderer.sharedMaterial = this.materials[selector];
+					if (hinfo.collider.GetComponent<Renderer>().sharedMaterials.Length == 1) {
+						hinfo.collider.GetComponent<Renderer>().sharedMaterial = this.materials[selector];
 						painting = false;
 						paintingTarget = null;
 						return;

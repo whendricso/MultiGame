@@ -12,17 +12,17 @@ public class MouseTorque : MonoBehaviour {
 	void FixedUpdate () {
 		if (!maverickStyle) {
 			if (Input.GetKey(rotateRight))
-				rigidbody.AddRelativeTorque(-Vector3.forward * power);
+				GetComponent<Rigidbody>().AddRelativeTorque(-Vector3.forward * power);
 			if (Input.GetKey(rotateLeft))
-				rigidbody.AddRelativeTorque(Vector3.forward * power);
-			rigidbody.AddRelativeTorque(new Vector3(-Input.GetAxis( "Mouse Y") * power, Input.GetAxis("Mouse X") * power, 0.0f), ForceMode.Force);
+				GetComponent<Rigidbody>().AddRelativeTorque(Vector3.forward * power);
+			GetComponent<Rigidbody>().AddRelativeTorque(new Vector3(-Input.GetAxis( "Mouse Y") * power, Input.GetAxis("Mouse X") * power, 0.0f), ForceMode.Force);
 		}
 		else {
 			if (Input.GetKey(rotateRight))
-				rigidbody.AddRelativeTorque(Vector3.up * power);
+				GetComponent<Rigidbody>().AddRelativeTorque(Vector3.up * power);
 			if (Input.GetKey(rotateLeft))
-				rigidbody.AddRelativeTorque(-Vector3.up * power);
-			rigidbody.AddRelativeTorque(new Vector3(-Input.GetAxis( "Mouse Y") * power, 0.0f, -Input.GetAxis("Mouse X") * power), ForceMode.Force);
+				GetComponent<Rigidbody>().AddRelativeTorque(-Vector3.up * power);
+			GetComponent<Rigidbody>().AddRelativeTorque(new Vector3(-Input.GetAxis( "Mouse Y") * power, 0.0f, -Input.GetAxis("Mouse X") * power), ForceMode.Force);
 		}
 	}
 }

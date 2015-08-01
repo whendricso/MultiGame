@@ -155,11 +155,11 @@ public class Deployer : MonoBehaviour {
 			ghost.transform.position = new Vector3( deployRayOrigin.transform.position.x, deployRayOrigin.transform.position.y - deployRayRange, deployRayOrigin.transform.position.z);
 		}
 		if (useDeployColor) {
-			if (ghost != null && ghost.renderer != null) {
+			if (ghost != null && ghost.GetComponent<Renderer>() != null) {
 				if (canDeploy)
-					ghost.renderer.material.color = Color.green;
+					ghost.GetComponent<Renderer>().material.color = Color.green;
 				else
-					ghost.renderer.material.color = Color.red;
+					ghost.GetComponent<Renderer>().material.color = Color.red;
 			}
 		}
 	}
