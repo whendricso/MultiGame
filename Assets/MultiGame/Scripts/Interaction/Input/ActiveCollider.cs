@@ -2,19 +2,32 @@
 using System.Collections;
 
 [RequireComponent (typeof(Rigidbody))]
-public class ActiveCollider : MonoBehaviour {
+public class ActiveCollider : MultiModule {
 
+	[Tooltip("List of tags that trigger this message sender")]
 	public string[] activeTags;
+	[Tooltip("Minimum velocity required")]
 	public float velocityThreshold = 0.0f;
+	[Tooltip("Message target override")]
 	public GameObject target;
+	[Tooltip("Object to spawn at collision point")]
 	public GameObject hitPrefab;
+	[System.NonSerialized]//TODO: Update animation code to work with Mecanim
 	public string animEnter;
+	[System.NonSerialized]
 	public string animExit;
+	[Tooltip("Message to send when activated")]
 	public MessageManager.ManagedMessage message;
+	[Tooltip("Message to send to the object we hit")]
 	public MessageManager.ManagedMessage messageToEnteringEntity;
+	[Tooltip("Should we send a message on exit as well?")]
 	public bool messageOnExit = false;
+	[Tooltip("Message to send on exit, if enabled")]
 	public MessageManager.ManagedMessage exitMessage;
+	[Tooltip("Name of the scene we want to load on collision. Must be added to build settings")]
 	public string targetLevel;
+
+	public HelpInfo help = new HelpInfo("This component sends messages when an object touches (or stops touching) it.");
 
 	public bool debug = false;
 

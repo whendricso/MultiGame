@@ -3,18 +3,24 @@ using System.Collections;
 using System.Collections.Generic;
 
 /// <summary>
-/// Minion spawn will raycast downwards on Start, and try to spawn units, otherwise
-/// a failure prefab will be spawned.
-/// Minions follow the player's command.
+/// Minion spawn will raycast downwards on Start, and try to spawn units
 /// </summary>
-public class MinionSpawn : MonoBehaviour {
+public class MinionSpawn : MultiModule {
 	
+	[Tooltip("Unit we are attempting to spawn")]
 	public GameObject minion;
+	[Tooltip("How far down from the origin are we willing to look for a surface to spawn on?")]
 	public float rayDistance = 2.0f;
+	[Tooltip("What objects should we look for to spawn on?")]
 	public LayerMask rayMask;
+	[Tooltip("A reference to an inventory item that will be added back in to the inventory in case we fail to spawn anything")]
 	public GameObject activeObject;
 	[HideInInspector]
 	public ActiveObject activ;
+
+	public HelpInfo help = new HelpInfo("This component handles the unique case when you are able to spawn minions from inventory items. It will return the item to inventory" +
+		" if spawning fails. To use it, attach it to an empty object that is instantiated at 'Instantiation Transform' when used from inventory. If the criteria for spawning " +
+		"are met, it will destroy itself and spawn a minion, otherwise it will return the item to your inventory.");
 	
 	void Start () {
 		activ = GetComponent<ActiveObject>();

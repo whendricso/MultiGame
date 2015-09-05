@@ -5,6 +5,7 @@ using System.Reflection;
 
 public class MessageManager : MonoBehaviour {
 	
+	[Tooltip("Although you don't need to ue this in any scene, you can use it to store a list of messages if you like which can be sent with SendAll")]
 	public static List<ManagedMessage> managedMessages = new List<ManagedMessage>();
 
 	[System.Serializable]

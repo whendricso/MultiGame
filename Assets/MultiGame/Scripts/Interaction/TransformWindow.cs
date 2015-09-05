@@ -1,11 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class TransformWindow : MonoBehaviour {
+public class TransformWindow : MultiModule {
 
+	[Tooltip("Unique identifier for the legacy Unity GUI window")]
 	public int windowID = 1234;
-	public Rect guiArea;
+	[Tooltip("Normalized viewport rectangle indicating the area for the legacy Unity GUI window")]
+	public Rect guiArea = new Rect(0.8f, .4f, .19f, .4f);
+	public GUISkin guiSkin;
+	[Tooltip("Collision layers of objects that we can transform")]
 	public LayerMask rayMask;
+	[Tooltip("Mouse button for activating transform on an object")]
 	public int mouseButton = 2;
 
 	[HideInInspector]
@@ -20,6 +25,9 @@ public class TransformWindow : MonoBehaviour {
 	private int currentMode = 0;
 	private int currentAxis = 0;
 	private int currentSpace = 1;
+
+	public HelpInfo help = new HelpInfo("This component allows the user to modify objects of a given tag in the scene. This powerful functionality adds transform manipulation" +
+		" directly into your game, great for user-created objects and levels.");
 
 	void Start () {
 		mode[0] = "Move";
@@ -40,6 +48,7 @@ public class TransformWindow : MonoBehaviour {
 	}
 	
 	void OnGUI () {
+		GUI.skin = guiSkin;
 		if (target != null)
 			GUILayout.Window(windowID, new Rect(guiArea.x * Screen.width, guiArea.y * Screen.height, guiArea.width * Screen.width, guiArea.height * Screen.height), TransformGUI, "Transform Tools");
 	}

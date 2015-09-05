@@ -1,18 +1,26 @@
 using UnityEngine;
 using System.Collections;
 
-public class Strobe : MonoBehaviour {
+public class Strobe : MultiModule {
 	
+	[Tooltip("What light is blinking?")]
 	public Light targetLight;
+	[Tooltip("Are we also using a lens flare?")]
 	public LensFlare lensFlare;
+	[Tooltip("How fast should we blink?")]
 	public float blinkRate = 1.0f;
+	[Tooltip("How long after spawning should we wait before we begin flashing?")]
 	public float timerOffset = 0.0f;//extra time to wait before beginning the cycle
+	[Tooltip("Is this light on or off?")]
 	public bool onLine = true;//is the light on or off?
+	[Tooltip("Optional reference to a Day Night Manager object, will assign itself automatically if one is in the scene at start")]
 	public DayNightManager dayNightManager;
+
+	public HelpInfo help = new HelpInfo("This component turns a light and optionally a lens flare on and off based on timers.");
 	
 	// Use this for initialization
 	void Start () {
-		dayNightManager = GameObject.FindWithTag("TimeManager").GetComponent<DayNightManager>();
+		dayNightManager = FindObjectOfType<DayNightManager>();
 		if (dayNightManager != null) {
 			if (dayNightManager.isDaytime)
 				onLine = false;

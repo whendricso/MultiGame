@@ -1,15 +1,21 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class InputVector : MonoBehaviour {
+public class InputVector : MultiModule {
 
+	[Tooltip("The stick input deadzone")]
 	public float deadzone = 0.25f;
+	[System.NonSerialized]
 	public Vector2 stickInput;
+	[Tooltip("Message target override")]
 	public GameObject target;
 	public enum InputVectorModes { Vec2, Vec3 };
+	[Tooltip("Should we send the input as a vector 2 or vector 3?")]
 	public InputVectorModes inputVectorMode = InputVectorModes.Vec3;
 	public string message = "ThrustVector";
-	public MessageManager.ManagedMessage managedMessage;
+//	public MessageManager.ManagedMessage managedMessage;
+
+	public HelpInfo help = new HelpInfo("This component sends a named message with either a Vector2 or Vector3 argument representing the horizontal and vertical axes.");
 
 	// Use this for initialization
 	void Start () {
@@ -22,9 +28,9 @@ public class InputVector : MonoBehaviour {
 			stickInput = stickInput.normalized * ((stickInput.magnitude - deadzone) / (1 - deadzone));
 	}
 
-	void OnValidate () {
-		MessageManager.UpdateMessageGUI(ref managedMessage, gameObject);
-	}
+//	void OnValidate () {
+//		MessageManager.UpdateMessageGUI(ref managedMessage, gameObject);
+//	}
 
 	// Update is called once per frame
 	void Update () {

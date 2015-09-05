@@ -6,24 +6,38 @@ using System.Collections.Generic;
 /// <summary>
 /// Mouse commander hndles RTS-style construction via mouse input.
 /// </summary>
-public class MouseCommander : MonoBehaviour {
+public class MouseCommander : MultiModule {
 
 	//public int windowID = 0;
+	[Tooltip("Should we use Unity's legacy GUI for this?")]
 	public bool useGUI = true;
-	public Rect guiArea;
+	[Tooltip("Should we control the position of this object using a rigidbody?")]
+	public bool controlPosition = true;
+	[Tooltip("Normalized viewport rectangle indicating where we should draw the buttons")]
+	public Rect guiArea = new Rect(0.01f, 0.8f, .98f, .79f);
 	public GUISkin guiSkin;
 
+	[Tooltip("Stick dead zone, for control smoothing")]
 	public float deadZone = 0.25f;
+	[HideInInspector]
 	public Vector2 stickInput = Vector2.zero;
+	[Tooltip("Movement force to apply")]
 	public float force = 1000.0f;
+	[Tooltip("How fast does the scroll wheel move us?")]
 	public float ySpeed = 20.0f;
+	[System.NonSerialized]//TODO: fully implement this!
 	public float populationMultiplier = 1f;
 
+	[Tooltip("What objects can we deploy on, by collision mask?")]
 	public LayerMask deployMask;
+	[Tooltip("Tag of objects we can't deploy close to")]
 	public string radiusSearchTag = "";//tag to check against for deploy radius constraint
 
+	[Tooltip("Sent when we can't afford something")]
 	public MessageManager.ManagedMessage insufficientResourceMessage;
+	[Tooltip("Sent when we can afford a selection")]
 	public MessageManager.ManagedMessage itemSelectedMessage;
+	[Tooltip("Sent when we failed to deploy something due to radius restriction")]
 	public MessageManager.ManagedMessage itemTooCloseMessage;
 
 	//cutscene mode disables movement handling until we're told to leave cutscene mode
@@ -31,13 +45,16 @@ public class MouseCommander : MonoBehaviour {
 	[HideInInspector]
 	public Modes mode = Modes.Build;
 	public enum Layouts {Vertical, Horizontal };
+	[Tooltip("Which direction should the buttons be drawn in?")]
 	public Layouts layout = Layouts.Horizontal;
 
 	[System.NonSerialized]
 	public int currentSelection = -1;
 	public int buttonWidth = 64;
 	public int buttonHeight = 64;
+	[Tooltip("What key, if any, can the player hold down to keep deploying more of the same thing?")]
 	public KeyCode continuationModifier = KeyCode.LeftShift;
+	[Tooltip("What objects can the player buy?")]
 	public Deployable[] deploys;
 	[HideInInspector]
 	public GameObject[] deployables;
@@ -49,6 +66,7 @@ public class MouseCommander : MonoBehaviour {
 	public int[] maxQuantities;
 	[System.NonSerialized]
 	public Vector2 scrollPosition = Vector2.zero;
+	[Tooltip("What resources, if any, exist in the game?")]
 	public List<ResourceManager.GameResource> resources = new List<ResourceManager.GameResource>();
 
 	[System.NonSerialized]
@@ -56,6 +74,11 @@ public class MouseCommander : MonoBehaviour {
 	[System.NonSerialized]
 	Camera cam;
 
+	public HelpInfo help = new HelpInfo("This component implements RTS-style camera motion and object deployment. Legacy GUI is not recommended for mobile. To use, add this " +
+		"to your MainCamera (which must be tagged 'MainCamera') and then set up a list of deployable objects. This works with the 'ResourceManager' component (optionally) to " +
+		"allow for a resource-based experience.");
+
+	[Tooltip("Send useful information to the console")]
 	public bool debug = false;
 
 	[System.Serializable]
@@ -93,7 +116,7 @@ public class MouseCommander : MonoBehaviour {
 				return;
 			}
 		}
-		if (cam != null) {
+		if (cam != null && controlPosition) {
 			if (body == null)
 				body = gameObject.AddComponent<Rigidbody>();
 			body.useGravity = false;
@@ -189,7 +212,7 @@ public class MouseCommander : MonoBehaviour {
 		GUILayout.EndArea();
 	}
 	
-	void Update () {
+	void FixedUpdate () {
 		int _num = SelectByNumber();
 		if (_num != -1)
 			SelectDeploy( _num-1);
@@ -223,8 +246,11 @@ public class MouseCommander : MonoBehaviour {
 			stickInput = stickInput.normalized * ((stickInput.magnitude - deadZone) / (1 - deadZone));
 		#endregion
 
-		body.AddRelativeForce(stickInput.x * force, 0.0f, stickInput.y * force, ForceMode.Force);
-		transform.Translate(0.0f, Input.GetAxis("Mouse ScrollWheel") * ySpeed, 0.0f);
+		if (body != null && controlPosition) {
+			body.AddRelativeForce(stickInput.x * force, 0.0f, stickInput.y * force, ForceMode.Force);
+			//TODO:should I add a raycheck on this line?
+			transform.Translate(0.0f, Input.GetAxis("Mouse ScrollWheel") * ySpeed, 0.0f);
+		}
 
 	}
 

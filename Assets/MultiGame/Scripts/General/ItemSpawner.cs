@@ -1,11 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ItemSpawner : MonoBehaviour {
+public class ItemSpawner : MultiModule {
 
+	[Tooltip("List of things we can spawn")]
 	public GameObject[] items;
+	[Tooltip("How many of each are available?")]
 	public int[] itemCounts;
+	[Tooltip("Should we spawn some as soon as we begin?")]
 	public bool spawnOnStart = true;
+
+	public HelpInfo help = new HelpInfo("This component spawns objects, but with a limited quantity.");
 
 	// Use this for initialization
 	void Start () {

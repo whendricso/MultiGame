@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityStandardAssets.Characters.FirstPerson;
 
-public class MouseAim : MonoBehaviour {
+public class MouseAim : MultiModule {
 
 	public enum RotationAxes { MouseXAndY = 0, MouseX = 1, MouseY = 2 }
 	public RotationAxes axes = RotationAxes.MouseXAndY;
@@ -21,6 +21,9 @@ public class MouseAim : MonoBehaviour {
 	float rotationY = 0F;
 	
 	private bool lockCursor = false;
+
+	public HelpInfo help = new HelpInfo("This component functions like the old MouseLook component from previous versions of Unity. The object will rotate without constraint " +
+		"based on the settings you supply.");
 
 	void Start () {
 		// Make the rigid body not change rotation

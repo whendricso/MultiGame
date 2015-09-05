@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class UnitSpawner : MonoBehaviour {
+public class UnitSpawner : MultiModule {
 	
 	public enum Modes {Periodic, TriggerEnter, RadiusBehind};
 	public Modes mode = Modes.Periodic;	
@@ -14,6 +14,12 @@ public class UnitSpawner : MonoBehaviour {
 	public string unitTag = "Enemy";
 	public int unitLayer = 0;
 	public int maxUnits = 100;
+
+	public HelpInfo help = new HelpInfo("This component has been deprecated, there are new systems that can do the same thing better, but since it's convenient to use" +
+		" it's still included with MultiGame" +
+		"\nThis component is designed to spawn enemies based on the player's position relative to it. You can attach a trigger to the object and set the mode to " +
+		"\"TriggerEnter\" and units will spawn when the player enters the trigger. Player must be tagged \"Player\" for this to work." +
+		"\n \"RadiusBehind\" mode spawns units only if the player is within a given radius but also facing away from this object's origin.");
 	
 	void Start () {
 		if (unit ==  null) {
@@ -21,7 +27,7 @@ public class UnitSpawner : MonoBehaviour {
 			enabled = false;
 			return;
 		}
-		if (spawnDelay > 0)
+		if (spawnDelay > 0 && mode == Modes.Periodic)
 			StartCoroutine(PeriodicSpawn(spawnDelay));
 	}
 	

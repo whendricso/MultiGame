@@ -4,16 +4,27 @@ using System.Collections.Generic;
 
 //MultiMenu Copyright 2013 William Hendrickson and Tech Drone
 
-public class MultiMenu : MonoBehaviour {
+public class MultiMenu : MultiModule {
 
 	//public GameObject target;
+	[Tooltip("Should this menu stay around even in between scenes?")]
 	public bool persistent = false;
 	public GUISkin guiSkin;
-	public Rect screenArea = new Rect();
+	[Tooltip("Normalized viewport rectangle designating the screen area for the menu, values between 0 and 1")]
+	public Rect screenArea = new Rect(.3f,.3f,.3f,.3f);
+	[Tooltip("Should the menu be currently visible?")]
 	public bool showMenu = false;
+	[Tooltip("Should the menu close as soon as you click something?")]
 	public bool closeOnSelect = true;
+	[Tooltip("What sort of text prompt do we need?")]
+	[Multiline()]
 	public string infoText;
 	public bool debug = false;
+
+	public HelpInfo help = new HelpInfo("This is a generic implementation of Unity's built-in GUI. Not suitable for mobile devices. " +
+		"By combining many of these together in a tree in the Heirarchy and setting targets for each message manually, you can create dialogue trees. " +
+		"You can also use this component to implement pause menus, save/load menus, graphics settings menus for toggling postprocess effects, and really anything you like, " +
+		"as long as what you like is based on text and buttons.");
 
 	[System.Serializable]
 	public class Button {

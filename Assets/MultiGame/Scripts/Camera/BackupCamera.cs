@@ -1,9 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class BackupCamera : MonoBehaviour {
+public class BackupCamera : MultiModule {
 
 	private AudioListener listener;
+
+	public HelpInfo help = new HelpInfo("Add this component to a camera in the scene, and it will activate automatically if the main camera is removed for some reason. " +
+		"This ensures that there is always *something* drawn on the screen, especially useful for multiplayer games where the camera might be destroyed with the player.");
 
 	void Start () {
 		if (GetComponent<Camera>() == null) {

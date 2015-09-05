@@ -1,14 +1,22 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ClipInventory : MonoBehaviour {
+public class ClipInventory : MultiModule {
 	
+	[Tooltip("Number of currently held clips for a given clip type index")]
 	public int[] numClips;
+	[Tooltip("Maximum number of clips for a given clip type index")]
 	public int[] maxClips;
+	[Tooltip("Should we show a legacy Unity GUI for this information?")]
 	public bool useGUI = true;
-	public Rect guiArea;
+	[Tooltip("Normalized viewport rectangle for the GUI, values between 0 and 1")]
+	public Rect guiArea = new Rect(0.2f,.8f, .1f, .19f);
 
+	[Tooltip("Should we save this data in the Player Prefs file?")]
 	public bool autoSave = true;
+	public float autoSaveInterval = 30.0f;
+
+	public HelpInfo help = new HelpInfo("This component is an inventory that goes on the Player object and is required for the use of 'ModernGun' objects");
 	
 	void Start () {
 		if (maxClips.Length != numClips.Length) {
@@ -16,13 +24,9 @@ public class ClipInventory : MonoBehaviour {
 			enabled = false;
 			return;
 		}
-		int _numCliTypes;
-		if(autoSave && PlayerPrefs.HasKey("clipTypeCount")) {
-			_numCliTypes = PlayerPrefs.GetInt ("clipTypeCount");
-			numClips = new int[_numCliTypes];
-			for (int i = 0; i < _numCliTypes; i++) {
-				numClips[i] = PlayerPrefs.GetInt("numClips" + i);
-			}
+		if(autoSave) {
+			Load();
+			StartCoroutine(AutoSaveClipData());
 		}
 	}
 	
@@ -37,5 +41,27 @@ public class ClipInventory : MonoBehaviour {
 		GUILayout.EndArea();
 	}
 
+	public void Save() {
+		PlayerPrefs.SetInt("clipTypeCount", numClips.Length);
+		for (int i = 0; i < numClips.Length; i++)
+			PlayerPrefs.SetInt("numClips" + i, numClips[i]);
+			PlayerPrefs.Save();
+	}
+
+	public void Load () {
+		if (PlayerPrefs.HasKey("clipTypeCount")) {
+			numClips = new int[PlayerPrefs.GetInt("clipTypeCount")];
+			for (int i = 0; i < numClips.Length; i++) {
+				numClips[i] = PlayerPrefs.GetInt("numClips" + i);
+			}
+		}
+	}
+
+	IEnumerator AutoSaveClipData () {
+		StopAllCoroutines();
+		yield return new WaitForSeconds(autoSaveInterval);
+		Save();
+		StartCoroutine(AutoSaveClipData());
+	}
 
 }

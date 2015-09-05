@@ -2,12 +2,17 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public class DamageBox : MonoBehaviour {
+public class DamageBox : MultiModule {
 
+	[Tooltip("How much damage does this thing do?")]
 	public float damage = 10.0f;
+	[Tooltip("How often?")]
 	public float damageInterval = 2.0f;
 	[System.NonSerialized]
 	private List<GameObject> targets = new List<GameObject>();
+
+	public HelpInfo help = new HelpInfo("This represents a 'zone' where anything with a health component can receive damage. Examples are a room filled with poison gas, or " +
+		"a floor area covered in acid.");
 
 	void Start () {
 		targets.Clear();

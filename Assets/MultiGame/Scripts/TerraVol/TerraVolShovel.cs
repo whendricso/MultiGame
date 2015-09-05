@@ -10,6 +10,7 @@ public class TerraVolShovel : MonoBehaviour {
 	public float tickRate = 0.5f;
 	private float tickTime;
 	public bool autoDig = false;
+	public bool autoBuild = false;
 	public bool showShovelGizmo = true;
 	public BrushType shovelMode = BrushType.Cube;
 
@@ -23,11 +24,17 @@ public class TerraVolShovel : MonoBehaviour {
 	}
 
 	void Update () {
+		tickTime -= Time.deltaTime;
 		if (autoDig) {
-			tickTime -= Time.deltaTime;
 			if (tickTime <= 0) {
 				tickTime = tickRate;
 				Dig();
+			}
+		}
+		else if (autoBuild) {
+			if (tickTime <= 0) {
+				tickTime = tickRate;
+				Build();
 			}
 		}
 	}

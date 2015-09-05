@@ -2,7 +2,7 @@
 using System.Collections;
 
 [RequireComponent(typeof(HingeJoint))]
-public class HingeMotor : MonoBehaviour {
+public class HingeMotor : MultiModule {
 
 	public KeyCode forward = KeyCode.W;
 	public KeyCode reverse = KeyCode.S;
@@ -11,6 +11,8 @@ public class HingeMotor : MonoBehaviour {
 
 	[HideInInspector]
 	public HingeJoint joint;
+
+	public HelpInfo help = new HelpInfo("This component allows a hinge joint to be used as a motor. For example spinning arms on a hostile robot.");
 
 	void Start () {
 		joint = GetComponent<HingeJoint>();

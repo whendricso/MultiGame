@@ -1,8 +1,12 @@
 using UnityEngine;
 using System.Collections;
 
-public class CamZone : MonoBehaviour {
-	
+public class CamZone : MultiModule {
+
+	public HelpInfo help = new HelpInfo("This component allows you to have area cameras. We recommend setting up the camera to display in a corner or side of the screen, " +
+		"but it can also be used for camera overlays. To use it, attach this to a collider, and parent a camera object to it. Position the camera to look into the collider " +
+		"and when the object tagged as \"Player\" enters, this camera will turn on.");
+
 	// Use this for initialization
 	void Start () {
 		if (GetComponent<Collider>() == null) {

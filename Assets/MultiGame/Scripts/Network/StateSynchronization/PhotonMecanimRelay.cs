@@ -8,6 +8,10 @@ public class PhotonMecanimRelay : Photon.MonoBehaviour {
 
 	public AnimatedState[] animatedStates;
 
+	public MultiModule.HelpInfo help = new MultiModule.HelpInfo("Allows for a Mecanim Trigger to be activated across the Photon network. You can set a list of triggers with " +
+		"'Animated States' and use the 'AnimateState' message, passing in an integer representing the index of the AnimatedState you want to use.\n" +
+		"'TriggerAnimation' takes a string, and invokes the trigger with that name. See the Mecanim documentation for more information about Triggers.");
+
 	[HideInInspector]
 	public Animator animator;
 	[HideInInspector]
@@ -26,11 +30,11 @@ public class PhotonMecanimRelay : Photon.MonoBehaviour {
 		photonView = GetComponent<PhotonView>();
 	}
 
-	void AnimateState (int animatedState) {
+	public void AnimateState (int animatedState) {
 		TriggerAnimation(animatedStates[animatedState].trigger);
 	}
 	
-	void TriggerAnimation (string anim) {
+	public void TriggerAnimation (string anim) {
 		if (photonView.isMine) {
 			photonView.RPC("AnimateByMecanim", PhotonTargets.All, anim);
 		}

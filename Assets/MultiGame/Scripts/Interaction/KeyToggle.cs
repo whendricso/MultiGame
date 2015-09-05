@@ -1,17 +1,28 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class KeyToggle : MonoBehaviour {
+public class KeyToggle : MultiModule {
 	
+	[Tooltip("Game Objects we will toggle")]
 	public GameObject[] gameObjectTargets;//a list of targets to toggle
+	[Tooltip("Scripts we will toggle")]
 	public MonoBehaviour[] scriptTargets;
+	[Tooltip("Collider we will toggle")]
 	public Collider colliderTarget;
+	[Tooltip("Render we will toggle")]
 	public MeshRenderer rendererTarget;
+	[Tooltip("Key to be pressed to toggle off")]
 	public KeyCode off = KeyCode.LeftControl;
+	[Tooltip("Key to be released to toggle on")]
 	public KeyCode on = KeyCode.LeftControl;
+	[Tooltip("Key to be tapped to swap the toggle")]
 	public KeyCode swapKey = KeyCode.None;
+	[Tooltip("Should we swap off/on?")]
 	public bool reverse = false;
+	[Tooltip("Are we currently toggled?")]
 	public bool toggle = true;
+
+	public HelpInfo help = new HelpInfo("This component allows objects, colliders, renderers, and scripts to be toggled based on the state of a given key.");
 	
 	void Start () {
 		if (reverse) {

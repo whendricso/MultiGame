@@ -2,10 +2,17 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class RandomizedMessage : MonoBehaviour {
+public class RandomizedMessage : MultiModule {
 
+	[Tooltip("Chance in percentage of any given message being sent")]
+	[Range(0f,1f)]
 	public float chance = 0.5f;
+	[Tooltip("Messages to send randomly")]
 	public List<MessageManager.ManagedMessage> messages = new List<MessageManager.ManagedMessage>();
+
+	public HelpInfo help = new HelpInfo("This component randomly sends each message based on the 'chance'. So if you provide a list of 4 messages, with a chance of .5 (50%)" +
+		" then most likely 2 of the 4 messages will be sent.");
+
 	public bool debug = false;
 
 	void Start () {

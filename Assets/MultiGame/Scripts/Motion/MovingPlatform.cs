@@ -2,12 +2,14 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class MovingPlatform : MonoBehaviour {
+public class MovingPlatform : MultiModule {
 
 	[System.NonSerialized]
 	private List<GameObject> others = new List<GameObject>();
 
 	Vector3 lastPos;
+	//TODO: Suppoort more transforms than just horizontal
+	public HelpInfo help = new HelpInfo("This component, when attached to a moving platform, will cause any rigidbody to move with it. Currently, only horizontal movement is supported");
 
 	void Start () {
 		lastPos = transform.position;

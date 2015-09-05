@@ -4,33 +4,54 @@ using System.Collections.Generic;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 
-public class Inventory : MonoBehaviour {
+public class Inventory : MultiModule {
 	
+	[Tooltip("Items already in the inventory")]
 	public static Dictionary<string, GameObject> inv = new Dictionary<string, GameObject>();
+	[Tooltip("number of each remaining")]
 	public static Dictionary<string, int> invCount = new Dictionary<string, int>();
+	[Tooltip("Should we use buttons to drop/stow items held in the hand?")]
 	public bool useHandButtons = true;
-	public string inventoryPath = "Inventory.xml";
+	[Tooltip("Right hand transform, should be an empty object parented to the hand and rotated to match the rotation of any items you wish the character to hold")]
 	public GameObject rWeaponMount;
+	[Tooltip("Left hand transform, should be an empty object parented to the hand and rotated to match the rotation of any items you wish the character to hold")]
 	public GameObject lWeaponMount;
+	[Tooltip("Torso transform, should be an empty object parented to the torso and rotated to match the rotation of any items you wish the character to wear")]
 	public GameObject torsoMount;
+	[Tooltip("Back transform, should be an empty object parented to the back and rotated to match the rotation of any items you wish the character to wear")]
 	public GameObject backMount;
+	[Tooltip("A transform generally in front of the character where items which are instantiated rather than equipped will appear")]
 	public GameObject instantiationTransform;//Where do we instantiate objects that are "no equip" type?
+	[Tooltip("Max items in inventory")]
 	public int inventorySize = 10;
+	[Tooltip("How many buttons can we have in a row?")]
 	public int numButtonsPerRow = 4;
+	[Tooltip("How many buttons can we have in a column?")]
 	public int numButtonsPerColumn = 4;
 	[HideInInspector]
 	public float buttonPad = 5.0f;
+	[Tooltip("Should we show a legacy Unity GUI displaying the inventory contents?")]
 	public bool showInventoryGUI = false;
+	[Tooltip("Key allowing the player to open/close the inventory GUI")]
 	public KeyCode inventoryKey = KeyCode.I;
 	public GUISkin guiSkin;
-	public Rect inventoryArea;
+	[Tooltip("Normalized viewport rectangle indicating the inventory GUI area")]
+	public Rect inventoryArea = new Rect(.2f,.2f,.6f,.6f);
+	[Tooltip("Can the first items be accessed using number keys?")]
 	public bool allowNumberKeys = true;
 	public KeyCode nextWeapon = KeyCode.Q;
 	public KeyCode previousWeapon = KeyCode.None;
+	[Tooltip("How sensitive is the mouse wheel when switching weapons?")]
 	public float weaponSwapSensitivity = 0.25f;
 	private GameObject lastWeapon;
 	private string lastKey;
+	[Tooltip("File name to store this inventory under")]
 	public string fileName = "inv";
+
+	public HelpInfo help = new HelpInfo("This component implements a locally-saved inventory for player items. It's static, meaning there can only be one at any given time," +
+		" or weird stuff might happen (probably not, but no guarantees). Each inventory item needs 2 prefabs: an 'ActiveItem' which represents the object while it's in-use," +
+		" as well as a 'Pickable' which represents the item when it's on the ground. These need to have references to each other in the inspector and they all need to be in a" +
+		"'Resources' folder or you might get errors.");
 
 	public struct InventoryData {
 		public Dictionary<string, int> invData;

@@ -18,10 +18,10 @@ public class ManagedMessageDrawer : PropertyDrawer {
 
 		Rect targetRect = new Rect(position.x, position.y, position.width, 16f);
 		Rect messageRect = new Rect(position.x, position.y + 16f, position.width, 16f);
-		Rect sendTypeRect = new Rect(position.x, position.y + 32f, position.width, 16f);
+		Rect sendTypeRect = new Rect(position.x, position.y + 80f, position.width, 16f);
 		Rect parameterRect = new Rect(position.x, position.y + 48f, position.width, 16f);
 		Rect parameterTypeRect = new Rect(position.x, position.y + 64f, position.width, 16f);
-		Rect rescanButtonRect = new Rect(position.x, position.y + 80f, position.width, 16f);
+		Rect rescanButtonRect = new Rect(position.x, position.y + 32f, position.width, 16f);
 
 		EditorGUI.PropertyField (targetRect, property.FindPropertyRelative ("target"), new GUIContent("Target") );
 
@@ -46,14 +46,33 @@ public class ManagedMessageDrawer : PropertyDrawer {
 				property.FindPropertyRelative("isDirty").boolValue = EditorGUI.Toggle (rescanButtonRect, new GUIContent("Rescan For Messages"), property.FindPropertyRelative("isDirty").boolValue);
 				
 			}
-			else
+			else {
 				property.FindPropertyRelative("isDirty").boolValue = EditorGUI.Toggle (messageRect, new GUIContent("Rescan For Messages"), property.FindPropertyRelative("isDirty").boolValue);
+			}
 		}
 
 		EditorGUI.PropertyField(new Rect(messageRect.width - messageRect.x * 0.8f ,messageRect.y, messageRect.width*.2f,messageRect.height),property.FindPropertyRelative("msgOverride"),GUIContent.none);
-		EditorGUI.PropertyField (sendTypeRect, property.FindPropertyRelative ("sendMessageType"), new GUIContent("Send Mode") );
-		EditorGUI.PropertyField (parameterRect, property.FindPropertyRelative ("parameter"), new GUIContent("Parameter") );
-		EditorGUI.PropertyField (parameterTypeRect, property.FindPropertyRelative ("parameterMode"), new GUIContent("Parameter Mode") );
+		if (property.FindPropertyRelative("message").stringValue != "--none--" && property.FindPropertyRelative("msgOverride").boolValue != false) {
+			EditorGUI.PropertyField (sendTypeRect, property.FindPropertyRelative ("sendMessageType"), new GUIContent("Send Mode") );
+			EditorGUI.PropertyField (parameterRect, property.FindPropertyRelative ("parameter"), new GUIContent("Parameter") );
+			if (!string.IsNullOrEmpty( property.FindPropertyRelative ("parameter").stringValue))
+				EditorGUI.PropertyField (parameterTypeRect, property.FindPropertyRelative ("parameterMode"), new GUIContent("Parameter Mode") );
+		}
+		else {
+			if (property.FindPropertyRelative("message").stringValue != "--none--") {
+				if (property.FindPropertyRelative("msgOverride").boolValue)
+					EditorGUI.HelpBox(new Rect( rescanButtonRect.x  * .2f, rescanButtonRect.y, rescanButtonRect.width/2f, rescanButtonRect.height * 3f), "Locked. Will save & can be edited.", MessageType.Info);
+				else
+					EditorGUI.HelpBox(new Rect( rescanButtonRect.x , rescanButtonRect.y + 16f, rescanButtonRect.width, rescanButtonRect.height * 3f), "Lock message to save it.", MessageType.Warning);
+					
+			}
+			else {
+				if (!property.FindPropertyRelative("msgOverride").boolValue)
+					EditorGUI.HelpBox(new Rect( rescanButtonRect.x, rescanButtonRect.y + 16f, rescanButtonRect.width, rescanButtonRect.height * 3f), "Select a message to get started.", MessageType.Info);
+				else
+					EditorGUI.HelpBox(new Rect( rescanButtonRect.x  * .2f, rescanButtonRect.y, rescanButtonRect.width/2f, rescanButtonRect.height * 3f), "Locked. No message will be sent.", MessageType.Info);
+			}
+		}
 
 		EditorGUI.indentLevel = indent;
 		EditorGUI.EndProperty();

@@ -1,10 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class DeployedObject : MonoBehaviour {
+public class DeployedObject : MultiModule {
 	
+	[Tooltip("Object to spawn if this is sent the Undeploy message")]
 	public GameObject undeployed;
+	[Tooltip("Object to spawn if killed")]
 	public GameObject deathPrefab;
+
+	public HelpInfo help = new HelpInfo("This component must be added to objects being deployed using the 'Deployer' system. See accompanying documentation (found in this folder" +
+		") for more information on using the awesome 'Deployer' functionality.");
 	
 	public void OnSelect (string param) {
 		if (param == "Undeploy")

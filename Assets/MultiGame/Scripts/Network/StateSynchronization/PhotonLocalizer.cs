@@ -8,6 +8,9 @@ public class PhotonLocalizer : Photon.MonoBehaviour {
 	public GameObject[] localObjects;
 	public GameObject[] remoteObjects;
 
+	public MultiModule.HelpInfo help = new MultiModule.HelpInfo("This component toggles components and objects based on whether they are controlled by the local player." +
+		" This is important for things like character controllers, which you don't want running on the remote side.");
+
 	void Awake () {
 		PhotonView _view = GetComponent<PhotonView>();
 		if (_view == null) {

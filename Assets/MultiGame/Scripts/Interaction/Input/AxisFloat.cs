@@ -1,12 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class AxisFloat : MonoBehaviour {
+public class AxisFloat : MultiModule {
 
+	[Tooltip("Target to send axis data to")]
 	public GameObject target;
+	[Tooltip("Name of the method receiving the axis data")]
 	public string message = "";
+	[Tooltip("The axis to monitor")]
 	public string axis = "";
+	[Tooltip("Send mode for the managed message")]
 	public MessageManager.ManagedMessage.SendMessageTypes sendMode = MessageManager.ManagedMessage.SendMessageTypes.Send;
+
+	public HelpInfo help = new HelpInfo("This component sends the given message with an automatically set floating-point parameter between -1 and 1 representing the input axis.");
 
 	void Start () {
 		if (target == null)

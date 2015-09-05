@@ -1,7 +1,9 @@
 using UnityEngine;
 using System.Collections;
 
-public class VanishOnStart : MonoBehaviour {
+public class VanishOnStart : MultiModule {
+
+	public HelpInfo help = new HelpInfo("This component causes the object to become invisible as soon as it's created. Useful for editor-only objects.");
 
 	void Start () {
 		if(GetComponent<Renderer>() != null)

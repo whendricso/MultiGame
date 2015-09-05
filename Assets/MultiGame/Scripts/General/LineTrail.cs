@@ -2,11 +2,13 @@
 using System.Collections;
 
 [RequireComponent(typeof(LineRenderer))]
-public class LineTrail : MonoBehaviour {
+public class LineTrail : MultiModule {
 
 	private Vector3 startPosition;
 	[System.NonSerialized]
 	public LineRenderer line;
+
+	public HelpInfo help = new HelpInfo("This component draws a line between the current and start position of the object.");
 
 	void Start () {
 		line = GetComponent<LineRenderer>();

@@ -1,12 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class JointBreakMessage : MonoBehaviour {
+public class JointBreakMessage : MultiModule {
 
+	[Tooltip("When the joint breaks, what should we send?")]
 	public MessageManager.ManagedMessage message;
 
 	[HideInInspector]
 	public Joint joint;
+
+	public HelpInfo help = new HelpInfo("This component sends a message when the attached joint breaks.");
 
 	// Use this for initialization
 	void Start () {

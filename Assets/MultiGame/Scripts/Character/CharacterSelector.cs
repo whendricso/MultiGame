@@ -2,19 +2,30 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class CharacterSelector : MonoBehaviour {
+public class CharacterSelector : MultiModule {
 	
-	public Rect guiArea;
+	[Tooltip("Normalized viewport rectangle indicating the button area. values between 0 and 1")]
+	public Rect guiArea = new Rect(0.3f,0.3f,0.3f,0.3f);
+	[Tooltip("Should the camera be destroyed when switching characters?")]
 	public bool destroyCamera = true;
+	[Tooltip("What characters can we select from?")]
 	public List<GameObject> characters;
+	[Tooltip("Allow this script to control the cursor?")]
 	public bool toggleCursor = false;
 	
+	[Tooltip("If greater than 0, close the GUI if the player leaves this radius")]
 	public float maxDistance = 0.0f;
+	[Tooltip("Unique window ID number for this window, must not conflict with any others (change it if it does!)")]
 	public int windowID = 92829;
 	
+	[Tooltip("Where do we spawn the new player object?")]
 	public GameObject spawnPoint;
 	
+	[Tooltip("Should we show the GUI right now?")]
 	public bool showGUI = false;
+
+	public HelpInfo help = new HelpInfo("This component implements character selection using the legacy Unity GUI. Not suitable for mobile. Provide a list of characters, " +
+		"and send a message to this object when it's time for character selection (ToggleOn & ToggleOff)");
 	
 	void OnGUI () {
 		GameObject player = GameObject.FindGameObjectWithTag("Player");
@@ -46,11 +57,11 @@ public class CharacterSelector : MonoBehaviour {
 
 	}
 	
-	void ToggleOn() {
+	public void ToggleOn() {
 		Toggle(true);
 	}
 	
-	void ToggleOff() {
+	public void ToggleOff() {
 		Toggle(false);
 	}
 	

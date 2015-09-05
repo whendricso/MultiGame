@@ -2,11 +2,16 @@
 using System.Collections;
 
 [RequireComponent (typeof(Collider))]
-public class MouseOverToggle : MonoBehaviour {
+public class MouseOverToggle : MultiModule {
 	
+	[Tooltip("Scripts we will toggle")]
 	public MonoBehaviour[] scripts;
+	[Tooltip("Objects we will toggle")]
 	public GameObject[] objects;
+	[Tooltip("Should on/off be reversed?")]
 	public bool reverse;
+
+	public HelpInfo help = new HelpInfo("This component turns things on/off based on whether the mouse is positioned over a collider on this object.");
 	
 	void Start () {
 		if (scripts.Length < 1 && objects.Length < 1) {

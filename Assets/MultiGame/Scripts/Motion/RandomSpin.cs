@@ -1,12 +1,16 @@
 using UnityEngine;
 using System.Collections;
 
-public class RandomSpin : MonoBehaviour {
+public class RandomSpin : MultiModule {
 
+	[Tooltip("Do we apply rotation just once, or continually?")]
 	public bool oneShot = false;
 	private bool didStart = false;
+	[Tooltip("")]
 	public float power = 10.0f;
 	public bool randomizeStartRotation = false;
+
+	public HelpInfo help = new HelpInfo("This component randomly spins the object at runtime on all axes");
 
 	void Start() {
 		if (randomizeStartRotation) {

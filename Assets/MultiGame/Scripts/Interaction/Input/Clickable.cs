@@ -2,12 +2,17 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class Clickable : MonoBehaviour {
+public class Clickable : MultiModule {
 	
+	[Tooltip("What should we send when clicked?")]
 	public MessageManager.ManagedMessage message;
+	[Tooltip("Do we need to both click, and release while keeping the mouse over the object?")]
 	public bool asButton = true;
 	public bool debug = false;
+	[Tooltip("Does the user need to hold down a key while clicking?")]
 	public KeyCode modifier = KeyCode.None;
+
+	public HelpInfo help = new HelpInfo("This component allows a message to be sent when this object's collider is clicked.");
 	
 	void Start () {
 		if (message.target == null) {

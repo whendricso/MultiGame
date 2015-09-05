@@ -2,21 +2,33 @@
 using System.Collections;
 
 [RequireComponent(typeof(NavMeshAgent))]
-public class NavModule : MonoBehaviour {
+public class NavModule : MultiModule {
 
+	[Tooltip("Should we always move towards a specific target?")]
 	public GameObject navTarget;
 	private Vector3 targetPosition;
 	[HideInInspector]
 	public NavMeshAgent agent;
+	[Tooltip("If you are using an avoidance rig, drop a reference to it here")]
 	public GameObject avoidanceDetector;
 	private AvoidanceDetector detector;
+	[Tooltip("How fast do we turn to avoid obstacles?")]
 	public float avoidanceTurnRate = 6.0f;
 
+	[Tooltip("How often, in seconds, do we rebuild path data? (Lower numbers = better quality, higher numbers = better speed)")]
 	public float pathRecalculationInterval = 0.2f;
 	private float recalcTimer;
 	private bool touchingTarget = false;
 	private float lastTouchTime;
 
+	public HelpInfo help = new HelpInfo("This component implements Unity's NavMesh directly, allowing AI to pathfind around easily. You need to bake a navigation mesh for" +
+		" your scene before it can work, otherwise you will get an error. Click Window -> Navigation to bake a navmesh." +
+		"\n\nTo get started most effectively, we recommend adding some other AI components such as a Guard Module, Melee Module, or others depending on what you want to make." +
+		" For example, to make a tank, first create an empty object, and parent a 3D model of a tank to it. Then, add a Guard Module, Nav Module to the base object. Finally," +
+		" add a Turret Action to the turret itself, a Targeting Computer (so it can aim at moving rigidbodies correctly), and create an invisible trigger with a Targeting Sensor" +
+		" component that sends it's target message to the turret. This creates a tank AI.");
+
+	[Tooltip("WARNING! SLOW OPERATION Should we output useful information to the console?")]
 	public bool debug = false;
 
 	void Awake () {
@@ -33,6 +45,9 @@ public class NavModule : MonoBehaviour {
 	void Update () {
 		if (lastTouchTime > .5f)
 			touchingTarget = false;
+		if (touchingTarget) {
+			transform.rotation = Quaternion.LookRotation(Vector3.RotateTowards(transform.forward, navTarget.transform.position - transform.position, agent.angularSpeed * Time.deltaTime,0f));
+		}
 		if(navTarget != null)
 			targetPosition = navTarget.transform.position;
 //		if (pathRecalculationInterval <= 0) {

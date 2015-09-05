@@ -5,21 +5,33 @@ using System.Collections;
 [RequireComponent (typeof (Rigidbody))]
 public class ActiveZone : MultiModule {
 	
+	[Tooltip("Message target override")]
 	public GameObject target;
-	public bool playerOnly = true;
+	[Tooltip("Ignore all objects other than the player?")]
+	public bool playerOnly = false;
 	[HideInInspector]
 	public string animEnter;
 	[HideInInspector]
 	public string animExit;
+	[Tooltip("Trigger for Mecanim to occur when the zone is triggered")]
 	public string mecanimTrigger;
 	[HideInInspector]
 	public Animator animator;
+	[Tooltip("Message to send on entry")]
 	public MessageManager.ManagedMessage message;
+	[Tooltip("Message to send to the object that entered the trigger")]
 	public MessageManager.ManagedMessage messageToEnteringEntity;
+	[Tooltip("Should we send a message when the object leaves?")]
 	public bool messageOnExit = false;
+	[Tooltip("Message to send when the object leaves, if enabled")]
 	public MessageManager.ManagedMessage exitMessage;
 
+	[Tooltip("Name of the scene to load when triggered, must be added to build settings")]
 	public string targetLevel;
+
+	public HelpInfo help = new HelpInfo("This component sends messages when an object enters, exits, or stays in a given trigger area. Must be attached to a collider marked" +
+		" 'isTrigger'");
+
 	public bool debug = false;
 	
 	void Start () {

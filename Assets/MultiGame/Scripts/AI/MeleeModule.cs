@@ -2,18 +2,30 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class MeleeModule : MonoBehaviour {
+public class MeleeModule : MultiModule {
 
+	[Tooltip("Cooldown duration")]
 	public float attackTime = 1.0f;
 	public float attackDamage = 10.0f;
 	private float damageCounter;
+	[Tooltip("An object representing a raycast where the damage starts")]
 	public GameObject damageRayOrigin;
+	[Tooltip("Range of the attack")]
 	public float meleeRange = 0.8f;
+	[Tooltip("What collision layers can we hit?")]
 	public LayerMask damageRayMask;
 	private float lastTriggerTime;
+	[Tooltip("Messages to send when damage is dealt")]
 	public List<MessageManager.ManagedMessage> attackMessages = new List<MessageManager.ManagedMessage>();
+	[Tooltip("Messages sent to the victim when damage is dealt")]
 	public List<MessageManager.ManagedMessage> messagesToVictim = new List<MessageManager.ManagedMessage>();
 
+	private List<GameObject> touchingObjects = new List<GameObject>();
+
+	public HelpInfo help =  new HelpInfo("This component should be placed on an empty object representing an AI. The object should have a 3D model of a melee unit parented to it." +
+		"\nWe also recommend adding a NavModule or similar, so it can get around, and some sort of AI 'brain' such as a Guard or Minion Module");
+
+	[Tooltip("WARNING! SLOW OPERATION Send messages to the console?")]
 	public bool debug = false;
 
 	void Start () {
@@ -35,6 +47,14 @@ public class MeleeModule : MonoBehaviour {
 		}
 	}
 
+	void OnCollisionEnter (Collision collision) {
+		touchingObjects.Add(collision.gameObject);
+	}
+
+	void OnCollisionExit (Collision collision) {
+		touchingObjects.Remove(collision.gameObject);
+	}
+
 	void Update () {
 		if (debug)
 			Debug.DrawRay(damageRayOrigin.transform.position, damageRayOrigin.transform.TransformDirection(Vector3.forward));
@@ -46,9 +66,41 @@ public class MeleeModule : MonoBehaviour {
 
 	void ApplyDamage () {
 		damageCounter = attackTime;
+
 		RaycastHit _hinfo;
-		bool _didHit = Physics.Raycast(damageRayOrigin.transform.position, damageRayOrigin.transform.TransformDirection(Vector3.forward), out _hinfo, meleeRange, damageRayMask);
-		if(_didHit) {
+		bool _didHit = Physics.Raycast(damageRayOrigin.transform.position, transform.TransformDirection(transform.forward), out _hinfo, meleeRange, damageRayMask);
+
+		if (!_didHit) {
+			GameObject _closest = null;
+			float _dist = Mathf.Infinity;
+			float _bestDist = Mathf.Infinity;
+			GameObject _obj;
+			for (int i = 0; i < touchingObjects.Count; i++) {
+				_obj = touchingObjects[i];
+				if (_obj != null) {
+					_didHit = Physics.Linecast(damageRayOrigin.transform.position, _obj.transform.position, out _hinfo, damageRayMask);
+					_dist = Vector3.Distance(damageRayOrigin.transform.position, _hinfo.point);
+					if (_dist < _bestDist) {
+						_closest = _obj;
+						_bestDist = _dist;
+					}
+				}
+				else {
+					touchingObjects.RemoveAt(i);
+				}
+			}
+			if (_closest != null) {
+				_closest.SendMessage("ModifyHealth", -attackDamage, SendMessageOptions.DontRequireReceiver);
+				foreach (MessageManager.ManagedMessage _msg in attackMessages) {
+					MessageManager.Send(_msg);
+				}
+				foreach (MessageManager.ManagedMessage _msg in messagesToVictim) {
+					MessageManager.SendTo(_msg, _hinfo.collider.gameObject);
+				}
+			}
+
+		}
+		else {
 			_hinfo.collider.gameObject.SendMessage("ModifyHealth", -attackDamage, SendMessageOptions.DontRequireReceiver);
 			foreach (MessageManager.ManagedMessage _msg in attackMessages) {
 				MessageManager.Send(_msg);

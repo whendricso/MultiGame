@@ -2,12 +2,18 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public class PlanarYDestructor : MonoBehaviour {
+public class PlanarYDestructor : MultiModule {
 	
+	[Tooltip("The depth at which we must pass under before being automatically destroyed")]
 	public float minimumYLevel = -1000;//destroy the object if it falls below this plane
 
+	[Tooltip("Objects we should spawn if killed in this way")]
 	public List<GameObject> deathPrefabs = new List<GameObject>();
+	[Tooltip("A message we should send if we are killed in this way")]
 	public MessageManager.ManagedMessage message;
+
+	public HelpInfo help = new HelpInfo("This component destroys an object if it passes below a given Y value. You definitely need to put this on yout Player object in case" +
+		" they fall through the level!");
 
 	void OnValidate () {
 		MessageManager.UpdateMessageGUI(ref message, gameObject);

@@ -1,15 +1,20 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class TimeScore : MonoBehaviour {
+public class TimeScore : MultiModule {
 
+	[Tooltip("Should we show a legacy Unity GUI?")]
 	public bool showGUI = true;
+	[Tooltip("Unique identifier for the window, must be unique! (change it if it's not!)")]
 	public int windowID = 37503;
-	public Rect guiArea;
+	[Tooltip("Normalized viewport rectangle for the legacy GUI, values between 0 and 1")]
+	public Rect guiArea = new Rect(0.6f, 0.01f, 0.125f, .125f);
 
 	[System.NonSerialized]
 	public float startTime = 0.0f;
+	[Tooltip("How long do we have?")]
 	public float totalTime = 0.0f;
+	[Tooltip("What message do we send when time runs out?")]
 	public MessageManager.ManagedMessage timeUpMessage;
 	[HideInInspector]
 	public bool started = false;
@@ -18,11 +23,14 @@ public class TimeScore : MonoBehaviour {
 	[System.NonSerialized]
 	public float bestTime = 0f;
 
+	[Tooltip("Start the timer when the object is created?")]
 	public bool startOnStart = true;
 	private bool showLastTime = false;
 	private bool showBestTime = false;
 
 	private float timeSinceStart = 0;
+
+	public HelpInfo help = new HelpInfo("This component gives the player a bit of urgency and helps with speedruns. Using the legacy GUI is not recommended for mobile.");
 
 	void Start () {
 		timeSinceStart = 0;

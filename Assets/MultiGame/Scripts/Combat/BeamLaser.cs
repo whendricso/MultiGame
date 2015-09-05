@@ -2,14 +2,20 @@
 using System.Collections;
 
 [RequireComponent(typeof(LineRenderer))]
-public class BeamLaser : MonoBehaviour {
+public class BeamLaser : MultiModule {
 
+	[Tooltip("How far does the laser go until it stops dead in the middle of space?")]
 	public float beamRange;
+	[Tooltip("How much damage PER FIXEDUPDATE is dealt by this weapon?")]
 	public float damage = 0.2f;
+	[Tooltip("What object, if any, should be spawned when we hit something?")]
 	public GameObject splashPrefab;
 
 	private LineRenderer beamLine;
 	RaycastHit hinfo;
+
+	public HelpInfo help = new HelpInfo("This component should be attached to a muzzle transform object representing the origin of the laser from the gun. Toggling this object" +
+		" on or off will enable/disable the laser beam. The laser does damage every update while active.");
 
 	public bool debug = false;
 

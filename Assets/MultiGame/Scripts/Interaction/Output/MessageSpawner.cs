@@ -1,12 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class MessageSpawner : MonoBehaviour {
+public class MessageSpawner : MultiModule {
 
+	[Tooltip("Object we want to spawn")]
 	public GameObject item;
+	[Tooltip("Optional spawn point, spawns here if none")]
 	public GameObject spawnPoint;
+	[Tooltip("Should the spawned object inherit our velocity?")]
 	public bool inheritVelocity = true;
 	public bool debug = false;
+
+	public HelpInfo help = new HelpInfo("This component is a really easy way to spawn objects without a limit using the 'Spawn' message");
 
 	void Start () {
 		if (spawnPoint == null)

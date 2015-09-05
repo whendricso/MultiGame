@@ -1,15 +1,20 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class KeyMessage : MonoBehaviour {
+public class KeyMessage : MultiModule {
 
+	[Tooltip("The key in question")]
 	public KeyCode key = KeyCode.None;
+	[Tooltip("Optionally, a named button can also be checked")]
 	public string button = "";
 	public MessageManager.ManagedMessage keyDownMessage;
 	public MessageManager.ManagedMessage keyHeldMessage;
 	public MessageManager.ManagedMessage keyUpMessage;
 
+	[Tooltip("Message target override")]
 	public GameObject target;
+
+	public HelpInfo help = new HelpInfo("This component sends messages based on the state of a key or button. Buttons are defined in (Edit -> Project Settings -> Input)");
 
 	void Start () {
 		if (target == null)
@@ -35,7 +40,7 @@ public class KeyMessage : MonoBehaviour {
 		if ((Input.GetKey(key) || ButtonCheck(button)) && keyHeldMessage.message != "") {
 			MessageManager.Send (keyHeldMessage);
 		}
-		if ((Input.GetKeyUp(key) || ButtonDownCheck(button)) && keyUpMessage.message != "") {
+		if ((Input.GetKeyUp(key) || ButtonUpCheck(button)) && keyUpMessage.message != "") {
 			MessageManager.Send (keyUpMessage);
 		}
 	}

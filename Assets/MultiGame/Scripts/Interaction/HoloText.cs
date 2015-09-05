@@ -1,13 +1,19 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class HoloText : MonoBehaviour {
+public class HoloText : MultiModule {
 
+	[Tooltip("Reference to the text mesh object we're manipulating")]
 	public TextMesh textMesh;
-	public Rect guiArea;
+	[Tooltip("Normalized viewport rectangle indicating the area for the optional legacy Unity GUI for editing the text")]
+	public Rect guiArea = new Rect(.3f, .3f, .3f, .3f);
+	[Tooltip("Unique identifier for this GUI window")]
 	public int windowID = 875439;
 
+	[Tooltip("Should we use a legacy Unity GUI?")]
 	private bool showWindow = false;
+
+	public HelpInfo help = new HelpInfo("This component allows the user to change the text of a 3D text object. This can be a fun way to add user-defined labels to your game.");
 
 	void Start () {
 		if (textMesh == null)
@@ -36,9 +42,12 @@ public class HoloText : MonoBehaviour {
 			showWindow = false;
 	}
 
-	void EditText () {
+	public void ToggleTextWindow () {
 		showWindow = !showWindow;
-//		string _txt = (string)textMesh.GetType().GetProperty("text").GetValue(textMesh, null);
-//		Debug.Log(_txt);
+
+	}
+
+	public void ChangeText (string _newText) {
+		textMesh.text = _newText;
 	}
 }

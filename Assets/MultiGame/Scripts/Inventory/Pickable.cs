@@ -8,16 +8,23 @@ using System.Collections.Generic;
 /// Optionally, supply the Inventory instance being used,
 /// otherwise it will try to send the object to the Player's inventory.
 /// </summary>
-public class Pickable : MonoBehaviour {
+public class Pickable : MultiModule {
 	
+	[Tooltip("How far can we be from the object tagged 'Player' and still be pickable?")]
 	public float pickRange = 2.4f;
-	public enum PickModes {Item, Deployable, Character};
+	public enum PickModes {Item, Deployable/*, Character*/};
+	[Tooltip("Are we picking up an inventory item, or a Deployable object?")]
 	public PickModes pickMode = PickModes.Item;
+	[Tooltip("A Game Object prefab with an Active Object component, matching this one with Inventory Key")]
 	public GameObject activeObject;//the object to be instantiated when used
+	[Tooltip("A unique key identifying this as a unique type of object")]
 	public string inventoryKey;
 	public bool debug = false;
 	
 	private bool picked  = false;
+
+	public HelpInfo help = new HelpInfo("This component implements items that can be picked up and placed in inventory. To cause this to happen, send the 'Pick' message to" +
+		" this object. Pickables need a corresponding ActiveObject which represents the item while it's in-use.");
 	
 	void Start () {
 		switch (pickMode) {

@@ -2,9 +2,15 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class MessageRelay : MonoBehaviour {
+public class MessageRelay : MultiModule {
 
+	[Tooltip("List of messages we will send")]
 	public List<MessageManager.ManagedMessage> messages = new List<MessageManager.ManagedMessage>();
+
+	public HelpInfo help = new HelpInfo("This component sends a list of messages when receiving the 'Relay' message. You can attach this to a child object (appropriately named)" +
+		" and use it as a logic gate, or just expand the reach of other message senders based on context.");
+
+	public bool debug = false;
 
 	void Start () {
 		if (messages.Count < 1) {
@@ -31,6 +37,8 @@ public class MessageRelay : MonoBehaviour {
 			return;
 
 		foreach(MessageManager.ManagedMessage msg in messages) {
+			if (debug)
+				Debug.Log ("Message relay " + gameObject.name + " is sending " + msg.message);
 			MessageManager.Send(msg);
 		}
 	}

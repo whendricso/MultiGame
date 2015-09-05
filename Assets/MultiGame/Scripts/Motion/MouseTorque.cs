@@ -2,12 +2,16 @@
 using System.Collections;
 
 [RequireComponent (typeof (Rigidbody))]
-public class MouseTorque : MonoBehaviour {
+public class MouseTorque : MultiModule {
 
+	[Tooltip("How strong is our input?")]
 	public float power = 10.0f;
+	[Tooltip("Are you the Ice Man?")]
 	public bool maverickStyle = true;
 	public KeyCode rotateRight = KeyCode.E;
 	public KeyCode rotateLeft = KeyCode.Q;
+
+	public HelpInfo help = new HelpInfo("This component applies torque based on mouse movement");
 
 	void FixedUpdate () {
 		if (!maverickStyle) {

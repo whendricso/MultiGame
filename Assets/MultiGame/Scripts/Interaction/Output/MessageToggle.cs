@@ -1,14 +1,21 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class MessageToggle : MonoBehaviour {
+public class MessageToggle : MultiModule {
 
+	[Tooltip("Game Objects we will toggle")]
 	public GameObject[] gameObjectTargets;
+	[Tooltip("Scripts we will toggle")]
 	public MonoBehaviour[] scriptTargets;
+	[Tooltip("Light we wish to toggle")]
 	public Light lightTarget;
+	[Tooltip("Should we toggle the opposite way?")]
 	public bool invert = false;
 
 	private bool previousVal;
+
+	public HelpInfo help = new HelpInfo("This component toggles scripts and game objects based on messages. The 'Toggle' message takes a boolean value");
+
 	public bool debug = false;
 
 	// Use this for initialization
@@ -57,9 +64,5 @@ public class MessageToggle : MonoBehaviour {
 		}
 
 	}
-
-	public void Activate () {
-		SwapToggle();
-	}
 }
-//Copyright 2014 William Hendrickson
+//MultiGame Copyright 2014 William Hendrickson

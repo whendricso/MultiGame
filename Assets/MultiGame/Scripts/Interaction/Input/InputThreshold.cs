@@ -1,17 +1,24 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class InputThreshold : MonoBehaviour {
+public class InputThreshold : MultiModule {
 
+	[Tooltip("The input axis we are checking")]
 	public string axis = "";
-	public float threshold = 0.8f;
+	[Range(-1f,1f)]
+	public float upperThreshold = 0.8f;
+	[Range(-1f,1f)]
 	public float lowerThreshold = 0.2f;
+	[Tooltip("Message target override")]
 	public GameObject target;
+	[Tooltip("What message do we send when input reaches the upper threshold?")]
 	public MessageManager.ManagedMessage message;
-
+	[Tooltip("What message do we send when input reaches the lower threshold?")]
 	public MessageManager.ManagedMessage lowerMessage;
 
 	private bool previouslyAbove = false;
+
+	public HelpInfo help = new HelpInfo("This component sends messages based on a given input axis passing a certain threshold.");
 
 	// Use this for initialization
 	void Start () {
@@ -42,7 +49,7 @@ public class InputThreshold : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (!previouslyAbove) {
-			if (Input.GetAxis(axis) > threshold) {
+			if (Input.GetAxis(axis) > upperThreshold) {
 				previouslyAbove = true;
 				MessageManager.Send(message);//target.BroadcastMessage(message, SendMessageOptions.DontRequireReceiver);
 				

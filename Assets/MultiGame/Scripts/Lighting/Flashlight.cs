@@ -2,9 +2,12 @@
 using System.Collections;
 
 [RequireComponent (typeof(Light))]
-public class Flashlight : MonoBehaviour {
+public class Flashlight : MultiModule {
 	
+	[Tooltip("Key used to toggle the light")]
 	public KeyCode flashlightToggle = KeyCode.F;
+
+	public HelpInfo help = new HelpInfo("This component allows a light to be toggled with a keypress. Useful for flashlights!");
 	
 	void Start () {
 		GetComponent<Light>().enabled = false;

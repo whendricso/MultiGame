@@ -1,12 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ClickPainter : MonoBehaviour {
+public class ClickPainter : MultiModule {
 
-	public Rect guiArea;
+	[Tooltip("Normalized viewport rectangle indicating the area reserved for palette selection")]
+	public Rect guiArea = new Rect(0.75f, 0.1f, 3.49f, 2f);
+	[Tooltip("Button used to click on objects in the scene to select which material to replace")]
 	public int mouseButton = 1;
+	[Tooltip("List of materials available as paint")]
 	public Material[] materials;
+	[Tooltip("List of tags of objects we can paint on")]
 	public string[] paintableTags;
+	[Tooltip("Should we use the Legacy Unity GUI?")]
+	public bool useGUI = true;
 
 //	private int currentButton = 0;
 	private int selector = 0;
@@ -20,6 +26,9 @@ public class ClickPainter : MonoBehaviour {
 //	public GameObject previousObject;
 	[HideInInspector]
 	public Material[] _mats;
+
+	public HelpInfo help = new HelpInfo("This component allows the player to change the material on objects. You need to provide a list of materials to choose from, and " +
+		"a tag representing the objects that can be repainted. Legacy GUI is not recommended for mobile (in this case you must implement your own).");
 
 	void OnGUI () {
 		GUILayout.Window(101010,new Rect(guiArea.x * Screen.width, guiArea.y * Screen.height, guiArea.width * Screen.width, guiArea.height * Screen.height),MaterialWindow, "Paint Options");

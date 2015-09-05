@@ -1,19 +1,29 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Thruster : MonoBehaviour {
+public class Thruster : MultiModule {
 
+	[Tooltip("Are we currently thrusting?")]
 	public bool thrusting = false;
+	[Tooltip("How much thrust do we apply each fixed update?")]
 	public Vector3 thrust;
+	[Tooltip("If we are using an input axis, which one?")]
 	public string axis = "Vertical";
+	[Tooltip("How should the force be applied?")]
 	public Space space = Space.Self;
+	[Tooltip("Optional target to transfer force to")]
 	public GameObject target;
 
+	[Tooltip("Should we use an input axis to control the thrust level?")]
 	public bool useInputAxis = false;
+	[Tooltip("How sensitive is that axis?")]
 	public float inputSensitivity = 0.2f;
 
 	private Rigidbody rigid;
 	private bool useTargetRigidbody = false;
+
+	public HelpInfo help = new HelpInfo("This component adds thrust to a given Rigidbody. It also works with the 'InputVector' component (optionally) allthoug it can be used" +
+		" either by itself or with any message sender/toggle component");
 
 	void Start () {
 		if (GetComponent<Rigidbody>() == null && target == null) {

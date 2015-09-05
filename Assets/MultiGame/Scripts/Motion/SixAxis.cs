@@ -2,22 +2,36 @@
 using System.Collections;
 
 [RequireComponent (typeof(Rigidbody))]
-public class SixAxis : MonoBehaviour {
+public class SixAxis : MultiModule {
 
 	public float forwardThrust = 10.0f;
 	public float sidewaysThrust = 10.0f;
 	public float reverseThrust = 10.0f;
 	public float upwardThrust = 10.0f;
 	public float downwardThrust = 10.0f;
+	[Tooltip("How much dead space is in the center of the control stick")]
 	public float deadzone = 0.25f;
 	public KeyCode upKey = KeyCode.Space;
 	public KeyCode downKey = KeyCode.LeftShift;
-	public bool useLateUpdate = false;
-
+	[Tooltip("Should we update input after the main loop instead of during?")]
+	public bool useLateUpdate = true;
 	private Vector2 stickInput = Vector2.zero;
 	private bool goUp = false;
 	private bool goDown = false;
 	private Vector3 thrustVec = Vector3.zero;
+
+	[Tooltip("The rigidbody we will be applying force to")]
+	public Rigidbody body;
+
+	public HelpInfo help = new HelpInfo("This component is a player input controller allowing the user to fly in all directions, truly utilizing 3D space");
+
+	void Start () {
+		if (body == null)
+			body = GetComponent<Rigidbody>();
+		if (body == null) {
+			Debug.LogError("Six Axis " + gameObject.name + " needs a rigidbody assigned in the inspector or attached to the object to function");
+		}
+	}
 
 	void Update () {
 		if (!useLateUpdate)
@@ -47,6 +61,7 @@ public class SixAxis : MonoBehaviour {
 	}
 	
 	void FixedUpdate () {
+
 		if (stickInput.y > 0.0f)
 			thrustVec.z = forwardThrust * stickInput.y;
 		if (stickInput.y < 0.0f)
@@ -61,8 +76,7 @@ public class SixAxis : MonoBehaviour {
 			thrustVec.y = 0.0f;
 		thrustVec.x = stickInput.x * sidewaysThrust;
 
-
-		GetComponent<Rigidbody>().AddRelativeForce(thrustVec);
+		body.AddRelativeForce(thrustVec);
 		
 	}
 }

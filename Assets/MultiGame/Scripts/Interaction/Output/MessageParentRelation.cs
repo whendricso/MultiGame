@@ -1,10 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class MessageParentRelation : MonoBehaviour {
+public class MessageParentRelation : MultiModule {
 
+	[Tooltip("Object who'se parent we will change")]
 	public GameObject target;
+	[Tooltip("Parent we will attach/detatch from")]
 	public GameObject targetParent;
+
+	public HelpInfo help = new HelpInfo("This component allows something to be attached/detatched from a given parent when receiving the appropriate messages");
 
 	void Start () {
 		if (target == null)
@@ -29,8 +33,5 @@ public class MessageParentRelation : MonoBehaviour {
 		else
 			transform.parent = null;
 	}
-
-	public void Activate () {
-		Unparent();
-	}
+	
 }

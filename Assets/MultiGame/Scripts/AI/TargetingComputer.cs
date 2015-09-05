@@ -1,14 +1,24 @@
 using UnityEngine;
 using System.Collections;
 
-public class TargetingComputer : MonoBehaviour
+public class TargetingComputer : MultiModule
 {
+	[Tooltip("The base rigidbody this is parented to")]
 	public Rigidbody mainBody;
+	[Tooltip("How fast does our projectile travel?")]
 	public float shotSpeed;
+	[Tooltip("Should we fire at something specific, right now?")]
 	public GameObject target;
+	[Tooltip("Should we turn this object so it's Z-axis faces the target, with lead time taken into account?")]
 	public bool autoLook = true;//Automatically look at the target position?
+	[Tooltip("Should we constrain X to 0 during the turn operation?")]
 	public bool constrainX = false;
 
+	public HelpInfo help = new HelpInfo("This component points it's positive Z direction at the target, automatically taking into account lead distance. " +
+		"If set up correctly, this can create extremely accurate AI shooters. To make them less difficult, give them a slightly incorrect Shot Speed. Shot Speed assumes" +
+		" that the projectile experiences no drag, and travels in a straight line.");
+
+	[Tooltip("WARNING! SLOW OPERATION Should we output useful information to the console?")]
 	public bool debug = false;
 	
 	//velocities

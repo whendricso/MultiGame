@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PositionConstraint : MonoBehaviour {
+public class PositionConstraint : MultiModule {
 
 	public bool constrainX = false;
 	public float maxX = 0;
@@ -13,8 +13,7 @@ public class PositionConstraint : MonoBehaviour {
 	public float maxZ = 0;
 	public float minZ = 0;
 
-	[HideInInspector]
-	public Rigidbody body;
+	public HelpInfo help = new HelpInfo("This component forces a non-rigidbody into certain position constraints. Useful for 2.5D games.");
 
 	void LateUpdate () {
 		float _x = transform.position.x;

@@ -11,7 +11,7 @@ using System.Collections;
 /// </summary>
 /// 
 [RequireComponent (typeof (PhotonView))]
-public class PhotonPositionSync : MonoBehaviour {
+public class PhotonPositionSync : Photon.MonoBehaviour {
 	
 	//used to instantiate things conviniently via Photon
 	[HideInInspector]

@@ -2,15 +2,19 @@ using UnityEngine;
 using System.Collections;
 
 [RequireComponent (typeof(Rigidbody))]
-public class Bullet : MonoBehaviour {
+public class Bullet : MultiModule {
 	
+	[Tooltip("How fast does this projectile travel when it leaves the muzzle?")]
 	public float muzzleVelocity = 1500.0f;
+	[Tooltip("How much hurt?")]
 	public float damageValue = 25.0f;
+	[Tooltip("What, if anything, should we spawn at the hit position? (useful for explosions, decals, particles etc)")]
 	public GameObject bulletSplash;
 	private bool fired = false;
 	private Vector3 lastPosition;
+	[Tooltip("What layers can this projectile collide with?")]
 	public LayerMask rayMask;
-
+	[Tooltip("Message to be sent to the object we hit")]
 	public MessageManager.ManagedMessage message;
 
 	//[HideInInspector]
@@ -18,6 +22,8 @@ public class Bullet : MonoBehaviour {
 	
 	[HideInInspector]
 	public RaycastHit hinfo;
+
+	public HelpInfo help = new HelpInfo("THis component allows for physics-based projectiles to be used (as long as they deal damage on contact - not for bouncy grenades!)");
 
 	public bool debug = false;
 	

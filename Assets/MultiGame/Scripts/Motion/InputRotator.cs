@@ -1,9 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class InputRotator : MonoBehaviour {
+public class InputRotator : MultiModule {
 
+	[Tooltip("How much force to apply (X and Y are the only ones considered)")]
 	public Vector3 impetus;
+
+	public HelpInfo help = new HelpInfo("This component applies Transform rotation based on the horizontal and vertical axes.");
 	
 	void FixedUpdate () {
 		if (Mathf.Abs(Input.GetAxis("Horizontal")) > 0.02) {

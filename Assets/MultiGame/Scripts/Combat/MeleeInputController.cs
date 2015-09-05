@@ -2,25 +2,40 @@
 using System.Collections;
 
 [RequireComponent (typeof(AudioSource))]
-public class MeleeInputController : MonoBehaviour {
+public class MeleeInputController : MultiModule {
 
+	[Tooltip("The movement controller associated with this character")]
 	public GameObject controller;
+	[Tooltip("The root of the 3D model object, containing the Animator component we are controlling")]
 	public GameObject image;
-
+	
+	[Tooltip("The time it takes to reset the currently playing animation")]
 	public float animFadeTime = 0.25f;
+	[Tooltip("When we are blocking, what pose do we take? Single frame, or clamped animations work best.")]
 	public string blockAnimation;
+	[Tooltip("Maximum time we are allowed to block")]
 	public float blockTime = 0.325f;
+	[Tooltip("Key used to draw our weapon.")]
 	public KeyCode ready = KeyCode.Mouse0;
+	[Tooltip("Animation trigger we will activate when it's time for battle!")]
 	public string readyAnimation;//draw your weapons!
+	//TODO:Create a custom data type for each animation, instead of parallel arrays
+	[Tooltip("Key to press when we are done fighting")]
 	public KeyCode sheath = KeyCode.E;
+	[Tooltip("List of Mecanim Triggers we are going to set when attacking, in order, first to last. The last should be an epic combo move!")]
 	public string[] attackAnimations;
+	[Tooltip("The sound to play during each attack")]
 	public AudioClip[] attackSounds;
+	[Tooltip("Time to wait before playing each sound (time it so it lines up roughly with the moment of connection on the animation)")]
 	public float[] attackSoundDelays;
+	[Tooltip("The minimum time the player must wait after he previous click to advance the combo.")]
 	public float[] attackTimesMin;
-	public float[] attackTimesMax; 
+	[Tooltip("The maximum time the player can wait before hitting the attack button before the combo resets to 0 automatically.")]
+	public float[] attackTimesMax;
 
 	public enum Modes {Idle, Ready, Attack, Block};
 	//[System.NonSerialized]
+	[Tooltip("Default mode the player starts in")]
 	public Modes mode = Modes.Idle;
 
 	[System.NonSerialized]
@@ -32,10 +47,16 @@ public class MeleeInputController : MonoBehaviour {
 	[HideInInspector]
 	public MeleeWeaponAttributes meleeAttributes;
 
+	public HelpInfo help = new HelpInfo("This component allows the user to activate Mecanim states using triggers. The player time each attack correctly to move to the " +
+		"next one in the combo, based on the corresponding Attack Times min and max. To use this component, set up an equal number of attack animations, sound delays," +
+		"times min and max, for each attack you like. These" +
+		" lists are 'parallel' meaning that they must all be the same length, and the first animation in the Attack Animations list corresponds to the first item in" +
+		" all the other lists.");
+
 	void Start () {
 		meleeAttributes = GetComponentInChildren<MeleeWeaponAttributes>();
 		if (controller == null && image != null) {
-			Debug.LogError("Melee Input Controller " + gameObject.name + " needs a reference to an object with a compatible movement controller!");
+			Debug.LogError("Melee Input Controller " + gameObject.name + " needs a reference to an object with a movement controller!");
 			enabled = false;
 			return;
 		}
@@ -78,8 +99,9 @@ public class MeleeInputController : MonoBehaviour {
 		if (mode != Modes.Idle) {
 			if (mode == Modes.Block) {
 				if (image != null) {
-					if (image.GetComponent<Animation>() != null) {
-						image.GetComponent<Animation>().CrossFade (blockAnimation, animFadeTime);
+					if (image.GetComponent<Animator>() != null) {
+						image.GetComponent<Animator>().SetTrigger(blockAnimation);
+						//image.GetComponent<Animation>().CrossFade (blockAnimation, animFadeTime);
 					}
 				}
 			}
@@ -93,7 +115,8 @@ public class MeleeInputController : MonoBehaviour {
 							StopAllCoroutines();
 							StartCoroutine(Ready(attackTimesMax[selector]));
 							controller.SendMessage("ToggleMovementAnimations", false, SendMessageOptions.DontRequireReceiver);
-							image.GetComponent<Animation>().CrossFade(attackAnimations[selector], animFadeTime);
+							image.GetComponent<Animator>().SetTrigger(attackAnimations[selector]);
+							//image.GetComponent<Animation>().CrossFade(attackAnimations[selector], animFadeTime);
 							StartCoroutine(PlaySoundDelayed(attackSoundDelays[selector]));
 							StartCoroutine(ResetAnimation(attackTimesMax[selector]));
 						}
@@ -103,7 +126,7 @@ public class MeleeInputController : MonoBehaviour {
 				if (Input.GetMouseButtonUp(0)) {
 					if (attackTimesMin[selector] < (Time.time - lastClick) && (Time.time - lastClick) < attackTimesMax[selector]) {
 						if (image != null) {
-							if (image.GetComponent<Animation>() != null && attackAnimations.Length > 0) {
+							if (image.GetComponent<Animator>() != null && attackAnimations.Length > 0) {
 								StartCoroutine(ResetAnimation(attackTimesMin[selector]));
 							}
 						}
@@ -132,8 +155,9 @@ public class MeleeInputController : MonoBehaviour {
 		yield return new WaitForSeconds(delay);
 
 		if (image != null) {
-			if (image.GetComponent<Animation>() != null) {
-				image.GetComponent<Animation>().CrossFade (readyAnimation, animFadeTime);
+			if (image.GetComponent<Animator>() != null) {
+				image.GetComponent<Animator>().SetTrigger(readyAnimation);
+				//image.GetComponent<Animation>().CrossFade (readyAnimation, animFadeTime);
 			}
 		}
 

@@ -2,42 +2,66 @@ using UnityEngine;
 using System.Collections;
 
 [RequireComponent (typeof(AudioSource))]
-public class ModernGun : MonoBehaviour {
+public class ModernGun : MultiModule {
 	
 	public enum AimCorrectionTypes {None, Raycast, DistantPoint};
+	[Tooltip("What type of aim correction should we use? Raycast aims directly at what we point at, distant point aims at a point in the far distance representing our crosshair location (recommended for FPS games)")]
 	public AimCorrectionTypes aimCorrection = AimCorrectionTypes.None;
+	[Tooltip("Show how much ammo we currently have with a legacy Unity GUI?")]
 	public bool showAmmoGUI = true;
-	public Rect guiArea;
+	[Tooltip("Normalized viewport rectangle representing the area used by the legacy GUI, values between 0 and 1")]
+	public Rect guiArea = new Rect(0.01f, 0.9f, 0.2f, 0.09f);
 	public GUISkin guiSkin;
+	[Tooltip("What do we spawn from the muzzle of the gun?")]
 	public GameObject projectile;
+	[HideInInspector]
 	public GameObject reloadMessageReceiver;
+	[Tooltip("How many shots per mag?")]
 	public int magazineMax = 32;
 	[HideInInspector]
 	public int magazineCount;
 	[HideInInspector]
 	public bool reloading = false;
+	[Tooltip("Which clip type from Clip Inventory do we use?")]
 	public int clipType = 0;
 	public KeyCode reload = KeyCode.R;
+	[Tooltip("How long does it take us to reload?")]
 	public float reloadTime = 2.2f;
+	[Tooltip("A game object representing the exit point of the projectile")]
 	public GameObject muzzleTransform;
+	[Tooltip("An object spawned at the muzzle transform representing visual flash effects")]
 	public GameObject muzzleFlash;
+	[Tooltip("An optionally different flash spawn transform")]
 	public GameObject muzzleFlashSpawnTransform;
+	[Tooltip("How long should the flash object be alive?")]
 	public float flashDuration = 0.125f;
 	public AudioClip fireSound;
 	public AudioClip reloadSound;
+	[Tooltip("The worst sound you can hear in a firefight")]
 	public AudioClip ammoExhaustedClick;
+	[Tooltip("How long, in seconds, between each bullet?")]
 	public float refireTime = 0.4f;
+	[Tooltip("Minimum variation of a bullet from center")]
 	public float muzzleSpreadMin = 2.0f;
+	[Tooltip("Maximum variation of a bullet from center")]
 	public float muzzleSpreadMax = 10.0f;
+	[Tooltip("How much the spread increases each time a projectile is discharged")]
 	public float roundSpreadCost = 1.4f;
+	[Tooltip("How fast the spread decreases")]
 	public float refocusRate = 1.2f;
 	private float currentSpread;
 	private float refireCounter;
 	private Vector3 muzzleOrientation;
+	[Tooltip("A nice crosshair texture")]
 	public Texture2D crosshairs;
+	[Tooltip("How much to increase the size of the crosshairs when indicating spread")]
 	public float crossSpreadScalar = 1.0f;
 	
 	private bool saved = false;
+
+	public HelpInfo help = new HelpInfo("Althoug originally developed for AK-47s and the like, this can be used for anything from a crossbow to a plasma rifle. It's a " +
+		"multipurpose solution to get some decent FPS action going on. You will need to also set up a projectile prefab and some ammo handling using the included 'ClipInventory'" +
+		" and related functionality. Clips are discarded on reload.");
 	
 	void Start () {
 		//PlayerPrefs.DeleteAll();

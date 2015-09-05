@@ -1,29 +1,44 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class GuardModule : MonoBehaviour {
+public class GuardModule : MultiModule {
 
+	[Tooltip("What are we trying to guard?")]
 	public GameObject objective;
 	[System.NonSerialized]
 	public Vector3 objectivePosition;
 	[System.NonSerialized]
 	public Vector3 persistentMoveTarget;
 
+	[Tooltip("Who you wan' me kill?")]
 	public GameObject killTarget;
+	[Tooltip("How often do I think about changing targets?")]
 	public float targetCooldownTime = 6.0f;
 
+	[Tooltip("How far from my objective can I travel?")]
 	public float guardRange = 30.0f;
+	[Tooltip("How far do I turn while guarding a position?")]
 	public float guardingRotation = 30.0f;
+	[Tooltip("How varied, in degrees, is that rotation?")]
 	public float rotationVariance = 15.0f;
+	[Tooltip("How many seconds between patrol times?")]
 	public float wanderInterval = 15.0f;
+	[Tooltip("How long do I walk for?")]
 	public float wanderWalkTime = 3.0f;
 	private float wanderCounter;
 
+	[Tooltip("Do I change orientation automatically?")]
 	public bool autoLookAround = true;
+	[Tooltip("Do I wander about the area?")]
 	public bool wander = true;
 	private bool wandering = false;
 	private bool returning = false;
 
+	public HelpInfo help = new HelpInfo("Add to an object representing an AI guard. This should be an empty object with a 3D model of a guard parented to it." +
+		"\nBy \"Guard\" we mean an AI that should stay in a given area or near a given object, and attack enemies that provoke it. To use this effectively, we recommend" +
+		" also adding a NavModule or similar, since this guard will probably need to get around. Also, add some sort of combat component, or attach a turret so it can do harm.");
+
+	[Tooltip("WARNING! SLOW OPERATION Should I output information to the console?")]
 	public bool debug = false;
 
 	void Awake () {

@@ -1,17 +1,26 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class TimedMessage : MonoBehaviour {
+public class TimedMessage : MultiModule {
 
+	[Tooltip("How long does the timer last?")]
 	public float timeDelay = 0.0f;
+	[Tooltip("How much should that amount vary?")]
 	public float variance = 0.0f;
 	[HideInInspector]
 	public string message = "";
+	[Tooltip("What message should we send?")]
 	public MessageManager.ManagedMessage managedMessage;
+	[Tooltip("Message target override")]
 	public GameObject target;
+	[Tooltip("Should the timer start automatically as soon as it's created?")]
 	public bool autoStart = true;
+	[Tooltip("Does the timer repeat automatically>")]
 	public bool looping = false;
+	[Tooltip("Is this timer restricted to starting just one task at a time? (if true, will abort other tasks that would otherwise be stacked on top)")]
 	public bool oneAtATime = true;
+
+	public HelpInfo help = new HelpInfo("This component sends messages based on a timer.");
 
 	// Use this for initialization
 	void Start () {

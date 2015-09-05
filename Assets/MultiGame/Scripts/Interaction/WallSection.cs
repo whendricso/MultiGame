@@ -5,17 +5,25 @@ using System.Collections;
 /// <summary>
 /// Wall section
 /// </summary>
-public class WallSection : MonoBehaviour {
+public class WallSection : MultiModule {
 	
 	//wall sections
+	[Tooltip("Lonely wall prefab, no neighbors")]
 	public GameObject lone;//prefab for a lone wall section with no neighbors.
+	[Tooltip("Straight line wall, across the X axis")]
 	public GameObject inlineConnection;//prefab for a wall that is connected in a line
+	[Tooltip("The bottom of the T should face down the -z")]
 	public GameObject tIntersection;//the short road should run down the relative -z
+	[Tooltip("4-way cross section")]
 	public GameObject intersection;//a 4-way intersection
+	[Tooltip("Should go down the -Z and +X axes")]
 	public GameObject dogLeg;//L-bend, with the roads going down the relative -Z and +X axes
 	
+	[Tooltip("Where to offset the raycast from origin to check for neighbors")]
 	public Vector3 raycastOffset = Vector3.up;
+	[Tooltip("Distance from origin+offset to raycast out for neighbors, goes in cardinal directions")]
 	public float rayLength = 2.0f;
+	[Tooltip("Collision mask for objects that count as walls")]
 	public LayerMask rayMask;
 
 	public bool debug = false;
@@ -24,6 +32,9 @@ public class WallSection : MonoBehaviour {
 	private bool n, s, e, w = false;
 
 	private GameObject myWall;
+
+	public HelpInfo help = new HelpInfo("This component swaps out a prefab based on neighboring rules. It also rotates the object so you don't need a prefab for each direction." +
+		" Great for dungeon crawlers, or user-created walls.");
 	
 	void Start () {
 		Debug.Log("" + pN);

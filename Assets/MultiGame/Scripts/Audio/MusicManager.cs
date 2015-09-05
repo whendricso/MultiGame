@@ -2,30 +2,42 @@ using UnityEngine;
 using System.Collections;
 
 [RequireComponent (typeof(AudioSource))]
-public class MusicManager : MonoBehaviour {
+public class MusicManager : MultiModule {
 	
-	public AudioClip startSplashSound;//if supplied, play this sound before any music begins
+	[Tooltip("If supplied, play this before the first track")]
+	public AudioClip startSplashSound;
 	public float musicVolume = 0.8f;
 	
+	[Tooltip("Should the music play now?")]
 	public bool enableMusic = true;
 	
 	public enum MusicCategories {One, Two, Three};
+	[Tooltip("What is the default category of music?")]
 	public MusicCategories musicCategory = MusicCategories.One;
+	[Tooltip("Allow the user to select from one of the other categories, or just use one?")]
 	public bool allowExtraCategories = true;
 	
 	public GUISkin guiSkin;
+	[System.NonSerialized]
 	public bool showAudioGUI = false;
-	public Rect audioGUI;
-	
+	[Tooltip("Normalized viewport rectangle representing the are the GUI is drawn in, numbers between 0 and 1")]
+	public Rect audioGUI = new Rect(0.01f, 0.01f, 0.3f, 0.4f);
+
 	public string category1Name = "";
+	[Tooltip("List of all songs, in order, in the category")]
 	public AudioClip[] category1;
 	private int current1 = 0;
 	public string category2Name = "";
+	[Tooltip("List of all songs, in order, in the category")]
 	public AudioClip[] category2;
 	private int current2 = 0;
 	public string category3Name = "";
+	[Tooltip("List of all songs, in order, in the category")]
 	public AudioClip[] category3;
 	private int current3 = 0;
+
+	public HelpInfo help = new HelpInfo("This component allows the user to adjust the volume of music, or (if enabled by you) select from one of 3 musical sets. It " +
+		"provides generic music handling functionality");
 	
 	void Start () {
 		if (startSplashSound != null) {

@@ -2,16 +2,21 @@
 using System.Collections;
 
 [RequireComponent (typeof(Rigidbody))]
-public class PhysicsToggle : MonoBehaviour {
+public class PhysicsToggle : MultiModule {
 
+	[Tooltip("Do we also affect gravity?")]
 	public bool toggleGravity = true;
+	[Tooltip("Is there a delay when toggling?")]
 	public float delay = 0.0f;
+	[Tooltip("Should we force any movement to stop?")]
 	public bool nullifyMotion = false;
-	public float brakingDrag = 10.0f;
+//	public float brakingDrag = 10.0f;
 
 	MeshCollider _coll/* = GetComponent<MeshCollider>()*/;
 //	private float originalDrag;
 //	private float originalAngular;
+
+	public HelpInfo help = new HelpInfo("This component allows the physics simulation of a given object to be toggled based on messages.");
 
 	void Start () {
 //		originalDrag = GetComponent<Rigidbody>().drag;

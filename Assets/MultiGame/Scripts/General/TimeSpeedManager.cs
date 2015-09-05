@@ -1,11 +1,15 @@
 using UnityEngine;
 using System.Collections;
 
-public class TimeSpeedManager : MonoBehaviour {
+public class TimeSpeedManager : MultiModule {
 
+	[Tooltip("How fast is time passing? 1 = normal")]
 	public float tScale = 1.0f;
+	[Tooltip("how fast does time return to normal?")]
 	public float recoveryRate = 0f;
-	// Update is called once per frame
+
+	public HelpInfo help = new HelpInfo("This component allows the speed of the game to be changed. SetRecoveryRate and SetTimeScale both take a floating point value.");
+
 	void Update () {
 		Time.timeScale = tScale;
 		if (recoveryRate != 0) {
