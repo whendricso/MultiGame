@@ -17,13 +17,19 @@ public class Bullet : MultiModule {
 	[Tooltip("Message to be sent to the object we hit")]
 	public MessageManager.ManagedMessage message;
 
-	//[HideInInspector]
+	[System.NonSerialized]
 	public GameObject owner;
 	
 	[HideInInspector]
 	public RaycastHit hinfo;
 
-	public HelpInfo help = new HelpInfo("THis component allows for physics-based projectiles to be used (as long as they deal damage on contact - not for bouncy grenades!)");
+	public HelpInfo help = new HelpInfo("This component allows for physics-based projectiles to be used (as long as they deal damage on contact - not for bouncy grenades!)" +
+		"\nSends the 'ModifyHealth' message with -damage to the object that is hit" +
+		"\nSends the 'AttackedBy' message with a reference to the owner object or null if none assigned. The 'Modern Gun' component sets this automatically for use by AI." +
+		"\n\n" +
+		"To use this for a standard bullet, simply add it to an object and adjust the settings. Set the Rigidbody properties you want, and remove colliders. This component does not use regular colliders" +
+		" but instead checks to see if it has passed through something, and if it has, it 'explodes' at the point of impact. By adding a prefab to 'Bullet Splash' you can create" +
+		" explosive projectiles, bullet hole decals, etc.");
 
 	public bool debug = false;
 	

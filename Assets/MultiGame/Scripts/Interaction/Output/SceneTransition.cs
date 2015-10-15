@@ -4,13 +4,16 @@ using System.Collections;
 public class SceneTransition : MultiModule {
 	
 	[Tooltip("Name of the Scene we will load, must be added to Build Settings")]
-	public string mission;
+	public string targetScene;
 	[Tooltip("Change the scene as soon as this object is created?")]
 	public bool changeOnStart = false;
 	[Tooltip("Optional delay for mission change")]
 	public float timeDelay = 0.0f;
 
-	public HelpInfo help = new HelpInfo("This component implements single-player scene changes. Not suitable for multiplayer.");
+	public HelpInfo help = new HelpInfo("This component implements single-player scene changes. Not suitable for multiplayer." +
+		"\n\n" +
+		"To use this component, first you need a scene you want to change to saved and added to File -> Build Settings -> Add Current (to add a new scene, you must" +
+		" change to it first). Next, type it's exact name into 'Target Scene' and you're all set. This component receives the 'ChangeMission' message to activate it.");
 
 	void Start () {
 		if (changeOnStart)
@@ -23,11 +26,7 @@ public class SceneTransition : MultiModule {
 
 	IEnumerator Transition (float delay) {
 		yield return new WaitForSeconds(delay);
-		Application.LoadLevel(mission);
-	}
-
-	public void Activate () {
-		ChangeMission();
+		Application.LoadLevel(targetScene);
 	}
 
 }

@@ -8,7 +8,8 @@ public class OnDestruct : MultiModule {
 	[Tooltip("Message to be sent when this object is destroyed")]
 	public MessageManager.ManagedMessage message;
 	public HelpInfo help = new HelpInfo("This component allows messages to be sent when an object is destroyed.");
-	
+
+	public bool debug = false;
 
 	void Start () {
 		if (target == null)
@@ -24,6 +25,9 @@ public class OnDestruct : MultiModule {
 	void OnDestroy () {
 		if (message.message == "")
 			return;
+
+		if (debug)
+			Debug.Log("On Destruct " + gameObject.name + "called OnDestroy, sending message " + message.message);
 
 		MessageManager.Send(message);
 	}

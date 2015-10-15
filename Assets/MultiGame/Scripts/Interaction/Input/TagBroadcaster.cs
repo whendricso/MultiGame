@@ -16,9 +16,9 @@ public class TagBroadcaster : MultiModule {
 	public HelpInfo help = new HelpInfo("This component sends messages to all objects of a given tag. Can activate automatically, or based on other message senders with " +
 		"'Broadcast'");
 
+	public bool debug = false;
+
 	void Start () {
-		if (string.IsNullOrEmpty( message.message))
-			message.message = "Activate";//Activate is the global default message
 		if (onStart) {
 			Broadcast();
 		}
@@ -35,9 +35,14 @@ public class TagBroadcaster : MultiModule {
 	}
 
 	public void Broadcast () {
-		if (message.target != null)
+		if (message.target != null) {
+			if (debug)
+				Debug.Log("Broadcasting " + message.message + " to " + message.target.name);
 			MessageManager.SendTo(message, message.target);
+		}
 		else {
+			if (debug)
+				Debug.Log("Broadcasting to tag " + targetTag);
 			foreach (GameObject obj in GameObject.FindGameObjectsWithTag(targetTag))
 				MessageManager.SendTo(message, obj);
 		}

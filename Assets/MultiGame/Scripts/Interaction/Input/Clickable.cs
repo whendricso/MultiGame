@@ -12,7 +12,8 @@ public class Clickable : MultiModule {
 	[Tooltip("Does the user need to hold down a key while clicking?")]
 	public KeyCode modifier = KeyCode.None;
 
-	public HelpInfo help = new HelpInfo("This component allows a message to be sent when this object's collider is clicked.");
+	public HelpInfo help = new HelpInfo("This component allows a message to be sent when this object's collider is clicked. If you don't see the message you want, click " +
+		"'Rescan For Messages' and MultiGame will build a new list.");
 	
 	void Start () {
 		if (message.target == null) {

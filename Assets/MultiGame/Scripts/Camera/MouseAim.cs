@@ -35,9 +35,9 @@ public class MouseAim : MultiModule {
 		bool lastLockCursor = lockCursor;
 		lockCursor = true;
 		
-		Builder builder = GetComponent<Builder>();
-		if (builder != null)
-			lockCursor = builder.LockCursor;
+//		Builder builder = GetComponent<Builder>();
+//		if (builder != null)
+//			lockCursor = builder.LockCursor;
 		
 		if (lockCursor) {
 			rotateOn = true;

@@ -54,6 +54,10 @@ public class MessageManager : MonoBehaviour {
 	public static void Send (ManagedMessage managedMessage) {
 		if (managedMessage.message == "--none--")
 			return;
+		if (managedMessage.target == null) {
+			Debug.LogError("Message " + managedMessage.message + " does not have a target assigned in the inspector, and none can be inferred! Please assign a target manually.");
+			return;
+		}
 //		if (string.IsNullOrEmpty( managedMessage.message))
 //			managedMessage.message = "Activate";
 		switch (managedMessage.parameterMode) {

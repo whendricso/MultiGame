@@ -4,6 +4,11 @@ using System.Collections;
 [RequireComponent(typeof(NavMeshAgent))]
 public class NavModule : MultiModule {
 
+	[System.NonSerialized]
+	public Animator anim;
+	[Tooltip("A float in your Mecanim controller representing movement speed. Must be in range between 0 and 1 where 0 is standing still and 1 is full sprint")]
+	public string animatorMovementFloat;
+
 	[Tooltip("Should we always move towards a specific target?")]
 	public GameObject navTarget;
 	private Vector3 targetPosition;
@@ -32,6 +37,8 @@ public class NavModule : MultiModule {
 	public bool debug = false;
 
 	void Awake () {
+		anim = GetComponent<Animator>();
+
 		lastTouchTime = Time.time;
 		if (avoidanceDetector != null)
 			detector = avoidanceDetector.GetComponent<AvoidanceDetector>();
@@ -58,6 +65,9 @@ public class NavModule : MultiModule {
 			targetPosition = transform.position;
 			return;
 		}
+
+		if (anim != null && !string.IsNullOrEmpty(animatorMovementFloat))
+			anim.SetFloat(animatorMovementFloat, (agent.velocity.magnitude/ agent.speed));
 
 		recalcTimer -= Time.deltaTime;
 		if (recalcTimer <= 0)
@@ -150,7 +160,7 @@ public class NavModule : MultiModule {
 
 	public void MoveTo (Vector3 _destination) {
 		if(debug)
-			Debug.Log ("Nav Moduel " + gameObject.name + " moving to " + _destination);
+			Debug.Log ("Nav Module " + gameObject.name + " moving to " + _destination);
 		targetPosition = _destination;
 		BeginPathingTowardsTarget();
 	}

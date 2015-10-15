@@ -39,4 +39,8 @@ public class MessageAnimator : MultiModule {
 		else
 			animator.SetTrigger(returnTrigger);
 	}
+
+	public void TriggerSpecificAnimation (string _trigger) {
+			animator.SetTrigger(_trigger);
+	}
 }

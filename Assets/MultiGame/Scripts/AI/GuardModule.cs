@@ -38,7 +38,7 @@ public class GuardModule : MultiModule {
 		"\nBy \"Guard\" we mean an AI that should stay in a given area or near a given object, and attack enemies that provoke it. To use this effectively, we recommend" +
 		" also adding a NavModule or similar, since this guard will probably need to get around. Also, add some sort of combat component, or attach a turret so it can do harm.");
 
-	[Tooltip("WARNING! SLOW OPERATION Should I output information to the console?")]
+	[Tooltip("Should I output information to the console?")]
 	public bool debug = false;
 
 	void Awake () {

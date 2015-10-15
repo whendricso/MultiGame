@@ -76,7 +76,10 @@ public class MouseCommander : MultiModule {
 
 	public HelpInfo help = new HelpInfo("This component implements RTS-style camera motion and object deployment. Legacy GUI is not recommended for mobile. To use, add this " +
 		"to your MainCamera (which must be tagged 'MainCamera') and then set up a list of deployable objects. This works with the 'ResourceManager' component (optionally) to " +
-		"allow for a resource-based experience.");
+		"allow for a resource-based experience." +
+		"\n\n" +
+		"SelectDeploy takes an integer corresponding to which deploy you want to select (Useful for using other GUI solutions)\n" +
+		"");
 
 	[Tooltip("Send useful information to the console")]
 	public bool debug = false;
@@ -384,11 +387,11 @@ public class MouseCommander : MultiModule {
 		return ret;
 	}
 
-	public void SwapToggle () {
+	public void ToggleBuildGUI () {
 		useGUI = !useGUI;
 	}
 
-	public void ToggleBuildGui (bool _enabled) {
+	void ToggleBuildGui (bool _enabled) {
 		useGUI = _enabled;
 	}
 

@@ -53,7 +53,8 @@ public class TimedMessage : MultiModule {
 
 	IEnumerator DelayedMessage (float delay) {
 		yield return new WaitForSeconds(delay);
-		MessageManager.Send(managedMessage);//target.SendMessage(message, SendMessageOptions.DontRequireReceiver);
+		if (this.enabled)
+			MessageManager.Send(managedMessage);//target.SendMessage(message, SendMessageOptions.DontRequireReceiver);
 		if (looping)
 			StartCoroutine(DelayedMessage(timeDelay + Random.Range(-variance, variance)));
 	}

@@ -16,7 +16,8 @@ public class ClipInventory : MultiModule {
 	public bool autoSave = true;
 	public float autoSaveInterval = 30.0f;
 
-	public HelpInfo help = new HelpInfo("This component is an inventory that goes on the Player object and is required for the use of 'ModernGun' objects");
+	public HelpInfo help = new HelpInfo("This component is an inventory that goes on the Player object and is required for the use of 'ModernGun' objects. To use, " +
+		"simply decide how many ammo types you would like. Then, input that as the 'Size' for both Num Clips and Max Clips. Finally set a maximum and initial value for each.");
 	
 	void Start () {
 		if (maxClips.Length != numClips.Length) {

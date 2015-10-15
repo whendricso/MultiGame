@@ -2,8 +2,14 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class WorldDataVoxelizer : MonoBehaviour {
+public class WorldDataVoxelizer : MultiModule {
 
+	public HelpInfo help = new HelpInfo("This component does not yet work, so it has been disabled. But, the source code is included in case you want to fiddle around with it." +
+		"\n\n" +
+		"devsupport@techdrone.com" +
+		"\nHave fun :)");
+
+	/*
 	public bool showEditorVoxels = true;
 	public enum VoxelizationModes {ManualOnly, OnStart, EditorOnly, Both};
 	public VoxelizationModes voxelizationMode = VoxelizationModes.Both;
@@ -137,5 +143,5 @@ public class WorldDataVoxelizer : MonoBehaviour {
 	public void UpdateVoxel (VInt _position) {
 
 	}
-
+*/
 }

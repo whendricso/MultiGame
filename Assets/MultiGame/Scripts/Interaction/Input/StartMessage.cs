@@ -10,6 +10,8 @@ public class StartMessage : MultiModule {
 
 	void Start () {
 		foreach (MessageManager.ManagedMessage _message in messages) {
+			if (_message.target == null)
+				_message.target = gameObject;
 			MessageManager.Send(_message);
 		}
 	}

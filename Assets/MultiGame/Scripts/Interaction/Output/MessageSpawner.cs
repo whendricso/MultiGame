@@ -18,10 +18,6 @@ public class MessageSpawner : MultiModule {
 			spawnPoint = gameObject;
 	}
 
-	public void Activate () {
-		Spawn ();
-	}
-
 	public void Spawn () {
 		if(!enabled)
 			return;

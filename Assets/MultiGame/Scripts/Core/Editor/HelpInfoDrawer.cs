@@ -15,7 +15,7 @@ public class HelpInfoDrawer : PropertyDrawer {
 
 	public override float GetPropertyHeight (SerializedProperty property, GUIContent label) {
 		if (property.FindPropertyRelative("showInfo").boolValue == true)
-			return 144f;
+			return 192f;
 		else
 			return 16f;
 	}

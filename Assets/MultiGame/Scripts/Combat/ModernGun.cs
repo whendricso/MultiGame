@@ -3,7 +3,11 @@ using System.Collections;
 
 [RequireComponent (typeof(AudioSource))]
 public class ModernGun : MultiModule {
-	
+
+	[Tooltip("Should we use Unity's built-in fire button? If false, send 'Fire' each frame.")]
+	public bool useFireButton = true;
+	[Tooltip("The model of the weapon, if unassigned and no Animator found, no animations will be sent!")]
+	public GameObject image;
 	public enum AimCorrectionTypes {None, Raycast, DistantPoint};
 	[Tooltip("What type of aim correction should we use? Raycast aims directly at what we point at, distant point aims at a point in the far distance representing our crosshair location (recommended for FPS games)")]
 	public AimCorrectionTypes aimCorrection = AimCorrectionTypes.None;
@@ -35,10 +39,26 @@ public class ModernGun : MultiModule {
 	public GameObject muzzleFlashSpawnTransform;
 	[Tooltip("How long should the flash object be alive?")]
 	public float flashDuration = 0.125f;
+
 	public AudioClip fireSound;
+	[Tooltip("A Mecanim trigger that will be sent to the Image")]
+	public string mecanimFireTrigger;
+	[Tooltip("Message sent on successfully firing a round")]
+	public MessageManager.ManagedMessage fireMessage;
+
 	public AudioClip reloadSound;
+	[Tooltip("A Mecanim trigger that will be sent to the Image")]
+	public string mecanimReloadTrigger;
+	[Tooltip("Message sent when starting to reload")]
+	public MessageManager.ManagedMessage reloadingMessage;
+
 	[Tooltip("The worst sound you can hear in a firefight")]
 	public AudioClip ammoExhaustedClick;
+	[Tooltip("A Mecanim trigger that will be sent to the Image")]
+	public string mecanimAmmoExhaustedTrigger;
+	[Tooltip("Message sent when we have run out of ammo")]
+	public MessageManager.ManagedMessage ammoExhaustedMessage;
+
 	[Tooltip("How long, in seconds, between each bullet?")]
 	public float refireTime = 0.4f;
 	[Tooltip("Minimum variation of a bullet from center")]
@@ -64,6 +84,8 @@ public class ModernGun : MultiModule {
 		" and related functionality. Clips are discarded on reload.");
 	
 	void Start () {
+		if (image == null)
+			image = GetComponentInChildren<Animator>().gameObject;
 		//PlayerPrefs.DeleteAll();
 //		GameObject player = GameObject.FindGameObjectWithTag("Player");
 		//ClipInventory clipInv = player.GetComponent<ClipInventory>();
@@ -77,6 +99,12 @@ public class ModernGun : MultiModule {
 		if (muzzleTransform == null)
 			Debug.LogError("ModernGun requires a muzzle transform!");
 		muzzleOrientation = muzzleTransform.transform.localEulerAngles;
+	}
+
+	void OnValidate () {
+		MessageManager.UpdateMessageGUI(ref fireMessage, gameObject);
+		MessageManager.UpdateMessageGUI(ref reloadingMessage, gameObject);
+		MessageManager.UpdateMessageGUI(ref ammoExhaustedMessage, gameObject);
 	}
 	
 	void OnGUI () {
@@ -103,12 +131,14 @@ public class ModernGun : MultiModule {
 			currentSpread -= Time.deltaTime * refocusRate;
 		refireCounter -= Time.deltaTime;
 		if (Screen.lockCursor) {
-			if ((Input.GetMouseButton(0) && refireCounter <= 0))
+			if (Input.GetButton("Fire1"))
 				Fire ();
 		}
 	}
 	
 	public void Fire() {
+		if (refireCounter > 0)
+			return;
 		RaycastHit hinfo;
 		if (aimCorrection == AimCorrectionTypes.Raycast) {
 			Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width/2,Screen.height/2,0.0f));
@@ -141,8 +171,13 @@ public class ModernGun : MultiModule {
 		}
 		
 		if (magazineCount <= 0 && !reloading) {
+			if (image != null && !string.IsNullOrEmpty(mecanimAmmoExhaustedTrigger))
+				image.GetComponent<Animator>().SetTrigger(mecanimAmmoExhaustedTrigger);
+
 			if (ammoExhaustedClick != null)
 				GetComponent<AudioSource>().PlayOneShot(ammoExhaustedClick);
+			if (!string.IsNullOrEmpty(ammoExhaustedMessage.message))
+				MessageManager.Send(ammoExhaustedMessage);
 			if (reloadMessageReceiver != null)
 				reloadMessageReceiver.SendMessage("Reload",SendMessageOptions.DontRequireReceiver);
 			if (reloadMessageReceiver != gameObject)
@@ -150,6 +185,10 @@ public class ModernGun : MultiModule {
 			return;
 		}
 		if (magazineCount > 0 && !reloading) {
+
+			if (image != null && !string.IsNullOrEmpty(mecanimFireTrigger))
+				image.GetComponent<Animator>().SetTrigger(mecanimFireTrigger);
+
 			magazineCount -= 1;
 			currentSpread += roundSpreadCost;
 			if (currentSpread > muzzleSpreadMax)
@@ -183,6 +222,8 @@ public class ModernGun : MultiModule {
 			}
 			if (fireSound != null)
 				GetComponent<AudioSource>().PlayOneShot(fireSound);
+			if (!string.IsNullOrEmpty(fireMessage.message))
+				MessageManager.Send(fireMessage);
 		}
 	}
 	
@@ -191,6 +232,10 @@ public class ModernGun : MultiModule {
 		ClipInventory clipInv = player.GetComponent<ClipInventory>();
 		if (clipInv.numClips[clipType] > 0) {
 			clipInv.numClips[clipType]--;
+			if (image != null && !string.IsNullOrEmpty(mecanimReloadTrigger))
+				image.GetComponent<Animator>().SetTrigger(mecanimReloadTrigger);
+			if (!string.IsNullOrEmpty(reloadingMessage.message))
+				MessageManager.Send(reloadingMessage);
 			reloading = true;
 			StartCoroutine(FinishReload(reloadTime));
 		}
