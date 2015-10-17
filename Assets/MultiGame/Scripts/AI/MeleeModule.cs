@@ -35,7 +35,7 @@ public class MeleeModule : MultiModule {
 
 	void Start () {
 		if (anim == null)
-			anim = GetComponent<Animator>();
+			anim = GetComponentInChildren<Animator>();
 		if (damageRayOrigin == null) {
 			Debug.LogError("Melee Module " + gameObject.name + " requires a Damage Ray Origin to cast an attack ray into the scene");
 			enabled = false;

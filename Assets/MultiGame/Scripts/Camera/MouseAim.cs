@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-using UnityStandardAssets.Characters.FirstPerson;
+//using UnityStandardAssets.Characters.FirstPerson;
 
 public class MouseAim : MultiModule {
 

@@ -37,7 +37,7 @@ public class NavModule : MultiModule {
 	public bool debug = false;
 
 	void Awake () {
-		anim = GetComponent<Animator>();
+		anim = GetComponentInChildren<Animator>();
 
 		lastTouchTime = Time.time;
 		if (avoidanceDetector != null)
