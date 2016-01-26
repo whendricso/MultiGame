@@ -1,46 +1,50 @@
 ﻿using UnityEngine;
 using System.Collections;
+using MultiGame;
 
-public class CursorLock : MultiModule {
+namespace MultiGame {
 
-	[Tooltip("List of keys that unlock the mouse")]
-	public KeyCode[] unLockKeys = new KeyCode[] {KeyCode.Escape, KeyCode.LeftControl};
-	[Tooltip("List of keys that lock the mouse")]
-	public KeyCode[] lockKeys = new KeyCode[] {KeyCode.W, KeyCode.A, KeyCode.S, KeyCode.D};
-	[System.NonSerialized]
-	public bool lockOnClick = false;
+	public class CursorLock : MultiModule {
 
-	public HelpInfo help = new HelpInfo("This component allows the cursor to hide/unhide based on messages sent from other components, or just when the player clicks on the game.");
+		[Tooltip("List of keys that unlock the mouse")]
+		public KeyCode[] unLockKeys = new KeyCode[] {KeyCode.Escape, KeyCode.LeftControl};
+		[Tooltip("List of keys that lock the mouse")]
+		public KeyCode[] lockKeys = new KeyCode[] {KeyCode.W, KeyCode.A, KeyCode.S, KeyCode.D};
+		[System.NonSerialized]
+		public bool lockOnClick = false;
 
-	void Update () {
-		if (lockOnClick)
-			LockOnClick();
+		public HelpInfo help = new HelpInfo("This component allows the cursor to hide/unhide based on messages sent from other components, or just when the player clicks on the game.");
 
-		foreach (KeyCode _kc in lockKeys) {
-			if (Input.GetKey(_kc))
+		void Update () {
+			if (lockOnClick)
+				LockOnClick();
+
+			foreach (KeyCode _kc in lockKeys) {
+				if (Input.GetKey(_kc))
+					LockMouse();
+			}
+
+			foreach (KeyCode _kc in unLockKeys) {
+				if (Input.GetKey(_kc))
+					UnlockMouse();
+			}
+		}
+
+		void LockOnClick () {
+			for (int i = 0; i < 3; i++)
+			if (Input.GetMouseButton(i)) {
 				LockMouse();
+			}
 		}
 
-		foreach (KeyCode _kc in unLockKeys) {
-			if (Input.GetKey(_kc))
-				UnlockMouse();
+		public void LockMouse () {
+			Cursor.lockState = CursorLockMode.Locked;
+			Cursor.visible = false;
 		}
-	}
 
-	void LockOnClick () {
-		for (int i = 0; i < 3; i++)
-		if (Input.GetMouseButton(i)) {
-			LockMouse();
+		public void UnlockMouse () {
+			Cursor.lockState = CursorLockMode.None;
+			Cursor.visible = true;
 		}
-	}
-
-	public void LockMouse () {
-		Cursor.lockState = CursorLockMode.Locked;
-		Cursor.visible = false;
-	}
-
-	public void UnlockMouse () {
-		Cursor.lockState = CursorLockMode.None;
-		Cursor.visible = true;
 	}
 }

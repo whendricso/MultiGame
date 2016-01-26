@@ -1,35 +1,38 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using MultiGame;
 
-public class PlanarYDestructor : MultiModule {
-	
-	[Tooltip("The depth at which we must pass under before being automatically destroyed")]
-	public float minimumYLevel = -1000;//destroy the object if it falls below this plane
+namespace MultiGame {
 
-	[Tooltip("Objects we should spawn if killed in this way")]
-	public List<GameObject> deathPrefabs = new List<GameObject>();
-	[Tooltip("A message we should send if we are killed in this way")]
-	public MessageManager.ManagedMessage message;
+	public class PlanarYDestructor : MultiModule {
+		
+		[Tooltip("The depth at which we must pass under before being automatically destroyed")]
+		public float minimumYLevel = -1000;//destroy the object if it falls below this plane
 
-	public HelpInfo help = new HelpInfo("This component destroys an object if it passes below a given Y value. You definitely need to put this on yout Player object in case" +
-		" they fall through the level!");
+		[Tooltip("Objects we should spawn if killed in this way")]
+		public List<GameObject> deathPrefabs = new List<GameObject>();
+		[Tooltip("A message we should send if we are killed in this way")]
+		public MessageManager.ManagedMessage message;
 
-	void OnValidate () {
-		MessageManager.UpdateMessageGUI(ref message, gameObject);
-	}
+		public HelpInfo help = new HelpInfo("This component destroys an object if it passes below a given Y value. You definitely need to put this on yout Player object in case" +
+			" they fall through the level!");
 
-	void Update () {
-		if (transform.position.y <= minimumYLevel)
-			Destruct();
-	}
-
-	public void Destruct () {
-		if (deathPrefabs.Count >= 1) {
-		foreach (GameObject _gobj in deathPrefabs)
-			GameObject.Instantiate(_gobj,transform.position, transform.rotation);
+		void OnValidate () {
+			MessageManager.UpdateMessageGUI(ref message, gameObject);
 		}
-		Destroy(gameObject);
+
+		void Update () {
+			if (transform.position.y <= minimumYLevel)
+				Destruct();
+		}
+
+		public void Destruct () {
+			if (deathPrefabs.Count >= 1) {
+			foreach (GameObject _gobj in deathPrefabs)
+				GameObject.Instantiate(_gobj,transform.position, transform.rotation);
+			}
+			Destroy(gameObject);
+		}
 	}
 }
-

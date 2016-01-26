@@ -1,55 +1,70 @@
 using UnityEngine;
 using System.Collections;
+using MultiGame;
+//using Photon;
 
-public class PhotonTeamObject : Photon.MonoBehaviour {
+namespace MultiGame {
 
-	public int numberOfTeams = 2;
+	[AddComponentMenu("MultiGame/Networking/TeamObject")]
+	[RequireComponent(typeof(PhotonView))]
+	public class PhotonTeamObject : Photon.MonoBehaviour {
 
-	public TeamColor[] teamColors;
-	public TeamColorObject[] teamColorObjects;
+		[System.Serializable]
+		public class Team {
+			[Tooltip("What should we set the object's tag to when changing to this team?")]
+			public string teamTag;
+			[Tooltip("What is this team's physics layer?")]
+			public int layer;
+			[Tooltip("What is the tag associated with this team's spawn points? Spawn points can be an empty transform")]
+			public string teamSpawnTag;
+			[Tooltip("What game object should be toggled on when we're on this team?")]
+			public GameObject teamIndicator;
+		}
 
-	public int currentTeam = 0;//0 is no team! (useful for observers and joining players)
-	public MessageManager.ManagedMessage teamChangedMessage;
+		public Team[] teams;
 
-	[HideInInspector]
-	public PhotonView view;
+		[Tooltip("Should we keep the team indicator object hidden for the local player?")]
+		public bool hideTeamLocally = true;
 
-	[System.Serializable]
-	public class TeamColor {
-		public Material teamColor;
-		public Color colorModifier = Color.white;
-	}
+//		public bool sendRespawnMessage = true;	
 
-	[System.Serializable]
-	public class TeamColorObject {
-		public GameObject coloredObject;
-		public int coloredMaterialIndex;
-	}
+		public int currentTeam = 0;//0 is no team! (useful for observers and joining players)
+		public MessageManager.ManagedMessage teamChangedMessage;
 
-	void Start () {
-		view = GetComponent<PhotonView>();
-	}
+		public MultiModule.HelpInfo help = new MultiModule.HelpInfo("Photon Team Object allows team-based play by changing team indicators, tags and layers. Each team should have it's " +
+			"own tag and layer.");
 
-	void OnValidate () {
-		MessageManager.UpdateMessageGUI(ref teamChangedMessage, gameObject);
-	}
+		void OnValidate () {
+			MessageManager.UpdateMessageGUI(ref teamChangedMessage, gameObject);
+		}
 
-	void SetTeam (int _team) {
-		view.RPC("RemoteSetTeam", PhotonTargets.AllBufferedViaServer, _team);
-	}
+		public void SetTeam (int _team) {
+			photonView.RPC("RemoteSetTeam", PhotonTargets.AllBufferedViaServer, _team);
+		}
 
-	[PunRPC]
-	void RemoteSetTeam (int _team) {
-		currentTeam = _team;
-		MessageManager.Send(teamChangedMessage);
-		TeamChanged(_team);
-	}
+		[PunRPC]
+		void RemoteSetTeam (int _team) {
+			currentTeam = _team;
+			MessageManager.Send(teamChangedMessage);
+			TeamChanged(_team);
+		}
 
-	void TeamChanged (int _team) {
-		foreach (TeamColorObject _tobject in teamColorObjects) {
-			_tobject.coloredObject.GetComponent<Renderer>().sharedMaterials[_tobject.coloredMaterialIndex] = teamColors[_team].teamColor;
-			if (teamColors[_team].colorModifier != Color.white)
-				_tobject.coloredObject.GetComponent<Renderer>().materials[_tobject.coloredMaterialIndex].color = teamColors[_team].colorModifier;
+		void TeamChanged (int _team) {
+			if (_team > teams.Length) {
+				Debug.LogError("Photon Team Object " + gameObject.name + " does not have a team tag for team " + _team + " please assign one in the Inspector.");
+				return;
+			}
+
+			tag = teams[_team].teamTag;
+			gameObject.layer = teams[_team].layer;
+
+			for (int i = 0; i < teams.Length; i++) {
+				if (i != _team || hideTeamLocally)
+					teams[i].teamIndicator.SetActive(false);
+				else {
+					teams[i].teamIndicator.SetActive(true);
+				}
+			}
 		}
 	}
 }

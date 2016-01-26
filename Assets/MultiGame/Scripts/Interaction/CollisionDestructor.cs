@@ -1,19 +1,23 @@
 ﻿using UnityEngine;
 using System.Collections;
+using MultiGame;
 
-public class CollisionDestructor : MultiModule {
+namespace MultiGame {
 
-	public bool destroySelf = false;
-	public bool destroyOther = true;
+	public class CollisionDestructor : MultiModule {
 
-	public HelpInfo help = new HelpInfo("This component provides an optimized way for something to be destroyed immediately on contact. Use collision layers to define" +
-		" what collides with what.");
+		public bool destroySelf = false;
+		public bool destroyOther = true;
 
-	void OnCollisionEnter (Collision _collision) {
-		if (destroyOther)
-			Destroy(_collision.gameObject);
-		if (destroySelf)
-			Destroy(gameObject);
+		public HelpInfo help = new HelpInfo("This component provides an optimized way for something to be destroyed immediately on contact. Use collision layers to define" +
+			" what collides with what.");
+
+		void OnCollisionEnter (Collision _collision) {
+			if (destroyOther)
+				Destroy(_collision.gameObject);
+			if (destroySelf)
+				Destroy(gameObject);
+		}
+
 	}
-
 }

@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using MultiGame;
+namespace MultiGame {
 
 [RequireComponent (typeof(CharacterController))]
 //[RequireComponent (typeof(CharacterMotor))]
@@ -237,4 +239,5 @@ public class SimpleEnemy : MonoBehaviour {
 		}
 		return targ;
 	}
+}
 }

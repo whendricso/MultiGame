@@ -1,9 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
+using MultiGame;
 
 public class PhotonRoomJoinedMessage : Photon.MonoBehaviour {
 
 	public MessageManager.ManagedMessage message;
+
+	public MultiModule.HelpInfo help = new MultiModule.HelpInfo("Photon Room Joined Message sends a message when this object joins a Photon room.");
+
+	public bool debug = false;
 
 	void Start () {
 		if (message.target == null)
@@ -15,6 +20,8 @@ public class PhotonRoomJoinedMessage : Photon.MonoBehaviour {
 	}
 
 	void OnJoinedRoom () {
+		if (debug)
+			Debug.Log("Photon Room Joined Message " + gameObject.name + " is sending the message " + message.message);
 		MessageManager.Send(message);
 	}
 }

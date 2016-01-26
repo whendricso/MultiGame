@@ -1,18 +1,22 @@
 ﻿using UnityEngine;
 using System.Collections;
+using MultiGame;
 
-public class SimpleMotor : MultiModule {
+namespace MultiGame {
 
-	[Tooltip("How fast in global space?")]
-	public Vector3 impetus = Vector3.zero;
-	[Tooltip("How fast in local space?")]
-	public Vector3 localImpetus = Vector3.zero;
+	public class SimpleMotor : MultiModule {
 
-	public HelpInfo help = new HelpInfo("This component is similar to the ConstantForce component, except it works on non-rigidbodies instead.");
+		[Tooltip("How fast in global space?")]
+		public Vector3 impetus = Vector3.zero;
+		[Tooltip("How fast in local space?")]
+		public Vector3 localImpetus = Vector3.zero;
 
-	void Update () {
-		transform.position += impetus * Time.deltaTime;
-		transform.Translate(localImpetus, Space.Self);//transform.localPosition += localImpetus * Time.deltaTime;
+		public HelpInfo help = new HelpInfo("This component is similar to the ConstantForce component, except it works on non-rigidbodies instead.");
+
+		void Update () {
+			transform.position += impetus * Time.deltaTime;
+			transform.Translate(localImpetus, Space.Self);//transform.localPosition += localImpetus * Time.deltaTime;
+		}
+		
 	}
-	
 }

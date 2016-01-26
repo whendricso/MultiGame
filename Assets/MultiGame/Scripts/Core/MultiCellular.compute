@@ -1,0 +1,43 @@
+﻿//My attempt to write a compute shader to hande a cellular automation of states via interacting vectors
+//Structure should proceed as follows:
+// 0. Allocate or continue operation on a three-dimensional axis-aligned bounding box comprised of a Vector3 and a Vector4 for each cell, enforce a multiple of 64 cells
+// 1. Upload a three dimensional array of vectors from the CPU to represent the initial state of the field if one exists
+// 2. Loop over "chunks" in the field, each chunk being an array of cells, only updating those in the range specified, each chunk is one thread, 64 cells per chunk (to also support ATI cards)
+// 3. Neighboring rules are applied to each cell individually, chunks talk to their direct neighbors to get edge values
+// 4. At a regular interval, a small portion of the result is downloaded back to the CPU so it can be rendered using any scalar field representation, over several frames the entire field updates
+// -------------------------------------------------------
+//
+// Vector inputs work as follows:
+//
+//	- Vector3 velocity: direction and scale of force relative to the voxel grid
+//  - Vector4 properties: a list of material attributes represented by the floats in the vector
+//      + Mass: The current mass of the cell
+// 		+ Density: How heavy is this stuff relative to how much we have? 
+//      + + This will be compared with each neighbor, if lower than one standard deviation below average, add upward force, inverse for downward force
+//      + Friction: How resistant to force are we?
+//      + Material: We move by changing our material and one of our neighbor's 
+//		+ + If the force calculation overcomes friction and the resistance of the cell it will replace the one it's moving into most closely
+//		+ + It will try to move in the force direction first, but then will try to deflect to neighboring cells most closely matching the velocity
+//		+ + We move the voxel by swapping it with the one we're moving, this is a data operation so the values are simply swapped
+//		+ + We reduce the velocity by subtracting the total resistance we just encountered
+//
+//
+//
+//
+//
+//
+
+// Each #kernel tells which function to compile; you can have many kernels
+#pragma kernel CSMain
+
+// Create a RenderTexture with enableRandomWrite flag and set it
+// with cs.SetTexture
+RWTexture2D<float4> Result;
+
+[numthreads(8,8,1)]
+void CSMain (uint3 id : SV_DispatchThreadID)
+{
+    // TODO: insert actual code here!
+
+    Result[id.xy] = float4(id.x & id.y, (id.x & 15)/15.0, (id.y & 15)/15.0, 0.0);
+}

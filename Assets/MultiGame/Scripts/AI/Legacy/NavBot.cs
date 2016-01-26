@@ -1,5 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
+using MultiGame;
+
+namespace MultiGame {
+
 
 [RequireComponent (typeof(NavMeshAgent))]
 public class NavBot : MonoBehaviour {
@@ -139,4 +143,5 @@ public class NavBot : MonoBehaviour {
 
 
 }
-//Copyright 2014 William Hendrickson
+}
+//Copyright 2013-2015 William Hendrickson

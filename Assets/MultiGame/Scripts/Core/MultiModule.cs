@@ -1,18 +1,22 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Reflection;
+using MultiGame;
 
-public class MultiModule : MonoBehaviour {
+namespace MultiGame {
 
-	[System.Serializable]
-	public class HelpInfo {
-		public bool showInfo;
-		public string helpText;
+	public class MultiModule : MonoBehaviour {
 
-		public HelpInfo (string _text) {
-			showInfo = false;
-			helpText = _text;
+		[System.Serializable]
+		public class HelpInfo {
+			public bool showInfo;
+			public string helpText;
+
+			public HelpInfo (string _text) {
+				showInfo = false;
+				helpText = _text;
+			}
 		}
-	}
 
+	}
 }

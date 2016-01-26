@@ -1,35 +1,39 @@
 ﻿using UnityEngine;
 using System.Collections;
+using MultiGame;
 
-[RequireComponent(typeof(HingeJoint))]
-public class HingeMotor : MultiModule {
+namespace MultiGame {
 
-	public KeyCode forward = KeyCode.W;
-	public KeyCode reverse = KeyCode.S;
+	[RequireComponent(typeof(HingeJoint))]
+	public class HingeMotor : MultiModule {
 
-	public float force = 10.0f;
+		public KeyCode forward = KeyCode.W;
+		public KeyCode reverse = KeyCode.S;
 
-	[HideInInspector]
-	public HingeJoint joint;
+		public float force = 10.0f;
 
-	public HelpInfo help = new HelpInfo("This component allows a hinge joint to be used as a motor. For example spinning arms on a hostile robot.");
+		[HideInInspector]
+		public HingeJoint joint;
 
-	void Start () {
-		joint = GetComponent<HingeJoint>();
-	}
-	
-	void FixedUpdate () {
-		JointMotor motor = new JointMotor();
-		motor = joint.motor;
+		public HelpInfo help = new HelpInfo("This component allows a hinge joint to be used as a motor. For example spinning arms on a hostile robot.");
 
-		if (Input.GetKey(forward))
-			motor.force = force;
-		if (Input.GetKey (reverse))
-			motor.force = -force;
+		void Start () {
+			joint = GetComponent<HingeJoint>();
+		}
+		
+		void FixedUpdate () {
+			JointMotor motor = new JointMotor();
+			motor = joint.motor;
 
-		if (!Input.GetKey(forward) && !Input.GetKey(reverse))
-			motor.force = 0f;
+			if (Input.GetKey(forward))
+				motor.force = force;
+			if (Input.GetKey (reverse))
+				motor.force = -force;
 
-		joint.motor = motor;
+			if (!Input.GetKey(forward) && !Input.GetKey(reverse))
+				motor.force = 0f;
+
+			joint.motor = motor;
+		}
 	}
 }

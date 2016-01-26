@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using MultiGame;
 
 /// <summary>
 /// Photon player tag helper changes remote player's tag.

@@ -1,22 +1,26 @@
 ﻿using UnityEngine;
 using System.Collections;
+using MultiGame;
 
-[RequireComponent(typeof(LineRenderer))]
-public class LineTrail : MultiModule {
+namespace MultiGame {
 
-	private Vector3 startPosition;
-	[System.NonSerialized]
-	public LineRenderer line;
+	[RequireComponent(typeof(LineRenderer))]
+	public class LineTrail : MultiModule {
 
-	public HelpInfo help = new HelpInfo("This component draws a line between the current and start position of the object.");
+		private Vector3 startPosition;
+		[System.NonSerialized]
+		public LineRenderer line;
 
-	void Start () {
-		line = GetComponent<LineRenderer>();
-		startPosition = transform.position;
-	}
-	
-	void Update () {
-		line.SetPosition(0, startPosition);
-		line.SetPosition(1, this.transform.position);
+		public HelpInfo help = new HelpInfo("This component draws a line between the current and start position of the object.");
+
+		void Start () {
+			line = GetComponent<LineRenderer>();
+			startPosition = transform.position;
+		}
+		
+		void Update () {
+			line.SetPosition(0, startPosition);
+			line.SetPosition(1, this.transform.position);
+		}
 	}
 }

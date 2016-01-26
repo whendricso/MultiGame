@@ -1,12 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
+using MultiGame;
 
-public class Persistent : MultiModule {
+namespace MultiGame {
 
-	public HelpInfo help = new HelpInfo("This component causes an object to stay between scenes. Useful for managers, day/night systems or other types of things that should " +
-		"be global to your game.");
+	public class Persistent : MultiModule {
 
-	void Start () {
-		DontDestroyOnLoad(gameObject);
+		public HelpInfo help = new HelpInfo("This component causes an object to stay between scenes. Useful for managers, day/night systems or other types of things that should " +
+			"be global to your game.");
+
+		void Start () {
+			DontDestroyOnLoad(gameObject);
+		}
 	}
 }

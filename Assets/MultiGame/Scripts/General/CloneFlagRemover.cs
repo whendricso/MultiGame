@@ -1,16 +1,20 @@
 ﻿using UnityEngine;
 using System.Collections;
+using MultiGame;
 
-public class CloneFlagRemover : MultiModule {
+namespace MultiGame {
 
-	public HelpInfo help = new HelpInfo("When this object is created, it will remove '(Clone)' from the object's name. This is important to have for multiplayer objects " +
-		"because sometimes they must be referenced by name. Also, sometimes this flag can be annoying since Unity adds it to all prefabs instantiated at runtime. This component " +
-		"fixes that.");
+	public class CloneFlagRemover : MultiModule {
 
-	//on start, remove "(Clone)" from the name.
-	//Actually, removes anything after the first '(' so be careful!
-	void Awake () {
-		string[] parts = gameObject.name.Split('(');
-		gameObject.name = parts[0];
+		public HelpInfo help = new HelpInfo("When this object is created, it will remove '(Clone)' from the object's name. This is important to have for multiplayer objects " +
+			"because sometimes they must be referenced by name. Also, sometimes this flag can be annoying since Unity adds it to all prefabs instantiated at runtime. This component " +
+			"fixes that.");
+
+		//on start, remove "(Clone)" from the name.
+		//Actually, removes anything after the first '(' so be careful!
+		void Awake () {
+			string[] parts = gameObject.name.Split('(');
+			gameObject.name = parts[0];
+		}
 	}
 }

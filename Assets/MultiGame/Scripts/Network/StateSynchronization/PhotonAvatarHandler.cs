@@ -1,13 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
+using MultiGame;
 
-//allows selection from a variety of avatars
-//could be used with MultiMenu
-//just send "SetAvatarString" with the name of the new player prefab
-//then 
-//prefab must be inside a "Resources" folder (but "Resources" can be in any folder)
 
-//[RequireComponent(typeof(PhotonView))]
+[RequireComponent(typeof(PhotonView))]
 public class PhotonAvatarHandler : Photon.MonoBehaviour {
 
 
@@ -16,6 +12,9 @@ public class PhotonAvatarHandler : Photon.MonoBehaviour {
 
 	[System.NonSerialized]
 	public static GameObject avatar = null;//a reference to the local avatar
+
+	public MultiModule.HelpInfo help = new MultiModule.HelpInfo("Allows selection of an avatar prefab by the player that they will respawn with whenever one of these handlers receives " +
+		"the 'Spawn' message. 'SetAvatarString' takes a string which represents the prefab name for the new avatar, which must be inside a 'Resources' folder.");
 
 	void Start () {
 		if (avatar == null && !string.IsNullOrEmpty( currentAvatar))

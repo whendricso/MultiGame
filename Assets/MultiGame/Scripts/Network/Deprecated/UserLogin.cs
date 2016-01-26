@@ -406,10 +406,10 @@ public class UserLogin : Photon.MonoBehaviour {
 //	}
 
 	void CreateNewChannel (string targetChannel) {
-		if (StartsWithNumber(channelName))
-			PhotonNetwork.CreateRoom(targetChannel, true, true, maxPlayerCount);
-		else
-			PhotonNetwork.CreateRoom(targetChannel, false, true, maxPlayerCount);
+		//if (StartsWithNumber(channelName))
+			PhotonNetwork.CreateRoom(targetChannel/*, true, true, maxPlayerCount*/);
+		//else
+			//PhotonNetwork.CreateRoom(targetChannel, false, true, maxPlayerCount);
 	}
 
 	void AttemptSignup () {

@@ -1,63 +1,67 @@
 ﻿using UnityEngine;
 using System.Collections;
+using MultiGame;
 
-public class InputThreshold : MultiModule {
+namespace MultiGame {
 
-	[Tooltip("The input axis we are checking")]
-	public string axis = "";
-	[Range(-1f,1f)]
-	public float upperThreshold = 0.8f;
-	[Range(-1f,1f)]
-	public float lowerThreshold = 0.2f;
-	[Tooltip("Message target override")]
-	public GameObject target;
-	[Tooltip("What message do we send when input reaches the upper threshold?")]
-	public MessageManager.ManagedMessage message;
-	[Tooltip("What message do we send when input reaches the lower threshold?")]
-	public MessageManager.ManagedMessage lowerMessage;
+	public class InputThreshold : MultiModule {
 
-	private bool previouslyAbove = false;
+		[Tooltip("The input axis we are checking")]
+		public string axis = "";
+		[Range(-1f,1f)]
+		public float upperThreshold = 0.8f;
+		[Range(-1f,1f)]
+		public float lowerThreshold = 0.2f;
+		[Tooltip("Message target override")]
+		public GameObject target;
+		[Tooltip("What message do we send when input reaches the upper threshold?")]
+		public MessageManager.ManagedMessage message;
+		[Tooltip("What message do we send when input reaches the lower threshold?")]
+		public MessageManager.ManagedMessage lowerMessage;
 
-	public HelpInfo help = new HelpInfo("This component sends messages based on a given input axis passing a certain threshold.");
+		private bool previouslyAbove = false;
 
-	// Use this for initialization
-	void Start () {
-		if (target == null) {
-			target = gameObject;
-		}
-		if (message.target == null)
-			message.target = target;
-		if (lowerMessage.target == null)
-			lowerMessage.target = target;
-		if (axis == "") {
-			Debug.LogError("Input Threshold " + gameObject.name + "needs an axis from the Input Manager to be specified");
-			enabled = false;
-			return;
-		}
-		if (message.message == "" && lowerMessage.message == "") {
-			Debug.LogError("Input Threshold " + gameObject.name + "needs a message to be specified");
-			enabled = false;
-			return;
-		}
-	}
+		public HelpInfo help = new HelpInfo("This component sends messages based on a given input axis passing a certain threshold.");
 
-	void OnValidate () {
-		MessageManager.UpdateMessageGUI(ref message, gameObject);
-		MessageManager.UpdateMessageGUI(ref lowerMessage, gameObject);
-	}
-
-	// Update is called once per frame
-	void Update () {
-		if (!previouslyAbove) {
-			if (Input.GetAxis(axis) > upperThreshold) {
-				previouslyAbove = true;
-				MessageManager.Send(message);//target.BroadcastMessage(message, SendMessageOptions.DontRequireReceiver);
-				
+		// Use this for initialization
+		void Start () {
+			if (target == null) {
+				target = gameObject;
+			}
+			if (message.target == null)
+				message.target = target;
+			if (lowerMessage.target == null)
+				lowerMessage.target = target;
+			if (axis == "") {
+				Debug.LogError("Input Threshold " + gameObject.name + "needs an axis from the Input Manager to be specified");
+				enabled = false;
+				return;
+			}
+			if (message.message == "" && lowerMessage.message == "") {
+				Debug.LogError("Input Threshold " + gameObject.name + "needs a message to be specified");
+				enabled = false;
+				return;
 			}
 		}
-		if (Mathf.Abs(Input.GetAxis(axis)) < lowerThreshold) {
-			previouslyAbove = false;
-			MessageManager.Send(lowerMessage);//target.BroadcastMessage(lowerMessage, SendMessageOptions.DontRequireReceiver);
+
+		void OnValidate () {
+			MessageManager.UpdateMessageGUI(ref message, gameObject);
+			MessageManager.UpdateMessageGUI(ref lowerMessage, gameObject);
+		}
+
+		// Update is called once per frame
+		void Update () {
+			if (!previouslyAbove) {
+				if (Input.GetAxis(axis) > upperThreshold) {
+					previouslyAbove = true;
+					MessageManager.Send(message);//target.BroadcastMessage(message, SendMessageOptions.DontRequireReceiver);
+					
+				}
+			}
+			if (Mathf.Abs(Input.GetAxis(axis)) < lowerThreshold) {
+				previouslyAbove = false;
+				MessageManager.Send(lowerMessage);//target.BroadcastMessage(lowerMessage, SendMessageOptions.DontRequireReceiver);
+			}
 		}
 	}
 }

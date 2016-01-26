@@ -1,15 +1,19 @@
 ﻿using UnityEngine;
 using System.Collections;
+using MultiGame;
 
-public class PlantSeed : MonoBehaviour {
+namespace MultiGame {
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+	public class PlantSeed : MonoBehaviour {
+
+		// Use this for initialization
+		void Start () {
+		
+		}
+		
+		// Update is called once per frame
+		void Update () {
+		
+		}
 	}
 }

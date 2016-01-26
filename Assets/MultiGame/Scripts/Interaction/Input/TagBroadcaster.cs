@@ -1,50 +1,54 @@
 ﻿using UnityEngine;
 using System.Collections;
+using MultiGame;
 
-public class TagBroadcaster : MultiModule {
+namespace MultiGame {
 
-	[Tooltip("Tag associated with objects we want to talk to")]
-	public string targetTag = "";
-	[Tooltip("The message we want to send those objects")]
-	public MessageManager.ManagedMessage message;
+	public class TagBroadcaster : MultiModule {
 
-	[Tooltip("Should we auto-broadcast when we are created?")]
-	public bool onStart = false;
-	[Tooltip("Should we auto-broadcast every single frame?")]
-	public bool onUpdate = false;
+		[Tooltip("Tag associated with objects we want to talk to")]
+		public string targetTag = "";
+		[Tooltip("The message we want to send those objects")]
+		public MessageManager.ManagedMessage message;
 
-	public HelpInfo help = new HelpInfo("This component sends messages to all objects of a given tag. Can activate automatically, or based on other message senders with " +
-		"'Broadcast'");
+		[Tooltip("Should we auto-broadcast when we are created?")]
+		public bool onStart = false;
+		[Tooltip("Should we auto-broadcast every single frame?")]
+		public bool onUpdate = false;
 
-	public bool debug = false;
+		public HelpInfo help = new HelpInfo("This component sends messages to all objects of a given tag. Can activate automatically, or based on other message senders with " +
+			"'Broadcast'");
 
-	void Start () {
-		if (onStart) {
-			Broadcast();
+		public bool debug = false;
+
+		void Start () {
+			if (onStart) {
+				Broadcast();
+			}
 		}
-	}
 
-	void OnValidate () {
-		MessageManager.UpdateMessageGUI(ref message, gameObject);
-	}
-
-	void Update () {
-		if (onUpdate) {
-			Broadcast();
+		void OnValidate () {
+			MessageManager.UpdateMessageGUI(ref message, gameObject);
 		}
-	}
 
-	public void Broadcast () {
-		if (message.target != null) {
-			if (debug)
-				Debug.Log("Broadcasting " + message.message + " to " + message.target.name);
-			MessageManager.SendTo(message, message.target);
+		void Update () {
+			if (onUpdate) {
+				Broadcast();
+			}
 		}
-		else {
-			if (debug)
-				Debug.Log("Broadcasting to tag " + targetTag);
-			foreach (GameObject obj in GameObject.FindGameObjectsWithTag(targetTag))
-				MessageManager.SendTo(message, obj);
+
+		public void Broadcast () {
+			if (message.target != null) {
+				if (debug)
+					Debug.Log("Broadcasting " + message.message + " to " + message.target.name);
+				MessageManager.SendTo(message, message.target);
+			}
+			else {
+				if (debug)
+					Debug.Log("Broadcasting to tag " + targetTag);
+				foreach (GameObject obj in GameObject.FindGameObjectsWithTag(targetTag))
+					MessageManager.SendTo(message, obj);
+			}
 		}
 	}
 }

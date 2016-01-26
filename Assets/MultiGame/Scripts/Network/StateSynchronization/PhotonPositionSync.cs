@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using MultiGame;
 
 //Copyright 2013 Tech Drone and William H Hendrickson
 
@@ -19,10 +20,14 @@ public class PhotonPositionSync : Photon.MonoBehaviour {
 	[HideInInspector]
 	public GameObject spawningObject;
 	
-	// Synchronize the position of the object automatically using interpolation.
+	[Tooltip("Synchronize the position of the object automatically using interpolation?")]
 	public bool interPosition = true;
 	public enum InterPositionMode {InterpolateTransformation, ExtrapolateRigidbodyPhysics};
+	[Tooltip("Should we use a simple transform interpolation, which takes fewer resources but is less accurate, or should we extrapolate rigidbody motion for a more crisp experience " +
+		"at the cost of additional CPU and network traffic?")]
 	public InterPositionMode syncMode = InterPositionMode.ExtrapolateRigidbodyPhysics;
+	[Tooltip("Multiplied by the time delta to adjust smoothness. Smaller numbers are more accurate but look more laggy.")]
+	[Range(1f, 30f)]
 	public float interpolationBias = 5.0f;
 	[HideInInspector]
 	public Vector3 correctPosition = Vector3.zero;
@@ -30,7 +35,11 @@ public class PhotonPositionSync : Photon.MonoBehaviour {
 	public Quaternion correctRotation = Quaternion.identity;
 	
 	//--Extrapolation data
+	[Tooltip("How far back in time are we trying to be in seconds?")]
+	[Range(0.0001f, 2f)]
 	public double m_InterpolationBackTime = 0.1;//0.05;
+	[Tooltip("How far forward in time are we trying to extrapolate? Only works with rigidbody extrapolation (expensive).")]
+	[Range(0f,0.5f)]
 	public double m_ExtrapolationLimit = 0.5;
 	internal struct State
 	{

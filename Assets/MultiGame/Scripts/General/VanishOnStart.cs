@@ -1,15 +1,19 @@
 using UnityEngine;
 using System.Collections;
+using MultiGame;
 
-public class VanishOnStart : MultiModule {
+namespace MultiGame {
 
-	public HelpInfo help = new HelpInfo("This component causes the object to become invisible as soon as it's created. Useful for editor-only objects.");
+	public class VanishOnStart : MultiModule {
 
-	void Start () {
-		if(GetComponent<Renderer>() != null)
-			GetComponent<Renderer>().enabled = false;
-		else {
-			gameObject.SetActive(false);
+		public HelpInfo help = new HelpInfo("This component causes the object to become invisible as soon as it's created. Useful for editor-only objects.");
+
+		void Start () {
+			if(GetComponent<Renderer>() != null)
+				GetComponent<Renderer>().enabled = false;
+			else {
+				gameObject.SetActive(false);
+			}
 		}
 	}
 }

@@ -1,34 +1,38 @@
 ﻿using UnityEngine;
 using System.Collections;
+using MultiGame;
 
-public class OnDestruct : MultiModule {
+namespace MultiGame {
 
-	[Tooltip("Optional message target override")]
-	public GameObject target;
-	[Tooltip("Message to be sent when this object is destroyed")]
-	public MessageManager.ManagedMessage message;
-	public HelpInfo help = new HelpInfo("This component allows messages to be sent when an object is destroyed.");
+	public class OnDestruct : MultiModule {
 
-	public bool debug = false;
+		[Tooltip("Optional message target override")]
+		public GameObject target;
+		[Tooltip("Message to be sent when this object is destroyed")]
+		public MessageManager.ManagedMessage message;
+		public HelpInfo help = new HelpInfo("This component allows messages to be sent when an object is destroyed.");
 
-	void Start () {
-		if (target == null)
-			target = gameObject;
-		if (message.target == null)
-			message.target = target;
-	}
+		public bool debug = false;
 
-	void OnValidate () {
-		MessageManager.UpdateMessageGUI(ref message, gameObject);
-	}
+		void Start () {
+			if (target == null)
+				target = gameObject;
+			if (message.target == null)
+				message.target = target;
+		}
 
-	void OnDestroy () {
-		if (message.message == "")
-			return;
+		void OnValidate () {
+			MessageManager.UpdateMessageGUI(ref message, gameObject);
+		}
 
-		if (debug)
-			Debug.Log("On Destruct " + gameObject.name + "called OnDestroy, sending message " + message.message);
+		void OnDestroy () {
+			if (message.message == "")
+				return;
 
-		MessageManager.Send(message);
+			if (debug)
+				Debug.Log("On Destruct " + gameObject.name + "called OnDestroy, sending message " + message.message);
+
+			MessageManager.Send(message);
+		}
 	}
 }

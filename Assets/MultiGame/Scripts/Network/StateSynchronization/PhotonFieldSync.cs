@@ -1,11 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
+using MultiGame;
 
 [RequireComponent(typeof(PhotonView))]
 public class PhotonFieldSync : Photon.MonoBehaviour {
-
-	[HideInInspector]
-	public PhotonView view;
 
 	public Component targetComponent;
 	public string fieldName = "";
@@ -19,7 +17,7 @@ public class PhotonFieldSync : Photon.MonoBehaviour {
 			return;
 		}
 
-		if (view.observed != this) {
+		if (!photonView.ObservedComponents.Contains( this)) {
 			Debug.LogError("Photon Attribute Sync needs to be observed by a Photon View to work!");
 			enabled = false;
 			return;
@@ -27,6 +25,8 @@ public class PhotonFieldSync : Photon.MonoBehaviour {
 	}
 	
 	void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
+		if (!enabled)
+			return;
 		if (stream.isWriting){
 			stream.SendNext( targetComponent.GetType().GetField(fieldName).GetValue(targetComponent));
 		}

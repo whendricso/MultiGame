@@ -1,37 +1,41 @@
 ﻿using UnityEngine;
 using System.Collections;
+using MultiGame;
 
-public class PlayerPrefsSaveGameManager : MonoBehaviour {
+namespace MultiGame {
 
-	public Rect guiArea = new Rect();
-	public int windowID = 7849024;
-	public bool showGui = false;
+	public class PlayerPrefsSaveGameManager : MonoBehaviour {
 
-	void OnGUI () {
-		if (!(guiArea.width > 0f) || !showGui)
-			return;
+		public Rect guiArea = new Rect();
+		public int windowID = 7849024;
+		public bool showGui = false;
 
-		GUILayout.Window(windowID, guiArea, SaveWindow,"Saved User Preferences");
-	}
+		void OnGUI () {
+			if (!(guiArea.width > 0f) || !showGui)
+				return;
 
-	private void SaveWindow (int _id) {
-		if (GUILayout.Button("Clear all player preferences"))
-			ClearPrefs();
-	}
+			GUILayout.Window(windowID, guiArea, SaveWindow,"Saved User Preferences");
+		}
 
-	public void ClearPrefs () {
-		PlayerPrefs.DeleteAll();
-	}
+		private void SaveWindow (int _id) {
+			if (GUILayout.Button("Clear all player preferences"))
+				ClearPrefs();
+		}
 
-	public void OpenMenu () {
-		showGui = true;
-	}
+		public void ClearPrefs () {
+			PlayerPrefs.DeleteAll();
+		}
 
-	public void CloseMenu () {
-		showGui = false;
-	}
+		public void OpenMenu () {
+			showGui = true;
+		}
 
-	public void ToggleMenu () {
-		showGui = !showGui;
+		public void CloseMenu () {
+			showGui = false;
+		}
+
+		public void ToggleMenu () {
+			showGui = !showGui;
+		}
 	}
 }

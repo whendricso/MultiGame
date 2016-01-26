@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using MultiGame;
 
 [RequireComponent (typeof(PhotonView))]
 public class PhotonCharacterAnimationMessenger : Photon.MonoBehaviour {

@@ -1,9 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
+using MultiGame;
 
-public class FormationalPosition : MonoBehaviour {
-	
-	[HideInInspector]
-	public bool isVacant = true;
-	
+namespace MultiGame {
+
+
+	public class FormationalPosition : MonoBehaviour {
+		
+		[HideInInspector]
+		public bool isVacant = true;
+		
+	}
 }

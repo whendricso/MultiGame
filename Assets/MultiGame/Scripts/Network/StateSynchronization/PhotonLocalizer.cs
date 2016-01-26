@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using MultiGame;
 
 public class PhotonLocalizer : Photon.MonoBehaviour {
 	

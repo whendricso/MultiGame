@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using MultiGame;
 
 //used to synchronize Mecanim state machines over Photon
 [RequireComponent (typeof(PhotonView))]

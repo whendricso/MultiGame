@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
+using MultiGame;
+
+namespace MultiGame {
 
 /// <summary>
 /// Leader allows minions to follow in formation near the player by designating transforms to move towards
@@ -58,4 +61,5 @@ public class Leader : MonoBehaviour {
 		}
 		return ret;
 	}
+}
 }
