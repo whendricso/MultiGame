@@ -4,6 +4,7 @@ using MultiGame;
 
 namespace MultiGame {
 
+	[AddComponentMenu("MultiGame/Inventory/Clip Inventory")]
 	public class ClipInventory : MultiModule {
 		
 		[Tooltip("Number of currently held clips for a given clip type index")]

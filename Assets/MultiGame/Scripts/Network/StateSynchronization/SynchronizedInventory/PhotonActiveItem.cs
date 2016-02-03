@@ -4,6 +4,7 @@ using MultiGame;
 
 namespace MultiGame {
 
+	[AddComponentMenu("MultiGame/Network/Inventory/Photon Active Item")]
 	[RequireComponent(typeof(CloneFlagRemover))]
 	[RequireComponent(typeof(PhotonView))]
 	public class PhotonActiveItem : Photon.MonoBehaviour {

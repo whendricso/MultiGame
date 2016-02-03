@@ -2,26 +2,30 @@
 using System.Collections;
 using MultiGame;
 
-public class PhotonRoomJoinedMessage : Photon.MonoBehaviour {
+namespace MultiGame {
 
-	public MessageManager.ManagedMessage message;
+	[AddComponentMenu("MultiGame/Network/Photon Room Joined Message")]
+	public class PhotonRoomJoinedMessage : Photon.MonoBehaviour {
 
-	public MultiModule.HelpInfo help = new MultiModule.HelpInfo("Photon Room Joined Message sends a message when this object joins a Photon room.");
+		public MessageManager.ManagedMessage message;
 
-	public bool debug = false;
+		public MultiModule.HelpInfo help = new MultiModule.HelpInfo("Photon Room Joined Message sends a message when this object joins a Photon room.");
 
-	void Start () {
-		if (message.target == null)
-			message.target = gameObject;
-	}
+		public bool debug = false;
 
-	void OnValidate () {
-		MessageManager.UpdateMessageGUI(ref message, gameObject);
-	}
+		void Start () {
+			if (message.target == null)
+				message.target = gameObject;
+		}
 
-	void OnJoinedRoom () {
-		if (debug)
-			Debug.Log("Photon Room Joined Message " + gameObject.name + " is sending the message " + message.message);
-		MessageManager.Send(message);
+		void OnValidate () {
+			MessageManager.UpdateMessageGUI(ref message, gameObject);
+		}
+
+		void OnJoinedRoom () {
+			if (debug)
+				Debug.Log("Photon Room Joined Message " + gameObject.name + " is sending the message " + message.message);
+			MessageManager.Send(message);
+		}
 	}
 }

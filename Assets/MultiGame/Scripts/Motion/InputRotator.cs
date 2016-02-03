@@ -4,6 +4,7 @@ using MultiGame;
 
 namespace MultiGame {
 
+	[AddComponentMenu("MultiGame/Motion/Input Rotator")]
 	public class InputRotator : MultiModule {
 
 		[Tooltip("How much force to apply (X and Y are the only ones considered)")]

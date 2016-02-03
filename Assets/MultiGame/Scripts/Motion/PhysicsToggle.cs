@@ -4,6 +4,7 @@ using MultiGame;
 
 namespace MultiGame {
 
+	[AddComponentMenu("MultiGame/Motion/Physics Toggle")]
 [RequireComponent (typeof(Rigidbody))]
 	public class PhysicsToggle : MultiModule {
 

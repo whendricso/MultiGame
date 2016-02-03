@@ -4,6 +4,7 @@ using MultiGame;
 
 namespace MultiGame {
 
+	[AddComponentMenu("MultiGame/Interaction/Input/Input Threshold")]
 	public class InputThreshold : MultiModule {
 
 		[Tooltip("The input axis we are checking")]

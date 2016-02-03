@@ -8,6 +8,7 @@ using MultiGame;
 
 namespace MultiGame {
 
+	[AddComponentMenu("MultiGame/Serialization/Unique Object Serializer")]
 	public class UniqueObjectSerializer : MonoBehaviour {
 
 		public MonoBehaviour targetComponent;

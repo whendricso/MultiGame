@@ -4,6 +4,7 @@ using MultiGame;
 
 namespace MultiGame {
 
+	[AddComponentMenu("MultiGame/Interaction/Input/StartMessage")]
 public class StartMessage : MultiModule {
 
 		[Tooltip("When this object is created, what message should we send?")]

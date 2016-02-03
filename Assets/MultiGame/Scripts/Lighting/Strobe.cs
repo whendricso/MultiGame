@@ -4,6 +4,7 @@ using MultiGame;
 
 namespace MultiGame {
 
+	[AddComponentMenu("MultiGame/Lighting/Strobe")]
 	public class Strobe : MultiModule {
 		
 		[Tooltip("What light is blinking?")]

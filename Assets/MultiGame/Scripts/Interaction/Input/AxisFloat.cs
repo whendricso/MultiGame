@@ -4,6 +4,7 @@ using MultiGame;
 
 namespace MultiGame {
 
+	[AddComponentMenu("MultiGame/Interaction/Input/Axis Float")]
 	public class AxisFloat : MultiModule {
 
 		[Tooltip("Target to send axis data to")]

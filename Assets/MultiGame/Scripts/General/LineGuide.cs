@@ -5,6 +5,7 @@ using MultiGame;
 
 namespace MultiGame {
 
+	[AddComponentMenu("MultiGame/General/Line Guide")]
 	[RequireComponent(typeof(LineRenderer))]
 	public class LineGuide : MultiModule {
 

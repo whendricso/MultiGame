@@ -5,6 +5,7 @@ using MultiGame;
 
 namespace MultiGame {
 
+	[AddComponentMenu("MultiGame/Motion/Billboard")]
 	public class Billboard : MultiModule {
 
 		[Tooltip("Should this snap directly to the target?")]

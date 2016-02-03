@@ -4,6 +4,7 @@ using MultiGame;
 
 namespace MultiGame {
 
+	[AddComponentMenu("MultiGame/Inventory/Pickable Clip")]
 	public class PickableClip : MultiModule {
 		
 		[Tooltip("Clip Inventory index this increments")]

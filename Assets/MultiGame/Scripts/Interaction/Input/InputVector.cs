@@ -4,6 +4,7 @@ using MultiGame;
 
 namespace MultiGame {
 
+	[AddComponentMenu("MultiGame/Interaction/Input/InputVector")]
 	public class InputVector : MultiModule {
 
 		[Tooltip("The stick input deadzone")]

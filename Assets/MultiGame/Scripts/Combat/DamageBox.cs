@@ -5,6 +5,7 @@ using MultiGame;
 
 namespace MultiGame {
 
+	[AddComponentMenu("MultiGame/Combat/Damage Box")]
 	public class DamageBox : MultiModule {
 
 		[Tooltip("How much damage does this thing do?")]

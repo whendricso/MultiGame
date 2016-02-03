@@ -6,6 +6,7 @@ namespace MultiGame {
 
 	//Functionality to snap objects to grid by transform origin:
 	//the gridSpace argument allows a different size grid to be used on each world axis
+	[AddComponentMenu("MultiGame/Motion/Grid Snap")]
 	public class GridSnap : MonoBehaviour {
 		
 		public bool snapOnStart = false;

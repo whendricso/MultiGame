@@ -5,7 +5,7 @@ using MultiGame;
 
 namespace MultiGame {
 
-
+	[AddComponentMenu("MultiGame/AI/Minion Module")]
 	public class MinionModule : MultiModule {
 
 		[Tooltip("When clicked, objects of this tag will cause deselection. Send the 'Select' message to this object to select it")]

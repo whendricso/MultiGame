@@ -9,6 +9,7 @@ namespace MultiGame {
 	/// <summary>
 	/// Mouse commander hndles RTS-style construction via mouse input.
 	/// </summary>
+	[AddComponentMenu("MultiGame/Interaction/Mouse Commander")]
 	public class MouseCommander : MultiModule {
 
 		//public int windowID = 0;

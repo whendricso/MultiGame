@@ -4,6 +4,7 @@ using MultiGame;
 
 namespace MultiGame {
 
+	[AddComponentMenu("MultiGame/Camera/Cursor Lock")]
 	public class CursorLock : MultiModule {
 
 		[Tooltip("List of keys that unlock the mouse")]

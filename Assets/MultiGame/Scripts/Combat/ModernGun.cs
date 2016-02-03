@@ -4,6 +4,7 @@ using MultiGame;
 
 namespace MultiGame {
 
+	[AddComponentMenu("MultiGame/Combat/Modern Gun")]
 	[RequireComponent (typeof(AudioSource))]
 	public class ModernGun : MultiModule {
 
@@ -21,6 +22,8 @@ namespace MultiGame {
 		public GUISkin guiSkin;
 		[Tooltip("What do we spawn from the muzzle of the gun?")]
 		public GameObject projectile;
+		[Tooltip("Multiplied by the velocity before it's transferred to the projectile")]
+		public float inheritVelocityScale = 1f;
 		[HideInInspector]
 		public GameObject reloadMessageReceiver;
 		[Tooltip("How many shots per mag?")]
@@ -87,8 +90,11 @@ namespace MultiGame {
 			" and related functionality. Clips are discarded on reload.");
 		
 		void Start () {
-			if (image == null)
-				image = GetComponentInChildren<Animator>().gameObject;
+			if (image == null) {
+				Animator _anim = GetComponentInChildren<Animator>();
+				if (_anim != null)
+					image = _anim.gameObject;
+			}
 			//PlayerPrefs.DeleteAll();
 	//		GameObject player = GameObject.FindGameObjectWithTag("Player");
 			//ClipInventory clipInv = player.GetComponent<ClipInventory>();
@@ -134,7 +140,7 @@ namespace MultiGame {
 				currentSpread -= Time.deltaTime * refocusRate;
 			refireCounter -= Time.deltaTime;
 			if (Screen.lockCursor) {
-				if (Input.GetButton("Fire1"))
+				if (useFireButton && Input.GetButton("Fire1"))
 					Fire ();
 			}
 		}
@@ -201,10 +207,19 @@ namespace MultiGame {
 				else	
 					muzzleTransform.transform.localEulerAngles = new Vector3(muzzleTransform.transform.localEulerAngles.x + Random.Range(-(currentSpread + muzzleSpreadMin), currentSpread + muzzleSpreadMin), muzzleTransform.transform.localEulerAngles.y + Random.Range(-(currentSpread + muzzleSpreadMin), currentSpread + muzzleSpreadMin), muzzleTransform.transform.localEulerAngles.z);
 				refireCounter = refireTime;
-				GameObject bullet = Instantiate(projectile, muzzleTransform.transform.position, muzzleTransform.transform.rotation) as GameObject;
-				Bullet proj = bullet.GetComponent<Bullet>();
-				if (proj != null)
-					proj.owner = GameObject.FindGameObjectWithTag("Player");
+
+				GameObject bullet;
+				if (projectile != null) {
+					bullet = Instantiate(projectile, muzzleTransform.transform.position, muzzleTransform.transform.rotation) as GameObject;
+					Rigidbody _rigid = bullet.GetComponent<Rigidbody>();
+					Rigidbody _myRigid = transform.root.GetComponentInChildren<Rigidbody>();
+					if (_rigid != null && _myRigid)
+						_rigid.velocity = _myRigid.velocity * inheritVelocityScale;
+					Bullet proj = bullet.GetComponent<Bullet>();
+					if (proj != null){
+						proj.SendMessage("SetOwner", transform.root.gameObject, SendMessageOptions.DontRequireReceiver);
+					}
+				}
 				if (aimCorrection == AimCorrectionTypes.None)
 					muzzleTransform.transform.localEulerAngles = muzzleOrientation;
 				if (muzzleFlash != null) {
@@ -232,7 +247,14 @@ namespace MultiGame {
 		
 		public void Reload () {
 			GameObject player = GameObject.FindGameObjectWithTag("Player");
+			if (player == null)
+				player = gameObject.transform.root.gameObject;
 			ClipInventory clipInv = player.GetComponent<ClipInventory>();
+			if (clipInv == null) {
+				Debug.LogError("Clip Inventory component not found on the player! Please add one, and set up some ammo clip types.");
+				enabled = false;
+				return;
+			}
 			if (clipInv.numClips[clipType] > 0) {
 				clipInv.numClips[clipType]--;
 				if (image != null && !string.IsNullOrEmpty(mecanimReloadTrigger))

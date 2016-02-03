@@ -4,6 +4,7 @@ using MultiGame;
 
 namespace MultiGame {
 
+	[AddComponentMenu("MultiGame/TerraVol/TerraVol Local Serializer")]
 	public class TerraVolLocalSerializer : MonoBehaviour {
 
 		public string mapName;

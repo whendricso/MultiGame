@@ -4,6 +4,7 @@ using MultiGame;
 
 namespace MultiGame {
 
+	[AddComponentMenu("MultiGame/Combat/Explosion")]
 	public class Explosion : MultiModule {
 
 		//public GameObject[] fxPrefabs;

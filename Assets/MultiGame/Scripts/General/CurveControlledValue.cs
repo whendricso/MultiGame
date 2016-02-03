@@ -5,6 +5,7 @@ using MultiGame;
 
 namespace MultiGame {
 
+	[AddComponentMenu("MultiGame/General/Curve Controlled Value")]
 	public class CurveControlledValue : MultiModule {
 
 		[Tooltip("The script with a value we want to animate over time. Drag and drop the component header in here to attach.")]

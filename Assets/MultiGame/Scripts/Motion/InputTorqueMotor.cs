@@ -4,6 +4,7 @@ using MultiGame;
 
 namespace MultiGame {
 
+	[AddComponentMenu("MultiGame/Motion/Input Torque")]
 	[RequireComponent(typeof(Rigidbody))]
 	public class InputTorqueMotor : MultiModule {
 

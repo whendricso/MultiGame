@@ -4,6 +4,7 @@ using MultiGame;
 
 namespace MultiGame {
 
+	[AddComponentMenu("MultiGame/Interaction/Output/Collection Manager")]
 	public class CollectionManager : MultiModule {
 
 		[Tooltip("Normalized viewport rectangle for showing the current collection score")]

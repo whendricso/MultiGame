@@ -5,6 +5,7 @@ using MultiGame;
 
 namespace MultiGame {
 
+	[AddComponentMenu("MultiGame/TerraVol/TerraVol Shovel")]
 	public class TerraVolShovel : MonoBehaviour {
 
 		public float size = 2.0f;

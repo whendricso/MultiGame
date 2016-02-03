@@ -4,6 +4,7 @@ using MultiGame;
 
 namespace MultiGame {
 
+	[AddComponentMenu("MultiGame/Interaction/Input/Collectible")]
 	public class Collectible : MultiModule {
 
 		[Tooltip("Optional reference to the collection manager, which must exist in the scene for Collectible to work")]

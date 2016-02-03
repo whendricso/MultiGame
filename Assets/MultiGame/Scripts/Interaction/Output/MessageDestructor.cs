@@ -4,6 +4,7 @@ using MultiGame;
 
 namespace MultiGame {
 
+	[AddComponentMenu("MultiGame/Interaction/Output/MessageDestructor")]
 	public class MessageDestructor : MultiModule {
 
 		[Tooltip("Objects to spawn when we destroy this object")]

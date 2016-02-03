@@ -4,6 +4,7 @@ using MultiGame;
 
 namespace MultiGame {
 
+	[AddComponentMenu("MultiGame/Interaction/Input/Active Zone")]
 	//[RequireComponent (typeof (BoxCollider))]
 	[RequireComponent (typeof (Rigidbody))]
 	public class ActiveZone : MultiModule {

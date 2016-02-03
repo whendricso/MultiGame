@@ -11,6 +11,7 @@ namespace MultiGame {
 	/// Optionally, supply the Inventory instance being used,
 	/// otherwise it will try to send the object to the Player's inventory.
 	/// </summary>
+	[AddComponentMenu("MultiGame/Inventory/Pickable")]
 	public class Pickable : MultiModule {
 		
 		[Tooltip("How far can we be from the object tagged 'Player' and still be pickable?")]

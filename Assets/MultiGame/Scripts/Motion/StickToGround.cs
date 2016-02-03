@@ -4,6 +4,7 @@ using MultiGame;
 
 namespace MultiGame {
 
+	[AddComponentMenu("MultiGame/Motion/Stick To Ground")]
 	public class StickToGround : MultiModule {
 		
 		[Tooltip("How high up can it work?")]

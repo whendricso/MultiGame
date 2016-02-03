@@ -4,6 +4,7 @@ using MultiGame;
 
 namespace MultiGame {
 
+	[AddComponentMenu("MultiGame/Interaction/Output/Animator Float Receiver")]
 	public class AnimatorFloatReceiver : MultiModule {
 
 		[Tooltip("The float value of the Animator attached to this object which we're going to set a float for. Use parameter mode = float and input value in managed message sender")]

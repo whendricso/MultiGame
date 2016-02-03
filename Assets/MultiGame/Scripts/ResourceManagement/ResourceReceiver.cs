@@ -6,8 +6,11 @@ using MultiGame;
 namespace MultiGame {
 
 
+	[AddComponentMenu("MultiGame/Resource Management/Resource Receiver")]
 	public class ResourceReceiver : MultiModule {
 
+		[Tooltip("What resources should this object add to the game? Once added, they remain permanently.")]
+		public List<ResourceManager.GameResource> resources = new List<ResourceManager.GameResource>();
 		[Tooltip("Which zero-indexed resource are we receiving or spending?")]
 		public int resourceIndex = 0;
 		[Tooltip("How much? Values less than zero are expenditures, the player must have enough or no resources will be used and no messages sent.")]
@@ -21,7 +24,17 @@ namespace MultiGame {
 
 		public HelpInfo help = new HelpInfo("This component allows both collection and expenditure of resources. If you are spending resources (value is less than 0) " +
 			"and you have enough, the resources will be spent and the 'Messages' will be called. Likewise, if you are receiving resources, the messages will also be called. " +
-			"'Resource Index' refers to the specific resource we are spending or receiving. Values start at 0, meaning the first resource is 0 the second is 1 and so on.");
+			"'Resource Index' refers to the specific resource we are spending or receiving. Values start at 0, meaning the first resource is 0 the second is 1 and so on." +
+			"\n----Messages:---\n" +
+			"'Collect' takes no parameter, and will send all 'Messages' in the list when 'Resource Value' is positive, or we have enough to cover the cost if negative.\n" +
+			"'CollectSpecific' takes a Floating Point parameter, indicating the gain (or cost, if negative) and otherwise executing 'Collect' normally.");
+
+		void Awake () {
+			if (GameObject.FindObjectOfType<ResourceManager>() == null) {
+				Debug.LogError("Resource manager does not exist! Disabling resource receiver. Please make sure there is exactly one Resource Manager in the game");
+			}
+			ResourceManager.resources.AddRange(resources);
+		}
 
 		void Start () {
 			foreach (MessageManager.ManagedMessage msg in messages) {

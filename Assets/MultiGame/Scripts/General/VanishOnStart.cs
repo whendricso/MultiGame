@@ -4,6 +4,7 @@ using MultiGame;
 
 namespace MultiGame {
 
+	[AddComponentMenu("MultiGame/General/Vanish On Start")]
 	public class VanishOnStart : MultiModule {
 
 		public HelpInfo help = new HelpInfo("This component causes the object to become invisible as soon as it's created. Useful for editor-only objects.");

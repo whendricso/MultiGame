@@ -4,6 +4,7 @@ using MultiGame;
 
 namespace MultiGame {
 
+	[AddComponentMenu("MultiGame/Inventory/Melee Weapon Attributes")]
 	public class MeleeWeaponAttributes : MonoBehaviour {
 		
 		public float damage = 10.0f;

@@ -4,6 +4,7 @@ using MultiGame;
 
 namespace MultiGame {
 
+	[AddComponentMenu("MultiGame/Interaction/Deployed Object")]
 	public class DeployedObject : MultiModule {
 		
 		[Tooltip("Object to spawn if this is sent the Undeploy message")]

@@ -4,6 +4,7 @@ using MultiGame;
 
 namespace MultiGame {
 
+	[AddComponentMenu("MultiGame/General/Speed Reporter")]
 	public class SpeedReporter : MultiModule {
 
 		public enum ReportTypes { Debug, GUI};

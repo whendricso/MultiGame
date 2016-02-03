@@ -4,6 +4,7 @@ using MultiGame;
 
 namespace MultiGame {
 
+	[AddComponentMenu("MultiGame/General/Time Speed Manager")]
 	public class TimeSpeedManager : MultiModule {
 
 		[Tooltip("How fast is time passing? 1 = normal")]

@@ -7,6 +7,7 @@ using MultiGame;
 
 namespace MultiGame {
 
+	[AddComponentMenu("MultiGame/Inventory/Inventory")]
 	public class Inventory : MultiModule {
 		
 		[Tooltip("Items already in the inventory")]

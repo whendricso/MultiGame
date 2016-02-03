@@ -6,6 +6,7 @@ namespace MultiGame {
 
 //Deployer should be placed on a player's base object that will deploy the object
 
+	[AddComponentMenu("MultiGame/Interaction/Deployer")]
 	public class Deployer : MultiModule {
 		
 		#region members

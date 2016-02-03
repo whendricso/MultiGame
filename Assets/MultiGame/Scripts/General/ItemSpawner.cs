@@ -4,6 +4,7 @@ using MultiGame;
 
 namespace MultiGame {
 
+	[AddComponentMenu("MultiGame/General/Item Spawner")]
 	public class ItemSpawner : MultiModule {
 
 		[Tooltip("List of things we can spawn")]

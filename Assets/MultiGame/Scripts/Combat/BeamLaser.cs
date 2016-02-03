@@ -4,6 +4,7 @@ using MultiGame;
 
 namespace MultiGame {
 
+	[AddComponentMenu("MultiGame/Combat/Beam Laser")]
 	[RequireComponent(typeof(LineRenderer))]
 	public class BeamLaser : MultiModule {
 
@@ -54,6 +55,14 @@ namespace MultiGame {
 				beamLine.SetPosition(0, this.transform.position);
 				beamLine.SetPosition(1, this.transform.TransformPoint(Vector3.forward * beamRange));
 			}
+		}
+
+		public void ToggleOn () {
+			enabled = true;
+		}
+
+		public void ToggleOff () {
+			enabled = false;
 		}
 	}
 }

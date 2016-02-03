@@ -4,6 +4,7 @@ using MultiGame;
 
 namespace MultiGame {
 
+	[AddComponentMenu("MultiGame/Serialization/Unique Preference Serializer")]
 	public class UniquePreferenceSerializer : MonoBehaviour {
 
 		public MonoBehaviour targetComponent;

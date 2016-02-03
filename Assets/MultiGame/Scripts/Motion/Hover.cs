@@ -4,6 +4,7 @@ using MultiGame;
 
 namespace MultiGame {
 
+	[AddComponentMenu("MultiGame/Motion/Hover")]
 	[RequireComponent (typeof(Rigidbody))]
 	public class Hover : MultiModule {
 

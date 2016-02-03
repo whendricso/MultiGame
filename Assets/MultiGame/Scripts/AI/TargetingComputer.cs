@@ -5,7 +5,7 @@ using MultiGame;
 
 namespace MultiGame {
 
-
+	[AddComponentMenu("MultiGame/AI/Targeting Computer")]
 	public class TargetingComputer : MultiModule
 	{
 		[Tooltip("The base rigidbody this is parented to")]

@@ -5,6 +5,7 @@ using MultiGame;
 namespace MultiGame {
 
 
+	[AddComponentMenu("MultiGame/Camera/Backup Camera")]
 	public class BackupCamera : MultiModule {
 
 		private AudioListener listener;

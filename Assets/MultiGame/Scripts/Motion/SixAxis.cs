@@ -4,6 +4,7 @@ using MultiGame;
 
 namespace MultiGame {
 
+	[AddComponentMenu("MultiGame/Motion/Six Axis")]
 	[RequireComponent (typeof(Rigidbody))]
 	public class SixAxis : MultiModule {
 
@@ -26,7 +27,8 @@ namespace MultiGame {
 		[Tooltip("The rigidbody we will be applying force to")]
 		public Rigidbody body;
 
-		public HelpInfo help = new HelpInfo("This component is a player input controller allowing the user to fly in all directions, truly utilizing 3D space");
+		public HelpInfo help = new HelpInfo("This component is a player input controller allowing the user to fly in all directions, truly utilizing 3D space. It takes input from the " +
+			"user, processes it for precision, and applies it as force to the attached Rigidbody");
 
 		void Start () {
 			if (body == null)

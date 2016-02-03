@@ -4,6 +4,7 @@ using MultiGame;
 
 namespace MultiGame {
 
+	[AddComponentMenu("MultiGame/General/Time Score")]
 	public class TimeScore : MultiModule {
 
 		[Tooltip("Should we show a legacy Unity GUI?")]

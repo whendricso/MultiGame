@@ -4,6 +4,7 @@ using MultiGame;
 
 namespace MultiGame {
 
+	[AddComponentMenu("MultiGame/Interaction/Click Painter")]
 	public class ClickPainter : MultiModule {
 
 		[Tooltip("Normalized viewport rectangle indicating the area reserved for palette selection")]

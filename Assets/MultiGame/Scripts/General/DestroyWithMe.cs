@@ -4,6 +4,7 @@ using MultiGame;
 
 namespace MultiGame {
 
+	[AddComponentMenu("MultiGame/General/Destroy With Me")]
 	public class DestroyWithMe : MultiModule {
 
 		[Tooltip("List of things to destroy when I destroy")]

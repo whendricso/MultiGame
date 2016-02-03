@@ -4,6 +4,7 @@ using MultiGame;
 
 namespace MultiGame {
 
+	[AddComponentMenu("MultiGame/Interaction/Transform Window")]
 	public class TransformWindow : MultiModule {
 
 		[Tooltip("Unique identifier for the legacy Unity GUI window")]

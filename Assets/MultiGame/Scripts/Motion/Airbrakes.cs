@@ -4,6 +4,7 @@ using MultiGame;
 
 namespace MultiGame {
 
+	[AddComponentMenu("MultiGame/Motion/Airbrakes")]
 	public class Airbrakes : MultiModule {
 
 		[Tooltip("Which key activates the brakes when held?")]

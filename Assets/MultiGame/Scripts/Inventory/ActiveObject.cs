@@ -8,6 +8,7 @@ namespace MultiGame {
 	//inventory-enabled object
 	//such as an item or weapon that is currently in-use
 	//plays an audio clip, if one is on the object
+	[AddComponentMenu("MultiGame/Inventory/Active Object")]
 	public class ActiveObject : MultiModule {
 		
 		public enum ItemTypes {WeaponR, WeaponL, EquipTorso, EquipBack, NoEquip};

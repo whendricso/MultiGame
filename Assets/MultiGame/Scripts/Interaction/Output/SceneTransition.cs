@@ -4,6 +4,7 @@ using MultiGame;
 
 namespace MultiGame {
 
+	[AddComponentMenu("MultiGame/Interaction/Output/Scene Transition")]
 	public class SceneTransition : MultiModule {
 		
 		[Tooltip("Name of the Scene we will load, must be added to Build Settings")]

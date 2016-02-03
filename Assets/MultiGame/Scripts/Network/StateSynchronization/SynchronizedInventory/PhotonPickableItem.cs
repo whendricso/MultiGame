@@ -4,6 +4,7 @@ using MultiGame;
 
 namespace MultiGame {
 
+	[AddComponentMenu("MultiGame/Network/Inventory/Photon Pickable Item")]
 	[RequireComponent (typeof (CloneFlagRemover))]
 	[RequireComponent (typeof(PhotonView))]
 	public class PhotonPickableItem : Photon.MonoBehaviour {

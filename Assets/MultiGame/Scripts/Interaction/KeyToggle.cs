@@ -4,6 +4,7 @@ using MultiGame;
 
 namespace MultiGame {
 
+	[AddComponentMenu("MultiGame/Interaction/Key Toggle")]
 	public class KeyToggle : MultiModule {
 		
 		[Tooltip("Game Objects we will toggle")]

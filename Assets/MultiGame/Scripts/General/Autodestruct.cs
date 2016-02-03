@@ -4,6 +4,7 @@ using MultiGame;
 
 namespace MultiGame {
 
+	[AddComponentMenu("MultiGame/General/Autodestruct")]
 	public class Autodestruct : MultiModule {
 		
 		[Tooltip("How long until destruction?")]

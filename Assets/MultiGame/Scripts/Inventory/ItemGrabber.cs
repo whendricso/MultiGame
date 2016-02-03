@@ -4,6 +4,7 @@ using MultiGame;
 
 namespace MultiGame {
 
+	[AddComponentMenu("MultiGame/Inventory/Item Grabber")]
 	public class ItemGrabber : MultiModule {
 
 		public HelpInfo help = new HelpInfo("This component only works with CharacterControllers, it picks up an item into inventory when the controller collides with a 'Pickable'." +

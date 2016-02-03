@@ -4,6 +4,7 @@ using MultiGame;
 
 namespace MultiGame {
 
+	[AddComponentMenu("MultiGame/Motion/Mouse Torque")]
 	[RequireComponent (typeof (Rigidbody))]
 	public class MouseTorque : MultiModule {
 

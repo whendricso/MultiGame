@@ -5,6 +5,7 @@ using MultiGame;
 
 namespace MultiGame {
 
+	[AddComponentMenu("MultiGame/General/Planar Y Destructor")]
 	public class PlanarYDestructor : MultiModule {
 		
 		[Tooltip("The depth at which we must pass under before being automatically destroyed")]

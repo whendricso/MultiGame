@@ -4,6 +4,7 @@ using MultiGame;
 
 namespace MultiGame {
 
+	[AddComponentMenu("MultiGame/Motion/HingeMotor")]
 	[RequireComponent(typeof(HingeJoint))]
 	public class HingeMotor : MultiModule {
 

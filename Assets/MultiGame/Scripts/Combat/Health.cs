@@ -4,6 +4,7 @@ using MultiGame;
 
 namespace MultiGame {
 
+	[AddComponentMenu("MultiGame/Combat/Health")]
 	public class Health : MultiModule {
 		
 		[Tooltip("How much health do we start with?")]

@@ -4,6 +4,7 @@ using MultiGame;
 
 namespace MultiGame {
 
+	[AddComponentMenu("MultiGame/General/Snap To Surface")]
 	public class SnapToSurface : MultiModule {
 
 		public enum SnapModes {Validate, Start};

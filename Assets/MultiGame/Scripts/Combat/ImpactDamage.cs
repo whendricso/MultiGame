@@ -4,6 +4,7 @@ using MultiGame;
 
 namespace MultiGame {
 
+	[AddComponentMenu("MultiGame/Combat/Impact Damage")]
 	[RequireComponent (typeof(Rigidbody))]
 	public class ImpactDamage : MultiModule {
 

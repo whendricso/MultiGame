@@ -4,6 +4,7 @@ using MultiGame;
 
 namespace MultiGame {
 
+	[AddComponentMenu("MultiGame/Interaction/Output/MessageToggle")]
 	public class MessageToggle : MultiModule {
 
 		[Tooltip("Game Objects we will toggle")]

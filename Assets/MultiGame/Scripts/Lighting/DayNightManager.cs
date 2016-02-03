@@ -4,6 +4,7 @@ using MultiGame;
 
 namespace MultiGame {
 
+	[AddComponentMenu("MultiGame/Lighting/Day Night Manager")]
 	[RequireComponent (typeof(Animation))]
 	public class DayNightManager : MonoBehaviour {
 		

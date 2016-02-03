@@ -4,6 +4,7 @@ using MultiGame;
 
 namespace MultiGame {
 
+	[AddComponentMenu("MultiGame/Interaction/Collision Destructor")]
 	public class CollisionDestructor : MultiModule {
 
 		public bool destroySelf = false;

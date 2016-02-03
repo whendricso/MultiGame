@@ -7,6 +7,7 @@ using MultiGame;
 namespace MultiGame {
 
 
+	[AddComponentMenu("MultiGame/General/Detatch On Start")]
 	public class DetatchOnStart : MultiModule {
 
 		public HelpInfo help = new HelpInfo("Un-parent this object when it's created. This is really useful for setting up prefabs that have multiple discreet objects in them." +

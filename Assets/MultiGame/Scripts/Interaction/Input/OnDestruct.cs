@@ -4,6 +4,7 @@ using MultiGame;
 
 namespace MultiGame {
 
+	[AddComponentMenu("MultiGame/Interaction/Input/On Destruct")]
 	public class OnDestruct : MultiModule {
 
 		[Tooltip("Optional message target override")]

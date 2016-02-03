@@ -4,7 +4,8 @@ using MultiGame;
 
 namespace MultiGame {
 
-
+	[AddComponentMenu("MultiGame/AI/Nav Module")]
+	
 	[RequireComponent(typeof(NavMeshAgent))]
 	public class NavModule : MultiModule {
 

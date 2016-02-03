@@ -4,6 +4,7 @@ using MultiGame;
 
 namespace MultiGame {
 
+	[AddComponentMenu("MultiGame/Motion/Spin Motor")]
 	public class SpinMotor : MultiModule {
 		
 		/// <summary>

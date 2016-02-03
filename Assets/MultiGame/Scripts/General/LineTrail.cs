@@ -4,6 +4,7 @@ using MultiGame;
 
 namespace MultiGame {
 
+	[AddComponentMenu("MultiGame/General/Line Trail")]
 	[RequireComponent(typeof(LineRenderer))]
 	public class LineTrail : MultiModule {
 

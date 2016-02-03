@@ -5,6 +5,7 @@ using MultiGame;
 
 namespace MultiGame {
 
+	[AddComponentMenu("MultiGame/Character/Character Selector")]
 	public class CharacterSelector : MultiModule {
 		
 		[Tooltip("Normalized viewport rectangle indicating the button area. values between 0 and 1")]

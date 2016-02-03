@@ -4,6 +4,7 @@ using MultiGame;
 
 namespace MultiGame {
 
+	[AddComponentMenu("MultiGame/Interaction/Output/Message Animator")]
 	public class MessageAnimator : MultiModule {
 
 		[Tooltip("The Mecanim trigger to activate when TriggerAnimation is received, occurs the first and every alternating time after that")]

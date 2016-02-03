@@ -4,6 +4,7 @@ using MultiGame;
 
 namespace MultiGame {
 
+	[AddComponentMenu("MultiGame/Interaction/Output/Tag Broadcaster")]
 	public class TagBroadcaster : MultiModule {
 
 		[Tooltip("Tag associated with objects we want to talk to")]

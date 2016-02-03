@@ -7,6 +7,7 @@ namespace MultiGame {
 
 	//MultiMenu Copyright 2013 William Hendrickson and Tech Drone
 
+	[AddComponentMenu("MultiGame/Interaction/Input/MultiMenu")]
 	public class MultiMenu : MultiModule {
 
 		//public GameObject target;

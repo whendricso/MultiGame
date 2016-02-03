@@ -4,7 +4,7 @@ using MultiGame;
 
 namespace MultiGame {
 
-
+	[AddComponentMenu("MultiGame/AI/Targeting Sensor")]
 	public class TargetingSensor : MultiModule {
 		
 		[Tooltip("What object has a targeting computer, or other MultiGame AI component attached that needs a target?")]

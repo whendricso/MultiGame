@@ -4,6 +4,7 @@ using MultiGame;
 
 namespace MultiGame {
 
+	[AddComponentMenu("MultiGame/Interaction/Output/MessageParentRelation")]
 	public class MessageParentRelation : MultiModule {
 
 		[Tooltip("Object who'se parent we will change")]

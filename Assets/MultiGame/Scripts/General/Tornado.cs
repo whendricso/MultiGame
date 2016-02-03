@@ -4,6 +4,7 @@ using MultiGame;
 
 namespace MultiGame {
 
+	[AddComponentMenu("MultiGame/General/Tornado")]
 	[RequireComponent (typeof(CharacterController))]
 	[RequireComponent (typeof(AudioSource))]
 	public class Tornado : MultiModule {

@@ -4,6 +4,7 @@ using MultiGame;
 
 namespace MultiGame {
 
+	[AddComponentMenu("MultiGame/Audio/Music Manager")]
 	[RequireComponent (typeof(AudioSource))]
 	public class MusicManager : MultiModule {
 		

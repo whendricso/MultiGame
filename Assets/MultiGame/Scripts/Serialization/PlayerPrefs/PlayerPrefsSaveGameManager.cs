@@ -4,6 +4,7 @@ using MultiGame;
 
 namespace MultiGame {
 
+	[AddComponentMenu("MultiGame/Serialization/PlayerPrefs Save Game Manager")]
 	public class PlayerPrefsSaveGameManager : MonoBehaviour {
 
 		public Rect guiArea = new Rect();

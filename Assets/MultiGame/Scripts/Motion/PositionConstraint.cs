@@ -4,6 +4,7 @@ using MultiGame;
 
 namespace MultiGame {
 
+	[AddComponentMenu("MultiGame/Motion/Position Constraint")]
 	public class PositionConstraint : MultiModule {
 
 		public bool constrainX = false;

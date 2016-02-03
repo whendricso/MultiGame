@@ -4,11 +4,14 @@ using MultiGame;
 
 namespace MultiGame {
 
+	[AddComponentMenu("MultiGame/Interaction/Input/Active Collider")]
 	[RequireComponent (typeof(Rigidbody))]
 	public class ActiveCollider : MultiModule {
 
 		[Tooltip("List of tags that trigger this message sender")]
 		public string[] activeTags;
+		[Tooltip("If true, the tag check will be compared against the root transform of the object hit, otherwise it will be performed against the hit collider's transform.")]
+		public bool checkRoot = false;
 		[Tooltip("Minimum velocity required")]
 		public float velocityThreshold = 0.0f;
 		[Tooltip("Message target override")]
@@ -62,11 +65,13 @@ namespace MultiGame {
 		}
 
 		void OnCharacterCollision (Collider other) {
-
-			if (!CheckIfActivationPossible(other))
-				return;
 			if (debug)
 				Debug.Log("Collision detected with " + other.gameObject.name);
+			if (!CheckIfActivationPossible(other)) {
+				if (debug)
+					Debug.Log("Tag check failed for Active Collider " + gameObject.name);
+				return;
+			}
 			if (!string.IsNullOrEmpty(messageToEnteringEntity.message)) {
 				MessageManager.Send(new MessageManager.ManagedMessage(
 					other.gameObject, 
@@ -91,11 +96,15 @@ namespace MultiGame {
 
 			if (velocityThreshold > 0.0f && collision.relativeVelocity.magnitude <= velocityThreshold)
 				return;
-			Collider other = collision.collider;
-			if (!CheckIfActivationPossible(other))
-				return;
 			if (debug)
 				Debug.Log("Collision detected with " + collision.gameObject.name);
+			Collider other = collision.collider;
+			if (!CheckIfActivationPossible(other)) {
+				if (debug)
+					Debug.Log("Tag check failed for Active Collider " + gameObject.name);
+				return;
+			}
+
 			if (hitPrefab != null)
 				Instantiate(hitPrefab, collision.contacts[0].point, /*transform.rotation*/Quaternion.identity);
 			if (!string.IsNullOrEmpty(messageToEnteringEntity.message)) {
@@ -143,9 +152,18 @@ namespace MultiGame {
 
 		bool CheckIfActivationPossible (Collider other) {
 			bool ret = false;
+
+			if (debug)
+				Debug.Log ("Active Collider " + gameObject.name + " hit object with tag " + other.tag);
+
 			foreach (string str in activeTags) {
-				if (str == other.gameObject.tag)
-					ret = true;
+				if (checkRoot) {
+					if (str == other.transform.root.gameObject.tag)
+						ret = true;
+				} else {
+					if (str == other.gameObject.tag)
+						ret = true;
+				}
 			}
 			return ret;
 		}

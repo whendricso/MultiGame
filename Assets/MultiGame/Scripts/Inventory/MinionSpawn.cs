@@ -8,6 +8,7 @@ namespace MultiGame {
 	/// <summary>
 	/// Minion spawn will raycast downwards on Start, and try to spawn units
 	/// </summary>
+	[AddComponentMenu("MultiGame/Inventory/Minion Spawn")]
 	public class MinionSpawn : MultiModule {
 		
 		[Tooltip("Unit we are attempting to spawn")]

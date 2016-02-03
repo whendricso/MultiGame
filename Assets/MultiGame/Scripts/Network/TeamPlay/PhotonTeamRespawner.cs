@@ -4,7 +4,7 @@ using MultiGame;
 
 namespace MultiGame
 {
-	[AddComponentMenu("MultiGame/Networking/TeamRespawner")]
+	[AddComponentMenu("MultiGame/Network/TeamRespawner")]
 	public class PhotonTeamRespawner : Photon.MonoBehaviour
 	{
 
@@ -35,7 +35,9 @@ namespace MultiGame
 			}
 		}
 
-
+		public void SetPlayerPrefab (string _prefabName) {
+			playerPrefabName = _prefabName;
+		}
 
 	}
 }

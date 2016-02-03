@@ -7,6 +7,7 @@ using MultiGame;
 
 namespace MultiGame {
 
+	[AddComponentMenu("MultiGame/Network/Inventory/Photon Local Inventory")]
 	[RequireComponent(typeof(PhotonView))]
 	public class PhotonLocalInventory : Photon.MonoBehaviour {
 

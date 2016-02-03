@@ -4,6 +4,7 @@ using MultiGame;
 
 namespace MultiGame {
 
+	[AddComponentMenu("MultiGame/Motion/Random Spin")]
 	public class RandomSpin : MultiModule {
 
 		[Tooltip("Do we apply rotation just once, or continually?")]
@@ -24,7 +25,9 @@ namespace MultiGame {
 		// Update is called once per frame
 		void FixedUpdate () {
 
-			if (GetComponent<Rigidbody>().isKinematic || GetComponent<Rigidbody>() == null) {
+			Rigidbody _rigid = GetComponent<Rigidbody>();
+
+			if (_rigid == null || _rigid.isKinematic ) {
 				if (oneShot && didStart) 
 					return;
 				didStart = true;
@@ -34,7 +37,7 @@ namespace MultiGame {
 				if (oneShot && didStart) 
 					return;
 				didStart = true;
-					GetComponent<Rigidbody>().AddRelativeTorque(new Vector3(Random.Range(-power, power),Random.Range(-power, power),Random.Range(-power, power)));
+				_rigid.AddRelativeTorque(new Vector3(Random.Range(-power, power),Random.Range(-power, power),Random.Range(-power, power)));
 				
 			}
 		}

@@ -8,14 +8,28 @@ using MultiGame;
 namespace MultiGame {
 
 
-	public class SceneObjectListSerializer : MonoBehaviour {
+	[AddComponentMenu("MultiGame/Serialization/Scene Object List Serializer")]
+	public class SceneObjectListSerializer : MultiModule {
 
+		[Tooltip("Allows one Unity scene to have multiple saves, by changing this. Can also be changed with the 'SetUniqueSceneIdentifier' which takes a string representing the new identifier you want to use")]
 		public string optionalUniqueSceneIdentifier = "";//if supplied, allows one Unity scene to have multiple saves associated
 		[HideInInspector]
 		public List<SceneObject> objects = new List<SceneObject>();
+		[Tooltip("Do we want to automatically instantiate the objects when we load?")]
 		public bool autoInstantiate = true;
+		[Tooltip("Do we want to save automatically when we gather a list of objects from the scene? (recommended)")]
 		public bool autoSaveOnPopulate = true;
 		public bool debug = false;
+
+		public HelpInfo help = new HelpInfo("Scene Object List Serializer allows the player to save the contents of a scene. It saves position, rotation, scale, and material list. " +
+			"The objects you are loading, and their materials, must be directly inside a folder called 'Resources' anywhere in your project, or Unity will not have access to the data." +
+			"\n----Messages:----\n" +
+			"'PopulateByTag' takes a string, which adds all objects with that tag to the list in RAM. If 'Auto Save On Populate' is checked, saves the list immediately to disk. Call multiple times to add more object tags (but uncheck auto save if doing this).\n" +
+			"'Save' takes no parameter, and saves the list from RAM to disk.\n" +
+			"'ClearObjectsByTag' takes a string representing the tag of the objects you want to remove from the scene. Leaves them in the file list (useful to prevent duplicates)\n" +
+			"'Load' takes no parameter. Loads the object list into RAM. Instantiates if 'Auto Instantiate' checked. If they already exist, call 'ClearObjectsByTag' first\n" +
+			"'Clear' clears the temporary object list in RAM but not the scene objects or those in the file.\n" +
+			"'InstantiateObjectList' instantiates the objects currently in the RAM cache. 'Load' them first.\n");
 
 		[System.Serializable]
 		public struct SceneObject {
@@ -139,6 +153,10 @@ namespace MultiGame {
 				}
 				_rend.sharedMaterials = _newMaterials;
 			}
+		}
+
+		public void SetUniqueSceneIdentifier (string _identifier) {
+			optionalUniqueSceneIdentifier = _identifier;
 		}
 
 	}

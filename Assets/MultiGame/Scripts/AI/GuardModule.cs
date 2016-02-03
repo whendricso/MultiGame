@@ -4,7 +4,7 @@ using MultiGame;
 
 namespace MultiGame {
 
-
+	[AddComponentMenu("MultiGame/AI/Guard Module")]
 	public class GuardModule : MultiModule {
 
 		[Tooltip("What are we trying to guard?")]

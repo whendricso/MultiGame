@@ -5,6 +5,7 @@ using MultiGame;
 
 namespace MultiGame {
 
+	[AddComponentMenu("MultiGame/Interaction/Output/MessageRelay")]
 	public class MessageRelay : MultiModule {
 
 		[Tooltip("List of messages we will send")]

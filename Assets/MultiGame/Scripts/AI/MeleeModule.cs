@@ -5,7 +5,7 @@ using MultiGame;
 
 namespace MultiGame {
 
-
+	[AddComponentMenu("MultiGame/AI/Melee Module")]
 	public class MeleeModule : MultiModule {
 
 		[System.NonSerialized]

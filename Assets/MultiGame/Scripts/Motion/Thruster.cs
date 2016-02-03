@@ -4,6 +4,7 @@ using MultiGame;
 
 namespace MultiGame {
 
+	[AddComponentMenu("MultiGame/Motion/Thruster")]
 	public class Thruster : MultiModule {
 
 		[Tooltip("Are we currently thrusting?")]

@@ -4,6 +4,7 @@ using MultiGame;
 
 namespace MultiGame {
 
+	[AddComponentMenu("MultiGame/Interaction/Mouse Over Toggle")]
 	[RequireComponent (typeof(Collider))]
 	public class MouseOverToggle : MultiModule {
 		

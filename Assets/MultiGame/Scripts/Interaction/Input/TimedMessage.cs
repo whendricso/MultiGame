@@ -4,6 +4,7 @@ using MultiGame;
 
 namespace MultiGame {
 
+	[AddComponentMenu("MultiGame/Interaction/Input/Timed Message")]
 	public class TimedMessage : MultiModule {
 
 		[Tooltip("How long does the timer last?")]

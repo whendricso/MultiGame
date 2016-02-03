@@ -2,49 +2,53 @@ using UnityEngine;
 using System.Collections;
 using MultiGame;
 
-//used to synchronize Mecanim state machines over Photon
-[RequireComponent (typeof(PhotonView))]
-[RequireComponent (typeof(Animator))]
-public class PhotonMecanimRelay : Photon.MonoBehaviour {
+namespace MultiGame {
 
-	public AnimatedState[] animatedStates;
+	//used to synchronize Mecanim state machines over Photon
+	[AddComponentMenu("MultiGame/Network/Photon Mecanim Relay")]
+	[RequireComponent (typeof(PhotonView))]
+	[RequireComponent (typeof(Animator))]
+	public class PhotonMecanimRelay : Photon.MonoBehaviour {
 
-	public MultiModule.HelpInfo help = new MultiModule.HelpInfo("Allows for a Mecanim Trigger to be activated across the Photon network. You can set a list of triggers with " +
-		"'Animated States' and use the 'AnimateState' message, passing in an integer representing the index of the AnimatedState you want to use.\n" +
-		"'TriggerAnimation' takes a string, and invokes the trigger with that name. See the Mecanim documentation for more information about Triggers.");
+		public AnimatedState[] animatedStates;
 
-	[HideInInspector]
-	public Animator animator;
-	[HideInInspector]
-	public PhotonView photonView;
+		public MultiModule.HelpInfo help = new MultiModule.HelpInfo("Allows for a Mecanim Trigger to be activated across the Photon network. You can set a list of triggers with " +
+			"'Animated States' and use the 'AnimateState' message, passing in an integer representing the index of the AnimatedState you want to use.\n" +
+			"'TriggerAnimation' takes a string, and invokes the trigger with that name. See the Mecanim documentation for more information about Triggers.");
 
-	[System.Serializable]
-	public class AnimatedState {
-		public string trigger = "";
-	}
+		[HideInInspector]
+		public Animator animator;
+		[HideInInspector]
+		public PhotonView photonView;
 
-	void Awake () {
-		animator = GetComponent<Animator>();
-	}
-
-	void Start () {
-		photonView = GetComponent<PhotonView>();
-	}
-
-	public void AnimateState (int animatedState) {
-		TriggerAnimation(animatedStates[animatedState].trigger);
-	}
-	
-	public void TriggerAnimation (string anim) {
-		if (photonView.isMine) {
-			photonView.RPC("AnimateByMecanim", PhotonTargets.All, anim);
+		[System.Serializable]
+		public class AnimatedState {
+			public string trigger = "";
 		}
-	}
 
-	[PunRPC]
-	void AnimateByMecanim (string triggerName) {
-		animator.SetTrigger(triggerName);
-	}
+		void Awake () {
+			animator = GetComponent<Animator>();
+		}
 
+		void Start () {
+			photonView = GetComponent<PhotonView>();
+		}
+
+		public void AnimateState (int animatedState) {
+			TriggerAnimation(animatedStates[animatedState].trigger);
+		}
+		
+		public void TriggerAnimation (string anim) {
+			if (photonView.isMine) {
+				photonView.RPC("AnimateByMecanim", PhotonTargets.All, anim);
+			}
+		}
+
+		[PunRPC]
+		void AnimateByMecanim (string triggerName) {
+			animator.SetTrigger(triggerName);
+		}
+
+	}
 }
 //copyright 2014 William Hendrickson

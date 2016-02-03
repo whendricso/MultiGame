@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using MultiGame;
 
 namespace MultiGame {
-
+	
 	public class PersistentDataSaveGameManager : MonoBehaviour {
 
 		public Rect guiArea = new Rect();

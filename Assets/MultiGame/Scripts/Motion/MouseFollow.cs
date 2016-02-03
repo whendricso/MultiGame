@@ -4,6 +4,7 @@ using MultiGame;
 
 namespace MultiGame {
 
+	[AddComponentMenu("MultiGame/Motion/Mouse Follow")]
 	public class MouseFollow : MultiModule {
 		
 		[Tooltip("How far away can the mouse be at most?")]

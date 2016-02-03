@@ -4,6 +4,7 @@ using MultiGame;
 
 namespace MultiGame {
 
+	[AddComponentMenu("MultiGame/General/Quality Selection")]
 	public class QualitySelection : MultiModule {
 		
 		[Tooltip("Should we save to the Player Prefs on this machine for later reference? (Works on all platforms)")]

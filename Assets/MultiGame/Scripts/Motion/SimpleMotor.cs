@@ -4,6 +4,7 @@ using MultiGame;
 
 namespace MultiGame {
 
+	[AddComponentMenu("MultiGame/Motion/Simple Motor")]
 	public class SimpleMotor : MultiModule {
 
 		[Tooltip("How fast in global space?")]

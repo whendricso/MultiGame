@@ -8,6 +8,7 @@ namespace MultiGame {
 	/// <summary>
 	/// Wall section
 	/// </summary>
+	[AddComponentMenu("MultiGame/Interaction/Wall Section")]
 	public class WallSection : MultiModule {
 		
 		//wall sections
@@ -37,7 +38,7 @@ namespace MultiGame {
 		private GameObject myWall;
 
 		public HelpInfo help = new HelpInfo("This component swaps out a prefab based on neighboring rules. It also rotates the object so you don't need a prefab for each direction." +
-			" Great for dungeon crawlers, or user-created walls.");
+			" Great for dungeon crawlers, or user-created walls. It assumes it's instantiated in the correct position for the prefab edges to line up correctly.");
 		
 		void Start () {
 			Debug.Log("" + pN);

@@ -4,7 +4,8 @@ using MultiGame;
 
 namespace MultiGame {
 
-
+	[AddComponentMenu("MultiGame/AI/Turret Action")]
+	
 	[RequireComponent (typeof(AudioSource))]
 	public class TurretAction : MultiModule {
 		

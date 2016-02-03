@@ -4,6 +4,7 @@ using MultiGame;
 
 namespace MultiGame {
 
+	[AddComponentMenu("MultiGame/Camera/Cam Zone")]
 	public class CamZone : MultiModule {
 
 		public HelpInfo help = new HelpInfo("This component allows you to have area cameras. We recommend setting up the camera to display in a corner or side of the screen, " +

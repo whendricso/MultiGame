@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using MultiGame;
 
 namespace MultiGame {
+	[AddComponentMenu("MultiGame/AchievementHandler")]
 	public class AchievementHandler : MultiModule {
 
 		[Tooltip("A list of achievements for this object. It's object-specific, allowing you to create multiple achievement lists if you desire")]
@@ -21,7 +22,7 @@ namespace MultiGame {
 			" add it to an empty game object and set up a list of achievements. Then, assign a tag, perhaps 'achievementManager' to the object. Add a 'Persistent' component so it stays between scenes. " +
 			"Finally, broadcast the 'Increment' message to it. When an achievement is completed, the 'Completion Message' is sent from the corresponding achievement, great for adding effects & sound, popups etc as reward." +
 			"The 'On Load Or Completion Message' allows you to add unlockables to achievements." +
-			"\n\n" +
+			"\n----Messages:----\n" +
 			"The 'Increment' message takes a string, which is the name of the achievement we are incrementing. \n" +
 			"This component can also 'Save' and 'Load' it's achievement list from PlayerPrefs, which is supported on all platforms.");
 

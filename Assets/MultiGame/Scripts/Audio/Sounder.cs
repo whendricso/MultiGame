@@ -5,6 +5,7 @@ using MultiGame;
 namespace MultiGame {
 
 
+	[AddComponentMenu("MultiGame/Audio/Sounder")]
 	[RequireComponent(typeof(AudioSource))]
 	public class Sounder : MultiModule {
 

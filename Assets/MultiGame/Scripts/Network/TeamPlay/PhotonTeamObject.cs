@@ -5,7 +5,7 @@ using MultiGame;
 
 namespace MultiGame {
 
-	[AddComponentMenu("MultiGame/Networking/TeamObject")]
+	[AddComponentMenu("MultiGame/Network/Photon Team Object")]
 	[RequireComponent(typeof(PhotonView))]
 	public class PhotonTeamObject : Photon.MonoBehaviour {
 
@@ -15,6 +15,8 @@ namespace MultiGame {
 			public string teamTag;
 			[Tooltip("What is this team's physics layer?")]
 			public int layer;
+			[Tooltip("What layer is this team's sensor layer?")]
+			public int sensorLayer;
 			[Tooltip("What is the tag associated with this team's spawn points? Spawn points can be an empty transform")]
 			public string teamSpawnTag;
 			[Tooltip("What game object should be toggled on when we're on this team?")]
@@ -22,6 +24,9 @@ namespace MultiGame {
 		}
 
 		public Team[] teams;
+
+		[Tooltip("Should we use the sensor tag instead?")]
+		public bool isSensor = false;
 
 		[Tooltip("Should we keep the team indicator object hidden for the local player?")]
 		public bool hideTeamLocally = true;
@@ -32,7 +37,7 @@ namespace MultiGame {
 		public MessageManager.ManagedMessage teamChangedMessage;
 
 		public MultiModule.HelpInfo help = new MultiModule.HelpInfo("Photon Team Object allows team-based play by changing team indicators, tags and layers. Each team should have it's " +
-			"own tag and layer.");
+			"own tag and layer. If you want to spawn team-based objects, you need a PhotonInstantiator component, which will cause anything it spawns to inherit it's team.");
 
 		void OnValidate () {
 			MessageManager.UpdateMessageGUI(ref teamChangedMessage, gameObject);
@@ -56,7 +61,10 @@ namespace MultiGame {
 			}
 
 			tag = teams[_team].teamTag;
-			gameObject.layer = teams[_team].layer;
+			if (!isSensor)
+				gameObject.layer = teams[_team].layer;
+			else
+				gameObject.layer = teams[_team].sensorLayer;
 
 			for (int i = 0; i < teams.Length; i++) {
 				if (i != _team || hideTeamLocally)

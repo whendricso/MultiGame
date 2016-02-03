@@ -4,6 +4,7 @@ using MultiGame;
 
 namespace MultiGame {
 
+	[AddComponentMenu("MultiGame/Combat/Bullet")]
 	[RequireComponent (typeof(Rigidbody))]
 	public class Bullet : MultiModule {
 		
@@ -11,6 +12,8 @@ namespace MultiGame {
 		public float muzzleVelocity = 1500.0f;
 		[Tooltip("How much hurt?")]
 		public float damageValue = 25.0f;
+		[Tooltip("How long, if at all, should we wait (in seconds) before checking for collisions?")]
+		public float activationDelay = 0f;
 		[Tooltip("What, if anything, should we spawn at the hit position? (useful for explosions, decals, particles etc)")]
 		public GameObject bulletSplash;
 		private bool fired = false;
@@ -51,11 +54,17 @@ namespace MultiGame {
 				fired = true;
 				GetComponent<Rigidbody>().AddRelativeForce(0.0f,0.0f,muzzleVelocity,ForceMode.VelocityChange);
 			}
+			if (activationDelay > 0) {
+				activationDelay -= Time.deltaTime;
+				return;
+			}
 			if(Physics.Linecast(lastPosition, transform.position, out hinfo, rayMask)) {
 				if (debug)
 					Debug.Log("Bullet " + gameObject.name + " hit " + hinfo.collider.gameObject);
-				transform.position = hinfo.point;
-				RegisterDamage(hinfo);
+				if (owner.transform.root != hinfo.transform.root) {
+					transform.position = hinfo.point;
+					RegisterDamage(hinfo);
+				}
 			}
 		}
 		
@@ -74,7 +83,7 @@ namespace MultiGame {
 			Destroy(gameObject);
 		}
 		
-		public void SetOwner (GameObject newOwner) {
+		private void SetOwner (GameObject newOwner) {
 			owner = newOwner;
 		}
 	}

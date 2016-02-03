@@ -4,6 +4,7 @@ using MultiGame;
 
 namespace MultiGame {
 
+	[AddComponentMenu("MultiGame/Interaction/Input/Joint Break Message")]
 	public class JointBreakMessage : MultiModule {
 
 		[Tooltip("When the joint breaks, what should we send?")]

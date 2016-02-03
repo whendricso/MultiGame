@@ -5,6 +5,7 @@ using MultiGame;
 
 namespace MultiGame {
 
+	[AddComponentMenu("MultiGame/Motion/Mouse Aim")]
 	public class MouseAim : MultiModule {
 
 		public enum RotationAxes { MouseXAndY = 0, MouseX = 1, MouseY = 2 }

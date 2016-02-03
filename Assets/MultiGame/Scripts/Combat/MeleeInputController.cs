@@ -4,6 +4,7 @@ using MultiGame;
 
 namespace MultiGame {
 
+	[AddComponentMenu("MultiGame/Combat/Melee Input Controller")]
 	[RequireComponent (typeof(AudioSource))]
 	public class MeleeInputController : MultiModule {
 

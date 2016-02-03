@@ -4,6 +4,7 @@ using MultiGame;
 
 namespace MultiGame {
 
+	[AddComponentMenu("MultiGame/General/Clone Flag Remover")]
 	public class CloneFlagRemover : MultiModule {
 
 		public HelpInfo help = new HelpInfo("When this object is created, it will remove '(Clone)' from the object's name. This is important to have for multiplayer objects " +

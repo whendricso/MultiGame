@@ -4,6 +4,7 @@ using MultiGame;
 
 namespace MultiGame {
 
+	[AddComponentMenu("MultiGame/General/Timed Scene Changer")]
 	public class TimedSceneChanger : MultiModule {
 		
 		[Tooltip("How long until time runs out?")]

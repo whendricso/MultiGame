@@ -4,6 +4,7 @@ using MultiGame;
 
 namespace MultiGame {
 
+	[AddComponentMenu("MultiGame/Lighting/Worklight")]
 	[RequireComponent (typeof (Light))]
 	public class Worklight : MultiModule {
 		

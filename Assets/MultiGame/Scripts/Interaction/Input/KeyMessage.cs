@@ -4,6 +4,7 @@ using MultiGame;
 
 namespace MultiGame {
 
+	[AddComponentMenu("MultiGame/Interaction/Input/Key Message")]
 	public class KeyMessage : MultiModule {
 
 		[Tooltip("The key in question")]

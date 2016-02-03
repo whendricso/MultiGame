@@ -5,6 +5,7 @@ using MultiGame;
 
 namespace MultiGame {
 
+	[AddComponentMenu("MultiGame/Interaction/Input/Clickable")]
 	public class Clickable : MultiModule {
 		
 		[Tooltip("What should we send when clicked?")]
