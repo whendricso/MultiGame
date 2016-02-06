@@ -11,7 +11,7 @@ namespace MultiGame {
 		[Tooltip("List of tags that trigger this message sender")]
 		public string[] activeTags;
 		[Tooltip("If true, the tag check will be compared against the root transform of the object hit, otherwise it will be performed against the hit collider's transform.")]
-		public bool checkRoot = false;
+		public bool checkRoot = true;
 		[Tooltip("Minimum velocity required")]
 		public float velocityThreshold = 0.0f;
 		[Tooltip("Message target override")]

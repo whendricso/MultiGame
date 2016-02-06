@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using MultiGame;
 
 namespace MultiGame {
@@ -11,8 +12,13 @@ namespace MultiGame {
 		
 		[Tooltip("Message target override")]
 		public GameObject target;
+		[HideInInspector]
 		[Tooltip("Ignore all objects other than the player?")]
 		public bool playerOnly = false;
+		[Tooltip("A list of tags that trigger this message sender")]
+		public List<string> activeTags = new List<string>();
+		[Tooltip("When checking tags, do we check the collision object or it's root transform?")]
+		public bool checkRoot = true;
 		[HideInInspector]
 		public string animEnter;
 		[HideInInspector]
@@ -34,7 +40,8 @@ namespace MultiGame {
 		public string targetLevel;
 
 		public HelpInfo help = new HelpInfo("This component sends messages when an object enters, exits, or stays in a given trigger area. Must be attached to a collider marked" +
-			" 'isTrigger'");
+			" 'isTrigger'. To use, ensure that this object's collision layer collides only with objects you wish to activate it. Then, define some Messages to be sent by drag & dropping " +
+			"a target onto 'Message Target' then selecting a message from the list you want to send. You can also use tags to further cull the results.");
 
 		public bool debug = false;
 		
@@ -76,6 +83,11 @@ namespace MultiGame {
 				Debug.Log("Enter " + target.name);
 			if (playerOnly && other.gameObject.tag != "Player")
 				return;
+			if (!checkRoot && !activeTags.Contains( other.gameObject.tag))
+				return;
+			if (checkRoot && !activeTags.Contains( other.transform.root.gameObject.tag))
+				return;
+
 			if (!string.IsNullOrEmpty(messageToEnteringEntity.message)) {
 				other.gameObject.SendMessage(messageToEnteringEntity.message, SendMessageOptions.DontRequireReceiver);//MessageManager.SendTo(messageToEnteringEntity,other.gameObject);
 			}

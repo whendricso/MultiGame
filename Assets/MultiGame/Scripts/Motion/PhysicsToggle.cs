@@ -20,7 +20,8 @@ namespace MultiGame {
 	//	private float originalDrag;
 	//	private float originalAngular;
 
-		public HelpInfo help = new HelpInfo("This component allows the physics simulation of a given object to be toggled based on messages.");
+		public HelpInfo help = new HelpInfo("This component allows the physics simulation of a given object to be toggled based on messages. 'EnablePhysics' and 'DisablePhysics' " +
+			"take no parameters. 'SwapPhysics' takes no parameter and will reverse the physics state of the object.");
 
 		void Start () {
 	//		originalDrag = GetComponent<Rigidbody>().drag;
@@ -53,7 +54,7 @@ namespace MultiGame {
 				_coll.convex = true;
 		}
 
-		public IEnumerator TogglePhysics(bool val) {
+		IEnumerator TogglePhysics(bool val) {
 			yield return new WaitForSeconds(delay);
 			if (!val && nullifyMotion)
 				GetComponent<Rigidbody>().velocity = Vector3.zero;

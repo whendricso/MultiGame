@@ -14,7 +14,8 @@ namespace MultiGame {
 		public GameObject deathPrefab;
 
 		public HelpInfo help = new HelpInfo("This component implements a collectible object. This requires that a CollectionManager be present somewhere in the scene (only one" +
-			" manager should be present, each collectible needs one of these components however)");
+			" manager should be present, each collectible needs one of these components however). To use, place on an object you would like the player to collect. Either this object, " +
+			"or the player needs a Rigidbody component. The player must be tagged 'Player' or the collection will fail.");
 
 		void Start () {
 			if (collectionManager == null)

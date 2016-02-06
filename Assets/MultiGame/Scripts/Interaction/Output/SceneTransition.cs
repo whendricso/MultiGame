@@ -17,7 +17,7 @@ namespace MultiGame {
 		public HelpInfo help = new HelpInfo("This component implements single-player scene changes. Not suitable for multiplayer." +
 			"\n\n" +
 			"To use this component, first you need a scene you want to change to saved and added to File -> Build Settings -> Add Current (to add a new scene, you must" +
-			" change to it first). Next, type it's exact name into 'Target Scene' and you're all set. This component receives the 'ChangeMission' message to activate it.");
+			" change to it first). Next, type it's exact name into 'Target Scene' and you're all set. This component receives the 'ChangeScene' message to activate it.");
 
 		void Start () {
 			if (changeOnStart)

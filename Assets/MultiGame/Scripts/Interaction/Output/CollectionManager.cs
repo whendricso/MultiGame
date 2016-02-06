@@ -36,12 +36,15 @@ namespace MultiGame {
 				target = gameObject;
 			if (collectionMessage.target == null)
 				collectionMessage.target = target;
+			if (maxedMessage.target == null)
+				maxedMessage.target = target;
 			if (windowTitle == "")
 				windowTitle = "Collect";
 		}
 
 		void OnValidate () {
 			MessageManager.UpdateMessageGUI(ref collectionMessage, gameObject);
+			MessageManager.UpdateMessageGUI(ref maxedMessage, gameObject);
 		}
 
 		void OnGUI () {

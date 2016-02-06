@@ -61,6 +61,10 @@ namespace MultiGame {
 			InitiateCooldown();
 		}
 
+		public void StopSound () {
+			source.Stop();
+		}
+
 		void InitiateCooldown () {
 			canSound = false;
 			StartCoroutine(ResetCooldown(cooldown));
