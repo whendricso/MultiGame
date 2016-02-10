@@ -58,12 +58,14 @@ namespace MultiGame {
 		int m_TimestampCount;
 		
 		
-		[HideInInspector]
-		public PhotonView photonView;
-		
-		void Start () {
-			photonView = PhotonView.Get(this);//GetComponent<PhotonView>();
+//		[HideInInspector]
+//		public PhotonView photonView;
 
+		void Start () {
+//			photonView = PhotonView.Get(this);//GetComponent<PhotonView>();
+			if (!photonView.ObservedComponents.Contains(this))
+				photonView.ObservedComponents.Add(this);
+			
 			if (interPosition && photonView.observed != this) {
 				Debug.LogWarning("Photon Position Sync " + gameObject.name + " needs to be observed by an attached Photon View to work!");
 			}

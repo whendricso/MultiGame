@@ -3,8 +3,39 @@ guid: 67311e03dfbbedf408f3f03b1604be64
 timeCreated: 1437976092
 licenseType: Pro
 ModelImporter:
-  serializedVersion: 18
-  fileIDToRecycleName: {}
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Armature
+    100002: Bone
+    100004: Bone_001
+    100006: Bone_002
+    100008: BottomLeaves
+    100010: Leaflet
+    100012: //RootNode
+    100014: Stem
+    100016: TopLeaves
+    400000: Armature
+    400002: Bone
+    400004: Bone_001
+    400006: Bone_002
+    400008: BottomLeaves
+    400010: Leaflet
+    400012: //RootNode
+    400014: Stem
+    400016: TopLeaves
+    2300000: BottomLeaves
+    2300002: Leaflet
+    2300004: TopLeaves
+    3300000: BottomLeaves
+    3300002: Leaflet
+    3300004: TopLeaves
+    4300000: Leaflet
+    4300002: Stem
+    4300004: TopLeaves
+    4300006: BottomLeaves
+    7400000: Default Take
+    9500000: //RootNode
+    13700000: Stem
   materials:
     importMaterials: 1
     materialName: 0
@@ -12,12 +43,17 @@ ModelImporter:
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
+    resampleRotations: 1
     optimizeGameObjects: 0
     motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
     animationCompression: 1
-    animationRotationError: .5
-    animationPositionError: .5
-    animationScaleError: .5
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
     clipAnimations: []
@@ -41,24 +77,25 @@ ModelImporter:
     useFileScale: 1
   tangentSpace:
     normalSmoothAngle: 60
-    splitTangentsAcrossUV: 1
     normalImportMode: 0
-    tangentImportMode: 1
+    tangentImportMode: 4
   importAnimation: 1
   copyAvatar: 0
   humanDescription:
     human: []
     skeleton: []
-    armTwist: .5
-    foreArmTwist: .5
-    upperLegTwist: .5
-    legTwist: .5
-    armStretch: .0500000007
-    legStretch: .0500000007
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
     feetSpacing: 0
     rootMotionBoneName: 
+    hasTranslationDoF: 0
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   animationType: 2
+  humanoidOversampling: 1
   additionalBone: 0
   userData: 
   assetBundleName: 

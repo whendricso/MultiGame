@@ -15,19 +15,23 @@ namespace MultiGame {
 		[System.NonSerialized]
 		public static GameObject avatar = null;//a reference to the local avatar
 
-		public MultiModule.HelpInfo help = new MultiModule.HelpInfo("Allows selection of an avatar prefab by the player that they will respawn with whenever one of these handlers receives " +
-			"the 'Spawn' message. 'SetAvatarString' takes a string which represents the prefab name for the new avatar, which must be inside a 'Resources' folder.");
+		public MultiModule.HelpInfo help = new MultiModule.HelpInfo("Allows selection of an avatar prefab by the player. When spawning players using this, their current avatar will despawn. Great for instant " +
+			"respawn games." +
+			"\n---Messages---\n" +
+			"'SetAvatarString' takes a string parameter representing the name of the new prefab you want to use for this player. Prefab must be directly inside a 'Resources' folder." +
+			"'Spawn' takes no parameter. It will first destroy the player's current avatar, if any, then will instantiate a new one using the string assigned as the avatar. Make sure to call " +
+			"'SetAvatarString' before spawning or you will get an error.");
 
 		void Start () {
 			if (avatar == null && !string.IsNullOrEmpty( currentAvatar))
 				avatar = PhotonNetwork.Instantiate(currentAvatar, transform.position, transform.rotation, 0);
 		}
 
-		void SetAvatarString (string _prefabName) {
+		public void SetAvatarString (string _prefabName) {
 			currentAvatar = _prefabName;
 		}
 
-		void Spawn () {
+		public void Spawn () {
 			if (avatar != null)
 				PhotonNetwork.Destroy(avatar);
 			avatar = PhotonNetwork.Instantiate(currentAvatar, transform.position, transform.rotation, 0);

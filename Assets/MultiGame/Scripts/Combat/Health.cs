@@ -59,8 +59,6 @@ namespace MultiGame {
 			if (hp == maxHP && autoHide)
 				return;
 			if (showHealthBarGUI) {
-				if (debug)
-					Debug.Log("Showing Health Bar GUI at " + healthBar.x + "," + healthBar.y);
 				GUI.skin = guiSkin;
 				GUI.color = barColor;
 				GUILayout.BeginArea(new Rect(healthBar.x * Screen.width, healthBar.y * Screen.height, (healthBar.width * Screen.width) * (hp / maxHP), healthBar.height * Screen.height));

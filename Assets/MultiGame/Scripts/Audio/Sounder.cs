@@ -28,6 +28,9 @@ namespace MultiGame {
 
 		void Start () {
 			source = GetComponent<AudioSource>();
+			if (source == null) {
+				Debug.LogError("Sounder " + gameObject.name + " does not have an audio source!");
+			}
 			originalPitch = source.pitch;
 		}
 

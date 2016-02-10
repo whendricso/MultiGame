@@ -18,6 +18,26 @@ namespace MultiGame {
 			transform.position += impetus * Time.deltaTime;
 			transform.Translate(localImpetus, Space.Self);//transform.localPosition += localImpetus * Time.deltaTime;
 		}
+
+		public void SetImpetusX (float _x) {
+			impetus.x = _x;
+		}
+		public void SetImpetusY (float _y) {
+			impetus.y = _y;
+		}
+		public void SetImpetusZ (float _z) {
+			impetus.z = _z;
+		}
+
+		public void SetLocalImpetusX (float _x) {
+			localImpetus.x = _x;
+		}
+		public void SetLocalImpetusY (float _y) {
+			localImpetus.y = _y;
+		}
+		public void SetLocalImpetusZ (float _z) {
+			localImpetus.z = _z;
+		}
 		
 	}
 }

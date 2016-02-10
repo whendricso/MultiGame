@@ -46,6 +46,8 @@ namespace MultiGame {
 		}
 		
 		void OnTriggerStay (Collider other) {
+			if (debug)
+				Debug.Log("Targeting Sensor " + gameObject.name + " is checking if " + other.gameObject.name + " is a valid target");
 			if (!canRetarget)
 				return;
 			if (!CheckIsValidTarget(other.gameObject))

@@ -38,7 +38,7 @@ namespace MultiGame {
 		}
 
 		[PunRPC]
-		public void RetrieveWihParam (string _param) {
+		public void RetrieveWithParam (string _param) {
 			MessageManager.Send(new MessageManager.ManagedMessage(this.localMessage.target, localMessage.message, localMessage.sendMessageType, _param, localMessage.parameterMode));
 		}
 

@@ -27,7 +27,7 @@ namespace MultiGame {
 		[Tooltip("How should the force of the explosion be affected by distance?")]
 		public AnimationCurve roloff;
 
-		[Tooltip("What layers should be checked against a ray at explosion time?")]
+		[Tooltip("What layers should be checked against a ray at explosion time? Add the layers of the targets as well as occluders.")]
 		public LayerMask rayMask;
 
 		private bool applied = false;

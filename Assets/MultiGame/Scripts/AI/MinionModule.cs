@@ -29,7 +29,9 @@ namespace MultiGame {
 		public List<MonoBehaviour> disabledWhileSelected = new List<MonoBehaviour>();
 
 		public HelpInfo help = new HelpInfo("This component allows the player to select/deselect an AI and give it direct move orders with the mouse. To use it effectively," +
-			" we recommend pairing it with a NavModule and attaching some sort of combat AI system to it such as a 'Melee Module'");
+			" we recommend pairing it with a NavModule and attaching some sort of combat AI system to it such as a 'Melee Module'" +
+			"\n----Messages:----\n" +
+			"'Select' and 'Deselect' take no parameters.");
 
 		[System.NonSerialized]
 		public bool selected = false;
