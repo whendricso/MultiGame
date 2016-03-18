@@ -10,6 +10,7 @@ namespace MultiGame {
 
 		[Tooltip("Should we use Unity's built-in fire button? If false, send 'Fire' each frame.")]
 		public bool useFireButton = true;
+		public string fireButton = "Fire1";
 		[Tooltip("The model of the weapon, if unassigned and no Animator found, no animations will be sent!")]
 		public GameObject image;
 		public enum AimCorrectionTypes {None, Raycast, DistantPoint};
@@ -139,8 +140,8 @@ namespace MultiGame {
 			if (currentSpread > muzzleSpreadMin)
 				currentSpread -= Time.deltaTime * refocusRate;
 			refireCounter -= Time.deltaTime;
-			if (Screen.lockCursor) {
-				if (useFireButton && Input.GetButton("Fire1"))
+			if (Cursor.lockState == CursorLockMode.Locked) {
+				if (useFireButton && Input.GetButton(fireButton))
 					Fire ();
 			}
 		}

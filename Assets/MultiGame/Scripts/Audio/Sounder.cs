@@ -9,7 +9,7 @@ namespace MultiGame {
 	[RequireComponent(typeof(AudioSource))]
 	public class Sounder : MultiModule {
 
-		[Tooltip("A list of clips we can play by using PlaySelected and sending an integer representing which clip we want. 0 for first, 1 for second and son forth")]
+		[Tooltip("A list of clips we can play by using 'PlaySelectedSound' and sending an integer representing which clip we want. 0 for first, 1 for second and son forth")]
 		public AudioClip[] clips;
 		[Tooltip("How long do we need to wait between sounds?")]
 		public float cooldown = 0.3f;
@@ -21,8 +21,10 @@ namespace MultiGame {
 		[System.NonSerialized]
 		public AudioSource source;
 
-		public HelpInfo help = new HelpInfo("This component allows you to play arbitrary sounds based on messages sent from other components. For objects with just one sound, " +
-			"PlaySound plays what ever is assigned to the AudioSource component, PlayRandomSound plays one from the clips you've provided.");
+		public HelpInfo help = new HelpInfo("This component allows you to play arbitrary sounds based on messages sent from other components." +
+			"\n---Messages:---\n" +
+			"For objects with just one sound, 'PlaySound' plays what ever is assigned to the AudioSource component, 'PlayRandomSound' plays one from the clips you've provided. " +
+			"'PlaySelectedSound' takes an integer representing which clip we want to play from the list of Clips");
 
 		public bool debug = false;
 

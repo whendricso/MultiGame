@@ -70,10 +70,18 @@ namespace MultiGame {
 		}
 		
 		void Toggle (bool val) {
-			if (toggleCursor)
-				Screen.lockCursor = !val;
+			if (toggleCursor) {
+				if (val) {
+					Cursor.lockState = CursorLockMode.Locked;//Screen.lockCursor = !val;
+					Cursor.visible = false;
+				}
+				else {
+					Cursor.lockState = CursorLockMode.Confined;
+					Cursor.visible = true;
+				}
+			}
 			showGUI = val;
 		}
-	//Copyright 2013-2015 William Hendrickson
+	//Copyright 2013-2016 William Hendrickson
 	}
 }

@@ -33,7 +33,9 @@ namespace MultiGame {
 		private static Texture2D activeZoneIcon;
 		private static Texture2D activeZoneSphereIcon;
 		private static Texture2D cameraIcon;
+		private static Texture2D RTSIcon;
 		private static Texture2D cursorLockIcon;
+		private static Texture2D mouseAimIcon;
 		private static Texture2D animationIcon;
 		private static Texture2D camZoneIcon;
 		private static Texture2D camSphereIcon;
@@ -97,6 +99,8 @@ namespace MultiGame {
 		private static Texture2D photonRigidbodyIcon;
 		private static Texture2D photonSpawnerIcon;
 		private static Texture2D photonAvatarIcon;
+		private static Texture2D photonSceneIcon;
+		private static Texture2D photonChannelIcon;
 
 		private Material triggerMat;
 		private Material collMat;
@@ -118,7 +122,9 @@ namespace MultiGame {
 			backupCamIcon = Resources.Load("BackupCamButton", typeof(Texture2D)) as Texture2D;
 			animationIcon = Resources.Load("AnimationButton", typeof(Texture2D)) as Texture2D;
 			cameraIcon = Resources.Load("Camera", typeof(Texture2D)) as Texture2D;
+			RTSIcon = Resources.Load("RTSButton", typeof(Texture2D)) as Texture2D;
 			cursorLockIcon = Resources.Load("CursorLockButton", typeof(Texture2D)) as Texture2D;
+			mouseAimIcon = Resources.Load("MouseAimButton", typeof(Texture2D)) as Texture2D;
 			allyIcon = Resources.Load("Ally", typeof(Texture2D)) as Texture2D;
 			enemyIcon = Resources.Load("Enemy", typeof(Texture2D)) as Texture2D;
 			gunIcon = Resources.Load("Gun", typeof(Texture2D)) as Texture2D;
@@ -181,6 +187,8 @@ namespace MultiGame {
 			photonRigidbodyIcon = Resources.Load("PhotonRigidbodyButton", typeof(Texture2D)) as Texture2D;
 			photonSpawnerIcon = Resources.Load("PhotonSpawnButton", typeof(Texture2D)) as Texture2D;
 			photonAvatarIcon = Resources.Load("PhotonAvatarButton", typeof(Texture2D)) as Texture2D;
+			photonSceneIcon = Resources.Load("PhotonSceneButton", typeof(Texture2D)) as Texture2D;
+			photonChannelIcon = Resources.Load("PhotonChannelButton", typeof(Texture2D)) as Texture2D;
 			
 			triggerMat = Resources.Load("MGTrigger", typeof(Material)) as Material;
 			collMat = Resources.Load("MGActiveCollider", typeof(Material)) as Material;
@@ -291,7 +299,7 @@ namespace MultiGame {
 
 		void BasicObjectGUI () {
 			GUI.color = Color.green;
-			EditorGUILayout.BeginHorizontal("box, GUILayout.Width(112f)");
+			EditorGUILayout.BeginHorizontal("box", GUILayout.Width(112f));
 			EditorGUILayout.LabelField("Basic");
 			EditorGUILayout.EndHorizontal();
 			GUI.color = Color.white;
@@ -436,15 +444,22 @@ namespace MultiGame {
 
 
 			EditorGUILayout.BeginVertical("box", GUILayout.Width(112f));
-
+			if (MGButton(startMessageIcon, "Automatic")) {
+				ResolveOrCreateTarget();
+				Undo.AddComponent<StartMessage>(target);
+			}
+			if (MGButton(timedIcon, "Timer")) {
+				ResolveOrCreateTarget();
+				Undo.AddComponent<TimedMessage>(target);
+			}
 			if (MGButton(clickableIcon, "Clickable")) {
 				ResolveOrCreateTarget();
 				AddColliders();
+				SetupRigidbody();
 				Undo.AddComponent<Clickable>(target);
 			}
 			if (MGButton(keyMessageIcon, "Pressable")) {
 				ResolveOrCreateTarget();
-				AddColliders();
 				Undo.AddComponent<KeyMessage>(target);
 			}
 			if (MGButton(activeZoneIcon, "Trigger")) {
@@ -481,10 +496,7 @@ namespace MultiGame {
 			
 			EditorGUILayout.BeginVertical("box", GUILayout.Width(112f));
 
-			if (MGButton(startMessageIcon, "Automatic")) {
-				ResolveOrCreateTarget();
-				Undo.AddComponent<StartMessage>(target);
-			}
+
 			if (MGButton(relayIcon, "Relay")) {
 				ResolveOrCreateTarget();
 				GameObject _child = AddDirectChild (target);
@@ -512,6 +524,7 @@ namespace MultiGame {
 				_child.transform.localPosition = Vector3.zero;
 				_child.transform.localRotation = Quaternion.identity;
 				_child.transform.localScale = Vector3.one;
+				Undo.AddComponent<UnityEngine.EventSystems.EventSystem>(_child);
 			}
 			if (MGButton(multiMenuIcon, "Legacy GUI")) {
 				ResolveOrCreateTarget();
@@ -520,11 +533,7 @@ namespace MultiGame {
 				Undo.RegisterCreatedObjectUndo(target,"Create MultiMenu");
 				Undo.AddComponent<MultiMenu>(_child);
 			}
-			if (MGButton(timedIcon, "Timer")) {
-				ResolveOrCreateTarget();
-				Undo.AddComponent<TimedMessage>(target);
-			}
-			if (MGButton(randomIcon, "Randomiser")) {
+			if (MGButton(randomIcon, "Randomizer")) {
 				ResolveOrCreateTarget();
 				Undo.AddComponent<RandomizedMessage>(target);
 			}
@@ -536,7 +545,11 @@ namespace MultiGame {
 		}
 
 		void CombatObjectGUI () {
-			sceneTransform = SceneView.lastActiveSceneView.camera.transform;
+			try {
+				sceneTransform = SceneView.lastActiveSceneView.camera.transform;
+			} catch {
+				return;
+			}
 			GUI.color = Color.red;
 			EditorGUILayout.BeginHorizontal("box", GUILayout.Width(112f));
 			EditorGUILayout.LabelField("Combat");
@@ -604,7 +617,11 @@ namespace MultiGame {
 		}
 
 		void PlayerObjectGUI () {
+			try {
 			sceneTransform = SceneView.lastActiveSceneView.camera.transform;
+			} catch {
+				return;
+			}
 			GUI.color = Color.yellow;
 			EditorGUILayout.BeginHorizontal("box", GUILayout.Width(112f));
 			EditorGUILayout.LabelField("Player");
@@ -628,12 +645,23 @@ namespace MultiGame {
 					return;
 				Undo.AddComponent<Inventory>(target);
 			}
-			if (MGButton(inputAnimatorIcon, "Input Animator")) {
+			if (MGButton(inputAnimatorIcon, "Root Motion")) {
 				ResolveOrCreateTarget();
 				if (target.GetComponentInChildren<CharacterInputAnimator>() != null)
 					return;
-				Undo.AddComponent<CharacterInputAnimator>(target);
-				Animator _anim = target.GetComponent<Animator>();
+				CharacterInputAnimator _input = Undo.AddComponent<CharacterInputAnimator>(target);
+				Animator _anim = target.GetComponentInChildren<Animator>();
+				if (_anim == null)
+					_anim = Undo.AddComponent<Animator>(target);
+				_input.animator = _anim;
+				Rigidbody _rigid = Undo.AddComponent<Rigidbody>(target);
+				CapsuleCollider _capsule = Undo.AddComponent<CapsuleCollider>(target);
+
+				_anim.updateMode = AnimatorUpdateMode.AnimatePhysics;
+				_anim.applyRootMotion = true;
+				_capsule.center = Vector3.up;
+				_capsule.height = 2f;
+				_capsule.radius = .35f;
 			}
 			if (MGButton(cameraIcon, "Main Camera")) {
 				ResolveOrCreateTarget();
@@ -650,12 +678,44 @@ namespace MultiGame {
 					return;
 				Undo.AddComponent<CursorLock>(target);
 			}
+			if (MGButton(mouseAimIcon, "Aim")) {
+				ResolveOrCreateTarget();
+				if (target.GetComponent<MouseAim>() != null)
+					return;
+				Undo.AddComponent<MouseAim>(target);
+			}
 			if (MGButton(meleeInputIcon, "Melee Input")) {
 				ResolveOrCreateTarget();
-				if (target.GetComponentInChildren<MeleeModule>() != null)
+				if (target.GetComponentInChildren<MeleeInputController>() != null)
 					return;
-				Undo.AddComponent<MeleeModule>(target);
-			}//TODO:
+				Undo.AddComponent<MeleeInputController>(target);
+			}
+			if (MGButton(RTSIcon, "Commander")) {
+				ResolveOrCreateTarget();
+				if (target.GetComponent<MouseCommander>() != null)
+					return;
+				Undo.AddComponent<MouseCommander>(target);
+				GameObject _brush = new GameObject("Selection Brush");
+				GameObject _child = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+				_child.transform.SetParent(_brush.transform);
+				_child.transform.localPosition = Vector3.zero;
+				_child.transform.localRotation = Quaternion.identity;
+				Undo.RegisterCreatedObjectUndo(_brush, "Create Brush");
+				Undo.RegisterCreatedObjectUndo(_child,"Create Trigger");
+				Undo.AddComponent<MouseFollow>(_brush);
+				ActiveZone _zone = Undo.AddComponent<ActiveZone>(_child);
+				KeyToggle _toggle = Undo.AddComponent<KeyToggle>(_brush);
+				_toggle.swapKey = KeyCode.Mouse0;
+				_toggle.on = KeyCode.Mouse0;
+				_toggle.off = KeyCode.Mouse0;
+				_toggle.gameObjectTargets = new GameObject[] {_child};
+				_toggle.reverse = true;
+				_zone.messageToEnteringEntity = new MessageManager.ManagedMessage(null, "Select");
+				_zone.messageToEnteringEntity.msgOverride = true;
+				_child.SetActive(false);
+
+			}
+			//TODO:
 //			if (MGButton(fpsIcon, "FPS")) {
 //				ResolveOrCreateTarget();
 //				if (target.GetComponent<Health>() != null)
@@ -687,7 +747,12 @@ namespace MultiGame {
 		}
 
 		void AIObjectGUI () {
-			sceneTransform = SceneView.lastActiveSceneView.camera.transform;
+			try {
+				sceneTransform = SceneView.lastActiveSceneView.camera.transform;
+			} catch {
+				return;
+			}
+
 			GUI.color = Color.cyan;
 			EditorGUILayout.BeginHorizontal("box", GUILayout.Width(112f));
 			EditorGUILayout.LabelField("AI");
@@ -749,7 +814,11 @@ namespace MultiGame {
 		}
 
 		void UtilityObjectGUI () {
-			sceneTransform = SceneView.lastActiveSceneView.camera.transform;
+			try {
+				sceneTransform = SceneView.lastActiveSceneView.camera.transform;
+			} catch {
+				return;
+			}
 			GUI.color = Color.magenta;
 			EditorGUILayout.BeginHorizontal("box", GUILayout.Width(112f));
 			EditorGUILayout.LabelField("Utility");
@@ -762,11 +831,11 @@ namespace MultiGame {
 				ResolveOrCreateTarget();
 				Undo.AddComponent<UniquePreferenceSerializer>(target);
 			}
-			if (MGButton(saveToDiskIcon, "Save Field")) {
+			if (MGButton(saveToDiskIcon, "Field Saver")) {
 				ResolveOrCreateTarget();
 				Undo.AddComponent<UniqueObjectSerializer>(target);
 			}
-			if (MGButton(saveSceneIcon, "Save Scene")) {
+			if (MGButton(saveSceneIcon, "Scene Saver")) {
 				ResolveOrCreateTarget();
 				if (target.GetComponent<SceneObjectListSerializer>() != null)
 					return;
@@ -812,7 +881,11 @@ namespace MultiGame {
 		}
 
 		void NetworkingObjectGUI () {
-			sceneTransform = SceneView.lastActiveSceneView.camera.transform;
+			try {
+				sceneTransform = SceneView.lastActiveSceneView.camera.transform;
+			} catch {
+				return;
+			}
 			GUI.color = new Color(.3f, .8f, 1f);
 			EditorGUILayout.BeginHorizontal("box", GUILayout.Width(112f));
 			EditorGUILayout.LabelField("Network");
@@ -824,39 +897,29 @@ namespace MultiGame {
 			EditorGUILayout.BeginVertical("box", GUILayout.Width(112f));
 
 			if (MGButton(photonIcon, "Photonize")) {//TODO
+//				ResolveOrCreateTarget();
+////				/*PhotonView _view = */Undo.AddComponent<PhotonView>(target);
+//
+//				PhotonPositionSync _sync = target.GetComponent<PhotonPositionSync>();
+//				if (_sync == null)
+//					_sync = Undo.AddComponent<PhotonPositionSync>(target);
+////				if (!_view.ObservedComponents.Contains(_sync))
+////					_view.ObservedComponents.Add(_sync);
+//				_sync.syncMode = PhotonPositionSync.InterPositionMode.InterpolateTransformation;
+//
+//				if (target.GetComponent<Health>() != null)
+//					SetupHealth();
+				SetupLocalizer();//localize everything
+			}
+			if (MGButton(photonChannelIcon, "Channel Mgr.")) {
 				ResolveOrCreateTarget();
-				/*PhotonView _view = */Undo.AddComponent<PhotonView>(target);
-
-				PhotonPositionSync _sync = target.GetComponent<PhotonPositionSync>();
-				if (_sync == null)
-					_sync = Undo.AddComponent<PhotonPositionSync>(target);
-//				if (!_view.ObservedComponents.Contains(_sync))
-//					_view.ObservedComponents.Add(_sync);
-				_sync.syncMode = PhotonPositionSync.InterPositionMode.InterpolateTransformation;
-
-
-				Health _health = target.GetComponent<Health>();
-				if (_health != null) {
-					_health.autodestruct = false;
-					_health.healthGoneMessage.msgOverride = true;
-					_health.healthGoneMessage.message = "Destruct";
-					Undo.AddComponent<PhotonDestructible>(target);
-				}
-
-
-
-				SetupLocalizer();//lastly, localize everything
+				if (target.GetComponent<PhotonChannelManager>() != null)
+					return;
+				SetupChannels();
 			}
 			if (MGButton(photonHealthIcon, "Health")) {
 				ResolveOrCreateTarget();
-				Health _health = target.GetComponent<Health>();
-				if (_health == null)
-					_health = Undo.AddComponent<Health>(target);
-				_health.autodestruct = false;
-				_health.healthGoneMessage.msgOverride = true;
-				_health.healthGoneMessage.message = "Destruct";
-				Undo.AddComponent<PhotonDestructible>(target);
-
+				SetupHealth();
 //				/*PhotonView _view = */Undo.AddComponent<PhotonView>(target);
 				SetupLocalizer();
 			}
@@ -919,13 +982,7 @@ namespace MultiGame {
 //					_view.ObservedComponents.Add(_sync);
 				_sync.syncMode = PhotonPositionSync.InterPositionMode.InterpolateTransformation;
 
-				Health _health = target.GetComponent<Health>();
-				if (_health != null) {
-					_health.autodestruct = false;
-					_health.healthGoneMessage.msgOverride = true;
-					_health.healthGoneMessage.message = "Destruct";
-					Undo.AddComponent<PhotonDestructible>(target);
-				}
+				SetupHealth();
 				SetupLocalizer();
 
 			}
@@ -953,6 +1010,28 @@ namespace MultiGame {
 			return _child;
 		}
 
+		public void SetupChannels () {
+				Undo.AddComponent<PhotonChannelManager>(target);
+		}
+
+		public void SetupHealth () {
+			Health _health = target.GetComponent<Health>();
+			if (_health == null)
+				_health = Undo.AddComponent<Health>(target);
+			_health.autodestruct = false;
+			_health.healthGoneMessage = new MessageManager.ManagedMessage(target, "Destruct");
+			_health.healthGoneMessage.msgOverride = true;
+			if (target.GetComponent<PhotonDestructible>() == null)
+				Undo.AddComponent<PhotonDestructible>(target);
+			PhotonMessageRelay _healthRelay = Undo.AddComponent<PhotonMessageRelay>(target);
+			_healthRelay.localMessage = new MessageManager.ManagedMessage(target, "ModifyHealth");
+			_healthRelay.localMessage.msgOverride = true;
+			_healthRelay.localMessage.parameter = "-10";
+			_healthRelay.localMessage.parameterMode = MessageManager.ManagedMessage.ParameterModeTypes.FloatingPoint;
+
+
+		}
+
 		public void SetupLocalizer () {
 			PhotonLocalizer _localizer = target.GetComponent<PhotonLocalizer>();
 			if (_localizer == null)
@@ -965,6 +1044,26 @@ namespace MultiGame {
 				_localizer.localComponents[i] = _localComponents[i];
 			}
 
+			List<GameObject> _cams = new List<GameObject>();
+			foreach(Camera _cam in target.GetComponentsInChildren<Camera>() )
+				_cams.Add(_cam.gameObject);
+			_localizer.localObjects = new GameObject[_cams.Count];
+			for (int ii = 0; ii < _cams.Count; ii++) {
+				_localizer.localObjects[ii] = _cams[ii];
+			}
+
+		}
+
+		public void SetupRigidbody () {
+			Rigidbody _rigid = target.GetComponent<Rigidbody>();
+			bool _usePhysics = false;
+			if (_rigid != null) {
+				if (!_rigid.isKinematic)
+					_usePhysics = true;
+			} else
+				_rigid = Undo.AddComponent<Rigidbody>(target);
+			_rigid.useGravity = _usePhysics;
+			_rigid.isKinematic = !_usePhysics;
 		}
 
 		public void AddTriggerBox () {

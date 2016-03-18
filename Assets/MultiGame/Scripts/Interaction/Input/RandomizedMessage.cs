@@ -5,7 +5,7 @@ using MultiGame;
 
 namespace MultiGame {
 
-	[AddComponentMenu("MultiGame/Interaction/Output/Randomized Message")]
+	[AddComponentMenu("MultiGame/Interaction/Input/Randomized Message")]
 	public class RandomizedMessage : MultiModule {
 
 		[Tooltip("Chance in percentage of any given message being sent")]

@@ -5,13 +5,23 @@ using MultiGame;
 namespace MultiGame {
 
 	[AddComponentMenu("MultiGame/Serialization/Unique Preference Serializer")]
-	public class UniquePreferenceSerializer : MonoBehaviour {
+	public class UniquePreferenceSerializer : MultiModule {
 
+		[Tooltip("Which component has a field we want to save/load?")]
 		public MonoBehaviour targetComponent;
+		[Tooltip("What is the data name of the field. This is the name in program code, which you can usually determine by looking at the Inspector. Unity capitalizes the first letter " +
+			"and adds a space before each capital letter in the Inspector. So a field with name 'Monster Health' is called 'monsterHealth' in code and that is how you must write it here. For " +
+			"some script packages, you might need to look at the code by viewing the script in the Inspector first if possible.")]
 		public string targetField = "";
+		[Tooltip("An optional unique name for this particular field to differentiate it if necessary.")]
 		public string uniqueIdentifier = "";
 
 		public bool debug = false;
+
+		public HelpInfo help = new HelpInfo("Unique Preference Serializer allows you to save & load one object field in your game. This is for *unique* fields. So, for example, " +
+			"if you try to save the enemy's health, then when you load the game *every* enemy with that prefab will load the health of the last one to save with that 'Unique Identifier'. " +
+			"But, if you save the Player's health, that is fine since there is only one local player at a time so there are no duplicates to cause errors. This component saves to Player Prefs " +
+			"and therefore works on all platforms that support MultiGame.");
 
 		private string key;
 

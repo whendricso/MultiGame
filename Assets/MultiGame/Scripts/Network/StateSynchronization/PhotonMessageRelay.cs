@@ -20,6 +20,8 @@ namespace MultiGame {
 		}
 
 		public void Relay () {
+			if (!enabled)
+				return;
 			if (photonView.isMine)
 				photonView.RPC("Retrieve", photonTargets);
 			if (debug)
@@ -34,7 +36,10 @@ namespace MultiGame {
 		}
 
 		public void RelayWithParam(string _param) {
-			photonView.RPC("RetrieveWithParam", photonTargets, _param);
+			if (!enabled)
+				return;
+			if (photonView.isMine)
+				photonView.RPC("RetrieveWithParam", photonTargets, _param);
 		}
 
 		[PunRPC]
@@ -43,6 +48,8 @@ namespace MultiGame {
 		}
 
 		public void RelayMessage (string _message) {
+			if (!enabled)
+				return;
 			if (photonView.isMine)
 				photonView.RPC("RetrieveSpecific", photonTargets, _message);
 		}

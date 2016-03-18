@@ -87,7 +87,7 @@ namespace MultiGame {
 		}
 		
 		void Update () {
-			if (Screen.lockCursor) {
+			if (Cursor.lockState == CursorLockMode.Locked) {
 				if (Input.GetKeyDown(ready) && mode == Modes.Idle) {
 					if(meleeAttributes == null) {
 						meleeAttributes = GetComponentInChildren<MeleeWeaponAttributes>();

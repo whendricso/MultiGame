@@ -14,11 +14,12 @@ namespace MultiGame {
 
 		[Tooltip ("Axis in the Input manage (Edit -> Project Settings -> Input) indicating the horizonta axis, which will be sent as a float to the Animator")]
 		public string horizontalAxis = "Horizontal";
-		[Tooltip("A float defined in the Animator indicating how fast we're moving")]
+		[Tooltip("A float defined in the Animator indicating how fast we're strafing. -1 is left, 1 is right and 0 is no strafing at all")]
 		public string animatorHorizontal = "Strafe";
 
 		[Tooltip ("Axis in the Input manage (Edit -> Project Settings -> Input) indicating the vertical axis, which will be sent as a float to the Animator")]
 		public string verticalAxis = "Vertical";
+		[Tooltip("A float defined in the Animator indicating how fast we're moving")]
 		public string animatorVertical = "Run";
 
 		[Tooltip("A list of additional states you want to bring in to the Animator")]

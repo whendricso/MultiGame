@@ -19,10 +19,10 @@ namespace MultiGame {
 		private Vector3 targetPosition;
 		[HideInInspector]
 		public NavMeshAgent agent;
-		[Tooltip("If you are using an avoidance rig, drop a reference to it here")]
+		[HideInInspector]//[Tooltip("If you are using an avoidance rig, drop a reference to it here")]
 		public GameObject avoidanceDetector;
 		private AvoidanceDetector detector;
-		[Tooltip("How fast do we turn to avoid obstacles?")]
+		[HideInInspector]//[Tooltip("How fast do we turn to avoid obstacles?")]
 		public float avoidanceTurnRate = 6.0f;
 
 		[Tooltip("How often, in seconds, do we rebuild path data? (Lower numbers = better quality, higher numbers = better speed)")]
@@ -30,6 +30,7 @@ namespace MultiGame {
 		private float recalcTimer;
 		private bool touchingTarget = false;
 		private float lastTouchTime;
+		private Vector3 lastFramePosition = Vector3.zero;
 
 		public HelpInfo help = new HelpInfo("This component implements Unity's NavMesh directly, allowing AI to pathfind around easily. You need to bake a navigation mesh for" +
 			" your scene before it can work, otherwise you will get an error. Click Window -> Navigation to bake a navmesh." +
@@ -54,6 +55,10 @@ namespace MultiGame {
 	//			Debug.LogWarning("Agent " + gameObject.name + " is not bound to any nav mesh! Traversal may fail.");
 		}
 
+		void Start () {
+			lastFramePosition = transform.position;
+		}
+
 		void Update () {
 			if (lastTouchTime > .5f)
 				touchingTarget = false;
@@ -72,7 +77,9 @@ namespace MultiGame {
 			}
 
 			if (anim != null && !string.IsNullOrEmpty(animatorMovementFloat))
-				anim.SetFloat(animatorMovementFloat, (agent.velocity.magnitude/ agent.speed));
+				anim.SetFloat(animatorMovementFloat, ((Vector3.Distance(transform.position, lastFramePosition) / Time.deltaTime) / (agent.speed) ));
+
+			lastFramePosition = transform.position;
 
 			recalcTimer -= Time.deltaTime;
 			if (recalcTimer <= 0)

@@ -18,6 +18,8 @@ namespace MultiGame {
 		[Tooltip("Should the explosion object destroy itself automatically?")]
 		public bool autodestruct = false;
 
+		public MessageManager.ManagedMessage hitMessage;
+
 		public enum RotationModes {None, RandomStart, RandomYOnly};
 		[Tooltip("Should we randomly re-orient the object on Start?")]
 		public RotationModes rotationMode = RotationModes.None;
@@ -38,6 +40,10 @@ namespace MultiGame {
 
 		[Tooltip("WARNING! SLOW OPERATION! Send errors to the console and draw lines")]
 		public bool debug = false;
+
+		void OnValidate () {
+			MessageManager.UpdateMessageGUI(ref hitMessage, gameObject);
+		}
 
 		void Awake () {
 			switch (rotationMode) {
@@ -82,6 +88,7 @@ namespace MultiGame {
 			float _distance = Vector3.Distance(transform.position, _hinfo.point);
 			if (_distance < radius) {
 				_target.SendMessage("ModifyHealth", -(damage * roloff.Evaluate(_distance / radius)) , SendMessageOptions.DontRequireReceiver);
+				MessageManager.SendTo(hitMessage, _target);
 				if (debug)
 					Debug.Log ("Sending ModifyHealth " + (-(damage * roloff.Evaluate(_distance / radius))));
 				if (_target.GetComponent<Rigidbody>() != null) {

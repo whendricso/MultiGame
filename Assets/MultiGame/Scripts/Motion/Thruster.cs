@@ -27,7 +27,10 @@ namespace MultiGame {
 		private bool useTargetRigidbody = false;
 
 		public HelpInfo help = new HelpInfo("This component adds thrust to a given Rigidbody. It also works with the 'InputVector' component (optionally) allthoug it can be used" +
-			" either by itself or with any message sender/toggle component");
+			" either by itself or with any message sender/toggle component." +
+			"\n---Messages:---\n" +
+			"'BeginThrust' and 'EndThrust' send the predetermined amount of force to the rigidbody each frame until stopped.\n" +
+			"'ThrustAmount' takes a float representing how much to multiply the 'Thrust' vector and add it once this frame.");
 
 		void Start () {
 			if (GetComponent<Rigidbody>() == null && target == null) {

@@ -15,7 +15,7 @@ namespace MultiGame {
 		public MessageManager.ManagedMessage keyHeldMessage;
 		public MessageManager.ManagedMessage keyUpMessage;
 
-		[Tooltip("Message target override")]
+		[HideInInspector]//[Tooltip("Message target override")]
 		public GameObject target;
 
 		public bool debug = false;

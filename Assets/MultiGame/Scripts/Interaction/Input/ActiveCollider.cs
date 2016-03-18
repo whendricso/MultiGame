@@ -14,7 +14,7 @@ namespace MultiGame {
 		public bool checkRoot = true;
 		[Tooltip("Minimum velocity required")]
 		public float velocityThreshold = 0.0f;
-		[Tooltip("Message target override")]
+		[HideInInspector]//[Tooltip("Message target override")]
 		public GameObject target;
 		[Tooltip("Object to spawn at collision point")]
 		public GameObject hitPrefab;

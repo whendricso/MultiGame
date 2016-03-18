@@ -35,7 +35,6 @@ namespace MultiGame {
 		private bool generating = false;//are we currently generating?
 
 		private bool showLevelEditor = true;
-		private Vector2 lvlEditorHelpView = new Vector2();
 		private bool showPlayerEditor = true;
 		private Vector2 playerEditorHelpView = new Vector2();
 		private bool showNPCEditor = true;

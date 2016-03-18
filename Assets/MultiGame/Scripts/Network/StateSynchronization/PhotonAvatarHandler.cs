@@ -15,6 +15,8 @@ namespace MultiGame {
 		[System.NonSerialized]
 		public static GameObject avatar = null;//a reference to the local avatar
 
+		public bool debug = false;
+
 		public MultiModule.HelpInfo help = new MultiModule.HelpInfo("Allows selection of an avatar prefab by the player. When spawning players using this, their current avatar will despawn. Great for instant " +
 			"respawn games." +
 			"\n---Messages---\n" +
@@ -32,6 +34,8 @@ namespace MultiGame {
 		}
 
 		public void Spawn () {
+			if (debug)
+				Debug.Log("Photon Avatar Handler " + gameObject.name + " is attempting to spawn player prefab " + currentAvatar);
 			if (avatar != null)
 				PhotonNetwork.Destroy(avatar);
 			avatar = PhotonNetwork.Instantiate(currentAvatar, transform.position, transform.rotation, 0);

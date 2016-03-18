@@ -18,8 +18,7 @@ namespace MultiGame {
 
 		[HideInInspector]
 		public Animator animator;
-		[HideInInspector]
-		public PhotonView photonView;
+
 
 		[System.Serializable]
 		public class AnimatedState {
@@ -28,10 +27,6 @@ namespace MultiGame {
 
 		void Awake () {
 			animator = GetComponent<Animator>();
-		}
-
-		void Start () {
-			photonView = GetComponent<PhotonView>();
 		}
 
 		public void AnimateState (int animatedState) {

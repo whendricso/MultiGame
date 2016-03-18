@@ -63,8 +63,13 @@ namespace MultiGame {
 
 		void Start () {
 //			photonView = PhotonView.Get(this);//GetComponent<PhotonView>();
-			if (!photonView.ObservedComponents.Contains(this))
-				photonView.ObservedComponents.Add(this);
+			if (!photonView.ObservedComponents.Contains(this)) {
+//				photonView.ObservedComponents.Add(this);//for some reason causes a problem...
+				Debug.LogError("Photon Position Sync " + gameObject.name + " must be observed by it's Photon View to work! Please drag & drop this component onto the 'Observed Components' list " +
+					"of the Photon View in the Inspector.");
+				enabled = false;
+				return;
+			}
 			
 			if (interPosition && photonView.observed != this) {
 				Debug.LogWarning("Photon Position Sync " + gameObject.name + " needs to be observed by an attached Photon View to work!");

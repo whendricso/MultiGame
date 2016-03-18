@@ -5,8 +5,8 @@ using MultiGame;
 
 namespace MultiGame {
 
-	[AddComponentMenu("MultiGame/AI/Melee Module")]
-	public class MeleeModule : MultiModule {
+	[AddComponentMenu("MultiGame/AI/Hitscan Module")]
+	public class HitscanModule : MultiModule {
 
 		[System.NonSerialized]
 		public Animator anim;
@@ -30,7 +30,7 @@ namespace MultiGame {
 
 		private List<GameObject> touchingObjects = new List<GameObject>();
 
-		public HelpInfo help =  new HelpInfo("This component should be placed on an empty object representing an AI. The object should have a 3D model of a melee unit parented to it." +
+		public HelpInfo help =  new HelpInfo("This component should be placed on an empty object representing an AI. The object should have a 3D model of a unit parented to it." +
 			"\nWe also recommend adding a NavModule or similar, so it can get around, and some sort of AI 'brain' such as a Guard or Minion Module. Make sure to set up all settings" +
 			" such as ray mask (cannot damage things not part of this mask)");
 

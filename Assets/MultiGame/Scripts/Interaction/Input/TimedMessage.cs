@@ -23,6 +23,8 @@ namespace MultiGame {
 		public bool looping = false;
 		[Tooltip("Is this timer restricted to starting just one task at a time? (if true, will abort other tasks that would otherwise be stacked on top)")]
 		public bool oneAtATime = true;
+		[Tooltip("Enable debugging to tell MultiGame to give you useful messages in the console when something happens.")]
+		public bool debug = true;
 
 		public HelpInfo help = new HelpInfo("This component sends messages based on a timer. Accepts the 'StartTimer' and 'Abort' messages.");
 
@@ -57,8 +59,11 @@ namespace MultiGame {
 
 		IEnumerator DelayedMessage (float delay) {
 			yield return new WaitForSeconds(delay);
-			if (this.enabled)
+			if (this.enabled) {
+				if (debug)
+					Debug.Log("Timed Message " + gameObject.name + " sent " + managedMessage.message);
 				MessageManager.Send(managedMessage);//target.SendMessage(message, SendMessageOptions.DontRequireReceiver);
+			}
 			if (looping)
 				StartCoroutine(DelayedMessage(timeDelay + Random.Range(-variance, variance)));
 		}
