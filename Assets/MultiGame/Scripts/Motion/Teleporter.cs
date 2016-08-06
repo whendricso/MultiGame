@@ -5,9 +5,10 @@ using MultiGame;
 
 namespace MultiGame {
 
+	[AddComponentMenu("MultiGame/Motion/Teleporter")]
 	public class Teleporter : MultiModule {
 
-		[Tooltip("Optional target destination. Send 'TeleportToTarget' to teleport to this object if it exists")]
+		[RequiredFieldAttribute("Optional target destination. Send the 'TeleportToTarget' message to teleport to this object if it exists", RequiredFieldAttribute.RequirementLevels.Optional)]
 		public GameObject teleTarget;
 		[Tooltip("A list of tags representing objects that can be teleported automatically")]
 		public List<string> teleportableTags = new List<string>();
@@ -23,8 +24,11 @@ namespace MultiGame {
 		[Tooltip("Message sent when we fail to teleport")]
 		public MessageManager.ManagedMessage failureMessage;
 
-		public HelpInfo help = new HelpInfo("Teleporter allows players and objects to instantaneously travel from one place to another. If a trigger is attached, " +
-			"it can activate the Teleporter automatically.");
+		public HelpInfo help = new HelpInfo("Teleporter allows players and objects to instantaneously travel from one place to another." +
+			"\n\n" +
+			"To teleport this object, supply a list of 'Tele Target Tags' that this object can teleport to, or supply a 'Tele Target' to make it go to one specific object, then call the appropriate message." +
+			" To teleport another object instead, simply attach a collider to this object marked 'Is Trigger' (found on the Collider component) and a list of both 'Tele Target Tags' and 'Teleportable Tags', the " +
+			"latter representing objects that can be moved using this teleportation trigger.");
 
 		public bool debug = false;
 
@@ -73,6 +77,7 @@ namespace MultiGame {
 			}
 		}
 
+		public MessageHelp teleportToTargetHelp = new MessageHelp("TeleportToTarget","Teleports this object to the supplied 'Tele Target' scene object, if any.");
 		public void TeleportToTarget () {
 			if (splashPrefab != null)
 				Instantiate(splashPrefab, transform.position, transform.rotation);
@@ -82,6 +87,7 @@ namespace MultiGame {
 			MessageManager.Send (teleportMessage);
 		}
 
+		public MessageHelp teleportToTagHelp = new MessageHelp("TeleportToTag","Teleports this object to an object with a tag in the list of 'Tele Target Tags'");
 		public void TeleportToTag () {
 			if (teleTargetTags.Count > 0) {
 				List<GameObject> _teles = new List<GameObject>();

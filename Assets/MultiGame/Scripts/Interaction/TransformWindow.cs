@@ -30,8 +30,11 @@ namespace MultiGame {
 		private int currentAxis = 0;
 		private int currentSpace = 1;
 
-		public HelpInfo help = new HelpInfo("This component allows the user to modify objects of a given tag in the scene. This powerful functionality adds transform manipulation" +
-			" directly into your game, great for user-created objects and levels.");
+		public HelpInfo help = new HelpInfo("NOTE: This component uses the Legacy Unity GUI and is not supported on mobile devices" +
+			"\nThis component allows the user to modify objects of a given tag in the scene. This powerful functionality adds transform manipulation" +
+			" directly into your game, great for user-created objects and levels." +
+			"\n\n" +
+			"To use, add this component to an object in your scene and set the 'Ray Mask' you wish to allow the player to edit");
 
 		void Start () {
 			mode[0] = "Move";

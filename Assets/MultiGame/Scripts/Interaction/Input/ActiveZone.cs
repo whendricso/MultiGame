@@ -10,10 +10,10 @@ namespace MultiGame {
 	[RequireComponent (typeof (Rigidbody))]
 	public class ActiveZone : MultiModule {
 		
-		[Tooltip("Message target override")]
+		[HideInInspector]//[Tooltip("Message target override")]
 		public GameObject target;
 		[HideInInspector]
-		[Tooltip("Ignore all objects other than the player?")]
+		//[Tooltip("Ignore all objects other than the player?")]
 		public bool playerOnly = false;
 		[Tooltip("A list of tags that trigger this message sender")]
 		public List<string> activeTags = new List<string>();
@@ -23,7 +23,7 @@ namespace MultiGame {
 		public string animEnter;
 		[HideInInspector]
 		public string animExit;
-		[Tooltip("Trigger for Mecanim to occur when the zone is triggered")]
+		[RequiredFieldAttribute("Trigger for Mecanim to occur when the zone is triggered",RequiredFieldAttribute.RequirementLevels.Optional)]
 		public string mecanimTrigger;
 		[HideInInspector]
 		public Animator animator;

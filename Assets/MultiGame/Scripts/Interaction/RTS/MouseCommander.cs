@@ -13,15 +13,15 @@ namespace MultiGame {
 	public class MouseCommander : MultiModule {
 
 		//public int windowID = 0;
-		[Tooltip("Should we use Unity's legacy GUI for this?")]
+		[Tooltip("Should we use Unity's legacy GUI for this? Not suitable for mobile devices")]
 		public bool useGUI = true;
-		[Tooltip("Should we control the position of this object using a rigidbody?")]
+		[Tooltip("Should we control the position of this object using a rigidbody? Useful for command cameras")]
 		public bool controlPosition = true;
-		[Tooltip("Normalized viewport rectangle indicating where we should draw the buttons")]
+		[Tooltip("Normalized viewport rectangle indicating where we should draw the buttons. Numbers  indicate a percentage of screen space from 0 to 1")]
 		public Rect guiArea = new Rect(0.01f, 0.8f, .98f, .79f);
 		public GUISkin guiSkin;
 
-		[Tooltip("Stick dead zone, for control smoothing")]
+		[RequiredFieldAttribute("Stick dead zone, for control smoothing")]
 		public float deadZone = 0.25f;
 		[HideInInspector]
 		public Vector2 stickInput = Vector2.zero;
@@ -261,6 +261,7 @@ namespace MultiGame {
 
 		}
 
+		public MessageHelp selectDeployHelp = new MessageHelp("SelectDeploy","Activate deployment for a 'Deployable'", 2, "Index indicating which of the 'Deploys' you wish to allow the player to place '");
 		public void SelectDeploy (int _selector) {
 			currentSelection = _selector;//Deploy(i);
 			if (deploys[_selector].cost > 0 && deploys[_selector].cost > ResourceManager.GetQuantityByName(deploys[_selector].resourceUsed)) {

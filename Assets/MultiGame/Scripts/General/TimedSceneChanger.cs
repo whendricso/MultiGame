@@ -9,7 +9,7 @@ namespace MultiGame {
 		
 		[Tooltip("How long until time runs out?")]
 		public float timeRemaining = 10.0f;
-		[Tooltip("Name of the Unity scene to load, must be added to build settings")]
+		[RequiredFieldAttribute("Name of the Unity scene to load, must be added to build settings")]
 		public string targetScene;
 
 		public HelpInfo help = new HelpInfo("This component changes the scene after a given period of time.");

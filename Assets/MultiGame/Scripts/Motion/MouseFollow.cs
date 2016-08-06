@@ -7,7 +7,7 @@ namespace MultiGame {
 	[AddComponentMenu("MultiGame/Motion/Mouse Follow")]
 	public class MouseFollow : MultiModule {
 		
-		[Tooltip("How far away can the mouse be at most?")]
+		[RequiredFieldAttribute("How far away can the mouse be at most?")]
 		public float maxDistance = 1500.0f;
 		[Tooltip("What kinds of things can the mouse pass onto?")]
 		public LayerMask layerMask;

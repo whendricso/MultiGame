@@ -17,20 +17,26 @@ namespace MultiGame {
 		[Tooltip("Allow this script to control the cursor?")]
 		public bool toggleCursor = false;
 		
-		[Tooltip("If greater than 0, close the GUI if the player leaves this radius")]
+		[RequiredFieldAttribute("If greater than 0, close the GUI if the player leaves this radius", RequiredFieldAttribute.RequirementLevels.Optional)]
 		public float maxDistance = 0.0f;
-		[Tooltip("Unique window ID number for this window, must not conflict with any others (change it if it does!)")]
+		[RequiredFieldAttribute("Unique window ID number for this window, must not conflict with any others (change it if it does!)")]
 		public int windowID = 92829;
 		
-		[Tooltip("Where do we spawn the new player object?")]
+		[RequiredFieldAttribute("Where do we spawn the new player object?", RequiredFieldAttribute.RequirementLevels.Optional)]
 		public GameObject spawnPoint;
-		
+
 		[Tooltip("Should we show the GUI right now?")]
 		public bool showGUI = false;
 
-		public HelpInfo help = new HelpInfo("This component implements character selection using the legacy Unity GUI. Not suitable for mobile. Provide a list of characters, " +
-			"and send a message to this object when it's time for character selection (ToggleOn & ToggleOff)");
-		
+		public HelpInfo help = new HelpInfo("NOTE: Character Selector implements character selection using the legacy Unity GUI. Not suitable for mobile." +
+			"\n\n" +
+			"Provide a list of characters, and send a message to this object when it's time for character selection (ToggleOn & ToggleOff) to show the menu.");
+
+		void Start () {
+			if (spawnPoint == null)
+				spawnPoint = gameObject;
+		}
+
 		void OnGUI () {
 			GameObject player = GameObject.FindGameObjectWithTag("Player");
 			if (player != null && maxDistance > 0.0f && showGUI) {
@@ -60,15 +66,18 @@ namespace MultiGame {
 			Instantiate(character, spawnPoint.transform.position, spawnPoint.transform.rotation);
 
 		}
-		
+
+		public MessageHelp toggleOnHelp = new MessageHelp("ToggleOn","Enables the character selection GUI");
 		public void ToggleOn() {
 			Toggle(true);
 		}
 		
+		public MessageHelp toggleOffHelp = new MessageHelp("ToggleOff","Disables the character selection GUI");
 		public void ToggleOff() {
 			Toggle(false);
 		}
 		
+		public MessageHelp toggleHelp = new MessageHelp("Toggle","Toggles the character selection GUI based on a supplied value", 1, "Should the character selection GUI be shown?");
 		void Toggle (bool val) {
 			if (toggleCursor) {
 				if (val) {

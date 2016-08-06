@@ -14,13 +14,13 @@ namespace MultiGame {
 		public enum ItemTypes {WeaponR, WeaponL, EquipTorso, EquipBack, NoEquip};
 		[Tooltip("Type of item based on equip slot")]
 		public ItemTypes itemType = ItemTypes.NoEquip;
-		[Tooltip("Icon for this object in inventory")]
+		[RequiredFieldAttribute("Icon for this object in inventory",RequiredFieldAttribute.RequirementLevels.Recommended)]
 		public Texture2D icon;
 		public float iconSizeX = 32.0f;
 		public float iconSizeY = 32.0f;
-		[Tooltip("Unique name of this inventory item, matching it's 'Pickable' mate")]
+		[RequiredFieldAttribute("Unique name of this inventory item, matching it's 'Pickable' mate")]
 		public string inventoryKey;
-		[Tooltip("The pickable object associated with this item")]
+		[RequiredFieldAttribute("The pickable object associated with this item")]
 		public GameObject pickable;
 		public bool debug = false;
 		[Tooltip("Close inventory GUI automatically when selecting an item?")]
@@ -48,7 +48,7 @@ namespace MultiGame {
 
 		
 
-		
+		public MessageHelp stowHelp = new MessageHelp("Stow","Removes the item from the character and puts it back in the Inventory");
 		public void Stow () {//put the item back in inventory
 			GameObject player = GameObject.FindGameObjectWithTag("Player");
 			Inventory inventory = player.GetComponent<Inventory>();
@@ -65,7 +65,8 @@ namespace MultiGame {
 			}
 			Destroy(gameObject);
 		}
-		
+
+		public MessageHelp dropHelp = new MessageHelp("Drop","Removes the item from the character and instantiates it's pickable at this location");
 		public void Drop () {
 			if(debug)
 				Debug.Log("Dropped pickable: " + pickable);

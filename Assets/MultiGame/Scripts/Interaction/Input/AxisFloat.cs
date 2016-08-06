@@ -7,11 +7,11 @@ namespace MultiGame {
 	[AddComponentMenu("MultiGame/Interaction/Input/Axis Float")]
 	public class AxisFloat : MultiModule {
 
-		[Tooltip("Target to send axis data to")]
+		[RequiredFieldAttribute("Target to send axis data to",RequiredFieldAttribute.RequirementLevels.Optional)]
 		public GameObject target;
-		[Tooltip("Name of the method receiving the axis data")]
+		[RequiredFieldAttribute("Name of the method receiving the axis data")]
 		public string message = "";
-		[Tooltip("The axis to monitor")]
+		[RequiredFieldAttribute("The axis to monitor")]
 		public string axis = "";
 		[Tooltip("Send mode for the managed message")]
 		public MessageManager.ManagedMessage.SendMessageTypes sendMode = MessageManager.ManagedMessage.SendMessageTypes.Send;

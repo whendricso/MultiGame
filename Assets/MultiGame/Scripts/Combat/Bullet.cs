@@ -8,13 +8,13 @@ namespace MultiGame {
 	[RequireComponent (typeof(Rigidbody))]
 	public class Bullet : MultiModule {
 		
-		[Tooltip("How fast does this projectile travel when it leaves the muzzle?")]
+		[RequiredFieldAttribute("How fast does this projectile travel when it leaves the muzzle?")]
 		public float muzzleVelocity = 1500.0f;
-		[Tooltip("How much hurt?")]
+		[RequiredFieldAttribute("How much hurt?",RequiredFieldAttribute.RequirementLevels.Recommended)]
 		public float damageValue = 25.0f;
-		[Tooltip("How long, if at all, should we wait (in seconds) before checking for collisions?")]
+		[RequiredFieldAttribute("How long, if at all, should we wait (in seconds) before checking for collisions?",RequiredFieldAttribute.RequirementLevels.Recommended)]
 		public float activationDelay = 0f;
-		[Tooltip("What, if anything, should we spawn at the hit position? (useful for explosions, decals, particles etc)")]
+		[RequiredFieldAttribute("What, if anything, should we spawn at the hit position? (useful for explosions, decals, particles etc)",RequiredFieldAttribute.RequirementLevels.Recommended)]
 		public GameObject bulletSplash;
 		private bool fired = false;
 		private Vector3 lastPosition;

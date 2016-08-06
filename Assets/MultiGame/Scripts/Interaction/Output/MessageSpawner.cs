@@ -7,9 +7,9 @@ namespace MultiGame {
 	[AddComponentMenu("MultiGame/Interaction/Output/Message Spawner")]
 	public class MessageSpawner : MultiModule {
 
-		[Tooltip("Object we want to spawn")]
+		[RequiredFieldAttribute("Object we want to spawn", RequiredFieldAttribute.RequirementLevels.Required)]
 		public GameObject item;
-		[Tooltip("Optional spawn point, spawns here if none")]
+		[RequiredFieldAttribute("Optional spawn point, spawns here if none", RequiredFieldAttribute.RequirementLevels.Optional)]
 		public GameObject spawnPoint;
 		[Tooltip("Should the spawned object inherit our velocity?")]
 		public bool inheritVelocity = true;
@@ -24,6 +24,7 @@ namespace MultiGame {
 				spawnPoint = gameObject;
 		}
 
+		public MessageHelp spawnHelp = new MessageHelp("Spawn","Spawns the 'Item' at 'Spawn Point'.");
 		public void Spawn () {
 			if(!enabled)
 				return;
@@ -37,9 +38,10 @@ namespace MultiGame {
 				_newBody.AddForce( _body.velocity, ForceMode.VelocityChange);
 		}
 
+		public MessageHelp spawnAsChildHelp = new MessageHelp("SpawnAsChild","Spawns the 'Item' at 'Spawn Point' and then parents it to the spawn point.");
 		public void SpawnAsChild() {
 			Spawn();
-			spawnedEntity.transform.SetParent(transform);
+			spawnedEntity.transform.SetParent(spawnPoint.transform);
 		}
 
 	}

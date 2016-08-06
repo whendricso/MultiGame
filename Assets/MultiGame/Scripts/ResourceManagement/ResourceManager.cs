@@ -9,6 +9,8 @@ namespace MultiGame
 	[RequireComponent(typeof(Persistent))]
 	public class ResourceManager : MultiModule
 	{
+//		[Tooltip("Should we show the resources using a legacy GUI? Not suitable for mobile.")]
+//		public bool showGui = false;
 
 		[Tooltip("A list of resources in your game for a given player. Could be minerals, gold, mana, or even experience points. Anything that the player " +
 			"spends, or needs to have a quantity and/or limit of in the game.")]

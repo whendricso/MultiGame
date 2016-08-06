@@ -7,13 +7,13 @@ namespace MultiGame {
 	[AddComponentMenu("MultiGame/AI/Targeting Sensor")]
 	public class TargetingSensor : MultiModule {
 		
-		[Tooltip("What object has a targeting computer, or other MultiGame AI component attached that needs a target?")]
+		[RequiredFieldAttribute("What object has a targeting computer, or other MultiGame AI component attached that needs a target?", RequiredFieldAttribute.RequirementLevels.Required)]
 		public GameObject messageReceiver;
 		private GameObject lastTarget;
-		[Tooltip("How often, in seconds, can we change targets?")]
+		[RequiredFieldAttribute("How often, in seconds, can we change targets?",RequiredFieldAttribute.RequirementLevels.Required)]
 		public float retargetTime = 0.75f;
 		private bool canRetarget = true;
-		[Tooltip("How far away does our target need to get before we look for another?")]
+		[RequiredFieldAttribute("How far away does our target need to get before we look for another?", RequiredFieldAttribute.RequirementLevels.Required)]
 		public float maxDistance = 25.0f;
 		[Tooltip("What tags are we looking for while targeting?")]
 		public string[] targetTags;
@@ -29,7 +29,7 @@ namespace MultiGame {
 		
 		void Start () {
 			if (messageReceiver == null) {
-				Debug.LogError("Targeting Sensor requires a Message Receiver to assign a target!");
+				Debug.LogError("Targeting Sensor " + gameObject.name + " requires a Message Receiver to assign a target!");
 				enabled = false;
 				return;
 			}

@@ -35,7 +35,8 @@ namespace MultiGame {
 				MessageManager.UpdateMessageGUI(ref _msg, gameObject);
 			}
 		}
-		
+
+		public MessageHelp relayHelp = new MessageHelp("Relay","Activates this Message Relay, sending all 'Messages'");
 		public void Relay () {
 			if (enabled == false)
 				return;

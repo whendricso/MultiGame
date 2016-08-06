@@ -37,18 +37,22 @@ namespace MultiGame {
 				previousVal = !previousVal;
 		}
 
+		public MessageHelp toggleOnHelp = new MessageHelp("ToggleOn","Enables all 'Game Object Targets' and 'Script Targets'");
 		public void ToggleOn () {
 			Toggle(true);
 		}
 
+		public MessageHelp toggleOffHelp = new MessageHelp("ToggleOff","Disables all 'Game Object Targets' and 'Script Targets'");
 		public void ToggleOff () {
 			Toggle(false);
 		}
 
+		public MessageHelp swapToggleHelp = new MessageHelp("SwapToggle","Reverses the state of all targets");
 		public void SwapToggle () {
 			Toggle(previousVal);
 		}
 
+		public MessageHelp toggleHelp = new MessageHelp("Toggle","Allows you to set the state of all 'Game Object Targets' and 'Script Targets' explicitly",1,"The new state for the targets");
 		public void Toggle(bool val) {
 			if (debug)
 				Debug.Log("Toggle " + val);

@@ -16,15 +16,15 @@ namespace MultiGame {
 		public static Dictionary<string, int> invCount = new Dictionary<string, int>();
 		[Tooltip("Should we use buttons to drop/stow items held in the hand?")]
 		public bool useHandButtons = true;
-		[Tooltip("Right hand transform, should be an empty object parented to the hand and rotated to match the rotation of any items you wish the character to hold")]
+		[RequiredFieldAttribute("Right hand transform, should be an empty object parented to the hand and rotated to match the rotation of any items you wish the character to hold")]
 		public GameObject rWeaponMount;
-		[Tooltip("Left hand transform, should be an empty object parented to the hand and rotated to match the rotation of any items you wish the character to hold")]
+		[RequiredFieldAttribute("Left hand transform, should be an empty object parented to the hand and rotated to match the rotation of any items you wish the character to hold")]
 		public GameObject lWeaponMount;
-		[Tooltip("Torso transform, should be an empty object parented to the torso and rotated to match the rotation of any items you wish the character to wear")]
+		[RequiredFieldAttribute("Torso transform, should be an empty object parented to the torso and rotated to match the rotation of any items you wish the character to wear")]
 		public GameObject torsoMount;
-		[Tooltip("Back transform, should be an empty object parented to the back and rotated to match the rotation of any items you wish the character to wear")]
+		[RequiredFieldAttribute("Back transform, should be an empty object parented to the back and rotated to match the rotation of any items you wish the character to wear")]
 		public GameObject backMount;
-		[Tooltip("A transform generally in front of the character where items which are instantiated rather than equipped will appear")]
+		[RequiredFieldAttribute("A transform generally in front of the character where items which are instantiated rather than equipped will appear")]
 		public GameObject instantiationTransform;//Where do we instantiate objects that are "no equip" type?
 		[Tooltip("Max items in inventory")]
 		public int inventorySize = 10;
@@ -49,7 +49,7 @@ namespace MultiGame {
 		public float weaponSwapSensitivity = 0.25f;
 		private GameObject lastWeapon;
 		private string lastKey;
-		[Tooltip("File name to store this inventory under")]
+		[RequiredFieldAttribute("File name to store this inventory under")]
 		public string fileName = "inv";
 
 		public HelpInfo help = new HelpInfo("This component implements a locally-savedsingle-player only inventory for player items. It's static, meaning there can only be one at any given time," +
@@ -81,6 +81,7 @@ namespace MultiGame {
 				ProcessNumberKeys();
 		}
 
+		public MessageHelp saveHelp = new MessageHelp("Save","Saves the inventory in a binary file on the player's machine. Does not work on web builds");
 		public void Save () {
 			BinaryFormatter formatter = new BinaryFormatter();
 			FileStream stream = File.Open(Application.persistentDataPath + "/" + fileName, FileMode.Create);
@@ -96,6 +97,7 @@ namespace MultiGame {
 			formatter.Serialize(stream, _data);
 		}
 
+		public MessageHelp loadHelp = new MessageHelp("Load","Loads inventory from a binary file on the player's machine. Does not work on web builds");
 		public void Load () {
 			BinaryFormatter formatter = new BinaryFormatter();
 			FileStream stream;
@@ -238,7 +240,8 @@ namespace MultiGame {
 			}
 			return ret;
 		}
-		
+
+		public MessageHelp removeHelp = new MessageHelp("Remove","Allows you to remove an item from the player's inventory by passing it's inventory key",4,"The inventory key of the item you want to remove");
 		public void Remove (string key) {
 			if (invCount.ContainsKey(key)) {
 				if (invCount[key] > 1)
@@ -250,7 +253,9 @@ namespace MultiGame {
 				}
 			}
 		}
-		
+
+		public MessageHelp nextWeaponHelp = new MessageHelp("NextWeapon","Searches the inventory for the next Active Object with 'Item Type' of 'WeaponR' and equips it",
+			1,"Should we reverse the operation (previous weapon)?");
 		public void NextWeapon (bool reverse) {
 			if (rWeaponMount.transform.childCount == 0) {
 				if (reverse) {
@@ -371,10 +376,6 @@ namespace MultiGame {
 				GunByNumber(8);
 			if (Input.GetKeyDown(KeyCode.Alpha9))
 				GunByNumber(9);
-		}
-		
-		void OnDestroy () {
-			
 		}
 	}
 }

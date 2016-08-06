@@ -17,6 +17,7 @@ namespace MultiGame {
 		[Tooltip("Sends a message to the console when we call 'Destruct'")]
 		public bool debug = false;
 
+		public MessageHelp destructHelp = new MessageHelp("Destruct","Deletes this object from the scene, and spawns the supplied list of 'Death Prefabs' if any");
 		public void Destruct () {
 			if (debug)
 				Debug.Log("Destruct called on " + gameObject.name);

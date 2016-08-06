@@ -7,7 +7,7 @@ namespace MultiGame {
 	[AddComponentMenu("MultiGame/Motion/Stick To Ground")]
 	public class StickToGround : MultiModule {
 		
-		[Tooltip("How high up can it work?")]
+		[RequiredFieldAttribute("How high up can it work?")]
 		public float maxDistance = 0.5f;
 		[Tooltip("The offset relative to the point we found we should move to")]
 		public Vector3 offset = Vector3.zero;

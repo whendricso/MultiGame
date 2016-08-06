@@ -8,7 +8,7 @@ namespace MultiGame {
 	[AddComponentMenu("MultiGame/General/Planar Y Destructor")]
 	public class PlanarYDestructor : MultiModule {
 		
-		[Tooltip("The depth at which we must pass under before being automatically destroyed")]
+		[RequiredFieldAttribute("The depth at which we must pass under before being automatically destroyed")]
 		public float minimumYLevel = -1000;//destroy the object if it falls below this plane
 
 		[Tooltip("Objects we should spawn if killed in this way")]

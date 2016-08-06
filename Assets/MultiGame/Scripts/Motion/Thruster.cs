@@ -29,7 +29,6 @@ namespace MultiGame {
 		public HelpInfo help = new HelpInfo("This component adds thrust to a given Rigidbody. It also works with the 'InputVector' component (optionally) allthoug it can be used" +
 			" either by itself or with any message sender/toggle component." +
 			"\n---Messages:---\n" +
-			"'BeginThrust' and 'EndThrust' send the predetermined amount of force to the rigidbody each frame until stopped.\n" +
 			"'ThrustAmount' takes a float representing how much to multiply the 'Thrust' vector and add it once this frame.");
 
 		void Start () {
@@ -89,14 +88,17 @@ namespace MultiGame {
 			}
 		}
 
+		public MessageHelp beginThrustHelp = new MessageHelp("BeginThrust","Start to send the predetermined amount of force to the rigidbody each frame until stopped.");
 		public void BeginThrust () {
 			thrusting = true;
 		}
 
+		public MessageHelp endThrustHelp = new MessageHelp("EndThrust","Stop thrusting");
 		public void EndThrust () {
 			thrusting = false;
 		}
 
+		public MessageHelp thrustAmountHelp = new MessageHelp("ThrustAmount","Thrust a specific amount this frame",3,"The scalar of thrust we want to send (multiplied by the 'Thrust' you indicated above)");
 		public void ThrustAmount (float scalar) {
 			if (scalar != 0.0f) {
 				if (space == Space.Self)

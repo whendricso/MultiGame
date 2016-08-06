@@ -13,7 +13,7 @@ namespace MultiGame {
 		public string windowTitle = "";
 		[Tooltip("Must be a unique number, different from all other windows in the game")]
 		public int windowID = 53346;
-		[Tooltip("The maximum needed")]
+		[RequiredFieldAttribute("The maximum needed")]
 		public int max = 0;
 		[Tooltip("Message to send when one is collected")]
 		public MessageManager.ManagedMessage collectionMessage;
@@ -53,7 +53,8 @@ namespace MultiGame {
 			GUILayout.Window(windowID, new Rect(guiArea.x * Screen.width, guiArea.y * Screen.height, guiArea.width * Screen.width, guiArea.height * Screen.height), CollectionWindow, windowTitle);
 		}
 
-		void Collect () {
+		MessageHelp collectHelp = new MessageHelp("Collect","Increments the collection count by one, sending messages as appropriate");
+		public void Collect () {
 			collected ++;
 			if( collectionMessage.message != "" || collectionMessage.message!= "--none--")
 				MessageManager.Send(collectionMessage);

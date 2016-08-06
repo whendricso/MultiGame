@@ -108,6 +108,7 @@ namespace MultiGame {
 			gameObject.SendMessage("MoveTo", objectivePosition, SendMessageOptions.DontRequireReceiver);
 		}
 
+		public MessageHelp wanderHelp = new MessageHelp("Wander", "Causes the Guard Module to immediately begin wandering to a new location.");
 		public void Wander () {
 			if (objective != null)
 				return;
@@ -118,6 +119,7 @@ namespace MultiGame {
 				Debug.Log("Guard " + gameObject.name + " is now wandering.");
 		}
 
+		public MessageHelp changeOrientationHelp = new MessageHelp("ChangeOrientation","Causes the Guard Module to immediately randomize it's orientation based on the parameters supplied on the component.");
 		public void ChangeOrientation () {
 			float _y = transform.position.y;
 			float _sign = 1.0f;
@@ -142,6 +144,7 @@ namespace MultiGame {
 			SetObjective(_target.transform.position);
 		}
 
+		public MessageHelp clearTargetHelp = new MessageHelp("ClearTarget","Instantly clear's the Guard Module's objective and kill target.");
 		public void ClearTarget () {
 			if (debug)
 				Debug.Log("Guard " + gameObject.name + " cleared it's target.");

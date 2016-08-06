@@ -103,7 +103,7 @@ namespace MultiGame {
 				if (Input.GetKeyDown(sheath) && mode == Modes.Ready) {
 					if (debug)
 						Debug.Log("Sheath");
-					mode = Modes.Idle;
+					mode  = Modes.Idle;
 				}
 				if (Input.GetMouseButtonDown(2) && mode == Modes.Ready) {
 					mode = Modes.Block;

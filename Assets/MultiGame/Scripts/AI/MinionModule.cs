@@ -8,10 +8,10 @@ namespace MultiGame {
 	[AddComponentMenu("MultiGame/AI/Minion Module")]
 	public class MinionModule : MultiModule {
 
-		[Tooltip("When clicked, objects of this tag will cause deselection. Send the 'Select' message to this object to select it")]
-		public string deselectionTag = "World";
-		[Tooltip("When clicked with 'moveButton', will cause a move order to be issued")]
-		public string movableTag = "World";
+		[RequiredFieldAttribute("When clicked, objects of this tag will cause deselection. Send the 'Select' message to this object to select it", RequiredFieldAttribute.RequirementLevels.Required)]
+		public string deselectionTag;
+		[RequiredFieldAttribute("When clicked with 'moveButton', will cause a move order to be issued", RequiredFieldAttribute.RequirementLevels.Required)]
+		public string movableTag;
 		[Tooltip("Tags of objects we like to hunt")]
 		public List<string> attackableTags = new List<string>();
 		[Tooltip("Mouse button to use for movement, 0 = left, 1 = right, 2 = middle")]
@@ -29,9 +29,7 @@ namespace MultiGame {
 		public List<MonoBehaviour> disabledWhileSelected = new List<MonoBehaviour>();
 
 		public HelpInfo help = new HelpInfo("This component allows the player to select/deselect an AI and give it direct move orders with the mouse. To use it effectively," +
-			" we recommend pairing it with a NavModule and attaching some sort of combat AI system to it such as a 'Melee Module'" +
-			"\n----Messages:----\n" +
-			"'Select' and 'Deselect' take no parameters.");
+			" we recommend pairing it with a NavModule and attaching some sort of combat AI system to it such as a 'Melee Module'");
 
 		[System.NonSerialized]
 		public bool selected = false;
@@ -86,6 +84,7 @@ namespace MultiGame {
 			return _ret;
 		}
 
+		public MessageHelp selectHelp = new MessageHelp("Select","Causes this Minion Module to become selected, ready to receive orders from mouse events.");
 		public void Select () {
 			selected = true;
 			ToggleScripts(!selected);
@@ -93,6 +92,7 @@ namespace MultiGame {
 				selectionIndicator.SetActive(true);
 		}
 
+		public MessageHelp deselectHelp = new MessageHelp("Deselect","Causes this Minion Module to become deselected, no longer able to receive orders from mouse events.");
 		public void Deselect () {
 			selected = false;
 			ToggleScripts(!selected);

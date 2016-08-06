@@ -1,22 +1,26 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using MultiGame;
 
 namespace MultiGame {
 
-	[AddComponentMenu("MultiGame/General/Time Score")]
+	//[AddComponentMenu("MultiGame/General/Time Score")]
 	public class TimeScore : MultiModule {
 
 		[Tooltip("Should we show a legacy Unity GUI?")]
 		public bool showGUI = true;
-		[Tooltip("Unique identifier for the window, must be unique! (change it if it's not!)")]
+		[RequiredFieldAttribute("Unique identifier for the window, must be unique! (change it if it's not!)")]
 		public int windowID = 37503;
 		[Tooltip("Normalized viewport rectangle for the legacy GUI, values between 0 and 1")]
 		public Rect guiArea = new Rect(0.6f, 0.01f, 0.125f, .125f);
 
+		[RequiredFieldAttribute("A Text component you wish to use to display the timer. Works on mobile.", RequiredFieldAttribute.RequirementLevels.Optional)]
+		public Text timerDisplay;
+
 		[System.NonSerialized]
 		public float startTime = 0.0f;
-		[Tooltip("How long do we have?")]
+		[RequiredFieldAttribute("How long do we have?")]
 		public float totalTime = 0.0f;
 		[Tooltip("What message do we send when time runs out?")]
 		public MessageManager.ManagedMessage timeUpMessage;
@@ -34,7 +38,9 @@ namespace MultiGame {
 
 		private float timeSinceStart = 0;
 
-		public HelpInfo help = new HelpInfo("This component gives the player a bit of urgency and helps with speedruns. Using the legacy GUI is not recommended for mobile.");
+		public HelpInfo help = new HelpInfo("This component gives the player a bit of urgency and helps with speedruns. Using the legacy GUI is not recommended for mobile." +
+			"\n\n" +
+			"To use, ");
 
 		void Start () {
 			timeSinceStart = 0;
@@ -57,7 +63,23 @@ namespace MultiGame {
 		}
 
 		void Update() {
+			
+
 			timeSinceStart += Time.deltaTime;
+
+			if (timerDisplay != null) {
+				showGUI = false;
+
+				timerDisplay.text = "Current Time: " + Mathf.FloorToInt( timeSinceStart) + "Last: " + Mathf.FloorToInt( previousTime ) + " Remaining: " + (totalTime - timeSinceStart);
+			}
+
+
+
+
+
+
+			if (timerDisplay != null)
+				return;
 			if (Input.GetKeyUp(KeyCode.T))
 				showGUI = !showGUI;
 		}
@@ -76,7 +98,7 @@ namespace MultiGame {
 				GUILayout.Label("Best Time:" + Mathf.FloorToInt(bestTime));
 			GUILayout.Label("Time Spent: \n" + Mathf.FloorToInt(Time.time - startTime));
 			if (totalTime > 0.0f) {
-				GUILayout.Label("Time Left: \n" +  Mathf.FloorToInt(totalTime - Time.time));
+				GUILayout.Label("Time Left: \n" +  Mathf.FloorToInt(totalTime - timeSinceStart));
 			}
 
 		}
@@ -98,6 +120,7 @@ namespace MultiGame {
 
 		void Begin () {
 			startTime = Time.time;
+			timeSinceStart = 0f;
 			started = true;
 			if (totalTime > 0.0f)
 				StartCoroutine(TimeUp());

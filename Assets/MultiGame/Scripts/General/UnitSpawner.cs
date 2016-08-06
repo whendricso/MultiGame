@@ -4,7 +4,7 @@ using MultiGame;
 
 namespace MultiGame {
 
-	[AddComponentMenu("MultiGame/General/Unit Spawner")]
+//	[AddComponentMenu("MultiGame/General/Unit Spawner")]
 	public class UnitSpawner : MultiModule {
 		
 		public enum Modes {Periodic, TriggerEnter, RadiusBehind};

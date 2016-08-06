@@ -16,7 +16,7 @@ namespace MultiGame {
 
 		private Vector3 lastPosition;
 		private float spd = 0f;
-		[Tooltip("Reference to the optional rigidbody we are reporting on (works for other types of motion as well)")]
+		[RequiredFieldAttribute("Reference to the optional rigidbody we are reporting on (works for other types of motion as well)")]
 		public Rigidbody body;
 
 		[Tooltip("If false, normal update will be used instead")]

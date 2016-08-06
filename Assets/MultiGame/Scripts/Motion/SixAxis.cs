@@ -13,7 +13,7 @@ namespace MultiGame {
 		public float reverseThrust = 10.0f;
 		public float upwardThrust = 10.0f;
 		public float downwardThrust = 10.0f;
-		[Tooltip("How much dead space is in the center of the control stick")]
+		[RequiredFieldAttribute("How much dead space is in the center of the control stick")]
 		public float deadzone = 0.25f;
 		public KeyCode upKey = KeyCode.Space;
 		public KeyCode downKey = KeyCode.LeftShift;

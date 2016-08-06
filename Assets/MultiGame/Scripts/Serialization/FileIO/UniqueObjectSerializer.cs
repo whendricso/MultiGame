@@ -11,14 +11,14 @@ namespace MultiGame {
 	[AddComponentMenu("MultiGame/Serialization/Unique Object Serializer")]
 	public class UniqueObjectSerializer : MultiModule {
 
-		[Tooltip("Which component has a field we want to save/load?")]
+		[RequiredFieldAttribute("Which component has a field we want to save/load?", RequiredFieldAttribute.RequirementLevels.Required)]
 		public MonoBehaviour targetComponent;
-		[Tooltip("What is the data name of the field. This is the name in program code, which you can usually determine by looking at the Inspector. Unity capitalizes the first letter " +
+		[RequiredFieldAttribute("What is the data name of the field. This is the name in program code, which you can usually determine by looking at the Inspector. Unity capitalizes the first letter " +
 			"and adds a space before each capital letter in the Inspector. So a field with name 'Monster Health' is called 'monsterHealth' in code and that is how you must write it here. For " +
-			"some script packages, you might need to look at the code by viewing the script in the Inspector first if possible.")]
+			"some script packages, you might need to look at the code by viewing the script in the Inspector first if possible.", RequiredFieldAttribute.RequirementLevels.Required)]
 		public string targetField = "";
 	//	public string uniqueIdentifier = "";
-		[Tooltip("A unique file name for this one, if you have multiple fields you want to save with the same name then you can add a file name to each one to save them separately.")]
+		[RequiredFieldAttribute("A unique file name for this one, if you have multiple fields you want to save with the same name then you can add a file name to each one to save them separately.", RequiredFieldAttribute.RequirementLevels.Required)]
 		public string fileName = "";
 
 		public HelpInfo help = new HelpInfo("Unique Object Serializer allows you to save & load one object field in your game. This is for *unique* fields. So, for example, " +
@@ -27,6 +27,8 @@ namespace MultiGame {
 			"things like user preferences. This component saves to a binary file, and therefore does not work on web builds.");
 
 		public bool debug = false;
+
+		public MessageHelp saveHelp = new MessageHelp("Save","Saves the 'Target Field' from 'Target Component' into 'File Name'");
 
 		public void Save () {
 			if (debug)
@@ -40,6 +42,8 @@ namespace MultiGame {
 			FileStream stream = File.Open(Application.persistentDataPath + "/" + fileName, FileMode.Create);
 			formatter.Serialize(stream, targetComponent.GetType().GetField(targetField).GetValue(targetComponent));
 		}
+
+		public MessageHelp loadHelp = new MessageHelp("Load","Loads 'Target Field' from 'File Name' and reassigns it's value from disk.");
 
 		public void Load () {
 			if (!ValidateSetup()) {

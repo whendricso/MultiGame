@@ -7,7 +7,7 @@ namespace MultiGame {
 	[AddComponentMenu("MultiGame/Interaction/Output/Tag Broadcaster")]
 	public class TagBroadcaster : MultiModule {
 
-		[Tooltip("Tag associated with objects we want to talk to")]
+		[RequiredFieldAttribute("Tag associated with objects we want to talk to")]
 		public string targetTag = "";
 		[Tooltip("The message we want to send those objects")]
 		public MessageManager.ManagedMessage message;
@@ -38,6 +38,7 @@ namespace MultiGame {
 			}
 		}
 
+		public MessageHelp broadcastHelp = new MessageHelp("Broadcast","Send the 'Message' to all objects in the scene with 'Target Tag'");
 		public void Broadcast () {
 			if (message.target != null) {
 				if (debug)

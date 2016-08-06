@@ -11,13 +11,13 @@ namespace MultiGame {
 	[AddComponentMenu("MultiGame/Inventory/Minion Spawn")]
 	public class MinionSpawn : MultiModule {
 		
-		[Tooltip("Unit we are attempting to spawn")]
+		[RequiredFieldAttribute("Unit we are attempting to spawn")]
 		public GameObject minion;
-		[Tooltip("How far down from the origin are we willing to look for a surface to spawn on?")]
+		[RequiredFieldAttribute("How far down from the origin are we willing to look for a surface to spawn on?")]
 		public float rayDistance = 2.0f;
 		[Tooltip("What objects should we look for to spawn on?")]
 		public LayerMask rayMask;
-		[Tooltip("A reference to an inventory item that will be added back in to the inventory in case we fail to spawn anything")]
+		[RequiredFieldAttribute("A reference to an inventory item that will be added back in to the inventory in case we fail to spawn anything")]
 		public GameObject activeObject;
 		[HideInInspector]
 		public ActiveObject activ;

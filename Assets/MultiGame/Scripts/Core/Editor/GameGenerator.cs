@@ -662,8 +662,8 @@ namespace MultiGame {
 			if (proceduralSplatmap)
 				SplatmapUnityTerrain();
 
-			if (proceduralDistribMap)
-				DistributionMapUnityTerrain();
+//			if (proceduralDistribMap)
+//				DistributionMapUnityTerrain();
 		}
 
 		private void FillMissingDetails () {

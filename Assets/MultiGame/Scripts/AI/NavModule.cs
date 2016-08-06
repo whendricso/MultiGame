@@ -11,7 +11,7 @@ namespace MultiGame {
 
 		[System.NonSerialized]
 		public Animator anim;
-		[Tooltip("A float in your Mecanim controller representing movement speed. Must be in range between 0 and 1 where 0 is standing still and 1 is full sprint")]
+		[RequiredFieldAttribute("A float in your Mecanim controller representing movement speed. Must be in range between 0 and 1 where 0 is standing still and 1 is full sprint", RequiredFieldAttribute.RequirementLevels.Recommended)]
 		public string animatorMovementFloat;
 
 		[Tooltip("Should we always move towards a specific target?")]
@@ -25,7 +25,7 @@ namespace MultiGame {
 		[HideInInspector]//[Tooltip("How fast do we turn to avoid obstacles?")]
 		public float avoidanceTurnRate = 6.0f;
 
-		[Tooltip("How often, in seconds, do we rebuild path data? (Lower numbers = better quality, higher numbers = better speed)")]
+		[RequiredFieldAttribute("How often, in seconds, do we rebuild path data? (Lower numbers = better quality, higher numbers = better speed)", RequiredFieldAttribute.RequirementLevels.Required)]
 		public float pathRecalculationInterval = 0.2f;
 		private float recalcTimer;
 		private bool touchingTarget = false;
@@ -163,6 +163,7 @@ namespace MultiGame {
 			navTarget = _target;
 		}
 
+		public MessageHelp stopMovingHelp = new MessageHelp("StopMoving","Causes the Nav Module to stop and target this position as it's move target.");
 		public void StopMoving () {
 			if(debug)
 				Debug.Log ("Nav Module " + gameObject.name + " is stopping");
@@ -177,6 +178,7 @@ namespace MultiGame {
 			BeginPathingTowardsTarget();
 		}
 
+		public MessageHelp stopNavigatingHelp = new MessageHelp("StopNavigating","Tells the Nav Mesh Agent to stop immediately, but does not affect the Nav Module directly.");
 		public void StopNavigating () {
 			agent.Stop();
 		}

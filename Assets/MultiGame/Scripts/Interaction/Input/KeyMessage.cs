@@ -9,7 +9,7 @@ namespace MultiGame {
 
 		[Tooltip("The key in question")]
 		public KeyCode key = KeyCode.None;
-		[Tooltip("Optionally, a named button can also be checked")]
+		[RequiredFieldAttribute("Optionally, a named button can also be checked",RequiredFieldAttribute.RequirementLevels.Optional)]
 		public string button = "";
 		public MessageManager.ManagedMessage keyDownMessage;
 		public MessageManager.ManagedMessage keyHeldMessage;

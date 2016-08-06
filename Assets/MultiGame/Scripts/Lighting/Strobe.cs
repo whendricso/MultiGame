@@ -7,9 +7,9 @@ namespace MultiGame {
 	[AddComponentMenu("MultiGame/Lighting/Strobe")]
 	public class Strobe : MultiModule {
 		
-		[Tooltip("What light is blinking?")]
+		[RequiredFieldAttribute("What light is blinking?",RequiredFieldAttribute.RequirementLevels.Recommended)]
 		public Light targetLight;
-		[Tooltip("Are we also using a lens flare?")]
+		[RequiredFieldAttribute("Are we also using a lens flare?",RequiredFieldAttribute.RequirementLevels.Optional)]
 		public LensFlare lensFlare;
 		[Tooltip("How fast should we blink?")]
 		public float blinkRate = 1.0f;

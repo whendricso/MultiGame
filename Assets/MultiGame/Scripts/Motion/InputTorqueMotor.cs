@@ -15,7 +15,7 @@ namespace MultiGame {
 		public HelpInfo help = new HelpInfo("This component applies Rigidbody torque based on the value of an input axis.");
 		
 		void FixedUpdate () {
-			GetComponent<Rigidbody>().AddRelativeTorque((power * Input.GetAxis(axis)) * outputAxes);
+			GetComponent<Rigidbody>().AddRelativeTorque(((power * Input.GetAxis(axis)) * outputAxes)*Time.deltaTime);
 		}
 	}
 }

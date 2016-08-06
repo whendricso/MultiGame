@@ -16,7 +16,7 @@ namespace MultiGame {
 
 		void Update () {
 			transform.position += impetus * Time.deltaTime;
-			transform.Translate(localImpetus, Space.Self);//transform.localPosition += localImpetus * Time.deltaTime;
+			transform.Translate(localImpetus * Time.deltaTime, Space.Self);//transform.localPosition += localImpetus * Time.deltaTime;
 		}
 
 		public void SetImpetusX (float _x) {

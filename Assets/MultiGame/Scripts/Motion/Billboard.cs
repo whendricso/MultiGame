@@ -10,7 +10,7 @@ namespace MultiGame {
 
 		[Tooltip("Should this snap directly to the target?")]
 		public bool instant = true;
-		[Tooltip("What object are we targeting?")]
+		[RequiredFieldAttribute("What object are we targeting?",RequiredFieldAttribute.RequirementLevels.Optional)]
 		public Transform target;
 		[Tooltip("If not instant, what is our turning speed?")]
 		public float speed = 6.0f;

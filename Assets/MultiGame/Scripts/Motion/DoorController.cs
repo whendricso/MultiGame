@@ -9,14 +9,20 @@ namespace MultiGame {
 		public enum DoorTypes {Slide, Hinge};
 		public DoorTypes doorType = DoorTypes.Slide;
 
+		[Tooltip("How long does it take for the door to move?")]
 		public float useTime = .8f;
+		[Tooltip("What is it's hinge angle in open position? (Ignore for sliding doors)")]
 		public float hingeAngle = 73f;
+		[Tooltip("A curve representing the motion of the door,")]
 		public AnimationCurve openCurve = new AnimationCurve(new Keyframe[]{new Keyframe(0f, 0f), new Keyframe(1f, 1f) });
+		[Tooltip("A curve representing the motion of the door,")]
 		public AnimationCurve closeCurve = new AnimationCurve(new Keyframe[]{new Keyframe(0f, 1f), new Keyframe(1f, 0f) });
+		[Tooltip("A vector indicating the slide target along the door plane. (Ignore for hinged doors)")]
 		public Vector2 slideVector = Vector2.right;
 
 		private float startTime = 0f;
 		public enum DoorStates {Open, Opening, Closed, Closing };
+		[Tooltip("The default state of this door")]
 		public DoorStates doorState = DoorStates.Closed;
 
 		public HelpInfo help = new HelpInfo("Door Controller allows for hinged or sliding doors to be animated without creating new animation data.");
@@ -69,6 +75,7 @@ namespace MultiGame {
 			}
 		}
 
+		public MessageHelp openDoorHelp = new MessageHelp("OpenDoor","Opens this door based on your settings");
 		public void OpenDoor () {
 			if (doorState != DoorStates.Closed)
 				return;
@@ -76,6 +83,7 @@ namespace MultiGame {
 			doorState = DoorStates.Opening;
 		}
 
+		public MessageHelp closeDoorHelp = new MessageHelp("CloseDoor","Closes this door based on your settings");
 		public void CloseDoor () {
 			if (doorState != DoorStates.Open)
 				return;
@@ -83,6 +91,7 @@ namespace MultiGame {
 			doorState = DoorStates.Closing;
 		}
 
+		public MessageHelp toggleDoorHelp = new MessageHelp("ToggleDoor","Opens or closes this door based on your settings");
 		public void ToggleDoor () {
 			if (doorState == DoorStates.Open) {
 				startTime = Time.time;

@@ -8,14 +8,15 @@ namespace MultiGame {
 	[AddComponentMenu("MultiGame/General/Curve Controlled Value")]
 	public class CurveControlledValue : MultiModule {
 
-		[Tooltip("The script with a value we want to animate over time. Drag and drop the component header in here to attach.")]
+		[RequiredFieldAttribute("The script with a value we want to animate over time. Drag and drop the component header in here to attach.")]
 		public MonoBehaviour targetComponent;
-		[Tooltip("The name of the value we want to control. If it appears in the inspector as 'My Float Value' then it's proper name is 'myFloatValue' capitalization must match!")]
+		[RequiredFieldAttribute("The name of the value we want to control. If it appears in the inspector as 'My Float Value' then it's proper name is 'myFloatValue' capitalization must match!")]
 		public string floatValue;
 		[Tooltip("A curve showing the value over time, zoom in & out to get larger/smaller values, hold shift/ctrl/cmd to change the zoom axis.")]
 		public AnimationCurve floatOverTime;
 
 		private float startTime;
+		private FieldInfo field;
 
 		public HelpInfo help = new HelpInfo("This component allows you to animate a floating point value without creating a new Animation, setting up Mecanim controllers etc. It's a " +
 			"great time-saver. Just drop it on the object with a component value you want to animate. Only floating point numbers are supported. Next, read the name of the value and input" +
@@ -33,7 +34,9 @@ namespace MultiGame {
 		}
 
 		void Update () {
-			targetComponent.GetType().GetField(floatValue).SetValue(targetComponent, floatOverTime.Evaluate((Time.time - startTime) / floatOverTime.length));
+			if (field == null)
+				field = targetComponent.GetType().GetField(floatValue);
+			field.SetValue(targetComponent, floatOverTime.Evaluate((Time.time - startTime) / floatOverTime.length));
 		}
 	}
 }

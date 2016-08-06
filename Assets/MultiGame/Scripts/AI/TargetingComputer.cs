@@ -8,11 +8,11 @@ namespace MultiGame {
 	[AddComponentMenu("MultiGame/AI/Targeting Computer")]
 	public class TargetingComputer : MultiModule
 	{
-		[Tooltip("The base rigidbody this is parented to")]
+		[RequiredFieldAttribute("The base rigidbody this is parented to", RequiredFieldAttribute.RequirementLevels.Required)]
 		public Rigidbody mainBody;
-		[Tooltip("How fast does our projectile travel?")]
+		[RequiredFieldAttribute("How fast does our projectile travel?", RequiredFieldAttribute.RequirementLevels.Required)]
 		public float shotSpeed;
-		[Tooltip("Should we fire at something specific, right now?")]
+		[RequiredFieldAttribute("Should we fire at something specific, right now?", RequiredFieldAttribute.RequirementLevels.Optional)]
 		public GameObject target;
 		[Tooltip("Should we turn this object so it's Z-axis faces the target, with lead time taken into account?")]
 		public bool autoLook = true;//Automatically look at the target position?
@@ -104,17 +104,20 @@ namespace MultiGame {
 				Debug.Log("Targeting Computer " + gameObject.name + " is firing at " + tgt.name);
 			target = tgt;
 		}
-		
+
+		public MessageHelp clearTargetHelp = new MessageHelp("ClearTarget","Causes the Targeting Computer to lose it's current target, allowing it to target something else");
 		public void ClearTarget () {
 			if (debug)
 				Debug.Log("Targeting Computer " + gameObject.name + " is clearing it's target.");
 			target = null;
 		}
-		
+
+		public MessageHelp toggleAutoLookHelp = new MessageHelp("ToggleAutoLook","Turns turret auto-rotation on/off which causes the turret to search for targets");
 		public void ToggleAutoLook() {
 			ToggleAutoLook(!autoLook);
 		}
-		
+
+		public MessageHelp toggleAutoLookBoolHelp = new MessageHelp("ToggleAutoLook","Turns turret auto-rotation on/off which causes the turret to search for targets",1,"Should the turret auto-look?");
 		public void ToggleAutoLook (bool val) {
 			autoLook = val;
 		}

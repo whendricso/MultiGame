@@ -12,7 +12,7 @@ namespace MultiGame {
 		public string[] activeTags;
 		[Tooltip("If true, the tag check will be compared against the root transform of the object hit, otherwise it will be performed against the hit collider's transform.")]
 		public bool checkRoot = true;
-		[Tooltip("Minimum velocity required")]
+		[RequiredFieldAttribute("Minimum velocity required",RequiredFieldAttribute.RequirementLevels.Recommended)]
 		public float velocityThreshold = 0.0f;
 		[HideInInspector]//[Tooltip("Message target override")]
 		public GameObject target;
@@ -45,6 +45,9 @@ namespace MultiGame {
 	//			enabled = false;
 	//			return;
 	//		}
+
+			if (activeTags.Length < 1)
+				activeTags[0] = "Untagged";
 
 			if (message.target == null)
 				message.target = target;

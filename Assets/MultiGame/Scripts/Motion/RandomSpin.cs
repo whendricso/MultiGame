@@ -10,7 +10,7 @@ namespace MultiGame {
 		[Tooltip("Do we apply rotation just once, or continually?")]
 		public bool oneShot = false;
 		private bool didStart = false;
-		[Tooltip("")]
+		[Tooltip("How fast?")]
 		public float power = 10.0f;
 		public bool randomizeStartRotation = false;
 

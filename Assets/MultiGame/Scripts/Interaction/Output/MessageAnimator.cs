@@ -7,18 +7,18 @@ namespace MultiGame {
 	[AddComponentMenu("MultiGame/Interaction/Output/Message Animator")]
 	public class MessageAnimator : MultiModule {
 
-		[Tooltip("The Mecanim trigger to activate when TriggerAnimation is received, occurs the first and every alternating time after that")]
+		[RequiredFieldAttribute("The Mecanim trigger to activate when TriggerAnimation is received, occurs the first and every alternating time after that", RequiredFieldAttribute.RequirementLevels.Optional)]
 		public string trigger = "";
-		[Tooltip("Optional trigger to send on the second and every alternating time after that")]
+		[RequiredFieldAttribute("Optional trigger to send on the second and every alternating time after that", RequiredFieldAttribute.RequirementLevels.Optional)]
 		public string returnTrigger = "";
-		[Tooltip("Reference to the Animator component we are using")]
+		[RequiredFieldAttribute("Reference to the Animator component we are using, if none specified Message Animator will try to find one on this object",RequiredFieldAttribute.RequirementLevels.Optional)]
 		Animator animator;
 		private bool triggerSet = true;
 
 		public bool debug = false;
 
-		public HelpInfo help = new HelpInfo("This component sends Animator triggers when it receives the 'TriggerAnimation' message. Alternatively, you can send 'TriggerSpecificAnimation' with" +
-			" a string parameter representing the Mecanim trigger you want to activate.");
+		public HelpInfo help = new HelpInfo("This component sends Animator triggers when it receives the 'TriggerAnimation' message. This allows any message sender to cause Animator state transitions for " +
+			"controlling logic or animation.");
 
 		void Start () {
 			animator = GetComponentInChildren<Animator>();
@@ -33,7 +33,10 @@ namespace MultiGame {
 	//		TriggerAnimation();
 	//	}
 
+		public MessageHelp triggerAnimationHelp = new MessageHelp("TriggerAnimation","Sends the 'Trigger' defined above to the Animator.");
 		public void TriggerAnimation () {
+			if (!enabled)
+				return;
 			if (string.IsNullOrEmpty(trigger))
 				Debug.LogError("Message Animator " + gameObject.name + " needs a trigger assigned in the inspector");
 
@@ -56,8 +59,12 @@ namespace MultiGame {
 			}
 		}
 
+		public MessageHelp triggerSpecificAnimationHelp = new MessageHelp("TriggerSpecificAnimation","Send any trigger you like to the Animator even if it's not defined above",
+			4,"The Mecanim trigger you would like to invoke");
 		public void TriggerSpecificAnimation (string _trigger) {
-				animator.SetTrigger(_trigger);
+			if (!enabled)
+				return;
+			animator.SetTrigger(_trigger);
 		}
 	}
 }

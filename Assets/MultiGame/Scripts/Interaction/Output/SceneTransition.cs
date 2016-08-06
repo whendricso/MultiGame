@@ -7,11 +7,11 @@ namespace MultiGame {
 	[AddComponentMenu("MultiGame/Interaction/Output/Scene Transition")]
 	public class SceneTransition : MultiModule {
 		
-		[Tooltip("Name of the Scene we will load, must be added to Build Settings")]
+		[RequiredFieldAttribute("Name of the Scene we will load, must be added to Build Settings")]
 		public string targetScene;
 		[Tooltip("Change the scene as soon as this object is created?")]
 		public bool changeOnStart = false;
-		[Tooltip("Optional delay for mission change")]
+		[RequiredFieldAttribute("Optional delay for mission change", RequiredFieldAttribute.RequirementLevels.Optional)]
 		public float timeDelay = 0.0f;
 
 		public HelpInfo help = new HelpInfo("This component implements single-player scene changes. Not suitable for multiplayer." +
@@ -23,7 +23,8 @@ namespace MultiGame {
 			if (changeOnStart)
 				ChangeScene();
 		}
-		
+
+		public MessageHelp changeSceneHelp = new MessageHelp("ChangeScene","Go to the 'Target Scene'");
 		public void ChangeScene () {
 			StartCoroutine( Transition(timeDelay));
 		}

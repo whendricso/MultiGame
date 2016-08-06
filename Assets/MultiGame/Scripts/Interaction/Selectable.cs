@@ -52,6 +52,7 @@ namespace MultiGame {
 				script.enabled = !selected;
 		}
 
+		public MessageHelp selectHelp = new MessageHelp("Select","Selects this object, activating/deactivating the appropriate scripts and objects, listed above");
 		public void Select () {
 			selected = true;
 			if (selectionIndicator != null)
@@ -59,6 +60,7 @@ namespace MultiGame {
 			SetToggles();
 		}
 
+		public MessageHelp deselectHelp = new MessageHelp("Deselect","Deselects this object, activating/deactivating the appropriate scripts and objects, listed above");
 		public void Deselect () {
 			selected = false;
 			if (selectionIndicator != null)
@@ -66,6 +68,7 @@ namespace MultiGame {
 			SetToggles();
 		}
 
+		public MessageHelp toggleSelectionHelp = new MessageHelp("ToggleSelection","Swaps the selection state of this object, activating/deactivating the appropriate scripts and objects, listed above");
 		public void ToggleSelection () {
 			selected = !selected;
 			if (selectionIndicator != null)
@@ -73,6 +76,7 @@ namespace MultiGame {
 			SetToggles();
 		}
 
+		public MessageHelp relayIfSelectedHelp = new MessageHelp("RelayIfSelected","Sends all 'Messages', but only if this object is currently selected");
 		public void RelayIfSelected () {
 			if (selected) {
 				foreach (MessageManager.ManagedMessage message in messages) {

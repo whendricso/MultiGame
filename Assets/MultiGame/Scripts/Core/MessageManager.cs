@@ -15,7 +15,7 @@ namespace MultiGame {
 		public class ManagedMessage {
 			public GameObject target;
 			public string message;
-			public bool msgOverride = false;
+			public bool msgOverride = false;//"lock" message?
 			public int messageIndex = 0;
 			[HideInInspector]
 			public string[] possibleMessages;
@@ -100,28 +100,33 @@ namespace MultiGame {
 		public static void UpdateMessageGUI (ref ManagedMessage _msg , GameObject _self) {
 	//		if (!_msg.isDirty)
 	//			return;
-			
+
 			List<Component> components = new List<Component>();
 			if (_msg.target == null)
 				components.AddRange(_self.GetComponentsInChildren(typeof(MonoBehaviour)));
 			else
 				components.AddRange(_msg.target.GetComponentsInChildren(typeof(MonoBehaviour)));
 			List<string> possibleMessages = new List<string>();
+//			List<string> allMessages = new List<string>();
+			MethodInfo[] _methods;
 
 			foreach (Component component in components) {
-				foreach(MethodInfo info in component.GetType().GetMethods(BindingFlags.Public|BindingFlags.Instance|BindingFlags.DeclaredOnly) ) {
-					if (!info.Name.StartsWith("get")) {
-						if (info.GetParameters().Length <= 1) {
-							if (info.GetParameters().Length > 0) {
-								if(CheckIsValidParam(info.GetParameters()[0]))
+				if (component != null) {
+					_methods = component.GetType().GetMethods(BindingFlags.Public|BindingFlags.Instance|BindingFlags.DeclaredOnly);
+					if (!(_methods.Length <1)) {
+					foreach(MethodInfo info in _methods ) {
+						if (!info.Name.StartsWith("get")) {
+							if (info.GetParameters().Length <= 1) {
+								if (info.GetParameters().Length > 0) {
+									if(CheckIsValidParam(info.GetParameters()[0]))
+										possibleMessages.Add(info.Name);
+								}
+								else
 									possibleMessages.Add(info.Name);
+
 							}
-							else
-								possibleMessages.Add(info.Name);
 
 						}
-
-					}
 
 	//				bool _successfullyAssignedParamType = false;
 	//				if (info.GetParameters().Length < 1) {
@@ -150,6 +155,8 @@ namespace MultiGame {
 	//					_msg.parameterMode = ManagedMessage.ParameterModeTypes.None;
 	//					_successfullyAssignedParamType = true;
 	//				}
+						}
+					}
 				}
 			}
 			

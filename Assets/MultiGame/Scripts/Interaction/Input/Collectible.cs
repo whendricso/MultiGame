@@ -7,7 +7,7 @@ namespace MultiGame {
 	[AddComponentMenu("MultiGame/Interaction/Input/Collectible")]
 	public class Collectible : MultiModule {
 
-		[Tooltip("Optional reference to the collection manager, which must exist in the scene for Collectible to work")]
+		[RequiredFieldAttribute("Optional reference to the collection manager, which must exist in the scene for Collectible to work. If none is supplied, MultiGame will try to find one automatically.", RequiredFieldAttribute.RequirementLevels.Optional)]
 		public CollectionManager collectionManager;
 	//	public bool mustBePlayer = true;
 		[Tooltip("Object to spawn when we are collected")]

@@ -7,9 +7,9 @@ namespace MultiGame {
 	[AddComponentMenu("MultiGame/General/Autodestruct")]
 	public class Autodestruct : MultiModule {
 		
-		[Tooltip("How long until destruction?")]
+		[RequiredFieldAttribute("How long until destruction?")]
 		public float liveTime = 2.0f;
-		[Tooltip("What should we create on death?")]
+		[RequiredFieldAttribute("What should we create on death?",RequiredFieldAttribute.RequirementLevels.Recommended)]
 		public GameObject deathPrefab;
 		[Tooltip("Where should it be positioned relative to our origin?")]
 		public Vector3 prefabOffset = Vector3.zero;
@@ -26,6 +26,11 @@ namespace MultiGame {
 			if (deathPrefab != null)
 				Instantiate(deathPrefab, transform.position + prefabOffset, transform.rotation);
 			Destroy(gameObject);
+		}
+
+		public MessageHelp cancelDestructionHelp = new MessageHelp("CancelDestruction","If received in time, stops this object from self-destructing.");
+		public void CancelDestruction () {
+			StopAllCoroutines();
 		}
 	}
 }

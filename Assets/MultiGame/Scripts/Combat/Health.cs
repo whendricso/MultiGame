@@ -7,18 +7,19 @@ namespace MultiGame {
 	[AddComponentMenu("MultiGame/Combat/Health")]
 	public class Health : MultiModule {
 		
-		[Tooltip("How much health do we start with?")]
+		[RequiredFieldAttribute("How much health do we start with?")]
 		public float hp = 100.0f;
-		[Tooltip("How much health can we have?")]
+		[RequiredFieldAttribute("How much health can we have?")]
 		public float maxHP = 100.0f;
 		[Tooltip("Do we destroy the object when health runs out?")]
 		public bool autodestruct = true;
 		[Tooltip("What should we spawn when we die from HP loss?")]
 		public GameObject[] deathPrefabs;
 		//public GameObject deathCam;//optional camera to be spawned, which watches the first death prefab
-		
+
+		[RequiredFieldAttribute("What skin should we use for the Legacy GUI",RequiredFieldAttribute.RequirementLevels.Optional)]
 		public GUISkin guiSkin;
-		[Tooltip("Should we show a legacy Unity GUI?")]
+		[Tooltip("Should we show a legacy Unity GUI? NOTE: Not suitable for mobile devices.")]
 		public bool showHealthBarGUI = false;
 		[Tooltip("Normalized viewport rectangle describing the area of the health bar, values between 0 and 1")]
 		public Rect healthBar = new Rect(.2f, .01f, .4f, .085f);
@@ -66,7 +67,8 @@ namespace MultiGame {
 				GUILayout.EndArea();
 			}
 		}
-		
+
+		public MessageHelp dieHelp = new MessageHelp("Die","Kill this object immediately!");
 		public void Die() {
 			if (debug)
 				Debug.Log("Health component " + gameObject.name + " has died!");
@@ -82,6 +84,7 @@ namespace MultiGame {
 			Destroy(gameObject);
 		}
 
+		public MessageHelp modifyHealthHelp = new MessageHelp("ModifyHealth","Change the health this object has", 3, "Amount to change the health by. Positive to increase, negative to decrease.");
 		public void ModifyHealth (float val) {
 			if (debug)
 				Debug.Log("Modifying health for " + gameObject.name + " by " + val);
@@ -94,6 +97,7 @@ namespace MultiGame {
 			}
 		}
 
+		public MessageHelp modifyMaxHealthHelp = new MessageHelp("ModifyMaxHealth","Change the maximum health this object can have", 3, "Amount to change the max health by. Positive to increase, negative to decrease.");
 		public void ModifyMaxHealth (float val) {
 			if (debug)
 				Debug.Log("Modifying health for " + gameObject.name + " by " + val);

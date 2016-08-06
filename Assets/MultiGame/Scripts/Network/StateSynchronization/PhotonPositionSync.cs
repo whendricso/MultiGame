@@ -89,7 +89,7 @@ namespace MultiGame {
 		
 		void UpdateRigidbody () {
 			// This is the target playback time of the rigid body
-			double interpolationTime = Network.time - m_InterpolationBackTime;
+			double interpolationTime = PhotonNetwork.time - m_InterpolationBackTime;//Network.time - m_InterpolationBackTime;
 
 			// Smoothing
 			// Use interpolation if the target playback time is present in the buffer

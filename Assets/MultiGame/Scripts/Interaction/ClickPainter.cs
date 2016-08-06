@@ -15,7 +15,7 @@ namespace MultiGame {
 		public Material[] materials;
 		[Tooltip("List of tags of objects we can paint on")]
 		public string[] paintableTags;
-		[Tooltip("Should we use the Legacy Unity GUI?")]
+		[Tooltip("Should we use the Legacy Unity GUI? Not suitable for mobile devices")]
 		public bool useGUI = true;
 
 	//	private int currentButton = 0;

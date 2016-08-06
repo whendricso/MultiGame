@@ -13,7 +13,8 @@ namespace MultiGame {
 		public HelpInfo help = new HelpInfo("This component represents an ammo clip, this is needed for 'ModernGun' and 'ClipInventory' to know what type of ammo this is.");
 
 		public bool debug = false;
-		
+
+		public MessageHelp pickHelp = new MessageHelp("Pick","Adds this clip to the player's Clip Inventory, but only if the player can hold it");
 		public void Pick () {
 			if (debug)
 				Debug.Log("clip picked");

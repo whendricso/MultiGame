@@ -7,9 +7,9 @@ namespace MultiGame {
 	[AddComponentMenu("MultiGame/General/Time Speed Manager")]
 	public class TimeSpeedManager : MultiModule {
 
-		[Tooltip("How fast is time passing? 1 = normal")]
+		[RequiredFieldAttribute("How fast is time passing? 1 = normal")]
 		public float tScale = 1.0f;
-		[Tooltip("how fast does time return to normal?")]
+		[RequiredFieldAttribute("how fast does time return to normal?",RequiredFieldAttribute.RequirementLevels.Optional)]
 		public float recoveryRate = 0f;
 
 		public HelpInfo help = new HelpInfo("This component allows the speed of the game to be changed. SetRecoveryRate and SetTimeScale both take a floating point value.");
@@ -27,16 +27,20 @@ namespace MultiGame {
 
 		}
 
+		public MessageHelp resetTimeScaleHelp = new MessageHelp("ResetTimeScale","Sets the time scale back to 1, causing time to flow normally");
 		public void ResetTimeScale () {
 			tScale = 1f;
 		}
 
+		public MessageHelp setRecoveryRateHelp = new MessageHelp("SetRecoveryRate","Sets the rate at which the 'Time Scale' returns to 1. Set it to 0 to disable this feature",3,"The new recovery rate");
 		public void SetRecoveryRate (float _rate) {
 			recoveryRate = _rate;
 		}
 
+		public MessageHelp setTimeScaleHelp = new MessageHelp("SetTimeScale","Set the time scale for the game. You can speed up & slow down time easily this way",
+			3,"The new time scale. 1 is normal, 0 is paused. The absolute value is used, time cannot run backwards.");
 		public void SetTimeScale(float _scale) {
-			tScale = _scale;
+			tScale = Mathf.Abs(_scale);
 		}
 	}
 }

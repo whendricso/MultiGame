@@ -8,11 +8,11 @@ namespace MultiGame {
 	[RequireComponent(typeof(LineRenderer))]
 	public class BeamLaser : MultiModule {
 
-		[Tooltip("How far does the laser go until it stops dead in the middle of space?")]
+		[RequiredFieldAttribute("How far does the laser go until it stops dead in the middle of space?")]
 		public float beamRange;
-		[Tooltip("How much damage PER FIXEDUPDATE is dealt by this weapon?")]
+		[RequiredFieldAttribute("How much damage PER FIXEDUPDATE is dealt by this weapon?")]
 		public float damage = 0.2f;
-		[Tooltip("What object, if any, should be spawned when we hit something?")]
+		[RequiredFieldAttribute("What object, if any, should be spawned when we hit something?",RequiredFieldAttribute.RequirementLevels.Optional)]
 		public GameObject splashPrefab;
 
 		private LineRenderer beamLine;
@@ -57,10 +57,12 @@ namespace MultiGame {
 			}
 		}
 
+		public MessageHelp toggleOnHelp = new MessageHelp("ToggleOn","Turns on the beam");
 		public void ToggleOn () {
 			enabled = true;
 		}
 
+		public MessageHelp toggleOffHelp = new MessageHelp("ToggleOf","Turns off the beam");
 		public void ToggleOff () {
 			enabled = false;
 		}

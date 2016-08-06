@@ -46,6 +46,7 @@ namespace MultiGame {
 			GUILayout.EndArea();
 		}
 
+		public MessageHelp saveHelp = new MessageHelp("Save","Saves the current clip counts in Player Prefs");
 		public void Save() {
 			PlayerPrefs.SetInt("clipTypeCount", numClips.Length);
 			for (int i = 0; i < numClips.Length; i++)
@@ -53,6 +54,7 @@ namespace MultiGame {
 				PlayerPrefs.Save();
 		}
 
+		public MessageHelp loadHelp = new MessageHelp("Load","Loads the clip counts from Player Prefs");
 		public void Load () {
 			if (PlayerPrefs.HasKey("clipTypeCount")) {
 				numClips = new int[PlayerPrefs.GetInt("clipTypeCount")];

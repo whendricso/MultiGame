@@ -28,7 +28,9 @@ namespace MultiGame {
 
 		[System.Serializable]
 		public class Achievement {
+			[RequiredFieldAttribute("Name of this achievement", RequiredFieldAttribute.RequirementLevels.Required)]
 			public string name;
+			[RequiredFieldAttribute("How many times must we 'Increment' this achievement before it is acieved?", RequiredFieldAttribute.RequirementLevels.Required)]
 			public int quantityRequired = 1;
 			public int currentQuantity = 0;
 			public MessageManager.ManagedMessage completionMessage;
@@ -71,6 +73,8 @@ namespace MultiGame {
 			GUILayout.EndArea();
 		}
 
+		public MessageHelp incrementHelp = new MessageHelp("Increment","takes a string, which is the name of the achievement we are incrementing", 4,
+			"Name of the achievement we wish to increment. Must match the name above exactly.");
 		public void Increment (string _name) {
 			foreach (Achievement achv in achievements) {
 				if (_name == achv.name) {
@@ -84,12 +88,15 @@ namespace MultiGame {
 			}
 		}
 
+		public MessageHelp saveHelp = new MessageHelp("Save", "Saves the player's achievements to Player Prefs. Works on all platforms");
 		public void Save() {
 			foreach (Achievement achv in achievements) {
 				PlayerPrefs.SetInt("achv" + achv.name, achv.currentQuantity);
 			}
 			PlayerPrefs.Save();
 		}
+
+		public MessageHelp loadHelp = new MessageHelp("Load", "Loads the player's achievements from Player Prefs. Works on all platforms");
 
 		public void Load() {
 			foreach (Achievement achv in achievements) {
@@ -99,14 +106,17 @@ namespace MultiGame {
 			}
 		}
 
+		public MessageHelp openMenuHelp = new MessageHelp("OpenMenu","Opens the legacy GUI. Not suitable for mobile.");
 		public void OpenMenu () {
 			showGui = true;
 		}
 
+		public MessageHelp closeMenuHelp = new MessageHelp("CloseMenu","Closes the legacy GUI. Not suitable for mobile.");
 		public void CloseMenu () {
 			showGui = false;
 		}
 
+		public MessageHelp toggleMenuHelp = new MessageHelp("ToggleMenu","Toddles the legacy GUI. Not suitable for mobile.");
 		public void ToggleMenu () {
 			showGui = !showGui;
 		}

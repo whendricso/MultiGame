@@ -12,9 +12,9 @@ namespace MultiGame {
 		#region members
 		[Tooltip("Should we automatically set the deploy ghost red/green depending on if it can be deployed? (recommended)")]
 		public bool useDeployColor = true;
-		[Tooltip("Forbidden objects should have this tag so you can't deploy on them")]
+		[RequiredFieldAttribute("Forbidden objects should have this tag so you can't deploy on them")]
 		public string forbiddenSurfaceTag = "NoDeploy";
-		[Tooltip("Should we use a legacy Unity GUI?")]
+		[Tooltip("Should we use a legacy Unity GUI? Not suitable for mobile devices")]
 		public bool showGUI = true;
 		[Tooltip("Normalized viewport rectangle indicating the screen area for the legacy GUI, values between 0 and 1")]
 		public Rect guiArea = new Rect(0.01f, 0.01f, 0.88f, 0.1f);
@@ -41,9 +41,9 @@ namespace MultiGame {
 		private GameObject ghost;
 		[HideInInspector]
 		public int currentItem = 0;
-		[Tooltip("An object indicating the origin of the deploy ray. In a first person game, should be in front of and slightly above the camera. Raycasts downward automatically")]
+		[RequiredFieldAttribute("An object indicating the origin of the deploy ray. In a first person game, should be in front of and slightly above the camera. Raycasts downward automatically")]
 		public GameObject deployRayOrigin;
-		[Tooltip("How far from the Deploy Ray Origin do we look down to check if we can deploy on a given surface?")]
+		[RequiredFieldAttribute("How far from the Deploy Ray Origin do we look down to check if we can deploy on a given surface?")]
 		public float deployRayRange = 2.4f;//cast straight down from the position of the deployRayOrigin
 		[HideInInspector]
 		public bool deploying = false;
@@ -57,8 +57,10 @@ namespace MultiGame {
 		public KeyCode deployItem = KeyCode.E;
 		private bool canDeploy = false;
 
-		public HelpInfo help = new HelpInfo("This component implements TF2-style deployment functionality. For an in-depth explanation of use, see the accompanying documentation file" +
-			" (found in this folder)");
+		public HelpInfo help = new HelpInfo("This component implements TF2-style deployment functionality. To use, supply a matching list for each object in 'Deployables' you need one in 'Ghost Deployables' " +
+			"'Buttons' 'Deployables Count' and 'Deployables Max'. So for example if 'Deployables' #3 is a turret, then 'Deployables Count' #3 indicates how many turrets we have." +
+			"\n\n" +
+			"For an in-depth explanation of use, see the accompanying documentation file (found in this folder)");
 		
 		public bool debug = false;
 		#endregion

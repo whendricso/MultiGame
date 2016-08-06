@@ -10,7 +10,7 @@ namespace MultiGame {
 
 		public KeyCode forward = KeyCode.W;
 		public KeyCode reverse = KeyCode.S;
-
+		[Tooltip("How strong is this motor?")]
 		public float force = 10.0f;
 
 		[HideInInspector]

@@ -14,14 +14,14 @@ namespace MultiGame {
 	[AddComponentMenu("MultiGame/Inventory/Pickable")]
 	public class Pickable : MultiModule {
 		
-		[Tooltip("How far can we be from the object tagged 'Player' and still be pickable?")]
+		[RequiredFieldAttribute("How far can we be from the object tagged 'Player' and still be pickable?")]
 		public float pickRange = 2.4f;
 		public enum PickModes {Item, Deployable/*, Character*/};
 		[Tooltip("Are we picking up an inventory item, or a Deployable object?")]
 		public PickModes pickMode = PickModes.Item;
-		[Tooltip("A Game Object prefab with an Active Object component, matching this one with Inventory Key")]
+		[RequiredFieldAttribute("A Game Object prefab with an Active Object component, matching this one with Inventory Key")]
 		public GameObject activeObject;//the object to be instantiated when used
-		[Tooltip("A unique key identifying this as a unique type of object")]
+		[RequiredFieldAttribute("A unique key identifying this as a unique type of object")]
 		public string inventoryKey;
 		public bool debug = false;
 		
@@ -62,7 +62,8 @@ namespace MultiGame {
 			if(collisionInfo.collider.gameObject.tag == "Player")
 				picked = false;
 		}
-		
+
+		public MessageHelp pickHelp = new MessageHelp("Pick","Causes this item to enter the Player's inventory");
 		public void Pick () {
 			GameObject player = GameObject.FindGameObjectWithTag("Player");
 			if (player == null) {

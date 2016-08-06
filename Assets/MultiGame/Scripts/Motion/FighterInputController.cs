@@ -53,12 +53,13 @@ namespace MultiGame {
 				axisZ = thrust.z * Input.GetAxis("Vertical");
 			else
 				axisZ = (-thrust.w) * Input.GetAxis("Vertical");
-			if (!Input.GetKey(upThrusters) && !Input.GetKey(downThrusters))
-				axisY = 0.0f;
+			
 			if(Input.GetKey(downThrusters))
 				axisY = -thrust.y;
 			if(Input.GetKey(upThrusters))
 				axisY = thrust.y;
+			if (!Input.GetKey(upThrusters) && !Input.GetKey(downThrusters))
+				axisY = 0.0f;
 			
 			else
 			

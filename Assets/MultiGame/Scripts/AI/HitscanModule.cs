@@ -10,13 +10,14 @@ namespace MultiGame {
 
 		[System.NonSerialized]
 		public Animator anim;
+		[RequiredFieldAttribute("Trigger in the Animator Controller on this object to be sent when the AI attacks", RequiredFieldAttribute.RequirementLevels.Recommended)]
 		public string attackAnimationTrigger;
-
 		[Tooltip("Cooldown duration")]
 		public float attackTime = 1.0f;
+		[Tooltip("Damage per hit")]
 		public float attackDamage = 10.0f;
 		private float damageCounter;
-		[Tooltip("An object representing a raycast where the damage starts. Should be an empty transform slightly in front of the character. Raycasts from this point to prevent damage through walls etc.")]
+		[RequiredFieldAttribute("An object representing a raycast where the damage starts. Should be an empty transform slightly in front of the character. Raycasts from this point to prevent damage through walls etc.", RequiredFieldAttribute.RequirementLevels.Required)]
 		public GameObject damageRayOrigin;
 		[Tooltip("Range of the attack")]
 		public float meleeRange = 0.8f;

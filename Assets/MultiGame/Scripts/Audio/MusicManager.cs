@@ -8,8 +8,9 @@ namespace MultiGame {
 	[RequireComponent (typeof(AudioSource))]
 	public class MusicManager : MultiModule {
 		
-		[Tooltip("If supplied, play this before the first track")]
+		[RequiredFieldAttribute("If supplied, play this before the first track", RequiredFieldAttribute.RequirementLevels.Optional)]
 		public AudioClip startSplashSound;
+		[Tooltip("A modifier applied to music globally")]
 		public float musicVolume = 0.8f;
 		
 		[Tooltip("Should the music play now?")]
@@ -20,7 +21,9 @@ namespace MultiGame {
 		public MusicCategories musicCategory = MusicCategories.One;
 		[Tooltip("Allow the user to select from one of the other categories, or just use one?")]
 		public bool allowExtraCategories = true;
-		
+
+		[Tooltip("Should we show the legacy Unity GUI? Not suitable for mobile.")]
+		public bool showGui = false;
 		public GUISkin guiSkin;
 		[System.NonSerialized]
 		public bool showAudioGUI = false;
@@ -57,6 +60,8 @@ namespace MultiGame {
 		}
 		
 		void OnGUI() {
+			if (!showGui)
+				return;
 			GUI.skin = guiSkin;
 			GUILayout.BeginArea(new Rect( audioGUI.x * Screen.width, audioGUI.y * Screen.height, audioGUI.width * Screen.width, audioGUI.height * Screen.height));
 			if (GUILayout.Button("Audio"))
@@ -126,11 +131,13 @@ namespace MultiGame {
 			}
 		}
 
-		void ToggleMusicGUI () {
+		public MessageHelp toggleMusicGUIHelp = new MessageHelp("ToggleMusicGUI","Toggles the legacy Unity GUI for music control.");
+		public void ToggleMusicGUI () {
 			showAudioGUI = !showAudioGUI;
 		}
-		
-		void ToggleMusic () {
+
+		public MessageHelp toggleMusicHelp = new MessageHelp("ToggleMusic","Turns the music on/off");
+		public void ToggleMusic () {
 			if (GetComponent<AudioSource>().clip == null && category1.Length > 0)
 				GetComponent<AudioSource>().clip = category1[0];
 			if (enableMusic)
@@ -138,6 +145,36 @@ namespace MultiGame {
 			else
 				GetComponent<AudioSource>().Play();
 			enableMusic = !enableMusic;
+		}
+
+		public MessageHelp setMusicCatagoryHelp = new MessageHelp("SetMusicCategory","Allows you to change the music category directly",2,"The category (1, 2 or 3) of music we wish to select");
+		public void SetMusicCatagory (int _category) {
+			if (_category == 2) {
+				musicCategory = MusicCategories.Two;
+				StopAllCoroutines();
+				StartCoroutine( ScheduleNextClip(0.0f));
+			} else if (_category == 3) {
+				musicCategory = MusicCategories.Three;
+				StopAllCoroutines();
+				StartCoroutine( ScheduleNextClip(0.0f));
+			} else {
+				musicCategory = MusicCategories.One;
+				StopAllCoroutines();
+				StartCoroutine( ScheduleNextClip(0.0f));
+			}
+		}
+
+		public MessageHelp openMenuHelp = new MessageHelp("OpenMenu","Enable the legacy GUI");
+		public void OpenMenu () {
+			showGui = true;
+		}
+		public MessageHelp closeMenuHelp = new MessageHelp("CloseMenu","Disable the legacy GUI");
+		public void CloseMenu () {
+			showGui = false;
+		}
+		public MessageHelp toggleMenuHelp = new MessageHelp("ToggleMenu","Toggle the legacy GUI");
+		public void ToggleMenu () {
+			showGui = !showGui;
 		}
 	}
 }

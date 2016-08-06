@@ -11,7 +11,8 @@ namespace MultiGame {
 	[AddComponentMenu("MultiGame/Serialization/Scene Object List Serializer")]
 	public class SceneObjectListSerializer : MultiModule {
 
-		[Tooltip("Allows one Unity scene to have multiple saves, by changing this. Can also be changed with the 'SetUniqueSceneIdentifier' which takes a string representing the new identifier you want to use")]
+		[RequiredFieldAttribute("Allows one Unity scene to have multiple saves, by changing this. Can also be changed with the 'SetUniqueSceneIdentifier' " +
+			"which takes a string representing the new identifier you want to use", RequiredFieldAttribute.RequirementLevels.Optional)]
 		public string optionalUniqueSceneIdentifier = "";//if supplied, allows one Unity scene to have multiple saves associated
 		[HideInInspector]
 		public List<SceneObject> objects = new List<SceneObject>();
@@ -22,14 +23,11 @@ namespace MultiGame {
 		public bool debug = false;
 
 		public HelpInfo help = new HelpInfo("Scene Object List Serializer allows the player to save the contents of a scene. It saves position, rotation, scale, and material list. " +
-			"The objects you are loading, and their materials, must be directly inside a folder called 'Resources' anywhere in your project, or Unity will not have access to the data." +
-			"\n----Messages:----\n" +
-			"'PopulateByTag' takes a string, which adds all objects with that tag to the list in RAM. If 'Auto Save On Populate' is checked, saves the list immediately to disk. Call multiple times to add more object tags (but uncheck auto save if doing this).\n" +
-			"'Save' takes no parameter, and saves the list from RAM to disk.\n" +
-			"'ClearObjectsByTag' takes a string representing the tag of the objects you want to remove from the scene. Leaves them in the file list (useful to prevent duplicates)\n" +
-			"'Load' takes no parameter. Loads the object list into RAM. Instantiates if 'Auto Instantiate' checked. If they already exist, call 'ClearObjectsByTag' first\n" +
-			"'Clear' clears the temporary object list in RAM but not the scene objects or those in the file.\n" +
-			"'InstantiateObjectList' instantiates the objects currently in the RAM cache. 'Load' them first.\n");
+			"The objects you are loading, and their materials, must be directly inside a folder called 'Resources' anywhere in your project, or Unity will not have access to the data. " +
+			"\n\n" +
+			"To use, add a tag to your game for objects that you want to save. Then, at save time, call 'PopulateByTag' for each tag of objects you want to save. If saving more than one tag, " +
+			"disable 'Auto Save On Populate' and call 'Save' after all tags are added. To load, first call 'ClearObjectsByTag' for each tag you wish to load, then call 'Load', if 'Auto Instantiate' is " +
+			"disabled, call 'InstantiateObjectList' when done loading tags.");
 
 		[System.Serializable]
 		public struct SceneObject {
@@ -80,13 +78,16 @@ namespace MultiGame {
 			SceneObject _scobj = new SceneObject(_target.name, _target.transform.root.position, _target.transform.root.rotation, _target.transform.root.localScale, matNames);
 
 			objects.Add (_scobj);
-
 		}
 
+		public MessageHelp clearHelp = new MessageHelp("Clear","Clears the object list. This is a list stored in temporary memory that you can save to disk with 'Save' or add objects to with 'PopulateByTag'");
 		public void Clear () {
 			objects.Clear();
 		}
 
+		public MessageHelp populateByTagHelp = new MessageHelp("PopulateByTag","Adds objects currently in the scene, defined by the tag supplied as a parameter, to the object list for saving. " +
+			"Call this multiple times to add multiple sets of objects to the list, but only if you've disabled 'Auto Save On Populate' in which cas you need to call 'Save' when you're done.",
+			4,"The tag representing objects we want to add to the list for saving to disk.");
 		public void PopulateByTag (string _tag) {
 			List<GameObject> _templist = new List<GameObject>();
 			_templist.AddRange(GameObject.FindGameObjectsWithTag(_tag));
@@ -97,12 +98,15 @@ namespace MultiGame {
 				Save();
 		}
 
+		public MessageHelp saveHelp = new MessageHelp("Save","Saves the current object list to disk. Make sure to call 'PopulateByTag' before calling this, otherwise the list may be empty.");
 		public void Save () {
 			BinaryFormatter formatter = new BinaryFormatter();
 			FileStream stream = File.Open(Application.persistentDataPath + "/" + Application.loadedLevelName + optionalUniqueSceneIdentifier, FileMode.Create);
 			formatter.Serialize(stream, objects);
 		}
 
+		public MessageHelp clearObjectsByTagHelp = new MessageHelp("ClearObjectsByTag","Deletes all objects with a supplied tag from the scene. Be sure to do this before loading objects or you will get duplicates.",
+			4,"A Tag representing the scene objects you want to delete. Usually this is the same as the tag for objects you are loading. To clear multiple tags, call this multiple times (try using a 'Message Relay').");
 		public void ClearObjectsByTag (string _tag) {
 			List<GameObject> _templist = new List<GameObject>();
 			_templist.AddRange(GameObject.FindGameObjectsWithTag(_tag));
@@ -110,6 +114,7 @@ namespace MultiGame {
 				Destroy(_gobj);
 		}
 
+		public MessageHelp loadHelp = new MessageHelp("Load","Attempts to load the current level from disk. If 'Auto Instantiate' is enabled, this will also cause the objects to be instantiated after loading.");
 		public void Load () {
 			if (!File.Exists(Application.persistentDataPath + "/" + Application.loadedLevelName + optionalUniqueSceneIdentifier)) {
 				Debug.LogError("Scene Object List Serializer " + gameObject.name + " could not find file " + Application.persistentDataPath + "/" + Application.loadedLevelName + optionalUniqueSceneIdentifier);
@@ -135,6 +140,8 @@ namespace MultiGame {
 			}
 		}
 
+		public MessageHelp instantiateObjectListHelp = new MessageHelp("InstantiateObjectList","Instantiates the current object list into the game. Useful if not using 'Auto Instantiate' but be sure to call " +
+			"'ClearObjectsByTag' first, to get rid of the old ones.");
 		public void InstantiateObjectList() {
 			if (objects.Count < 1)
 				Debug.Log("Loading zero objects. Check to make sure loadable objects are inside a 'Resources' folder.");
@@ -155,6 +162,8 @@ namespace MultiGame {
 			}
 		}
 
+		public MessageHelp setUniqueIdentifierHelp = new MessageHelp("SetUniqueIdentifier","Assigns an optional unique name to this file. Change this to save/load a separate save file for the same scene.",4,"Name of the " +
+			"unique save file identifier for this file.");
 		public void SetUniqueSceneIdentifier (string _identifier) {
 			optionalUniqueSceneIdentifier = _identifier;
 		}

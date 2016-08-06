@@ -14,17 +14,14 @@ namespace MultiGame {
 		[Tooltip("How long do we need to wait between sounds?")]
 		public float cooldown = 0.3f;
 		private bool canSound = true;
-		[Tooltip("How much should we vary the pitch each time?")]
+		[RequiredFieldAttribute("How much should we vary the pitch each time?",RequiredFieldAttribute.RequirementLevels.Optional)]
 		public float pitchVariance = 0f;
 		private float originalPitch;
 
 		[System.NonSerialized]
 		public AudioSource source;
 
-		public HelpInfo help = new HelpInfo("This component allows you to play arbitrary sounds based on messages sent from other components." +
-			"\n---Messages:---\n" +
-			"For objects with just one sound, 'PlaySound' plays what ever is assigned to the AudioSource component, 'PlayRandomSound' plays one from the clips you've provided. " +
-			"'PlaySelectedSound' takes an integer representing which clip we want to play from the list of Clips");
+		public HelpInfo help = new HelpInfo("This component allows you to play arbitrary sounds based on messages sent from other components.");
 
 		public bool debug = false;
 
@@ -42,18 +39,21 @@ namespace MultiGame {
 			InitiateCooldown();
 		}
 
+		public MessageHelp playSoundHelp = new MessageHelp("PlaySound","Plays the sound currently assigned to the Audio Source attached to this object");
 		public void PlaySound () {
 			if (!canSound) return;
 			Sound(source.clip);
 			InitiateCooldown();
 		}
 
+		public MessageHelp playRandomSoundHelpo = new MessageHelp("PlayRandomSound","Plays one from a random selection of sounds in the list of 'Clips'");
 		public void PlayRandomSound () {
 			if (!canSound) return;
 			PlaySelectedSound(Random.Range(0, clips.Length));
 			InitiateCooldown();
 		}
 
+		public MessageHelp playSelectedSoundHelp = new MessageHelp("PlaySelectedSound","Plays a specific sound from the list of 'Clips'",2,"What is the index of the sound we want to play? Remember, the first element starts at 0");
 		public void PlaySelectedSound (int selector) {
 
 			if (!canSound) return;
@@ -66,6 +66,7 @@ namespace MultiGame {
 			InitiateCooldown();
 		}
 
+		public MessageHelp stopSoundHelp = new MessageHelp("StopSound","Stops the Audio Source from continuing to play the sound.");
 		public void StopSound () {
 			source.Stop();
 		}

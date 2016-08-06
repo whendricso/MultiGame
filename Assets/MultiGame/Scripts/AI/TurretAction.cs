@@ -9,7 +9,7 @@ namespace MultiGame {
 	[RequireComponent (typeof(AudioSource))]
 	public class TurretAction : MultiModule {
 		
-		[Tooltip("How often does a bullet leave the muzzle?")]
+		[RequiredFieldAttribute("How often does a bullet leave the muzzle?", RequiredFieldAttribute.RequirementLevels.Required)]
 		public float delay = 0.25f;
 	//	public bool autoRotate = true;
 	//	public float autoRotateInterval = 10.0f;
@@ -17,21 +17,21 @@ namespace MultiGame {
 	//	public float rotationTime = 2.0f;
 	//	public float directionChangeFrequency = 0.3f;
 	//	private float rotationTarget;
-		[Tooltip("What are we shooting out?")]
+		[RequiredFieldAttribute("What are we shooting out?",RequiredFieldAttribute.RequirementLevels.Required)]
 		public GameObject projectile;
-		[Tooltip("Should we spawn an object each time we fire?")]
+		[RequiredFieldAttribute("Should we spawn an object each time we fire?",RequiredFieldAttribute.RequirementLevels.Optional)]
 		public GameObject muzzleFlash;
-		[Tooltip("How long should that object be alive?")]
+		[RequiredFieldAttribute("How long should that object be alive?",RequiredFieldAttribute.RequirementLevels.Required)]
 		public float flashDuration = 0.0125f;
-		[Tooltip("An object representing the exit point of the projectiles. Z direction is forward")]
+		[RequiredFieldAttribute("An object representing the exit point of the projectiles. Z direction is forward",RequiredFieldAttribute.RequirementLevels.Required)]
 		public GameObject muzzleTransform;
 		[HideInInspector]
 		public GameObject target;
-		[Tooltip("Sound to play when firing")]
+		[RequiredFieldAttribute("Sound to play when firing",RequiredFieldAttribute.RequirementLevels.Recommended)]
 		public AudioClip fireSound;
-		[Tooltip("Sound to play on target acquisition")]
+		[RequiredFieldAttribute("Sound to play on target acquisition",RequiredFieldAttribute.RequirementLevels.Optional)]
 		public AudioClip targetAcquired;
-		[Tooltip("Sound to play when target leaves range")]
+		[RequiredFieldAttribute("Sound to play when target leaves range",RequiredFieldAttribute.RequirementLevels.Optional)]
 		public AudioClip targetLost;
 
 		public MessageManager.ManagedMessage fireMessage;
@@ -103,7 +103,8 @@ namespace MultiGame {
 			if (targetAcquired != null)
 				GetComponent<AudioSource>().PlayOneShot(targetAcquired);
 		}
-		
+
+		public MessageHelp clearTargetHelp = new MessageHelp("ClearTarget","Clears the turret action's target, causing it to stop firing.");
 		public void ClearTarget () {
 			target = null;
 			StopAllCoroutines();

@@ -12,37 +12,35 @@ namespace MultiGame {
 		[Tooltip("Is this Character Input Animator currently controlling character animations?")]
 		public bool currentlyAnimating = true;
 
-		[Tooltip ("Axis in the Input manage (Edit -> Project Settings -> Input) indicating the horizonta axis, which will be sent as a float to the Animator")]
+		[RequiredFieldAttribute ("Axis in the Input manage (Edit -> Project Settings -> Input) indicating the horizonta axis, which will be sent as a float to the Animator", RequiredFieldAttribute.RequirementLevels.Required)]
 		public string horizontalAxis = "Horizontal";
-		[Tooltip("A float defined in the Animator indicating how fast we're strafing. -1 is left, 1 is right and 0 is no strafing at all")]
+		[RequiredFieldAttribute("A float defined in the Animator indicating how fast we're strafing. -1 is left, 1 is right and 0 is no strafing at all", RequiredFieldAttribute.RequirementLevels.Required)]
 		public string animatorHorizontal = "Strafe";
 
-		[Tooltip ("Axis in the Input manage (Edit -> Project Settings -> Input) indicating the vertical axis, which will be sent as a float to the Animator")]
+		[RequiredFieldAttribute ("Axis in the Input manage (Edit -> Project Settings -> Input) indicating the vertical axis, which will be sent as a float to the Animator", RequiredFieldAttribute.RequirementLevels.Required)]
 		public string verticalAxis = "Vertical";
-		[Tooltip("A float defined in the Animator indicating how fast we're moving")]
+		[RequiredFieldAttribute("A float defined in the Animator indicating how fast we're moving", RequiredFieldAttribute.RequirementLevels.Required)]
 		public string animatorVertical = "Run";
 
-		[Tooltip("A list of additional states you want to bring in to the Animator")]
+		[Tooltip("A list of additional states you want to bring in to the Animator, which you can trigger with messages")]
 		public List<UserState> userStates = new List<UserState>();
 
 		private Vector2 stickInput;
-		[Tooltip("The percentage of space in the center of the controller that is ignored")]
+		[RequiredFieldAttribute("The percentage of space in the center of the controller that is ignored", RequiredFieldAttribute.RequirementLevels.Required)]
 		public float deadzone = 0.2f;
 
-		public HelpInfo help = new HelpInfo("Character Input Animator takes user input and applies that as Mecanim floats and triggers" +
-			"\n----Messages:----\n" +
-			"'EnableInputAnimations' takes no parameter and turns on automatic character animation updates\n" +
-			"'TriggerCharacterState' and 'ReturnCharacterState' take an integer parameter indicating which item in the 'User State' list you want to use");
+		public HelpInfo help = new HelpInfo("Character Input Animator takes user input and applies that as Mecanim floats and triggers. This is useful for root motion characters, when you don't want a movement " +
+			"script interfering with carefully-controlled animations.");
 
 		[System.Serializable]
 		public class UserState {
-			[Tooltip("Optional button input to activate the state")]
+			[RequiredFieldAttribute("Optional button input to activate the state", RequiredFieldAttribute.RequirementLevels.Optional)]
 			public string inputButton = "";
 			[Tooltip("Key input to activate the state")]
 			public KeyCode key;
-			[Tooltip("A mecanim trigger that is called when we activate this state")]
+			[RequiredFieldAttribute("A mecanim trigger that is called when we activate this state", RequiredFieldAttribute.RequirementLevels.Recommended)]
 			public string trigger;
-			[Tooltip("A Mecanim trigger that is called when we release this key/button state")]
+			[RequiredFieldAttribute("A Mecanim trigger that is called when we release this key/button state", RequiredFieldAttribute.RequirementLevels.Recommended)]
 			public string triggerRelease;
 		}
 
@@ -94,19 +92,21 @@ namespace MultiGame {
 				_ret = true;
 			return _ret;
 		}
-
+		public MessageHelp triggerCharacterStateHelp = new MessageHelp("TriggerCharacterState","Force Character Input Animator to enter one of the 'User States'", 2, "The index of the state we want to trigger");
 		public void TriggerCharacterState(int _state) {
 			animator.SetTrigger(userStates[_state].trigger);
 		}
-
+		public MessageHelp returnCharacterStateHelp = new MessageHelp("ReturnCharacterState","Force Character Input Animator to call the 'Return Trigger' for one of the 'User States', sending it's return triggers to Mecanim", 2, "The index of the state we want to trigger");
 		public void ReturnCharacterState(int _state) {
 			animator.SetTrigger (userStates[_state].triggerRelease);
 		}
 
+		public MessageHelp enableInputAnimationsHelp = new MessageHelp("EnableInputAnimations","Allows this Character Input Animator to control animations.");
 		public void EnableInputAnimations () {
 			currentlyAnimating = true;
 		}
 
+		public MessageHelp disableInputAnimationsHelp = new MessageHelp("DisableInputAnimations","Stops this Character Input Animator from controlling animations.");
 		public void DisableInputAnimations () {
 			currentlyAnimating = false;
 		}

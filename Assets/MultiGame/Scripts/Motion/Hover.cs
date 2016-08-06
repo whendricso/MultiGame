@@ -8,7 +8,7 @@ namespace MultiGame {
 	[RequireComponent (typeof(Rigidbody))]
 	public class Hover : MultiModule {
 
-		[Tooltip("How high can we go before hover thrust stops?")]
+		[RequiredFieldAttribute("How high can we go before hover thrust stops?")]
 		public float rayDistance = 6.0f;
 		[Tooltip("How far should the hover check ray be offset from origin?")]
 		public Vector3 rayOffset;

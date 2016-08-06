@@ -4,9 +4,9 @@ using MultiGame;
 
 namespace MultiGame {
 
-	[AddComponentMenu("MultiGame/Lighting/Day Night Manager")]
+//	[AddComponentMenu("MultiGame/Lighting/Day Night Manager")]
 	[RequireComponent (typeof(Animation))]
-	public class DayNightManager : MonoBehaviour {
+	public class DayNightManager : MultiModule {
 		
 		public float cycleDuration = 600.0f;//duration of a full day/night cycle
 		public bool useSkyLighting = true;//ignore the light color gradient in favor for the sky color?
@@ -59,7 +59,7 @@ namespace MultiGame {
 			PlayerPrefs.SetFloat("Time", GetComponent<Animation>()[GetComponent<Animation>().clip.name].normalizedTime);
 			StartCoroutine(Save(saveInterval));
 		}
-		
+
 		public void ToggleDaylight () {
 			isDaytime = !isDaytime;
 			if (!isDaytime)
