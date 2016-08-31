@@ -13,7 +13,7 @@ namespace MultiGame {
 
 //		public bool autoAlignUp = false;
 
-		const float GRAV =	.0000000006674f;//newton-meters squared / kilograms squared
+		public const float GRAV = 6.674e-11f;//newton-meters squared / kilograms squared
 
 		[HideInInspector]
 		public Rigidbody rigid;
@@ -41,7 +41,7 @@ namespace MultiGame {
 				foreach (Graviton _graviton in gravitons) {
 					translationVector = new Vector3(_graviton.transform.position.x - transform.position.x, _graviton.transform.position.y - transform.position.y, _graviton.transform.position.z - transform.position.z);
 					if (translationVector.sqrMagnitude > 0f) {
-						gravitation = ((rigid.mass * _graviton.rigid.mass)/(translationVector.sqrMagnitude));
+						gravitation = ((rigid.mass * _graviton.rigid.mass)/(translationVector.sqrMagnitude)) * GRAV;
 //						Debug.Log("Graviton position " + transform.position + " other position " + _graviton.transform.position + " translation " + translationVector + " gravitation " + gravitation);
 						rigid.AddForce(new Vector3( translationVector.x * gravitation, translationVector.y * gravitation, translationVector.z * gravitation));
 					}

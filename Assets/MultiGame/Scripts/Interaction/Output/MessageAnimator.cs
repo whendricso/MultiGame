@@ -18,7 +18,7 @@ namespace MultiGame {
 		public bool debug = false;
 
 		public HelpInfo help = new HelpInfo("This component sends Animator triggers when it receives the 'TriggerAnimation' message. This allows any message sender to cause Animator state transitions for " +
-			"controlling logic or animation.");
+			"controlling logic or animation. It can also send a trigger that's not included here by receiving the 'TriggerSpecificAnimation' message which takes the name of the trigger as an argument.");
 
 		void Start () {
 			animator = GetComponentInChildren<Animator>();
@@ -33,7 +33,7 @@ namespace MultiGame {
 	//		TriggerAnimation();
 	//	}
 
-		public MessageHelp triggerAnimationHelp = new MessageHelp("TriggerAnimation","Sends the 'Trigger' defined above to the Animator.");
+		public MessageHelp triggerAnimationHelp = new MessageHelp("TriggerAnimation","Sends the 'Trigger' defined above to the Animator. Sends the 'Return Trigger' the second time it's called.");
 		public void TriggerAnimation () {
 			if (!enabled)
 				return;

@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEditor;
+//using System.IO;
 using System.Collections;
 using System.Collections.Generic;
 using MultiGame;
@@ -12,7 +13,7 @@ using MultiGame;
 
 namespace MultiGame {
 
-	public class MultiGameToolbar : EditorWindow {
+	public class MultiGameToolbar : MGEditor {
 
 		public enum Modes {Basic, Triggers, Logic, Combat, Player, AI, Utility, Networking};
 		public Modes mode = Modes.Basic;
@@ -26,6 +27,8 @@ namespace MultiGame {
 
 		private bool iconsLoaded = false;
 		private static Texture2D healthIcon;
+		private static Texture2D splineIcon;
+		private static Texture2D shelfIcon;
 		private static Texture2D moveIcon;
 		private static Texture2D moveRigidbodyIcon;
 		private static Texture2D activeCollIcon;
@@ -40,8 +43,6 @@ namespace MultiGame {
 		private static Texture2D camZoneIcon;
 		private static Texture2D camSphereIcon;
 		private static Texture2D backupCamIcon;
-		private static Texture2D allyIcon;
-		private static Texture2D enemyIcon;
 		private static Texture2D gunIcon;
 		private static Texture2D inventoryIcon;
 		private static Texture2D itemIcon;
@@ -117,6 +118,7 @@ namespace MultiGame {
 		}
 
 		void LoadIcons () {
+			splineIcon = Resources.Load("Spline", typeof(Texture2D)) as Texture2D;
 			activeCollIcon = Resources.Load("ActiveCollider", typeof(Texture2D)) as Texture2D;
 			activeCollSphereIcon = Resources.Load("ActiveColliderSphere", typeof(Texture2D)) as Texture2D;
 			activeZoneIcon = Resources.Load("ActiveZone", typeof(Texture2D)) as Texture2D;
@@ -129,10 +131,9 @@ namespace MultiGame {
 			RTSIcon = Resources.Load("RTSButton", typeof(Texture2D)) as Texture2D;
 			cursorLockIcon = Resources.Load("CursorLockButton", typeof(Texture2D)) as Texture2D;
 			mouseAimIcon = Resources.Load("MouseAimButton", typeof(Texture2D)) as Texture2D;
-			allyIcon = Resources.Load("Ally", typeof(Texture2D)) as Texture2D;
-			enemyIcon = Resources.Load("Enemy", typeof(Texture2D)) as Texture2D;
 			gunIcon = Resources.Load("Gun", typeof(Texture2D)) as Texture2D;
 			healthIcon = Resources.Load("Health", typeof(Texture2D)) as Texture2D;
+			shelfIcon = Resources.Load("PrefabShelf", typeof(Texture2D)) as Texture2D;
 			moveIcon = Resources.Load("MotionButton", typeof(Texture2D)) as Texture2D;
 			moveRigidbodyIcon = Resources.Load("RigidbodyMotionButton", typeof(Texture2D)) as Texture2D;
 			inventoryIcon = Resources.Load("Inventory", typeof(Texture2D)) as Texture2D;
@@ -256,6 +257,7 @@ namespace MultiGame {
 			EditorGUILayout.EndHorizontal ();
 
 			GUIHeader();
+			ModeLabel();
 
 			scrollView = EditorGUILayout.BeginScrollView(scrollView,false, true, GUIStyle.none, GUIStyle.none, GUIStyle.none, GUILayout.Width(112f));
 			switch (mode) {
@@ -304,12 +306,70 @@ namespace MultiGame {
 //			EditorGUILayout.LabelField("Create from:", GUILayout.Width(108f));
 //			template = EditorGUILayout.ObjectField(template, typeof(GameObject), true, GUILayout.Width(64f), GUILayout.Height(16f)) as GameObject;
 			GUI.color = new Color(.6f,85f,1f);
-			if (GUILayout.Button("Clear\nSelection", GUILayout.Width(108f), GUILayout.Height(52f))) {
+			EditorGUILayout.BeginHorizontal();
+			if (GUILayout.Button("Clear\nSelection", GUILayout.Width(102f), GUILayout.Height(52f))) {
 				template = null;
 				Selection.activeGameObject = null;
 			}
 			GUI.color = Color.white;
+			EditorGUILayout.EndHorizontal();
 			EditorGUILayout.EndVertical();
+		}
+
+		void ModeLabel () {
+			switch (mode) {
+			case Modes.Basic:
+				GUI.color = Color.green;
+				EditorGUILayout.BeginHorizontal("box"/*, GUILayout.Width(112f)*/);
+				EditorGUILayout.LabelField("Basic");
+				EditorGUILayout.EndHorizontal();
+				break;
+			case Modes.Triggers:
+				GUI.color = new Color(1f, .75f, 0f);
+				EditorGUILayout.BeginHorizontal("box"/*, GUILayout.Width(112f)*/);
+				EditorGUILayout.LabelField("Triggers");
+				EditorGUILayout.EndHorizontal();
+				break;
+			case Modes.Logic:
+				GUI.color = Color.blue;
+				EditorGUILayout.BeginHorizontal("box"/*, GUILayout.Width(112f)*/);
+				GUI.color = Color.white;
+				EditorGUILayout.LabelField("Logic");
+				GUI.color = Color.blue;
+				EditorGUILayout.EndHorizontal();
+				break;
+			case Modes.Combat:
+				GUI.color = Color.red;
+				EditorGUILayout.BeginHorizontal("box"/*, GUILayout.Width(112f)*/);
+				EditorGUILayout.LabelField("Combat");
+				EditorGUILayout.EndHorizontal();
+				break;
+			case Modes.Player:
+				GUI.color = Color.yellow;
+				EditorGUILayout.BeginHorizontal("box"/*, GUILayout.Width(112f)*/);
+				EditorGUILayout.LabelField("Player");
+				EditorGUILayout.EndHorizontal();
+				break;
+			case Modes.AI:
+				GUI.color = Color.cyan;
+				EditorGUILayout.BeginHorizontal("box"/*, GUILayout.Width(112f)*/);
+				EditorGUILayout.LabelField("AI");
+				EditorGUILayout.EndHorizontal();
+				break;
+			case Modes.Utility:
+				GUI.color = Color.magenta;
+				EditorGUILayout.BeginHorizontal("box"/*, GUILayout.Width(112f)*/);
+				EditorGUILayout.LabelField("Utility");
+				EditorGUILayout.EndHorizontal();
+				break;
+			case Modes.Networking:
+				GUI.color = new Color(.3f, .8f, 1f);
+				EditorGUILayout.BeginHorizontal("box"/*, GUILayout.Width(112f)*/);
+				EditorGUILayout.LabelField("Network");
+				EditorGUILayout.EndHorizontal();
+				break;
+			}
+			GUI.color = Color.white;
 		}
 
 		void BasicObjectGUI () {
@@ -318,15 +378,19 @@ namespace MultiGame {
 			} catch {
 				return;
 			}
-			GUI.color = Color.green;
-			EditorGUILayout.BeginHorizontal("box"/*, GUILayout.Width(112f)*/);
-			EditorGUILayout.LabelField("Basic");
-			EditorGUILayout.EndHorizontal();
-			GUI.color = Color.white;
+//			GUI.color = Color.green;
+//			EditorGUILayout.BeginHorizontal("box"/*, GUILayout.Width(112f)*/);
+//			EditorGUILayout.LabelField("Basic");
+//			EditorGUILayout.EndHorizontal();
+//			GUI.color = Color.white;
 
 //			GUIHeader();
 
 			EditorGUILayout.BeginVertical("box"/*, GUILayout.Width(112f)*/);
+			if (MGButton(shelfIcon, "Prefab\nShelf")) {
+				if(!Shelves.running)
+					Shelves.ShowWindow();
+			}
 			if (MGButton(addColliderIcon, "Generate\nColliders")) {
 				ResolveOrCreateTarget();
 				AddCollidersToAll();
@@ -360,12 +424,38 @@ namespace MultiGame {
 				Undo.AddComponent<SpinMotor>(target);
 				SmartRenameTarget("Mover");
 			}
+			if (MGButton(splineIcon, "Spline\nMovement")) {
+				GameObject spline = new GameObject("Spline Path",typeof(BezierSpline));
+				ResolveOrCreateTarget();
+				SplineMotor motor;
+				motor = target.GetComponent<SplineMotor>();
+				if (motor == null)
+					motor = Undo.AddComponent<SplineMotor>(target);
+				motor.spline = spline.GetComponent<BezierSpline>();
+				Selection.activeGameObject = spline;
+			}
 			if (MGButton(moveRigidbodyIcon, "Physics\nThrust")) {
 				ResolveOrCreateTarget();
 				AddPhysics();
 				Undo.AddComponent<Thruster>(target);
 				Undo.AddComponent<SpinMotor>(target);
 				SmartRenameTarget("Thruster");
+			}
+			if (MGButton(animationIcon, "Animation")) {
+				ResolveOrCreateTarget();
+				Animator _anim = target.GetComponent<Animator>();
+				if (_anim == null)
+					_anim = Undo.AddComponent<Animator>(target);
+				AnimationClip _clip = new AnimationClip();
+				SmartRenameTarget("Anim");
+				SmartCreateAsset(_clip,".anim");
+				UnityEditor.Animations.AnimatorController _ctrl = target.GetComponent<UnityEditor.Animations.AnimatorController>();
+				if (_ctrl == null)
+					_ctrl = UnityEditor.Animations.AnimatorController.CreateAnimatorControllerAtPathWithClip("Assets/Generated/" + target.name + ".controller", _clip);
+				_anim.runtimeAnimatorController = _ctrl;
+				if (target.GetComponent<MessageAnimator>() == null)
+					Undo.AddComponent<MessageAnimator>(target);
+				SmartRenameTarget("Anim");
 			}
 			if (MGButton(cameraIcon, "Secondary\nCamera")) {
 				ResolveOrCreateTarget();
@@ -491,11 +581,11 @@ namespace MultiGame {
 			} catch {
 				return;
 			}
-			GUI.color = new Color(1f, .75f, 0f);
-			EditorGUILayout.BeginHorizontal("box"/*, GUILayout.Width(112f)*/);
-			EditorGUILayout.LabelField("Triggers");
-			EditorGUILayout.EndHorizontal();
-			GUI.color = Color.white;
+//			GUI.color = new Color(1f, .75f, 0f);
+//			EditorGUILayout.BeginHorizontal("box"/*, GUILayout.Width(112f)*/);
+//			EditorGUILayout.LabelField("Triggers");
+//			EditorGUILayout.EndHorizontal();
+//			GUI.color = Color.white;
 //			GUIHeader();
 
 
@@ -555,13 +645,13 @@ namespace MultiGame {
 			} catch {
 				return;
 			}
-			GUI.color = Color.blue;
-			EditorGUILayout.BeginHorizontal("box"/*, GUILayout.Width(112f)*/);
-			GUI.color = Color.white;
-			EditorGUILayout.LabelField("Logic");
-			GUI.color = Color.blue;
-			EditorGUILayout.EndHorizontal();
-			GUI.color = Color.white;
+//			GUI.color = Color.blue;
+//			EditorGUILayout.BeginHorizontal("box"/*, GUILayout.Width(112f)*/);
+//			GUI.color = Color.white;
+//			EditorGUILayout.LabelField("Logic");
+//			GUI.color = Color.blue;
+//			EditorGUILayout.EndHorizontal();
+//			GUI.color = Color.white;
 //			GUIHeader();
 
 			
@@ -589,7 +679,7 @@ namespace MultiGame {
 				Undo.AddComponent<MessageToggle>(target);
 				SmartRenameTarget("Message Toggle");
 			}
-			if (MGButton(UGUIIcon, "UI\nCanvas")) {
+			if (MGButton(UGUIIcon, "UGUI\nCanvas")) {
 				ResolveOrCreateTarget();
 				GameObject _child = Instantiate<GameObject>(Resources.Load("Canvas", typeof(GameObject)) as GameObject);
 				Undo.RegisterCreatedObjectUndo(target,"Create UGUI");
@@ -607,7 +697,7 @@ namespace MultiGame {
 				}
 				SmartRenameTarget("UGUI");
 			}
-			if (MGButton(multiMenuIcon, "Legacy GUI\nMenu")) {
+			if (MGButton(multiMenuIcon, "Legacy IMGUI\nMenu")) {
 				ResolveOrCreateTarget();
 				GameObject _child = AddDirectChild(target);
 				_child.name = "MultiMenu";
@@ -635,11 +725,11 @@ namespace MultiGame {
 			} catch {
 				return;
 			}
-			GUI.color = Color.red;
-			EditorGUILayout.BeginHorizontal("box"/*, GUILayout.Width(112f)*/);
-			EditorGUILayout.LabelField("Combat");
-			EditorGUILayout.EndHorizontal();
-			GUI.color = Color.white;
+//			GUI.color = Color.red;
+//			EditorGUILayout.BeginHorizontal("box"/*, GUILayout.Width(112f)*/);
+//			EditorGUILayout.LabelField("Combat");
+//			EditorGUILayout.EndHorizontal();
+//			GUI.color = Color.white;
 //			GUIHeader();
 
 			
@@ -716,11 +806,11 @@ namespace MultiGame {
 			} catch {
 				return;
 			}
-			GUI.color = Color.yellow;
-			EditorGUILayout.BeginHorizontal("box"/*, GUILayout.Width(112f)*/);
-			EditorGUILayout.LabelField("Player");
-			EditorGUILayout.EndHorizontal();
-			GUI.color = Color.white;
+//			GUI.color = Color.yellow;
+//			EditorGUILayout.BeginHorizontal("box"/*, GUILayout.Width(112f)*/);
+//			EditorGUILayout.LabelField("Player");
+//			EditorGUILayout.EndHorizontal();
+//			GUI.color = Color.white;
 //			GUIHeader();
 
 			
@@ -873,11 +963,11 @@ namespace MultiGame {
 				return;
 			}
 
-			GUI.color = Color.cyan;
-			EditorGUILayout.BeginHorizontal("box"/*, GUILayout.Width(112f)*/);
-			EditorGUILayout.LabelField("AI");
-			EditorGUILayout.EndHorizontal();
-			GUI.color = Color.white;
+//			GUI.color = Color.cyan;
+//			EditorGUILayout.BeginHorizontal("box"/*, GUILayout.Width(112f)*/);
+//			EditorGUILayout.LabelField("AI");
+//			EditorGUILayout.EndHorizontal();
+//			GUI.color = Color.white;
 //			GUIHeader();
 
 			
@@ -967,14 +1057,26 @@ namespace MultiGame {
 			} catch {
 				return;
 			}
-			GUI.color = Color.magenta;
-			EditorGUILayout.BeginHorizontal("box"/*, GUILayout.Width(112f)*/);
-			EditorGUILayout.LabelField("Utility");
-			EditorGUILayout.EndHorizontal();
-			GUI.color = Color.white;
+//			GUI.color = Color.magenta;
+//			EditorGUILayout.BeginHorizontal("box"/*, GUILayout.Width(112f)*/);
+//			EditorGUILayout.LabelField("Utility");
+//			EditorGUILayout.EndHorizontal();
+//			GUI.color = Color.white;
 //			GUIHeader();
 
 			EditorGUILayout.BeginVertical("box"/*, GUILayout.Width(112f)*/);
+
+			if (MGButton(splineIcon ,"Spline\nDecorator")) {
+				Selection.activeGameObject = null;
+				ResolveOrCreateTarget();
+				BezierSpline spline = Undo.AddComponent<BezierSpline>(target);
+				SplineDecorator decorator = Undo.AddComponent<SplineDecorator>(target);
+				decorator.instantiationMode = SplineDecorator.InstantiationModes.Editor;
+				decorator.spline = spline;
+				decorator.frequency = 2;
+				decorator.refreshDecorations = true;
+				SmartRenameTarget("Spline Decoration");
+			}
 			if (MGButton(savePrefsIcon, "Player\nPreferences")) {
 				ResolveOrCreateTarget();
 				Undo.AddComponent<UniquePreferenceSerializer>(target);
@@ -1042,11 +1144,11 @@ namespace MultiGame {
 			} catch {
 				return;
 			}
-			GUI.color = new Color(.3f, .8f, 1f);
-			EditorGUILayout.BeginHorizontal("box"/*, GUILayout.Width(112f)*/);
-			EditorGUILayout.LabelField("Network");
-			EditorGUILayout.EndHorizontal();
-			GUI.color = Color.white;
+//			GUI.color = new Color(.3f, .8f, 1f);
+//			EditorGUILayout.BeginHorizontal("box"/*, GUILayout.Width(112f)*/);
+//			EditorGUILayout.LabelField("Network");
+//			EditorGUILayout.EndHorizontal();
+//			GUI.color = Color.white;
 //			GUIHeader();
 
 			
@@ -1181,21 +1283,6 @@ namespace MultiGame {
 					_activeObj.transform.position = new Vector3(target.transform.position.x, target.transform.position.y, target.transform.position.z - 1.5f);
 			}
 			EditorGUILayout.EndVertical();
-		}
-
-		/// <summary>
-		/// Adds a child object cleanly and returns it, with undo registry.
-		/// </summary>
-		/// <returns>The direct child.</returns>
-		/// <param name="_target">_target.</param>
-		GameObject AddDirectChild (GameObject _target) {
-			GameObject _child = new GameObject("New MultiGame Object");
-			Undo.RegisterCreatedObjectUndo(_child,"Create Object");
-			_child.transform.SetParent(_target.transform);
-			_child.transform.localPosition = Vector3.zero;
-			_child.transform.localRotation = Quaternion.identity;
-			_child.transform.localScale = Vector3.one;
-			return _child;
 		}
 
 		public void SetupChannels () {
@@ -1401,22 +1488,25 @@ namespace MultiGame {
 			}
 		}
 
+		/// <summary>
+		/// Creates an asset and returns it's path
+		/// </summary>
+		/// <returns>The asset path.</returns>
+		/// <param name="_asset">The new asset we are creating.</param>
+		/// <param name="_type">The System.Type of the asset.</param>
+		public string SmartCreateAsset (UnityEngine.Object _asset, string _fileExtension) {
+			if(!AssetDatabase.IsValidFolder("Assets/Generated"))
+				AssetDatabase.CreateFolder("Assets","Generated");
+			AssetDatabase.CreateAsset(_asset, "Assets/Generated/" + target.name + _fileExtension);
+			return AssetDatabase.GetAssetPath(_asset);
+		}
+
 		public void AddPhysics () {
 			AddColliders();
 			Undo.AddComponent<Rigidbody>( target.transform.root.gameObject);
 			Undo.AddComponent<PhysicsToggle>( target.transform.root.gameObject);
 		}
 
-		bool MGButton (Texture2D _icon, string _caption) {
-			if (EditorApplication.isPlaying || _icon == null)
-				return false;
 
-			bool _ret = false;
-			_ret = GUILayout.Button(_icon, GUILayout.Width(_icon.width), GUILayout.Height (_icon.height));
-			if (!string.IsNullOrEmpty( _caption))
-				GUILayout.Label(_caption);
-			GUILayout.Space(8f);
-			return _ret;
-		}
 	}
 }

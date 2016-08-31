@@ -33,7 +33,7 @@ namespace MultiGame {
 		public float populationMultiplier = 1f;
 
 		[Tooltip("What objects can we deploy on, by collision mask?")]
-		public LayerMask deployMask;
+		public LayerMask deployMask =	 LayerMask.NameToLayer("Default");
 		[Tooltip("Tag of objects we can't deploy close to")]
 		public string radiusSearchTag = "";//tag to check against for deploy radius constraint
 
@@ -70,7 +70,7 @@ namespace MultiGame {
 		public int[] maxQuantities;
 		[System.NonSerialized]
 		public Vector2 scrollPosition = Vector2.zero;
-		[Tooltip("What resources, if any, exist in the game?")]
+		[Tooltip("What resources, if any, exist in the game?")]//[ReorderableField()]//TODO: Finish reorderable fields
 		public List<ResourceManager.GameResource> resources = new List<ResourceManager.GameResource>();
 
 		[System.NonSerialized]

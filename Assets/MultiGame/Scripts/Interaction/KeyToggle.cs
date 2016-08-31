@@ -26,7 +26,9 @@ namespace MultiGame {
 		[Tooltip("Are we currently toggled?")]
 		public bool toggle = true;
 
-		public HelpInfo help = new HelpInfo("This component allows objects, colliders, renderers, and scripts to be toggled based on the state of a given key.");
+		public HelpInfo help = new HelpInfo("This component allows objects, colliders, renderers, and scripts to be toggled based on the state of a given key. Off key is read on key up, On key is read on key down." +
+			" This prevents key collisions when using the same key for both. If you want these objects and components to start in a 'Toggled off' state, set 'Toggle' to false, otherwise they will be enabled " +
+			"automatically when the game starts.");
 		
 		void Start () {
 			if (reverse) {
