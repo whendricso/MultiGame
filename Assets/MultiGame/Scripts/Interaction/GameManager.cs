@@ -4,7 +4,7 @@ using MultiGame;
 
 namespace MultiGame {
 
-	public class GameManager : MonoBehaviour {
+	public class GameManager : MultiModule {
 
 		[Tooltip("Should this object exist even when loading a new scene? (Make sure it's only loaded once!)")]
 		public bool persistent = true;
@@ -18,6 +18,8 @@ namespace MultiGame {
 		public VictoryCondition[] victoryConditions;
 		[Tooltip("What message do we send when we win?")]
 		public MessageManager.ManagedMessage victoryMessage;
+
+		public HelpInfo help = new HelpInfo("Game Manager tracks a score and a set of victory conditions. If any one of these are reached, it automatically sends 'Victory Message'");
 
 		[System.Serializable]
 		public class VictoryCondition {
@@ -58,6 +60,7 @@ namespace MultiGame {
 			enabled = true;
 		}
 
+
 		public void Score() {
 			score += goalBaseValue;
 		}
@@ -66,6 +69,7 @@ namespace MultiGame {
 			score += _val;
 		}
 
+		public MessageHelp victoryHelp = new MessageHelp("Victory","Causes the game to be instantly won.");
 		public void Victory() {
 			MessageManager.Send (victoryMessage);
 		}

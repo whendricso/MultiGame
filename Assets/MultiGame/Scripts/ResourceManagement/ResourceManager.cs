@@ -9,8 +9,15 @@ namespace MultiGame
 	[RequireComponent(typeof(Persistent))]
 	public class ResourceManager : MultiModule
 	{
-//		[Tooltip("Should we show the resources using a legacy GUI? Not suitable for mobile.")]
-//		public bool showGui = false;
+		[Tooltip("Should we show the resources using a legacy GUI? Not suitable for mobile.")]
+		public bool showGui = true;
+		[Tooltip("Normalized viewport rectangle indicating the screen area for the IMGUI. Numbers are a percentage of screen space between 0 and 1. Not suitable for mobile devices.")]
+		public Rect guiArea = new Rect(.71f,.01f,.28f,.1f);
+		[Tooltip("An optional skin for the IMGUI, if used")]
+		public GUISkin guiSkin;
+
+		public List<GameResource> startingResources = new List<GameResource>();
+		private bool resourcesInitiated = false;
 
 		[Tooltip("A list of resources in your game for a given player. Could be minerals, gold, mana, or even experience points. Anything that the player " +
 			"spends, or needs to have a quantity and/or limit of in the game.")]
@@ -20,18 +27,19 @@ namespace MultiGame
 		//resource tick timers
 		private List<float> currentTimers = new List<float> ();
 		public HelpInfo help = new HelpInfo ("Resource Manager allows the player to have client-side resources like minerals, gold, or even experience points, " +
-			"which when spent successfully will cause MultiGame to send messages. This can be used to unlock new items/abilities, purchase units, or anything really." +
-			"\n----Messages:----\n" +
-			"'Save' takes no parameter, and saves to PlayerPrefs\n" +
-			"'Load' will load the resource from PlayerPrefs, if it exists");
+			"which when spent successfully will cause MultiGame to send messages. This can be used to unlock new items/abilities, purchase units, or anything really.");
 
 		[System.Serializable]
 		public class GameResource
 		{
 			public float quantity;
+			[RequiredFieldAttribute("The most we can have of this resource")]
 			public float limit;
+			[RequiredFieldAttribute("A unique name to identify this resource")]
 			public string resourceName;
+			[Tooltip("If non-zero, 'Tick Amount' resources will be added at this interval (in seconds)")]
 			public float tickTime;
+			[Tooltip("The amount of this resource we want to add each interval")]
 			public float tickAmount;
 
 			public GameResource (float _quantity, float _limit, string _resourceName, float _tickTime, float _tickAmount)
@@ -46,15 +54,39 @@ namespace MultiGame
 
 		void Start ()
 		{
+			if (!resourcesInitiated) {
+				resourcesInitiated = true;
+				foreach (GameResource _res in startingResources) {
+					if (!resources.Contains(_res))
+						resources.Add(_res);
+				}
+			}
 			currentTimers.Clear ();
 			for (int i = 0; i < resources.Count; i++) {
 				currentTimers.Add (resources [i].tickTime);
 			}
 		}
 
+		void OnGUI () {
+			GUILayout.BeginArea(new Rect(guiArea.x * Screen.width, guiArea.y * Screen.height, guiArea.width * Screen.width, guiArea.height * Screen.height),"","box");
+			GUILayout.BeginHorizontal();
+
+			foreach(GameResource _res in resources) {
+				GUILayout.BeginVertical("","box");
+				GUILayout.Label(Mathf.Round(_res.quantity) + " / " + Mathf.Round(_res.limit));
+				GUILayout.Label(_res.resourceName);
+				GUILayout.EndVertical();
+			}
+
+			GUILayout.EndHorizontal();
+			GUILayout.EndArea();
+		}
+
 		void Update ()
 		{
 			for (int i = 0; i < resources.Count; i++) {
+				if (resources[i].tickTime <= 0)
+					break;
 				currentTimers [i] -= Time.deltaTime;
 				if (currentTimers [i] <= 0) {
 					currentTimers [i] = resources [i].tickTime;
@@ -80,6 +112,7 @@ namespace MultiGame
 			foreach (GameResource resource in resources) {
 				if (resource.resourceName == _name)
 					resource.quantity -= _quantity;
+				resource.quantity = Mathf.Clamp(resource.quantity, 0f, resource.limit);
 			}
 		}
 
@@ -92,6 +125,7 @@ namespace MultiGame
 						resource.quantity = resource.limit;
 					}
 				}
+				resource.quantity = Mathf.Clamp(resource.quantity, 0f, resource.limit);
 			}
 		}
 
@@ -100,15 +134,18 @@ namespace MultiGame
 			resources [_index].quantity += _quantity;
 			if (resources [_index].quantity > resources [_index].limit)
 				resources [_index].quantity = resources [_index].limit;
+			resources[_index].quantity = Mathf.Clamp(resources[_index].quantity, 0f, resources[_index].limit);
 		}
 
-		public static void ReduceQuantityByIndex (int _index, float _quantity)
+		public static void DeductQuantityByIndex (int _index, float _quantity)
 		{
 			resources [_index].quantity -= _quantity;
 			if (resources [_index].quantity < 0)
 				resources [_index].quantity = 0;
+			resources[_index].quantity = Mathf.Clamp(resources[_index].quantity, 0f, resources[_index].limit);
 		}
 
+		public MessageHelp saveHelp = new MessageHelp("Save","Saves the current resources to Player Prefs. Works on all platforms.");
 		public void Save ()
 		{
 			if (!enabled)
@@ -125,6 +162,7 @@ namespace MultiGame
 			PlayerPrefs.Save ();
 		}
 
+		public MessageHelp loadHelp = new MessageHelp("Load","Loads the resource list from Player Prefs. Works on all platforms.");
 		public void Load ()
 		{
 			if (!enabled)
@@ -141,5 +179,19 @@ namespace MultiGame
 			}
 		}
 
+		public MessageHelp openMenuHelp = new MessageHelp("OpenMenu","Opens the IMGUI");
+		public void OpenMenu () {
+			showGui = true;
+		}
+
+		public MessageHelp closeMenuHelp = new MessageHelp("CloseMenu","Closes the IMGUI");
+		public void CloseMenu () {
+			showGui = false;
+		}
+
+		public MessageHelp toggleMenuHelp = new MessageHelp("ToggleMenu","Toggles the IMGUI");
+		public void ToggleMenu() {
+			showGui = !showGui;
+		}
 	}
 }

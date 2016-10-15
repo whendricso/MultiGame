@@ -10,7 +10,7 @@ namespace MultiGame {
 
 	//functionality to quickly create a prototype game
 
-	public class GameGenerator : EditorWindow {
+	public class GameGenerator : MGEditor {
 
 		[Tooltip("The path you would like to save your prefabs to. Must start with Assets/ and needs a trailing forward slash on the end. Spaces are acceptable. Case-sensitive. Recommend saving" +
 			" inside a Resources folder, for save/load and online play support.")]
@@ -238,7 +238,10 @@ namespace MultiGame {
 			EditorGUILayout.Space();
 			EditorGUILayout.LabelField("MultiGame Procedural Game Generator");
 			EditorGUILayout.Space();
-			help.showInfo = EditorGUILayout.Toggle("Help", help.showInfo);
+			GUI.backgroundColor = new Color(.4f,.4f,.9f);
+			if(GUILayout.Button("Help"))
+				help.showInfo = !help.showInfo;
+			GUI.backgroundColor = Color.white;
 			if (help.showInfo)
 				EditorGUILayout.HelpBox(help.helpText, MessageType.Info);
 			EditorGUILayout.Space();
@@ -392,7 +395,7 @@ namespace MultiGame {
 				errors.Clear();
 				errors.Insert(0,"Clear");
 			}
-			errorView = EditorGUILayout.BeginScrollView(errorView, "box", GUILayout.ExpandWidth(true));
+			errorView = EditorGUILayout.BeginScrollView(errorView, "box", GUILayout.ExpandWidth(true), GUILayout.Height(128f));
 
 			foreach (string _err in errors) 
 				EditorGUILayout.LabelField(_err);
@@ -662,8 +665,8 @@ namespace MultiGame {
 			if (proceduralSplatmap)
 				SplatmapUnityTerrain();
 
-//			if (proceduralDistribMap)
-//				DistributionMapUnityTerrain();
+			if (proceduralDistribMap)
+				DistributionMapUnityTerrain();
 		}
 
 		private void FillMissingDetails () {
@@ -671,6 +674,7 @@ namespace MultiGame {
 			DetailPrototype[] _newDetails;
 			//detail meshes
 			DetailPrototype _d1 = new DetailPrototype();
+//			terrain.terrainData.det
 			DetailPrototype _d2 = new DetailPrototype();
 			DetailPrototype _d3 = new DetailPrototype();
 			DetailPrototype _df = new DetailPrototype();
@@ -710,39 +714,47 @@ namespace MultiGame {
 			//grass billboards
 
 //			if (terrain.terrainData.detailPrototypes[4] == null) {
-				_g1.prototype = Resources.Load("TranslucentGrass") as GameObject;
+			_g1.prototypeTexture = Resources.Load("GrassBlades") as Texture2D;
 //			}
 //			else
 //				_g1.prototype = terrain.terrainData.detailPrototypes[4].prototype;
 
 //			if (terrain.terrainData.detailPrototypes[5] == null) {
-				_g2.prototype = Resources.Load("TranslucentGrass") as GameObject;
+			_g2.prototypeTexture = Resources.Load("GrassBlades") as Texture2D;
 //			}
 //			else
 //				_g2.prototype = terrain.terrainData.detailPrototypes[5].prototype;
 
 //			if (terrain.terrainData.detailPrototypes[6] == null) {
-				_g3.prototype = Resources.Load("TranslucentGrass") as GameObject;
+			_g3.prototypeTexture = Resources.Load("GrassBlades") as Texture2D;
 //			}
 //			else
 //				_g3.prototype = terrain.terrainData.detailPrototypes[6].prototype;
 
 //			if (terrain.terrainData.detailPrototypes[7] == null) {
-				_gf.prototype = Resources.Load("TranslucentGrass") as GameObject;
+			_gf.prototypeTexture = Resources.Load("GrassBlades") as Texture2D;
 //			}
 //			else
 //				_gf.prototype = terrain.terrainData.detailPrototypes[7].prototype;
 
+			_d1.usePrototypeMesh = true;
+			_d2.usePrototypeMesh = true;
+			_d3.usePrototypeMesh = true;
+
+			_g1.usePrototypeMesh = false;
+			_g2.usePrototypeMesh = false;
+			_g3.usePrototypeMesh = false;
+			_gf.usePrototypeMesh = false;
 
 			//assign all to the terrain array
 			_newDetails = new DetailPrototype[8] {_d1, _d2, _d3, _df, _g1, _g2, _g3, _gf};
 
-			for (int p = 0; 0 < 8; p++) {
-				if (p < 4)
-					_newDetails[p].usePrototypeMesh = true;
-				else
-					_newDetails[p].usePrototypeMesh = false;
-			}
+//			for (int p = 0; 0 < 8; p++) {
+//				if (p < 4)
+//					_newDetails[p].usePrototypeMesh = true;
+//				else
+//					_newDetails[p].usePrototypeMesh = false;
+//			}
 
 			terrain.terrainData.detailPrototypes = _newDetails;
 

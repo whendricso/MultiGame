@@ -28,6 +28,7 @@ namespace MultiGame {
 		private bool iconsLoaded = false;
 		private static Texture2D healthIcon;
 		private static Texture2D splineIcon;
+		private static Texture2D layerMaskIcon;
 		private static Texture2D shelfIcon;
 		private static Texture2D moveIcon;
 		private static Texture2D moveRigidbodyIcon;
@@ -119,6 +120,7 @@ namespace MultiGame {
 
 		void LoadIcons () {
 			splineIcon = Resources.Load("Spline", typeof(Texture2D)) as Texture2D;
+			layerMaskIcon = Resources.Load("LayerMask", typeof(Texture2D)) as Texture2D;
 			activeCollIcon = Resources.Load("ActiveCollider", typeof(Texture2D)) as Texture2D;
 			activeCollSphereIcon = Resources.Load("ActiveColliderSphere", typeof(Texture2D)) as Texture2D;
 			activeZoneIcon = Resources.Load("ActiveZone", typeof(Texture2D)) as Texture2D;
@@ -206,98 +208,103 @@ namespace MultiGame {
 		}
 
 		void OnGUI () {
-			if (Event.current.type == EventType.Repaint) {
-				if (!iconsLoaded) {
-					LoadIcons();
-				}
-
-				if (activeCollIcon == null) {
-					iconsLoaded = false;
+			try {
+				if (Event.current.type == EventType.Repaint) {
+					if (!iconsLoaded) {
 						LoadIcons();
-					return;
+					}
+
+					if (activeCollIcon == null) {
+						iconsLoaded = false;
+							LoadIcons();
+						return;
+					}
 				}
-			}
-			//but it causes problems when resetting out of play mode.
-//			if (EditorApplication.isPlaying)
-//				return;
+				//but it causes problems when resetting out of play mode.
+	//			if (EditorApplication.isPlaying)
+	//				return;
 
-			EditorGUILayout.BeginHorizontal("box", GUILayout.Width(112f));
-			GUI.color = Color.green;
-			if (GUILayout.Button("B", GUILayout.Width (20f), GUILayout.Height(16f)))
-				mode = Modes.Basic;
-			GUI.color = new Color(1f, .75f, 0f);
-			if (GUILayout.Button("T", GUILayout.Width (20f), GUILayout.Height(16f)))
-				mode = Modes.Triggers;
-			GUI.color = Color.blue;
-			if (GUILayout.Button("L", GUILayout.Width (20f), GUILayout.Height(16f)))
-				mode = Modes.Logic;
-			GUI.color = Color.red;
-			if (GUILayout.Button("C", GUILayout.Width (20f), GUILayout.Height(16f)))
-				mode = Modes.Combat;
+				EditorGUILayout.BeginHorizontal("box", GUILayout.Width(112f));
+				GUI.color = Color.green;
+				if (GUILayout.Button("B", GUILayout.Width (20f), GUILayout.Height(16f)))
+					mode = Modes.Basic;
+				GUI.color = new Color(1f, .75f, 0f);
+				if (GUILayout.Button("T", GUILayout.Width (20f), GUILayout.Height(16f)))
+					mode = Modes.Triggers;
+				GUI.color = Color.blue;
+				if (GUILayout.Button("L", GUILayout.Width (20f), GUILayout.Height(16f)))
+					mode = Modes.Logic;
+				GUI.color = Color.red;
+				if (GUILayout.Button("C", GUILayout.Width (20f), GUILayout.Height(16f)))
+					mode = Modes.Combat;
 
-			GUI.color = Color.white;
-			EditorGUILayout.EndHorizontal ();
-			//second row
-			EditorGUILayout.BeginHorizontal("box", GUILayout.Width(112f));
+				GUI.color = Color.white;
+				EditorGUILayout.EndHorizontal ();
+				//second row
+				EditorGUILayout.BeginHorizontal("box", GUILayout.Width(112f));
 
-			GUI.color = Color.yellow;
-			if (GUILayout.Button("P", GUILayout.Width (20f), GUILayout.Height(16f)))
-				mode = Modes.Player;
-			GUI.color = Color.cyan;
-			if (GUILayout.Button("A", GUILayout.Width (20f), GUILayout.Height(16f)))
-				mode = Modes.AI;
-			GUI.color = Color.magenta;
-			if (GUILayout.Button("U", GUILayout.Width (20f), GUILayout.Height(16f)))
-				mode = Modes.Utility;
-			GUI.color = new Color(.3f, .8f, 1f);
-			if (GUILayout.Button("N", GUILayout.Width (20f), GUILayout.Height(16f)))
-				mode = Modes.Networking;
-		
-			GUI.color = Color.white;
-			EditorGUILayout.EndHorizontal ();
+				GUI.color = Color.yellow;
+				if (GUILayout.Button("P", GUILayout.Width (20f), GUILayout.Height(16f)))
+					mode = Modes.Player;
+				GUI.color = Color.cyan;
+				if (GUILayout.Button("A", GUILayout.Width (20f), GUILayout.Height(16f)))
+					mode = Modes.AI;
+				GUI.color = Color.magenta;
+				if (GUILayout.Button("U", GUILayout.Width (20f), GUILayout.Height(16f)))
+					mode = Modes.Utility;
+				GUI.color = new Color(.3f, .8f, 1f);
+				if (GUILayout.Button("N", GUILayout.Width (20f), GUILayout.Height(16f)))
+					mode = Modes.Networking;
+			
+				GUI.color = Color.white;
+				EditorGUILayout.EndHorizontal ();
 
-			GUIHeader();
-			ModeLabel();
+				GUIHeader();
+				ModeLabel();
 
-			scrollView = EditorGUILayout.BeginScrollView(scrollView,false, true, GUIStyle.none, GUIStyle.none, GUIStyle.none, GUILayout.Width(112f));
-			switch (mode) {
-			case Modes.Basic:
-				BasicObjectGUI();
-				break;
-			case Modes.Triggers:
-				TriggerObjectGUI();
-				break;
-			case Modes.Logic:
-				LogicObjectGUI();
-				break;
-			case Modes.Combat:
-				CombatObjectGUI();
-				break;
-			case Modes.Player:
-				PlayerObjectGUI();
-				break;
-			case Modes.AI:
-				AIObjectGUI();
-				break;
-			case Modes.Utility:
-				UtilityObjectGUI();
-				break;
-			case Modes.Networking:
-				NetworkingObjectGUI();
-				break;
-			}
-			GUI.color = Color.gray;
-			EditorGUILayout.LabelField("MultiGame");
-			EditorGUILayout.LabelField("Copyright " );
-			EditorGUILayout.LabelField("2012 - 2016 " );
-			EditorGUILayout.LabelField("William " );
-			EditorGUILayout.LabelField("Hendrickson ");
-			EditorGUILayout.LabelField("all rights ");
-			EditorGUILayout.LabelField("reserved.");
-			GUI.color = Color.white;
-			EditorGUILayout.EndScrollView();
-			if (scrollView.y < 1f) {
-				EditorGUILayout.LabelField("\\/ More \\/");
+				scrollView = EditorGUILayout.BeginScrollView(scrollView,false, true, GUIStyle.none, GUIStyle.none, GUIStyle.none, GUILayout.Width(130f));
+				switch (mode) {
+				case Modes.Basic:
+					BasicObjectGUI();
+					break;
+				case Modes.Triggers:
+					TriggerObjectGUI();
+					break;
+				case Modes.Logic:
+					LogicObjectGUI();
+					break;
+				case Modes.Combat:
+					CombatObjectGUI();
+					break;
+				case Modes.Player:
+					PlayerObjectGUI();
+					break;
+				case Modes.AI:
+					AIObjectGUI();
+					break;
+				case Modes.Utility:
+					UtilityObjectGUI();
+					break;
+				case Modes.Networking:
+					NetworkingObjectGUI();
+					break;
+				}
+				GUI.color = Color.gray;
+				EditorGUILayout.LabelField("MultiGame");
+				EditorGUILayout.LabelField("Copyright " );
+				EditorGUILayout.LabelField("2012 - 2016 " );
+				EditorGUILayout.LabelField("William " );
+				EditorGUILayout.LabelField("Hendrickson ");
+				EditorGUILayout.LabelField("all rights ");
+				EditorGUILayout.LabelField("reserved.");
+				GUI.color = Color.white;
+				EditorGUILayout.EndScrollView();
+				
+				if (scrollView.y < 1f) {
+					EditorGUILayout.LabelField("\\/ More \\/");
+				}
+			} catch {
+				//do nothing, thus suppressing the Unity IMGUI "getting control position blah" bug that never seems to get fixed
 			}
 		}
 
@@ -386,10 +393,34 @@ namespace MultiGame {
 
 //			GUIHeader();
 
-			EditorGUILayout.BeginVertical("box"/*, GUILayout.Width(112f)*/);
+			EditorGUILayout.BeginHorizontal("box",GUILayout.Width(113f));
+			EditorGUILayout.BeginVertical("box", GUILayout.Width(92f));
 			if (MGButton(shelfIcon, "Prefab\nShelf")) {
 				if(!Shelves.running)
 					Shelves.ShowWindow();
+			}
+			if (MGButton(splineIcon ,"Spline\nDecorator")) {
+				Selection.activeGameObject = null;
+				ResolveOrCreateTarget();
+				BezierSpline spline = Undo.AddComponent<BezierSpline>(target);
+				SplineDecorator decorator = Undo.AddComponent<SplineDecorator>(target);
+				decorator.instantiationMode = SplineDecorator.InstantiationModes.Editor;
+				decorator.spline = spline;
+				decorator.frequency = 2;
+				decorator.refreshDecorations = true;
+				SmartRenameTarget("Spline Decoration");
+			}
+			if (MGButton(splineIcon, "Spline\nMovement")) {
+				GameObject spline = new GameObject("Spline Path",typeof(BezierSpline));
+				ResolveOrCreateTarget();
+				SmartRenameTarget("Spline Motor");
+				spline.transform.position = target.transform.position;
+				SplineMotor motor;
+				motor = target.GetComponent<SplineMotor>();
+				if (motor == null)
+					motor = Undo.AddComponent<SplineMotor>(target);
+				motor.spline = spline.GetComponent<BezierSpline>();
+				Selection.activeGameObject = spline;
 			}
 			if (MGButton(addColliderIcon, "Generate\nColliders")) {
 				ResolveOrCreateTarget();
@@ -423,16 +454,6 @@ namespace MultiGame {
 				Undo.AddComponent<SimpleMotor>(target);
 				Undo.AddComponent<SpinMotor>(target);
 				SmartRenameTarget("Mover");
-			}
-			if (MGButton(splineIcon, "Spline\nMovement")) {
-				GameObject spline = new GameObject("Spline Path",typeof(BezierSpline));
-				ResolveOrCreateTarget();
-				SplineMotor motor;
-				motor = target.GetComponent<SplineMotor>();
-				if (motor == null)
-					motor = Undo.AddComponent<SplineMotor>(target);
-				motor.spline = spline.GetComponent<BezierSpline>();
-				Selection.activeGameObject = spline;
 			}
 			if (MGButton(moveRigidbodyIcon, "Physics\nThrust")) {
 				ResolveOrCreateTarget();
@@ -517,12 +538,12 @@ namespace MultiGame {
 				Undo.AddComponent<MessageDestructor>(target);
 				SmartRenameTarget("Destructible");
 			}
-			if (MGButton(lightIcon, "Light")) {
+			if (MGButton(lightIcon,"Light")) {
 				ResolveOrCreateTarget();
 				Undo.AddComponent<Light>(target);
 				SmartRenameTarget("Light");
 			}
-			if (MGButton(sounderIcon, "Sound")) {
+			if (MGButton(sounderIcon,"Sound")) {
 				ResolveOrCreateTarget();
 				if (target.GetComponent<Sounder>() != null)
 					return;
@@ -530,13 +551,36 @@ namespace MultiGame {
 				target.GetComponent<AudioSource>().playOnAwake = false;
 				SmartRenameTarget("Sound");
 			}
-			if (MGButton(particlesIcon, "Particle")) {
+			if (MGButton(particlesIcon,"Particles")) {
 				ResolveOrCreateTarget();
 				Undo.AddComponent<ParticleSystem>(target);
 				SmartRenameTarget("Particle");
 			}
 			EditorGUILayout.EndVertical();
-			
+			EditorGUILayout.BeginVertical(GUILayout.Width(20f));
+			if (MGPip(lightIcon)) {
+				ResolveOrCreateTarget();
+				Undo.AddComponent<Light>(target);
+				SmartRenameTarget("Light");
+			}
+			GUILayout.Space(4f);
+			if (MGPip(sounderIcon)) {
+				ResolveOrCreateTarget();
+				if (target.GetComponent<Sounder>() != null)
+					return;
+				Undo.AddComponent<Sounder>(target);
+				target.GetComponent<AudioSource>().playOnAwake = false;
+				SmartRenameTarget("Sound");
+			}
+			GUILayout.Space(4f);
+			if (MGPip(particlesIcon)) {
+				ResolveOrCreateTarget();
+				Undo.AddComponent<ParticleSystem>(target);
+				SmartRenameTarget("Particle");
+			}
+			GUILayout.Space(4f);
+			EditorGUILayout.EndVertical();
+			EditorGUILayout.EndHorizontal();
 		}
 
 		void ResolveOrCreateTarget () {
@@ -611,6 +655,11 @@ namespace MultiGame {
 				ResolveOrCreateTarget();
 				Undo.AddComponent<KeyMessage>(target);
 				SmartRenameTarget("Pressable");
+			}
+			if (MGButton(destructMessageIcon, "On Destruct\nLogic")) {
+				ResolveOrCreateTarget();
+				Undo.AddComponent<OnDestruct>(target);
+				SmartRenameTarget("Destruction Message");
 			}
 			if (MGButton(activeZoneIcon, "Trigger\nLogic")) {
 				AddTriggerBox();
@@ -711,11 +760,7 @@ namespace MultiGame {
 //				Undo.AddComponent<RandomizeFloat>(target);
 				SmartRenameTarget("Randomizer");
 			}
-			if (MGButton(destructMessageIcon, "On Destruct\nLogic")) {
-				ResolveOrCreateTarget();
-				Undo.AddComponent<OnDestruct>(target);
-				SmartRenameTarget("Destruction Message");
-			}
+
 			EditorGUILayout.EndVertical();
 		}
 
@@ -972,6 +1017,10 @@ namespace MultiGame {
 
 			
 			EditorGUILayout.BeginVertical("box"/*, GUILayout.Width(112f)*/);
+
+			if (MGButton(layerMaskIcon, "Layer Mask"))
+				SetupLayerMask();
+
 			if (MGButton(turretIcon, "Turret")) {
 
 				ResolveOrCreateTarget();
@@ -1066,17 +1115,9 @@ namespace MultiGame {
 
 			EditorGUILayout.BeginVertical("box"/*, GUILayout.Width(112f)*/);
 
-			if (MGButton(splineIcon ,"Spline\nDecorator")) {
-				Selection.activeGameObject = null;
-				ResolveOrCreateTarget();
-				BezierSpline spline = Undo.AddComponent<BezierSpline>(target);
-				SplineDecorator decorator = Undo.AddComponent<SplineDecorator>(target);
-				decorator.instantiationMode = SplineDecorator.InstantiationModes.Editor;
-				decorator.spline = spline;
-				decorator.frequency = 2;
-				decorator.refreshDecorations = true;
-				SmartRenameTarget("Spline Decoration");
-			}
+			if (MGButton(layerMaskIcon, "Layer Mask"))
+				SetupLayerMask();
+
 			if (MGButton(savePrefsIcon, "Player\nPreferences")) {
 				ResolveOrCreateTarget();
 				Undo.AddComponent<UniquePreferenceSerializer>(target);
@@ -1154,10 +1195,93 @@ namespace MultiGame {
 			
 			EditorGUILayout.BeginVertical("box", GUILayout.Width(112f));
 
-			if (MGButton(photonIcon, "Photonize")) {
-				ResolveOrCreateTarget();
-				/*PhotonView _view = */Undo.AddComponent<PhotonView>(target);
+//			if (MGButton(photonIcon, "Photonize")) {
+//				ResolveOrCreateTarget();
+//				/*PhotonView _view = */Undo.AddComponent<PhotonView>(target);
+////
+////				PhotonPositionSync _sync = target.GetComponent<PhotonPositionSync>();
+////				if (_sync == null)
+////					_sync = Undo.AddComponent<PhotonPositionSync>(target);
+//////				if (!_view.ObservedComponents.Contains(_sync))
+//////					_view.ObservedComponents.Add(_sync);
+////				_sync.syncMode = PhotonPositionSync.InterPositionMode.InterpolateTransformation;
+////
+////				if (target.GetComponent<Health>() != null)
+////					SetupHealth();
+//				SetupLocalizer();//localize everything
+//			}
+//			if (MGButton(photonChannelIcon, "Channel\nManager")) {
+//				ResolveOrCreateTarget();
+//				if (target.GetComponent<PhotonChannelManager>() != null)
+//					return;
+//				SetupChannels();
+//				SmartRenameTarget("Photon Channel Manager");
+//			}
+//			if (MGButton(photonHealthIcon, "Health")) {
+//				ResolveOrCreateTarget();
+//				SetupHealth();
+////				/*PhotonView _view = */Undo.AddComponent<PhotonView>(target);
+//				SetupLocalizer();
+//				SmartRenameTarget("Photon Mortal");
+//			}
+//			if (MGButton(photonSpawnerIcon, "Spawn")) {
+//				ResolveOrCreateTarget();
+//				if (target.GetComponent<PhotonInstantiator>() != null)
+//					return;
+//				Undo.AddComponent<PhotonInstantiator>(target);
+//				SmartRenameTarget("Photon Spawn");
+//			}
+//			if (MGButton(photonAvatarIcon, "Player\nSpawn")) {
+//				ResolveOrCreateTarget();
+//				if (target.GetComponent<PhotonAvatarHandler>() != null)
+//					return;
+//				Undo.AddComponent<PhotonAvatarHandler>(target);
+//				SmartRenameTarget("Photon Player Spawn");
+//			}
 //
+//			if (MGButton(photonDestructibleIcon, "Destructible")) {
+//				ResolveOrCreateTarget();
+//				if (target.GetComponent<PhotonDestructible>() != null)
+//					return;
+//				Undo.AddComponent<PhotonDestructible>(target);
+//				SmartRenameTarget("Photon Destructible");
+//			}
+//			if (MGButton(photonRigidbodyIcon, "Physics")) {
+//				ResolveOrCreateTarget();
+//				Undo.AddComponent<Rigidbody>(target);
+//				if (target.GetComponent<PhotonPositionSync>() != null)
+//					return;
+//				/*PhotonView _view = */Undo.AddComponent<PhotonView>(target);
+//				PhotonPositionSync _sync = Undo.AddComponent<PhotonPositionSync>(target);
+////				_view.ObservedComponents.Add(_sync);
+//				SmartRenameTarget("Photon Rigidbody");
+//			}
+//			if (MGButton(photonPositionIcon, "Position\nSynchronization")) {
+//				ResolveOrCreateTarget();
+//				if (target.GetComponent<PhotonPositionSync>() != null)
+//					return;
+//				/*PhotonView _view = */Undo.AddComponent<PhotonView>(target);
+//				PhotonPositionSync _sync = Undo.AddComponent<PhotonPositionSync>(target);
+////				_view.ObservedComponents.Add(_sync);
+//				_sync.syncMode = PhotonPositionSync.InterPositionMode.InterpolateTransformation;
+//				SmartRenameTarget("Photon Movable");
+//			}
+//			if (MGButton(photonRelayIcon, "Relay")) {
+//				ResolveOrCreateTarget();
+//				GameObject _child = AddDirectChild(target);
+//				_child.name = "Relay";
+//				Undo.AddComponent<PhotonMessageRelay>(_child);
+//				SmartRenameTarget("Photon Message Relay");
+//
+//			}
+//			if (MGButton(photonCharacterIcon, "Character")) {
+//				ResolveOrCreateTarget();
+//				CharacterOmnicontroller _input = target.GetComponent<CharacterOmnicontroller>();
+//				if (_input == null)
+//					_input = Undo.AddComponent<CharacterOmnicontroller>(target);
+//
+//				/*PhotonView _view = */Undo.AddComponent<PhotonView>(target);
+//				PhotonMessageRelay _relay = Undo.AddComponent<PhotonMessageRelay>(target);
 //				PhotonPositionSync _sync = target.GetComponent<PhotonPositionSync>();
 //				if (_sync == null)
 //					_sync = Undo.AddComponent<PhotonPositionSync>(target);
@@ -1165,129 +1289,46 @@ namespace MultiGame {
 ////					_view.ObservedComponents.Add(_sync);
 //				_sync.syncMode = PhotonPositionSync.InterPositionMode.InterpolateTransformation;
 //
-//				if (target.GetComponent<Health>() != null)
-//					SetupHealth();
-				SetupLocalizer();//localize everything
-			}
-			if (MGButton(photonChannelIcon, "Channel\nManager")) {
-				ResolveOrCreateTarget();
-				if (target.GetComponent<PhotonChannelManager>() != null)
-					return;
-				SetupChannels();
-				SmartRenameTarget("Photon Channel Manager");
-			}
-			if (MGButton(photonHealthIcon, "Health")) {
-				ResolveOrCreateTarget();
-				SetupHealth();
-//				/*PhotonView _view = */Undo.AddComponent<PhotonView>(target);
-				SetupLocalizer();
-				SmartRenameTarget("Photon Mortal");
-			}
-			if (MGButton(photonSpawnerIcon, "Spawn")) {
-				ResolveOrCreateTarget();
-				if (target.GetComponent<PhotonInstantiator>() != null)
-					return;
-				Undo.AddComponent<PhotonInstantiator>(target);
-				SmartRenameTarget("Photon Spawn");
-			}
-			if (MGButton(photonAvatarIcon, "Player\nSpawn")) {
-				ResolveOrCreateTarget();
-				if (target.GetComponent<PhotonAvatarHandler>() != null)
-					return;
-				Undo.AddComponent<PhotonAvatarHandler>(target);
-				SmartRenameTarget("Photon Player Spawn");
-			}
-
-			if (MGButton(photonDestructibleIcon, "Destructible")) {
-				ResolveOrCreateTarget();
-				if (target.GetComponent<PhotonDestructible>() != null)
-					return;
-				Undo.AddComponent<PhotonDestructible>(target);
-				SmartRenameTarget("Photon Destructible");
-			}
-			if (MGButton(photonRigidbodyIcon, "Physics")) {
-				ResolveOrCreateTarget();
-				Undo.AddComponent<Rigidbody>(target);
-				if (target.GetComponent<PhotonPositionSync>() != null)
-					return;
-				/*PhotonView _view = */Undo.AddComponent<PhotonView>(target);
-				PhotonPositionSync _sync = Undo.AddComponent<PhotonPositionSync>(target);
-//				_view.ObservedComponents.Add(_sync);
-				SmartRenameTarget("Photon Rigidbody");
-			}
-			if (MGButton(photonPositionIcon, "Position\nSynchronization")) {
-				ResolveOrCreateTarget();
-				if (target.GetComponent<PhotonPositionSync>() != null)
-					return;
-				/*PhotonView _view = */Undo.AddComponent<PhotonView>(target);
-				PhotonPositionSync _sync = Undo.AddComponent<PhotonPositionSync>(target);
-//				_view.ObservedComponents.Add(_sync);
-				_sync.syncMode = PhotonPositionSync.InterPositionMode.InterpolateTransformation;
-				SmartRenameTarget("Photon Movable");
-			}
-			if (MGButton(photonRelayIcon, "Relay")) {
-				ResolveOrCreateTarget();
-				GameObject _child = AddDirectChild(target);
-				_child.name = "Relay";
-				Undo.AddComponent<PhotonMessageRelay>(_child);
-				SmartRenameTarget("Photon Message Relay");
-
-			}
-			if (MGButton(photonCharacterIcon, "Character")) {
-				ResolveOrCreateTarget();
-				CharacterOmnicontroller _input = target.GetComponent<CharacterOmnicontroller>();
-				if (_input == null)
-					_input = Undo.AddComponent<CharacterOmnicontroller>(target);
-
-				/*PhotonView _view = */Undo.AddComponent<PhotonView>(target);
-				PhotonMessageRelay _relay = Undo.AddComponent<PhotonMessageRelay>(target);
-				PhotonPositionSync _sync = target.GetComponent<PhotonPositionSync>();
-				if (_sync == null)
-					_sync = Undo.AddComponent<PhotonPositionSync>(target);
-//				if (!_view.ObservedComponents.Contains(_sync))
-//					_view.ObservedComponents.Add(_sync);
-				_sync.syncMode = PhotonPositionSync.InterPositionMode.InterpolateTransformation;
-
-				SetupHealth();
-				SetupLocalizer();
-				SmartRenameTarget("Photon Player Character");
-
-			}
-			if (MGButton(photonInventoryIcon, "Inventory")) {
-				ResolveOrCreateTarget();
-				if (target.GetComponent<PhotonLocalInventory>() != null)
-					return;
-				Undo.AddComponent<PhotonLocalInventory>(target);
-				SmartRenameTarget("Photon Local Static Player Inventory");
-			}
-			if (MGButton(photonItemIcon, "Item")) {
-				ResolveOrCreateTarget();
-				SmartRenameTarget("Photon Item");
-				GameObject _activeObj = Instantiate<GameObject>(target);
-				Undo.RegisterCreatedObjectUndo(_activeObj, "Create Active Object");
-				_activeObj.name = target.name + "Active";
-				_activeObj.tag = target.tag;
-				_activeObj.layer = target.layer;
-				PhotonActiveItem _active = Undo.AddComponent<PhotonActiveItem>(_activeObj);
-//				_active.inventoryKey = target.name;
-				Pickable _pickable = Undo.AddComponent<Pickable>(target);
-				_pickable.inventoryKey = target.name;
-				_pickable.pickMode = Pickable.PickModes.Item;
-				if (!Physics.Raycast(target.transform.position, Vector3.right, 2f))
-					_activeObj.transform.position = new Vector3(target.transform.position.x + 1.5f, target.transform.position.y, target.transform.position.z);
-				else if (!Physics.Raycast(target.transform.position, Vector3.left, 2f))
-					_activeObj.transform.position = new Vector3(target.transform.position.x - 1.5f, target.transform.position.y, target.transform.position.z);
-				else if (!Physics.Raycast(target.transform.position, Vector3.forward, 2f))
-					_activeObj.transform.position = new Vector3(target.transform.position.x, target.transform.position.y, target.transform.position.z + 1.5f);
-				else if (!Physics.Raycast(target.transform.position, Vector3.back, 2f))
-					_activeObj.transform.position = new Vector3(target.transform.position.x, target.transform.position.y, target.transform.position.z - 1.5f);
-			}
+//				SetupHealth();
+//				SetupLocalizer();
+//				SmartRenameTarget("Photon Player Character");
+//
+//			}
+//			if (MGButton(photonInventoryIcon, "Inventory")) {
+//				ResolveOrCreateTarget();
+//				if (target.GetComponent<PhotonLocalInventory>() != null)
+//					return;
+//				Undo.AddComponent<PhotonLocalInventory>(target);
+//				SmartRenameTarget("Photon Local Static Player Inventory");
+//			}
+//			if (MGButton(photonItemIcon, "Item")) {
+//				ResolveOrCreateTarget();
+//				SmartRenameTarget("Photon Item");
+//				GameObject _activeObj = Instantiate<GameObject>(target);
+//				Undo.RegisterCreatedObjectUndo(_activeObj, "Create Active Object");
+//				_activeObj.name = target.name + "Active";
+//				_activeObj.tag = target.tag;
+//				_activeObj.layer = target.layer;
+//				PhotonActiveItem _active = Undo.AddComponent<PhotonActiveItem>(_activeObj);
+////				_active.inventoryKey = target.name;
+//				Pickable _pickable = Undo.AddComponent<Pickable>(target);
+//				_pickable.inventoryKey = target.name;
+//				_pickable.pickMode = Pickable.PickModes.Item;
+//				if (!Physics.Raycast(target.transform.position, Vector3.right, 2f))
+//					_activeObj.transform.position = new Vector3(target.transform.position.x + 1.5f, target.transform.position.y, target.transform.position.z);
+//				else if (!Physics.Raycast(target.transform.position, Vector3.left, 2f))
+//					_activeObj.transform.position = new Vector3(target.transform.position.x - 1.5f, target.transform.position.y, target.transform.position.z);
+//				else if (!Physics.Raycast(target.transform.position, Vector3.forward, 2f))
+//					_activeObj.transform.position = new Vector3(target.transform.position.x, target.transform.position.y, target.transform.position.z + 1.5f);
+//				else if (!Physics.Raycast(target.transform.position, Vector3.back, 2f))
+//					_activeObj.transform.position = new Vector3(target.transform.position.x, target.transform.position.y, target.transform.position.z - 1.5f);
+//			}
 			EditorGUILayout.EndVertical();
 		}
 
-		public void SetupChannels () {
-				Undo.AddComponent<PhotonChannelManager>(target);
-		}
+//		public void SetupChannels () {
+//				Undo.AddComponent<PhotonChannelManager>(target);
+//		}
 
 		public void SetupHealth () {
 			Health _health = target.GetComponent<Health>();
@@ -1296,38 +1337,36 @@ namespace MultiGame {
 			_health.autodestruct = false;
 			_health.healthGoneMessage = new MessageManager.ManagedMessage(target, "Destruct");
 			_health.healthGoneMessage.msgOverride = true;
-			if (target.GetComponent<PhotonDestructible>() == null)
-				Undo.AddComponent<PhotonDestructible>(target);
-			PhotonMessageRelay _healthRelay = Undo.AddComponent<PhotonMessageRelay>(target);
-			_healthRelay.localMessage = new MessageManager.ManagedMessage(target, "ModifyHealth");
-			_healthRelay.localMessage.msgOverride = true;
-			_healthRelay.localMessage.parameter = "-10";
-			_healthRelay.localMessage.parameterMode = MessageManager.ManagedMessage.ParameterModeTypes.FloatingPoint;
-
-
+//			if (target.GetComponent<PhotonDestructible>() == null)
+//				Undo.AddComponent<PhotonDestructible>(target);
+//			PhotonMessageRelay _healthRelay = Undo.AddComponent<PhotonMessageRelay>(target);
+//			_healthRelay.localMessage = new MessageManager.ManagedMessage(target, "ModifyHealth");
+//			_healthRelay.localMessage.msgOverride = true;
+//			_healthRelay.localMessage.parameter = "-10";
+//			_healthRelay.localMessage.parameterMode = MessageManager.ManagedMessage.ParameterModeTypes.FloatingPoint;
 		}
 
-		public void SetupLocalizer () {
-			PhotonLocalizer _localizer = target.GetComponent<PhotonLocalizer>();
-			if (_localizer == null)
-				_localizer = Undo.AddComponent<PhotonLocalizer>(target);
-			List <MonoBehaviour> _localComponents = new List<MonoBehaviour>();
-			//add **ALL** single-player modules to the localization list
-			_localComponents.AddRange(target.GetComponentsInChildren<MultiModule>());				
-			_localizer.localComponents = new MonoBehaviour[_localComponents.Count];
-			for (int i = 0; i < _localizer.localComponents.Length; i++) {
-				_localizer.localComponents[i] = _localComponents[i];
-			}
-
-			List<GameObject> _cams = new List<GameObject>();
-			foreach(Camera _cam in target.GetComponentsInChildren<Camera>() )
-				_cams.Add(_cam.gameObject);
-			_localizer.localObjects = new GameObject[_cams.Count];
-			for (int ii = 0; ii < _cams.Count; ii++) {
-				_localizer.localObjects[ii] = _cams[ii];
-			}
-
-		}
+//		public void SetupLocalizer () {
+//			PhotonLocalizer _localizer = target.GetComponent<PhotonLocalizer>();
+//			if (_localizer == null)
+//				_localizer = Undo.AddComponent<PhotonLocalizer>(target);
+//			List <MonoBehaviour> _localComponents = new List<MonoBehaviour>();
+//			//add **ALL** single-player modules to the localization list
+//			_localComponents.AddRange(target.GetComponentsInChildren<MultiModule>());				
+//			_localizer.localComponents = new MonoBehaviour[_localComponents.Count];
+//			for (int i = 0; i < _localizer.localComponents.Length; i++) {
+//				_localizer.localComponents[i] = _localComponents[i];
+//			}
+//
+//			List<GameObject> _cams = new List<GameObject>();
+//			foreach(Camera _cam in target.GetComponentsInChildren<Camera>() )
+//				_cams.Add(_cam.gameObject);
+//			_localizer.localObjects = new GameObject[_cams.Count];
+//			for (int ii = 0; ii < _cams.Count; ii++) {
+//				_localizer.localObjects[ii] = _cams[ii];
+//			}
+//
+//		}
 
 		public void SetupRigidbody () {
 			Rigidbody _rigid = target.GetComponent<Rigidbody>();
@@ -1354,6 +1393,10 @@ namespace MultiGame {
 			Undo.AddComponent<ActiveZone>(target);
 			Undo.AddComponent<VanishOnStart>(target);
 			Selection.activeGameObject = target;
+		}
+
+		public void SetupLayerMask () {
+			EditorWindow.GetWindow(typeof(AIPhysWindow));
 		}
 
 		public void AddTriggerSphere () {

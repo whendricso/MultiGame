@@ -27,8 +27,10 @@ namespace MultiGame {
 		[Tooltip("Should each decoration change it's orientation to face the spline direction?")]
 		public bool lookForward = true;
 
-
+		[Tooltip("A list of decorations we want to distribute along the spline")]
 		public GameObject[] decorations;
+		[Tooltip("Should we select the decorations randomly?")]
+		public bool randomize = false;
 		[System.NonSerialized]
 		public GameObject[] instantiated;
 

@@ -9,11 +9,20 @@ namespace MultiGame {
 	public class HelpInfoDrawer : PropertyDrawer {
 
 		public override void OnGUI (Rect position, SerializedProperty property, GUIContent label) {
-			property.FindPropertyRelative("showInfo").boolValue = EditorGUI.Foldout(position, property.FindPropertyRelative("showInfo").boolValue, GUIContent.none);
-			if (property.FindPropertyRelative("showInfo").boolValue)
+			if (property.FindPropertyRelative("showInfo").boolValue) {
+				property.FindPropertyRelative("showInfo").boolValue = EditorGUI.Foldout(position, property.FindPropertyRelative("showInfo").boolValue, GUIContent.none);
 				EditorGUI.HelpBox(position, property.FindPropertyRelative("helpText").stringValue, MessageType.Info);
-			else
-				EditorGUI.LabelField(position, new GUIContent("Help"));
+			}
+			else {
+				Color _col = GUI.contentColor;
+				GUI.contentColor = Color.white;
+				GUI.backgroundColor = new Color(.34f,.31f,.88f,.6f);
+				if (GUI.Button(position, "Help"))
+					property.FindPropertyRelative("showInfo").boolValue = true;
+//				EditorGUI.LabelField(position, new GUIContent("Help"));
+				GUI.backgroundColor = Color.white;
+				GUI.contentColor = _col;
+			}
 		}
 
 		public override float GetPropertyHeight (SerializedProperty property, GUIContent label) {

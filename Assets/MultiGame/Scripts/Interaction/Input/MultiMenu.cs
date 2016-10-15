@@ -17,7 +17,7 @@ namespace MultiGame {
 		[Tooltip("Normalized viewport rectangle designating the screen area for the menu, values between 0 and 1")]
 		public Rect screenArea = new Rect(.3f,.3f,.3f,.3f);
 		[Tooltip("Should the menu be currently visible?")]
-		public bool showMenu = false;
+		public bool showGui = false;
 		[Tooltip("Should the menu close as soon as you click something?")]
 		public bool closeOnSelect = true;
 		[Tooltip("What sort of text prompt do we need?")]
@@ -68,7 +68,7 @@ namespace MultiGame {
 		}
 		
 		void OnGUI () {
-			if (!showMenu)
+			if (!showGui)
 				return;
 			if (guiSkin != null)
 				GUI.skin = guiSkin;
@@ -78,7 +78,7 @@ namespace MultiGame {
 			for(int i = 0; i < buttons.Length; i++) {
 				if (GUILayout.Button(buttons[i].button)) {
 					if (closeOnSelect)
-						showMenu = false;
+						showGui = false;
 					foreach (MessageManager.ManagedMessage msg in buttons[i].messages)
 						MessageManager.Send(msg);
 
@@ -88,22 +88,25 @@ namespace MultiGame {
 
 		}
 
+		public MessageHelp openMenuHelp = new MessageHelp("OpenMenu","Opens the IMGUI");
 		public void OpenMenu () {
 			if (debug)
 				Debug.Log("Open");
-			showMenu = true;
+			showGui = true;
 		}
 
+		public MessageHelp closeMenuHelp = new MessageHelp("CloseMenu","Closes the IMGUI");
 		public void CloseMenu () {
 			if (debug)
 				Debug.Log("Close");
-			showMenu = false;
+			showGui = false;
 		}
 
+		public MessageHelp toggleMenuHelp = new MessageHelp("ToggleMenu","Toggles the IMGUI");
 		public void ToggleMenu() {
 			if (debug)
 				Debug.Log("Toggle");
-			showMenu = !showMenu;
+			showGui = !showGui;
 		}
 	}
 }
