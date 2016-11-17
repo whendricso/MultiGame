@@ -61,9 +61,14 @@ namespace MultiGame {
 			if(Physics.Linecast(lastPosition, transform.position, out hinfo, rayMask)) {
 				if (debug)
 					Debug.Log("Bullet " + gameObject.name + " hit " + hinfo.collider.gameObject);
-				if (owner.transform.root != hinfo.transform.root) {
+				if (owner == null) {
 					transform.position = hinfo.point;
 					RegisterDamage(hinfo);
+				} else { 
+					if (owner.transform.root != hinfo.transform.root) {
+						transform.position = hinfo.point;
+						RegisterDamage(hinfo);
+					}
 				}
 			}
 		}

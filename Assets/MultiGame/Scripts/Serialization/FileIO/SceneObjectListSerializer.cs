@@ -103,6 +103,7 @@ namespace MultiGame {
 			BinaryFormatter formatter = new BinaryFormatter();
 			FileStream stream = File.Open(Application.persistentDataPath + "/" + Application.loadedLevelName + optionalUniqueSceneIdentifier, FileMode.Create);
 			formatter.Serialize(stream, objects);
+			stream.Close();
 		}
 
 		public MessageHelp clearObjectsByTagHelp = new MessageHelp("ClearObjectsByTag","Deletes all objects with a supplied tag from the scene. Be sure to do this before loading objects or you will get duplicates.",
@@ -126,8 +127,8 @@ namespace MultiGame {
 				try {
 					stream = File.Open(Application.persistentDataPath + "/" + Application.loadedLevelName + optionalUniqueSceneIdentifier, FileMode.Open);
 				}
-				catch {
-					Debug.LogError("Loading file failed.");
+				catch (System.Exception ex) {
+					Debug.LogError("Loading file failed. " + ex.Message);
 					return;
 				}
 
@@ -137,6 +138,7 @@ namespace MultiGame {
 					Debug.Log("Deserializing " + objects.Count + " objects.");
 				if (autoInstantiate)
 					InstantiateObjectList();
+				stream.Close();
 			}
 		}
 
@@ -168,5 +170,50 @@ namespace MultiGame {
 			optionalUniqueSceneIdentifier = _identifier;
 		}
 
+		public MessageHelp saveToUrlHelp = new MessageHelp("SaveToUrl","Saves the current object list to a web server. You will need some server-side code to handle this (Node.js recommended)",4,"The URL for the POST request.");
+		public void SaveToUrl (string url) {
+			StartCoroutine(SaveUrl(url));
+		}
+
+		private IEnumerator SaveUrl (string url) {
+			BinaryFormatter formatter = new BinaryFormatter();
+			MemoryStream stream = new MemoryStream();
+
+			formatter.Serialize(stream, objects);
+
+			WWW www = new WWW(url, stream.ToArray());
+
+			yield return www;
+
+			if (!string.IsNullOrEmpty( www.error))
+				Debug.LogError("Scene Object List Serializer " + gameObject.name + " failed to save the object list. " + www.error);
+
+			www.Dispose();
+
+			stream.Close();
+		}
+
+		public MessageHelp loadFromUrlHelp = new MessageHelp("LoadFromUrl","Loads a new object list from a web server. You will need some server-side code to handle this (Node.js recommended)",4,"The URL for the GET request.");
+		public void LoadFromUrl (string url) {
+			StartCoroutine(LoadUrl(url));
+		}
+
+		private IEnumerator LoadUrl (string url) {
+			BinaryFormatter formatter = new BinaryFormatter();
+			MemoryStream stream = new MemoryStream();
+
+			WWW www = new WWW(url);
+			yield return www;
+			if (!string.IsNullOrEmpty( www.error))
+				Debug.LogError("Scene Object List Serializer " + gameObject.name + " failed to load the object list. " + www.error);
+			else {
+				objects.Clear();
+				objects.AddRange((List<SceneObject>)formatter.Deserialize(stream));
+			}
+
+			www.Dispose();
+
+			stream.Close();
+		}
 	}
 }

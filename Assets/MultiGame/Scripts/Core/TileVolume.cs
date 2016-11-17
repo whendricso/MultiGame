@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 using System.Collections;
 using MultiGame;
 
@@ -126,6 +128,8 @@ namespace MultiGame {
 		}
 
 		void OnSceneGUI () {
+			#if UNITY_EDITOR
+
 			if(!editMode) {
 				if(autoPlane != null)
 					DestroyImmediate(autoPlane);
@@ -160,6 +164,7 @@ namespace MultiGame {
 					GetTile(gridPoint.x, gridPoint.y, gridPoint.z).modality = Tile.Modalities.Filled;
 				}
 			}
+			#endif
 		}
 
 		public Tile GetTile (int _x, int _y, int _z) {

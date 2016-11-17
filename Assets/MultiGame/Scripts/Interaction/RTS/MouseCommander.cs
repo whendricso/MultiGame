@@ -33,7 +33,7 @@ namespace MultiGame {
 		public float populationMultiplier = 1f;
 
 		[Tooltip("What objects can we deploy on, by collision mask?")]
-		public LayerMask deployMask =	 LayerMask.NameToLayer("Default");
+		public LayerMask deployMask;
 		[Tooltip("Tag of objects we can't deploy close to")]
 		public string radiusSearchTag = "";//tag to check against for deploy radius constraint
 
@@ -104,6 +104,9 @@ namespace MultiGame {
 
 		void Awake () {
 			ResourceManager.resources.AddRange(resources);
+			if (deployMask == -1) {
+				Debug.LogError("Mouse Commander " + gameObject.name + " does not have a deploy mask assigned in the inspector so deploying will be impossible!");
+			}
 		}
 
 		void Start () {

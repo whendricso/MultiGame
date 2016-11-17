@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 using MultiGame;
 
 namespace MultiGame {
@@ -28,9 +29,16 @@ namespace MultiGame {
 			public int magicNumber = Random.Range(0 , 100);
 		}
 
+		void Awake () {
+			SceneManager.activeSceneChanged += delegate {
+				PlayerPrefs.SetInt("gameScore",score);
+				enabled = true;
+			};
+		}
+
 		void Start () {
 			if(saveScore && PlayerPrefs.HasKey ("gameScore"))
-				score = PlayerPrefs.GetInt ("gmeScore");
+				score = PlayerPrefs.GetInt ("gameScore");
 
 			if (persistent)
 				DontDestroyOnLoad(gameObject);
@@ -53,11 +61,6 @@ namespace MultiGame {
 					return;
 				}
 			}
-		}
-		
-		void OnLevelWasLoaded (int level) {
-			PlayerPrefs.SetInt("gameScore",score);
-			enabled = true;
 		}
 
 

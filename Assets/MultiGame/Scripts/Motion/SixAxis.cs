@@ -8,16 +8,23 @@ namespace MultiGame {
 	[RequireComponent (typeof(Rigidbody))]
 	public class SixAxis : MultiModule {
 
+		[RequiredFieldAttribute("How much thrusting power do we have in the forward direction?", RequiredFieldAttribute.RequirementLevels.Recommended)]
 		public float forwardThrust = 10.0f;
+		[RequiredFieldAttribute("How much thrusting power do we have in the sideways directions?", RequiredFieldAttribute.RequirementLevels.Recommended)]
 		public float sidewaysThrust = 10.0f;
+		[RequiredFieldAttribute("How much thrusting power do we have in the reverse direction?", RequiredFieldAttribute.RequirementLevels.Recommended)]
 		public float reverseThrust = 10.0f;
+		[RequiredFieldAttribute("How much thrusting power do we have in the upward direction?", RequiredFieldAttribute.RequirementLevels.Recommended)]
 		public float upwardThrust = 10.0f;
+		[RequiredFieldAttribute("How much thrusting power do we have in the downward direction?", RequiredFieldAttribute.RequirementLevels.Recommended)]
 		public float downwardThrust = 10.0f;
 		[RequiredFieldAttribute("How much dead space is in the center of the control stick")]
 		public float deadzone = 0.25f;
+		[Tooltip("A key which, when pressed, applies our Upward Thrust")]
 		public KeyCode upKey = KeyCode.Space;
+		[Tooltip("A key which, when pressed, applies our Downward Thrust")]
 		public KeyCode downKey = KeyCode.LeftShift;
-		[Tooltip("Should we update input after the main loop instead of during?")]
+		[Tooltip("Should we update input after the main loop instead of during? Physical thrust is still applied during physics' Fixed Update loop.")]
 		public bool useLateUpdate = true;
 		private Vector2 stickInput = Vector2.zero;
 		private bool goUp = false;
@@ -28,7 +35,10 @@ namespace MultiGame {
 		public Rigidbody body;
 
 		public HelpInfo help = new HelpInfo("This component is a player input controller allowing the user to fly in all directions, truly utilizing 3D space. It takes input from the " +
-			"user, processes it for precision, and applies it as force to the attached Rigidbody");
+			"user, processes it for precision, and applies it as force to the attached Rigidbody" +
+			"/n/n" +
+			"To use, add to the base object that you want the player to fly. If this is a multiplayer game, localize it as a Local Component ([N]etworking tab). Adjust the thrust amount for " +
+			"each direction");
 
 		void Start () {
 			if (body == null)

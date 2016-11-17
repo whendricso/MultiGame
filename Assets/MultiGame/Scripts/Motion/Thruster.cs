@@ -37,7 +37,7 @@ namespace MultiGame {
 				enabled = false;
 				return;
 			}
-			if (target.GetComponent<Rigidbody>() == null) {
+			if (target != null && target.GetComponent<Rigidbody>() == null) {
 				Debug.LogError("Thruster " + gameObject.name + "must have attached rigidbody or a target with a rigidbody to work!");
 				enabled = false;
 				return;

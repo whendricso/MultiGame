@@ -23,5 +23,19 @@ namespace MultiGame {
 				GetComponent<Rigidbody>().AddRelativeTorque(impetus);
 			}
 		}
+
+		public MessageHelp setImpetusXHelp = new MessageHelp("SetImpetusX","Changes the impetus on the X axis.",3,"The new rotational impetus");
+		public void SetImpetusX(float _impetus) {
+			impetus.x = _impetus;
+		}
+
+		public MessageHelp setImpetusYHelp = new MessageHelp("SetImpetusY","Changes the impetus on the Y axis.",3,"The new rotational impetus");
+		public void SetImpetusY(float _impetus) {
+			impetus.y = _impetus;
+		}
+		public MessageHelp setImpetusZHelp = new MessageHelp("SetImpetusZ","Changes the impetus on the Z axis.",3,"The new rotational impetus");
+		public void SetImpetusZ(float _impetus) {
+			impetus.z = _impetus;
+		}
 	}
 }

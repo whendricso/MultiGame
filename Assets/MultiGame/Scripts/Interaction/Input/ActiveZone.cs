@@ -105,6 +105,7 @@ namespace MultiGame {
 			if (CheckStringExists(targetLevel))
 				Application.LoadLevel(targetLevel);
 		}
+
 		void OnTriggerExit (Collider other) {
 			if (debug)
 				Debug.Log("Exit " + target.name);

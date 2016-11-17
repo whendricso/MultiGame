@@ -92,9 +92,11 @@ namespace MultiGame {
 					if (decorations[i] == null)
 						break;
 					GameObject decoration;
+					#if UNITY_EDITOR
 					if (instantiationMode == InstantiationModes.Editor)
 						decoration = UnityEditor.PrefabUtility.InstantiatePrefab(decorations[i]) as GameObject;
 					else
+					#endif
 						decoration = Instantiate(decorations[i]) as GameObject;
 					if (instantiated == null || instantiated.Length < 1) {
 						instantiated = new GameObject[frequency];

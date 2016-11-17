@@ -20,13 +20,20 @@ namespace MultiGame {
 		public HelpInfo help = new HelpInfo("This component implements physics-based hovering. It raycasts down into the scene to find out if we are above something, and if so" +
 			" it applies upward force.");
 
+
+		private Rigidbody rigid;
+
 		public bool debug = false;
+
+		void Start () {
+			rigid = GetComponent<Rigidbody>();
+		}
 
 		void FixedUpdate () {
 			RaycastHit hinfo;
 			bool didHit = Physics.Raycast(transform.position + rayOffset, -Vector3.up, out hinfo, rayDistance, hoverRayMask);
 			if (didHit)
-				GetComponent<Rigidbody>().AddForce(Vector3.up * hoverForce, ForceMode.Force);
+				rigid.AddForce(Vector3.up * hoverForce, ForceMode.Force);
 
 			if (debug) {
 				Debug.DrawRay(transform.position + rayOffset, -Vector3.up);

@@ -2,6 +2,7 @@
 using System.Collections;
 
 namespace MultiGame {
+	[RequireComponent(typeof(TurretAction))]
 	public class PlayerTurret : MultiModule {
 
 		public enum AimCorrectionModes {DistantPoint, Raycast};
@@ -23,15 +24,25 @@ namespace MultiGame {
 		public GameObject muzzleTransform;
 
 		[Tooltip("The speed at which the turret rotates toward it's target")]
-		public float turnSpeed = 12f;
+		public float turnSpeed = 120f;
 		[RequiredFieldAttribute("A crosshair texture to show where we want to shoot", RequiredFieldAttribute.RequirementLevels.Recommended)]
 		public Texture2D crosshairs;
 		[RequiredFieldAttribute("A crosshair to show where we are shooting exactly, this frame (may be different from position we are aiming at)", RequiredFieldAttribute.RequirementLevels.Recommended)]
 		public Texture2D crosshairCore;
 		[Tooltip("Is this turret currently being controlled by the player?")]
 		public bool inUse = false;
-		[RequiredFieldAttribute("An optional camera to use just while this turret is active. Will take over completely for Main Camera while in use.", RequiredFieldAttribute.RequirementLevels.Recommended)]
+		[RequiredFieldAttribute("An optional camera to use just while this turret is active. Will take over completely for Main Camera while in use. Otherwise, the main camera is used to aim.", RequiredFieldAttribute.RequirementLevels.Optional)]
 		public Camera turretCam;
+
+//		[RequiredFieldAttribute("A projectile to fire from the turret when activated",RequiredFieldAttribute.RequirementLevels.Recommended)]
+//		public GameObject projectile;
+
+		[HideInInspector]
+		/// <summary>
+		/// The last timestamp when we fired a shot.
+		/// </summary>
+		public float lastFireTime;
+
 		private string turretCamTag = "Untagged";
 		private Camera mainCam;
 
@@ -43,7 +54,7 @@ namespace MultiGame {
 		public bool debug = false;
 
 		public HelpInfo help = new HelpInfo("Player Turret allows the player to control a turret directly. It can accept a crosshair texture. To use, place it on a turret top and send the " +
-			"ActivateTurret and DeactivateTurret messages to it.");
+			"ActivateTurret and DeactivateTurret messages to it. If a Turret Cam is supplied, it will take over for the Main Camera until 'DeactivateTurret' is received.");
 
 		void OnGUI () {
 			if (!inUse || crosshairs == null)
@@ -53,6 +64,7 @@ namespace MultiGame {
 		}
 
 		void Start () {
+			lastFireTime = Time.time;
 			if (crosshairs == null)
 				crosshairs = Resources.Load<Texture2D>("Crosshair");
 			if (crosshairCore == null)
@@ -150,7 +162,12 @@ namespace MultiGame {
 				distantPoint = new GameObject("DistantPoint");
 			if (pointCaster == null) {
 				pointCaster = new GameObject("PointCaster");
-				pointCaster.transform.parent = Camera.main.transform;
+				try {
+					pointCaster.transform.parent = Camera.main.transform;
+				} catch {
+					if (Camera.allCameras.Length > 0)
+						pointCaster.transform.SetParent(Camera.allCameras[0].transform);
+				}
 				pointCaster.transform.localPosition = Vector3.zero;
 				pointCaster.transform.localRotation = Quaternion.identity;
 				distantPoint.transform.parent = pointCaster.transform;
@@ -176,5 +193,7 @@ namespace MultiGame {
 			if (debug)
 				Debug.Log("PlayerTurret " + gameObject.name + " was deactivated");
 		}
+
+
 	}
 }

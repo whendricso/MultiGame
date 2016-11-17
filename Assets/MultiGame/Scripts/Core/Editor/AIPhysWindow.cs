@@ -70,11 +70,9 @@ namespace MultiGame {
 			Physics.IgnoreLayerCollision(LayerMask.NameToLayer("AlliedSensor"),LayerMask.NameToLayer("Build"));
 
 			Physics.IgnoreLayerCollision(LayerMask.NameToLayer("AlliedSensor"),LayerMask.NameToLayer("TransparentFX"));
-			Physics.IgnoreLayerCollision(LayerMask.NameToLayer("AlliedSensor"),LayerMask.NameToLayer("IgnoreRaycast"));
 			Physics.IgnoreLayerCollision(LayerMask.NameToLayer("AlliedSensor"),LayerMask.NameToLayer("Water"));
 
 			Physics.IgnoreLayerCollision(LayerMask.NameToLayer("EnemySensor"),LayerMask.NameToLayer("TransparentFX"));
-			Physics.IgnoreLayerCollision(LayerMask.NameToLayer("EnemySensor"),LayerMask.NameToLayer("IgnoreRaycast"));
 			Physics.IgnoreLayerCollision(LayerMask.NameToLayer("EnemySensor"),LayerMask.NameToLayer("Water"));
 
 		}

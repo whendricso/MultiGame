@@ -1,5 +1,8 @@
 using UnityEngine;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
+using UnityEngine.Networking;
 //using System.IO;
 using System.Collections;
 using System.Collections.Generic;
@@ -94,19 +97,30 @@ namespace MultiGame {
 		private static Texture2D savePrefsIcon;
 		private static Texture2D saveToDiskIcon;
 		private static Texture2D saveSceneIcon;
-		private static Texture2D photonIcon;
-		private static Texture2D photonCharacterIcon;
-		private static Texture2D photonDestructibleIcon;
-		private static Texture2D photonHealthIcon;
-		private static Texture2D photonInventoryIcon;
-		private static Texture2D photonItemIcon;
-		private static Texture2D photonPositionIcon;
-		private static Texture2D photonRelayIcon;
-		private static Texture2D photonRigidbodyIcon;
-		private static Texture2D photonSpawnerIcon;
-		private static Texture2D photonAvatarIcon;
-		private static Texture2D photonSceneIcon;
-		private static Texture2D photonChannelIcon;
+//		private static Texture2D photonIcon;
+//		private static Texture2D photonCharacterIcon;
+//		private static Texture2D photonDestructibleIcon;
+//		private static Texture2D photonHealthIcon;
+//		private static Texture2D photonInventoryIcon;
+//		private static Texture2D photonItemIcon;
+//		private static Texture2D photonPositionIcon;
+//		private static Texture2D photonRelayIcon;
+//		private static Texture2D photonRigidbodyIcon;
+//		private static Texture2D photonSpawnerIcon;
+//		private static Texture2D photonAvatarIcon;
+//		private static Texture2D photonSceneIcon;
+//		private static Texture2D photonChannelIcon;
+		private static Texture2D unetIcon;
+		private static Texture2D unetPosition;
+		private static Texture2D unetSpawn;
+		private static Texture2D unetPlayer;
+		private static Texture2D unetRelay;
+		private static Texture2D unetTagRelay;
+		private static Texture2D unetLocalizer;
+		private static Texture2D unetChannel;
+		private static Texture2D unetHealth;
+		private static Texture2D unetPlayerSpawn;
+		private static Texture2D unetAnimator;
 
 		private Material triggerMat;
 		private Material collMat;
@@ -187,19 +201,31 @@ namespace MultiGame {
 			savePrefsIcon = Resources.Load("PreferenceButton", typeof(Texture2D)) as Texture2D;
 			saveToDiskIcon = Resources.Load("SaveDiskButton", typeof(Texture2D)) as Texture2D;
 			saveSceneIcon = Resources.Load("SaveSceneButton", typeof(Texture2D)) as Texture2D;
-			photonIcon = Resources.Load("PhotonButton", typeof(Texture2D)) as Texture2D;
-			photonCharacterIcon = Resources.Load("PhotonCharacterButton", typeof(Texture2D)) as Texture2D;
-			photonDestructibleIcon = Resources.Load("PhotonDestructibleButton", typeof(Texture2D)) as Texture2D;
-			photonHealthIcon = Resources.Load("PhotonHealthButton", typeof(Texture2D)) as Texture2D;
-			photonInventoryIcon = Resources.Load("PhotonInventoryButton", typeof(Texture2D)) as Texture2D;
-			photonItemIcon = Resources.Load("PhotonItemButton", typeof(Texture2D)) as Texture2D;
-			photonPositionIcon = Resources.Load("PhotonPositionButton", typeof(Texture2D)) as Texture2D;
-			photonRelayIcon = Resources.Load("PhotonRelayButton", typeof(Texture2D)) as Texture2D;
-			photonRigidbodyIcon = Resources.Load("PhotonRigidbodyButton", typeof(Texture2D)) as Texture2D;
-			photonSpawnerIcon = Resources.Load("PhotonSpawnButton", typeof(Texture2D)) as Texture2D;
-			photonAvatarIcon = Resources.Load("PhotonAvatarButton", typeof(Texture2D)) as Texture2D;
-			photonSceneIcon = Resources.Load("PhotonSceneButton", typeof(Texture2D)) as Texture2D;
-			photonChannelIcon = Resources.Load("PhotonChannelButton", typeof(Texture2D)) as Texture2D;
+//			photonIcon = Resources.Load("PhotonButton", typeof(Texture2D)) as Texture2D;
+//			photonCharacterIcon = Resources.Load("PhotonCharacterButton", typeof(Texture2D)) as Texture2D;
+//			photonDestructibleIcon = Resources.Load("PhotonDestructibleButton", typeof(Texture2D)) as Texture2D;
+//			photonHealthIcon = Resources.Load("PhotonHealthButton", typeof(Texture2D)) as Texture2D;
+//			photonInventoryIcon = Resources.Load("PhotonInventoryButton", typeof(Texture2D)) as Texture2D;
+//			photonItemIcon = Resources.Load("PhotonItemButton", typeof(Texture2D)) as Texture2D;
+//			photonPositionIcon = Resources.Load("PhotonPositionButton", typeof(Texture2D)) as Texture2D;
+//			photonRelayIcon = Resources.Load("PhotonRelayButton", typeof(Texture2D)) as Texture2D;
+//			photonRigidbodyIcon = Resources.Load("PhotonRigidbodyButton", typeof(Texture2D)) as Texture2D;
+//			photonSpawnerIcon = Resources.Load("PhotonSpawnButton", typeof(Texture2D)) as Texture2D;
+//			photonAvatarIcon = Resources.Load("PhotonAvatarButton", typeof(Texture2D)) as Texture2D;
+//			photonSceneIcon = Resources.Load("PhotonSceneButton", typeof(Texture2D)) as Texture2D;
+//			photonChannelIcon = Resources.Load("PhotonChannelButton", typeof(Texture2D)) as Texture2D;
+			unetIcon = Resources.Load("UNetButton", typeof(Texture2D)) as Texture2D;
+			unetPlayer = Resources.Load("UNetPlayer", typeof(Texture2D)) as Texture2D;
+			unetPosition = Resources.Load("UNetMotion", typeof(Texture2D)) as Texture2D;
+			unetSpawn = Resources.Load("UNetSpawn", typeof(Texture2D)) as Texture2D;
+			unetRelay = Resources.Load("UNetRelay", typeof(Texture2D)) as Texture2D;
+			unetTagRelay = Resources.Load("UNetTagRelay", typeof(Texture2D)) as Texture2D;
+			unetLocalizer = Resources.Load("UNetLocalizer", typeof(Texture2D)) as Texture2D;
+			unetChannel = Resources.Load("UNetChannel", typeof(Texture2D)) as Texture2D;
+			unetPlayerSpawn = Resources.Load("UNetPlayerSpawn", typeof(Texture2D)) as Texture2D;
+			unetHealth = Resources.Load("UNetHealth", typeof(Texture2D)) as Texture2D;
+			unetAnimator = Resources.Load("UNetAnimator", typeof(Texture2D)) as Texture2D;
+
 			
 			triggerMat = Resources.Load("MGTrigger", typeof(Material)) as Material;
 			collMat = Resources.Load("MGActiveCollider", typeof(Material)) as Material;
@@ -424,12 +450,12 @@ namespace MultiGame {
 			}
 			if (MGButton(addColliderIcon, "Generate\nColliders")) {
 				ResolveOrCreateTarget();
-				AddCollidersToAll();
+				SetupAllColliders();
 				SmartRenameTarget("Collidable");
 			}
 			if (MGButton(collLogicIcon, "Logic\nColliders")) {
 				ResolveOrCreateTarget();
-				AddColliders();
+				SetupColliders();
 				if (target.GetComponent<ActiveZone>() == null)
 					Undo.AddComponent<ActiveCollider>(target);
 				else {
@@ -446,7 +472,7 @@ namespace MultiGame {
 			}
 			if (MGButton(addRigidbodyIcon, "Physics")) {
 				ResolveOrCreateTarget();
-				AddPhysics();
+				SetupPhysics();
 				SmartRenameTarget("Rigidbody");
 			}
 			if (MGButton(moveIcon, "Basic\nMovement")) {
@@ -457,7 +483,7 @@ namespace MultiGame {
 			}
 			if (MGButton(moveRigidbodyIcon, "Physics\nThrust")) {
 				ResolveOrCreateTarget();
-				AddPhysics();
+				SetupPhysics();
 				Undo.AddComponent<Thruster>(target);
 				Undo.AddComponent<SpinMotor>(target);
 				SmartRenameTarget("Thruster");
@@ -491,7 +517,7 @@ namespace MultiGame {
 				ResolveOrCreateTarget();
 				if (target.GetComponent<Health>() != null)
 					return;
-				AddHealth();
+				SetupHealth();
 				SmartRenameTarget("Mortal");
 			}
 			if (MGButton(doorIcon, "Door\nController")) {
@@ -646,7 +672,7 @@ namespace MultiGame {
 			}
 			if (MGButton(clickableIcon, "Click\nLogic")) {
 				ResolveOrCreateTarget();
-				AddColliders();
+				SetupColliders();
 				SetupRigidbody();
 				Undo.AddComponent<Clickable>(target);
 				SmartRenameTarget("Clickable");
@@ -662,27 +688,27 @@ namespace MultiGame {
 				SmartRenameTarget("Destruction Message");
 			}
 			if (MGButton(activeZoneIcon, "Trigger\nLogic")) {
-				AddTriggerBox();
+				SetupTriggerBox();
 				SmartRenameTarget("Trigger");
 			}
 			if (MGButton(activeZoneSphereIcon, "Trigger\nLogic")) {
-				AddTriggerSphere();
+				SetupTriggerSphere();
 				SmartRenameTarget("Trigger");
 			}
 			if (MGButton(activeCollIcon, "Collision\nLogic")) {
-				AddActiveBox();
+				SetupActiveBox();
 				SmartRenameTarget("Collidable");
 			}
 			if (MGButton(activeCollSphereIcon, "Collision\nLogic")) {
-				AddActiveSphere();
+				SetupActiveSphere();
 				SmartRenameTarget("Collidable");
 			}
 			if (MGButton(camZoneIcon, "Camera\nZone")) {
-				AddCamBox();
+				SetupCamBox();
 				SmartRenameTarget("Cam Zone");
 			}
 			if (MGButton(camSphereIcon, "Camera\nZone")) {
-				AddCamSphere();
+				SetupCamSphere();
 				SmartRenameTarget("Cam Zone");
 			}
 			EditorGUILayout.EndVertical();
@@ -784,7 +810,7 @@ namespace MultiGame {
 				ResolveOrCreateTarget();
 				if (target.GetComponent<Health>() != null)
 					return;
-				AddHealth();
+				SetupHealth();
 				SmartRenameTarget("Mortal");
 			}
 			if (MGButton(meleeWeaponIcon, "Melee\nWeapon")) {
@@ -1147,7 +1173,7 @@ namespace MultiGame {
 			}
 			if (MGButton(collectibleIcon, "Collectible")) {
 				ResolveOrCreateTarget();
-				AddColliders();
+				SetupColliders();
 				if (target.GetComponent<Collectible>() != null)
 					return;
 				Collectible _collectible = Undo.AddComponent<Collectible>(target);
@@ -1192,8 +1218,122 @@ namespace MultiGame {
 //			GUI.color = Color.white;
 //			GUIHeader();
 
+			GUILayout.Box("Netowrking components are always added to the root object.","box",GUILayout.Width(112f));
 			
 			EditorGUILayout.BeginVertical("box", GUILayout.Width(112f));
+
+			if (MGButton(unetIcon, "UNet-ify")) {
+				ResolveOrCreateTarget();
+
+				if (target.transform.root.gameObject.GetComponent<NetworkIdentity>() == null)
+					Undo.AddComponent<NetworkIdentity>(target.transform.root.gameObject);
+				SmartRenameTarget("UNetObject");
+			}
+			if (MGButton(unetChannel, "UNet Manager")) {
+				ResolveOrCreateTarget();
+
+				if (target.transform.root.gameObject.GetComponent<NetworkManager>() == null)
+					Undo.AddComponent<NetworkManager>(target.transform.root.gameObject);
+				SmartRenameTarget("UNetManager");
+			}
+			if (MGButton(unetPosition, "UNet\nPosition Sync")) {
+				ResolveOrCreateTarget();
+
+				if (target.transform.root.gameObject.GetComponent<NetworkTransform>() == null)
+					Undo.AddComponent<NetworkTransform>(target.transform.root.gameObject);
+
+				SmartRenameTarget("UNet Transform");
+			}
+			if (MGButton(unetPlayer, "UNet Player")) {
+				ResolveOrCreateTarget();
+
+				if (target.transform.root.gameObject.GetComponent<UNetPlayerTagHelper>() == null)
+					Undo.AddComponent<UNetPlayerTagHelper>(target.transform.root.gameObject);
+//				if (target.transform.root.gameObject.GetComponent<UNetAuthority>() == null)
+//					Undo.AddComponent<UNetAuthority>(target.transform.root.gameObject);
+				if (target.transform.root.gameObject.GetComponent<NetworkIdentity>() == null)
+					Undo.AddComponent<NetworkIdentity>(target.transform.root.gameObject);
+				if (target.transform.root.gameObject.GetComponent<NetworkTransform>() == null)
+					Undo.AddComponent<NetworkTransform>(target.transform.root.gameObject);
+
+				NetworkIdentity _ident = target.transform.root.gameObject.GetComponent<NetworkIdentity>();
+				_ident.localPlayerAuthority = true;
+
+				SmartRenameTarget("UNetPlayer");
+			}
+			if (MGButton(unetLocalizer, "UNet Localizer")) {
+				ResolveOrCreateTarget();
+
+				if (target.transform.root.gameObject.GetComponent<UNetLocalizer>() == null)
+				Undo.AddComponent<UNetLocalizer>(target.transform.root.gameObject);
+
+				SmartRenameTarget("UNetLocalizedObj");
+			}
+			if (MGButton(unetHealth, "UNet Health")) {
+				ResolveOrCreateTarget();
+
+				UNetHealth _un = target.transform.root.gameObject.GetComponent<UNetHealth>();
+
+				if (_un == null)
+					_un = Undo.AddComponent<UNetHealth>(target.transform.root.gameObject);
+
+				Health _hp = target.transform.root.gameObject.GetComponent<Health>();
+				if (_hp != null) {
+
+					_un.maxHP = _hp.maxHP;
+					_un.hp = _hp.hp;
+					_un.showHealthBarGUI = _hp.showHealthBarGUI;
+					_un.autoHide = _hp.autoHide;
+					_un.barColor = _hp.barColor;
+					_un.autodestruct = _hp.autodestruct;
+					_un.hitMessage = _hp.hitMessage;
+					_un.healthGoneMessage = _hp.healthGoneMessage;
+
+					#if UNITY_EDITOR
+					DestroyImmediate(_hp, false);
+					#endif
+				}
+
+				SmartRenameTarget("UNetMortal");
+			}
+			if (MGButton(unetRelay, "UNet Relay")) {
+				ResolveOrCreateTarget();
+
+				Undo.AddComponent<UNetRelay>(target.transform.root.gameObject);
+
+				SmartRenameTarget("UNetRelay");
+			}
+			if (MGButton(unetPlayerSpawn, "UNet Player\nSpawn")) {
+				ResolveOrCreateTarget();
+
+				Undo.AddComponent<NetworkStartPosition>(target.transform.root.gameObject);
+
+				SmartRenameTarget("UNetPlayerSpawn");
+			}
+			if (MGButton(unetAnimator, "UNet Animator")) {
+				ResolveOrCreateTarget();
+
+				Undo.AddComponent<NetworkAnimator>(target.transform.root.gameObject);
+
+				SmartRenameTarget("UNetRelay");
+			}
+			//TODO
+			if (MGButton(unetSpawn, "UNet Spawn")) {
+				ResolveOrCreateTarget();
+
+				Undo.AddComponent<UNetSpawn>(target.transform.root.gameObject);
+
+				SmartRenameTarget("UNetSpawn");
+			}
+			if (MGButton(destructibleIcon, "UNet \nDestructible")) {
+				ResolveOrCreateTarget();
+
+				if (target.transform.root.gameObject.GetComponent<UNetDestructible>() == null)
+					Undo.AddComponent<UNetDestructible>(target.transform.root.gameObject);
+
+				SmartRenameTarget("UNet Destructible");
+			}
+
 
 //			if (MGButton(photonIcon, "Photonize")) {
 //				ResolveOrCreateTarget();
@@ -1330,13 +1470,19 @@ namespace MultiGame {
 //				Undo.AddComponent<PhotonChannelManager>(target);
 //		}
 
-		public void SetupHealth () {
+		public void SetupUNetHealth () {
 			Health _health = target.GetComponent<Health>();
 			if (_health == null)
 				_health = Undo.AddComponent<Health>(target);
 			_health.autodestruct = false;
 			_health.healthGoneMessage = new MessageManager.ManagedMessage(target, "Destruct");
 			_health.healthGoneMessage.msgOverride = true;
+
+			if (target.GetComponent<UNetDestructible>() == null) {
+
+			}
+
+			//old Photon code
 //			if (target.GetComponent<PhotonDestructible>() == null)
 //				Undo.AddComponent<PhotonDestructible>(target);
 //			PhotonMessageRelay _healthRelay = Undo.AddComponent<PhotonMessageRelay>(target);
@@ -1380,7 +1526,7 @@ namespace MultiGame {
 			_rigid.isKinematic = !_usePhysics;
 		}
 
-		public void AddTriggerBox () {
+		public void SetupTriggerBox () {
 			target = GameObject.CreatePrimitive(PrimitiveType.Cube);
 			if (Selection.activeGameObject != null)
 				target.transform.SetParent(Selection.activeGameObject.transform);
@@ -1399,7 +1545,7 @@ namespace MultiGame {
 			EditorWindow.GetWindow(typeof(AIPhysWindow));
 		}
 
-		public void AddTriggerSphere () {
+		public void SetupTriggerSphere () {
 			target = GameObject.CreatePrimitive(PrimitiveType.Sphere);
 			if (Selection.activeGameObject != null)
 				target.transform.SetParent(Selection.activeGameObject.transform);
@@ -1414,7 +1560,7 @@ namespace MultiGame {
 			Selection.activeGameObject = target;
 		}
 
-		public void AddActiveBox () {
+		public void SetupActiveBox () {
 			target = GameObject.CreatePrimitive(PrimitiveType.Cube);
 			if (Selection.activeGameObject != null)
 				target.transform.SetParent(Selection.activeGameObject.transform);
@@ -1429,7 +1575,7 @@ namespace MultiGame {
 			Selection.activeGameObject = target;
 		}
 		
-		public void AddActiveSphere () {
+		public void SetupActiveSphere () {
 			target = GameObject.CreatePrimitive(PrimitiveType.Sphere);
 			if (Selection.activeGameObject != null)
 				target.transform.SetParent(Selection.activeGameObject.transform);
@@ -1444,7 +1590,7 @@ namespace MultiGame {
 			Selection.activeGameObject = target;
 		}
 
-		public void AddCamBox () {
+		public void SetupCamBox () {
 			target = GameObject.CreatePrimitive(PrimitiveType.Cube);
 			if (Selection.activeGameObject != null)
 				target.transform.SetParent(Selection.activeGameObject.transform);
@@ -1466,7 +1612,7 @@ namespace MultiGame {
 			Selection.activeGameObject = target;
 		}
 		
-		public void AddCamSphere () {
+		public void SetupCamSphere () {
 			target = GameObject.CreatePrimitive(PrimitiveType.Sphere);
 			if (Selection.activeGameObject != null)
 				target.transform.SetParent(Selection.activeGameObject.transform);
@@ -1488,7 +1634,7 @@ namespace MultiGame {
 			Selection.activeGameObject = target;
 		}
 
-		public void AddHealth () {;
+		public void SetupHealth () {;
 			if (target == null && Selection.activeGameObject != null)
 				target = Selection.activeGameObject;
 			if (target == null)
@@ -1498,7 +1644,7 @@ namespace MultiGame {
 			Undo.AddComponent<Health>(target.gameObject);
 		}
 
-		public void AddColliders () {
+		public void SetupColliders () {
 			MeshFilter[] _meshFilters = target.GetComponentsInChildren<MeshFilter>();
 			if (target.GetComponentInChildren<Collider>() == null) {
 				if (_meshFilters.Length > 0) {
@@ -1510,14 +1656,14 @@ namespace MultiGame {
 			}
 		}
 
-		public void AddModernGun () {
+		public void SetupModernGun () {
 			if (target.GetComponent<ModernGun>() != null)
 				return;
 			Undo.AddComponent<ModernGun>(target);
 		}
 
 		//add colliders to the entire selection
-		public void AddCollidersToAll () {
+		public void SetupAllColliders () {
 			foreach (GameObject _gobj in Selection.gameObjects) {
 				MeshFilter[] _meshFilters = _gobj.GetComponentsInChildren<MeshFilter>();
 				if (_gobj.GetComponentInChildren<Collider>() == null) {
@@ -1544,8 +1690,8 @@ namespace MultiGame {
 			return AssetDatabase.GetAssetPath(_asset);
 		}
 
-		public void AddPhysics () {
-			AddColliders();
+		public void SetupPhysics () {
+			SetupColliders();
 			Undo.AddComponent<Rigidbody>( target.transform.root.gameObject);
 			Undo.AddComponent<PhysicsToggle>( target.transform.root.gameObject);
 		}

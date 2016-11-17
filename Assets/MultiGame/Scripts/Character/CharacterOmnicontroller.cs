@@ -111,6 +111,7 @@ namespace MultiGame {
 //		private float originalPitch;
 		private float attackTimer = 0f;
 		private Vector3 lastGroundVel;
+		private Vector3 previousPlatformPosition = Vector3.zero;
 		private Rigidbody rigid;
 		private RaycastHit hinfo;
 		private bool didHit = false;
@@ -118,6 +119,7 @@ namespace MultiGame {
 		private Animator anim;
 		private AudioSource source;
 		private bool footFall = false;
+		private GameObject platform;//if non-null, we're standing on something, and should move if it moves
 
 		public HelpInfo help = new HelpInfo("Character Omnicontroller is an all-purpose player input controller which allows for various third person perspectives as well as first person " +
 			"perspective controllers. Try using it with 'Auto Rotate' disabled and add a 'MouseAim' component for FPS style. If the character has an Animator component anywhere in it's heirarchy, this controller" +
@@ -133,6 +135,8 @@ namespace MultiGame {
 		void Start () {
 			rigid = GetComponent<Rigidbody>();
 			jumpTimer = extraJumpTime;
+			if (walkRayMask == LayerMask.GetMask("None"))
+				walkRayMask = LayerMask.GetMask("Default");
 
 			if (rigid != null) {
 				rigid.isKinematic = true;
@@ -159,10 +163,18 @@ namespace MultiGame {
 		void FixedUpdate () {
 			attackTimer -= Time.deltaTime;
 
+			if (!controller.isGrounded) {
+				platform = null;
+				transform.SetParent(null);
+			}
+			
+
+
 			if (useDefaultAttack && attackTimer < 0f) {
 				if (Input.GetButtonDown(attackButton) || Input.GetKeyDown(attackKey)) {
 					if (anim != null)
-						anim.SetTrigger(animatorAttack);
+					if (!string.IsNullOrEmpty(animatorAttack))
+							anim.SetTrigger(animatorAttack);
 					if (attackSound != null) {
 //						source.pitch = Random.Range (originalPitch - attackSoundVariance, originalPitch + attackSoundVariance);
 						source.PlayOneShot(attackSound);
@@ -172,8 +184,10 @@ namespace MultiGame {
 			}
 
 			if (anim != null) {
-				anim.SetFloat(animatorRun, Input.GetAxis("Vertical"));
-				anim.SetFloat(animatorStrafe, Input.GetAxis("Horizontal"));
+				if (!string.IsNullOrEmpty(animatorRun))
+					anim.SetFloat(animatorRun, Input.GetAxis("Vertical"));
+				if (!string.IsNullOrEmpty(animatorStrafe))
+					anim.SetFloat(animatorStrafe, Input.GetAxis("Horizontal"));
 
 				foreach (CustomAction action in customActions) {
 					if ((!string.IsNullOrEmpty( action.button) &&  Input.GetButtonDown(action.button) )|| Input.GetKeyDown(action.key)) {
@@ -189,6 +203,8 @@ namespace MultiGame {
 						}
 					}
 				}
+
+
 			}
 
 			if (Input.GetButtonUp("Jump"))
@@ -202,6 +218,7 @@ namespace MultiGame {
 			if (controller.isGrounded) {
 				jumpTimer = extraJumpTime;
 				jumping = false;
+
 			} else {
 				controller.Move(Time.deltaTime * transform.TransformVector(Input.GetAxis("Horizontal") * (airControlMultiplier * strafeSpeed), 0f, Input.GetAxis("Vertical") * (runSpeed * airControlMultiplier)));
 
@@ -219,7 +236,8 @@ namespace MultiGame {
 					if (jumpSound != null)
 						source.PlayOneShot(jumpSound);
 					if (anim != null)
-						anim.SetTrigger(animatorJump);
+					if (!string.IsNullOrEmpty(animatorJump))
+							anim.SetTrigger(animatorJump);
 				}
 				controller.Move(Time.deltaTime * new Vector3(0f, jumpPower, 0f));
 			}
@@ -277,14 +295,24 @@ namespace MultiGame {
 				if (landingSound != null)
 					source.PlayOneShot(landingSound);
 			}
-
 			if (controller.isGrounded)
 				lastGroundVel = transform.InverseTransformVector( controller.velocity);
 		}
 
-//		void OnControllerColliderHit ( Collider other) {
-//			
-//		}
+		void LateUpdate () {
+			//constrain the character to always stand up, in case our platform rotates in a weird way
+			transform.eulerAngles = new Vector3(0f, transform.eulerAngles.y, 0f);
+		}
+
+		void OnControllerColliderHit ( ControllerColliderHit _hit) {
+			if (controller.isGrounded == false)
+				return;
+			if (_hit.moveDirection.y < 0.9f && _hit.normal.y > 0.5f) {
+				platform = _hit.gameObject;
+				previousPlatformPosition = platform.transform.position;
+				transform.SetParent(platform.transform.root, true);
+			}
+		}
 			
 		public IEnumerator FootFall () {
 

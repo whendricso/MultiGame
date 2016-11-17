@@ -115,7 +115,7 @@ namespace MultiGame {
 					_methods = component.GetType().GetMethods(BindingFlags.Public|BindingFlags.Instance|BindingFlags.DeclaredOnly);
 					if (!(_methods.Length <1)) {
 					foreach(MethodInfo info in _methods ) {
-						if (!info.Name.StartsWith("get")) {
+							if (!info.Name.StartsWith("get") && !info.Name.StartsWith("Cmd") && !info.Name.StartsWith("CallCmd")) {
 							if (info.GetParameters().Length <= 1) {
 								if (info.GetParameters().Length > 0) {
 									if(CheckIsValidParam(info.GetParameters()[0]))
