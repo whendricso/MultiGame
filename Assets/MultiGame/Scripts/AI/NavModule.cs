@@ -6,7 +6,7 @@ namespace MultiGame {
 
 	[AddComponentMenu("MultiGame/AI/Nav Module")]
 	
-	[RequireComponent(typeof(NavMeshAgent))]
+	[RequireComponent(typeof(UnityEngine.AI.NavMeshAgent))]
 	public class NavModule : MultiModule {
 
 		[System.NonSerialized]
@@ -18,7 +18,7 @@ namespace MultiGame {
 		public GameObject navTarget;
 		private Vector3 targetPosition;
 		[HideInInspector]
-		public NavMeshAgent agent;
+		public UnityEngine.AI.NavMeshAgent agent;
 		[HideInInspector]//[Tooltip("If you are using an avoidance rig, drop a reference to it here")]
 		public GameObject avoidanceDetector;
 		private AvoidanceDetector detector;
@@ -49,7 +49,7 @@ namespace MultiGame {
 			if (avoidanceDetector != null)
 				detector = avoidanceDetector.GetComponent<AvoidanceDetector>();
 			recalcTimer = pathRecalculationInterval;
-			agent = GetComponent<NavMeshAgent>();
+			agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
 			targetPosition = transform.position;
 	//		if(!agent.isOnNavMesh)
 	//			Debug.LogWarning("Agent " + gameObject.name + " is not bound to any nav mesh! Traversal may fail.");

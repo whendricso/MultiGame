@@ -20,7 +20,13 @@ namespace MultiGame {
 		public bool autoInstantiate = true;
 		[Tooltip("Do we want to save automatically when we gather a list of objects from the scene? (recommended)")]
 		public bool autoSaveOnPopulate = true;
+		[Tooltip("When saving to URL, should we save the file locally as well?")]
+		public bool localBackup = false;
 		public bool debug = false;
+
+		private string user;
+
+		private NodeSessionManager nodeMan;
 
 		public HelpInfo help = new HelpInfo("Scene Object List Serializer allows the player to save the contents of a scene. It saves position, rotation, scale, and material list. " +
 			"The objects you are loading, and their materials, must be directly inside a folder called 'Resources' anywhere in your project, or Unity will not have access to the data. " +
@@ -172,48 +178,117 @@ namespace MultiGame {
 
 		public MessageHelp saveToUrlHelp = new MessageHelp("SaveToUrl","Saves the current object list to a web server. You will need some server-side code to handle this (Node.js recommended)",4,"The URL for the POST request.");
 		public void SaveToUrl (string url) {
-			StartCoroutine(SaveUrl(url));
+//			if (FindNodeManager()) {
+//				if (nodeMan.CheckSessionActive()) {
+					StartCoroutine(SaveUrl(url));
+//					return;
+//				}
+//			}
+//			Debug.LogError("Scene Object List Serializer requires a NodeSessionManager in the game, logged-in and ready to go!");
 		}
 
 		private IEnumerator SaveUrl (string url) {
-			BinaryFormatter formatter = new BinaryFormatter();
-			MemoryStream stream = new MemoryStream();
+			if (string.IsNullOrEmpty(user)) {
+				Debug.LogError("Scene Object List Serializer must have a user name assigned by calling 'SetUsername' first");
+				yield return new WaitForEndOfFrame();
+			} else {
 
-			formatter.Serialize(stream, objects);
+				if (localBackup) {
+					Save();
+				}
+				BinaryFormatter formatter = new BinaryFormatter();
+				MemoryStream stream = new MemoryStream();
+				FindNodeManager();
+				formatter.Serialize(stream, objects);
 
-			WWW www = new WWW(url, stream.ToArray());
+				if (debug)
+					Debug.Log("Scene Object List Serializer " + gameObject.name + " is saving " + stream.Length + " bytes");
 
-			yield return www;
+				WWWForm form = new WWWForm();
+//				form.AddField("username", user);
+//				form.AddField("map_name", Application.loadedLevelName + optionalUniqueSceneIdentifier);
+//				Dictionary<string, string> headers = new Dictionary<string, string>();
+//				headers.Add("map_name",Application.loadedLevelName + optionalUniqueSceneIdentifier);
+				form.AddField("my_cookie", nodeMan.sesh.session);
+				form.AddBinaryData("binary",stream.ToArray());
+				WWW www = new WWW(url+"?map_name="+(Application.loadedLevelName + optionalUniqueSceneIdentifier), form);
 
-			if (!string.IsNullOrEmpty( www.error))
-				Debug.LogError("Scene Object List Serializer " + gameObject.name + " failed to save the object list. " + www.error);
+				yield return www;
 
-			www.Dispose();
+				if (!string.IsNullOrEmpty( www.error))
+					Debug.LogError("Scene Object List Serializer " + gameObject.name + " failed to save the object list. " + www.error);
 
-			stream.Close();
+				www.Dispose();
+
+				stream.Close();
+			}
 		}
 
 		public MessageHelp loadFromUrlHelp = new MessageHelp("LoadFromUrl","Loads a new object list from a web server. You will need some server-side code to handle this (Node.js recommended)",4,"The URL for the GET request.");
 		public void LoadFromUrl (string url) {
-			StartCoroutine(LoadUrl(url));
+//			if (FindNodeManager()) {
+//				if (nodeMan.CheckSessionActive()) {
+					StartCoroutine(LoadUrl(url));
+//					return;
+//				}
+//			}
+//			Debug.LogError("Scene Object List Serializer requires a NodeSessionManager in the game, logged-in and ready to go!");
 		}
 
 		private IEnumerator LoadUrl (string url) {
-			BinaryFormatter formatter = new BinaryFormatter();
-			MemoryStream stream = new MemoryStream();
+			if (string.IsNullOrEmpty(user)) {
+				Debug.LogError("Scene Object List Serializer must have a user name assigned by calling 'SetUsername' first");
+				yield return new WaitForEndOfFrame();
+			} else {
+				BinaryFormatter formatter = new BinaryFormatter();
 
-			WWW www = new WWW(url);
-			yield return www;
-			if (!string.IsNullOrEmpty( www.error))
-				Debug.LogError("Scene Object List Serializer " + gameObject.name + " failed to load the object list. " + www.error);
-			else {
-				objects.Clear();
-				objects.AddRange((List<SceneObject>)formatter.Deserialize(stream));
+				Dictionary<string, string> dict = new Dictionary<string, string>();
+				FindNodeManager();
+				//				dict.Add("type","GET");
+				dict.Add("Content-Type","application/x-form-urlencoded");
+				dict.Add("map_name", /*Application.loadedLevelName + */optionalUniqueSceneIdentifier);
+				dict.Add("my_cookie",nodeMan.sesh.session);
+
+				WWW www = new WWW(url, null, dict);
+				yield return www;
+				MemoryStream stream = new MemoryStream(www.bytes);
+
+				if (debug) {
+					Debug.Log("Scene Object List Serializer " + gameObject.name + " got " + www.bytesDownloaded + " bytes from the server. ");
+				}
+
+				if (!string.IsNullOrEmpty( www.error))
+					Debug.LogError("Scene Object List Serializer " + gameObject.name + " failed to load the object list. " + www.error);
+				else {
+					//					stream.Write(www.bytes,0,www.bytesDownloaded);
+					objects.Clear();
+					objects.AddRange((List<SceneObject>)formatter.Deserialize(stream));
+				}
+
+				if (autoInstantiate)
+					InstantiateObjectList();
+
+				www.Dispose();
+
+				stream.Close();
 			}
+		}
 
-			www.Dispose();
+		public MessageHelp setUsernameHelp = new MessageHelp("SetUsername","Assigns a username, must be called before saving/loading to a URL",4,"The new user name for the web request");
+		public void SetUsername (string _userName) {
+			user = _userName;
+		}
 
-			stream.Close();
+		/// <summary>
+		/// Finds the node manager, and returns whether one was found
+		/// </summary>
+		/// <returns><c>true</c>, if node manager was found, <c>false</c> otherwise.</returns>
+		private bool FindNodeManager () {
+			nodeMan = FindObjectOfType<NodeSessionManager>();
+			if (nodeMan == null) {
+				return false;
+			} else 
+				return true;
 		}
 	}
 }

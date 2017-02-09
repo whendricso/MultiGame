@@ -100,7 +100,7 @@ namespace MultiGame {
 		}
 
 		public void UpdateMesh () {
-			control.Optimize();
+			;
 			filter.sharedMesh = control;
 			this.collider.sharedMesh = control;
 

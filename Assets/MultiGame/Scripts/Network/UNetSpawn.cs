@@ -21,6 +21,8 @@ namespace MultiGame {
 		[RequiredFieldAttribute("Tag of the object that has authority on this client. This must be a Game Object in the scene.")]
 		public string authoritativeObjectTag = "Player";
 
+		public bool debug = false;
+
 		/// <summary>
 		/// A local reference to the object which has been spawned.
 		/// </summary>
@@ -55,10 +57,16 @@ namespace MultiGame {
 				return;
 			}
 
-			if (authorityType == AuthorityTypes.Serverside || FindAuthority() == null)
+			if (authorityType == AuthorityTypes.Serverside || FindAuthority() == null) {
+				if (debug)
+					Debug.Log("U Net Spawn " + gameObject.name + " is spawning an object with serverside authority.");
 				NetworkServer.Spawn(spawned);
-			else
+			}
+			else {
+				if (debug)
+					Debug.Log("U Net Spawn " + gameObject.name + " is spawning an object with clientside authority.");
 				NetworkServer.SpawnWithClientAuthority(spawned, FindAuthority());
+			}
 		}
 
 		public void SpawnAll () {
@@ -90,6 +98,10 @@ namespace MultiGame {
 		private GameObject FindAuthority () {
 			if (authority == null)
 				authority = GameObject.FindGameObjectWithTag(authoritativeObjectTag);
+
+			if (debug)
+				Debug.Log("U Net Spawn " + gameObject.name + " authority is " + authority);
+
 			return authority;
 		}
 

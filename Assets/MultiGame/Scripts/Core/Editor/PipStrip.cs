@@ -12,7 +12,7 @@ namespace MultiGame {
 
 		[MenuItem ("Window/MultiGame/Object Creation Tool")]
 		public static void  ShowWindow () {
-			EditorWindow.GetWindow(typeof(MultiGameToolbar));
+			EditorWindow.GetWindow(typeof(PipStrip));
 		}
 
 		void OnGUI () {

@@ -68,15 +68,15 @@ namespace MultiGame {
 					currentSpace = GUILayout.Toolbar(currentSpace, space, GUILayout.ExpandHeight(true));
 				UpdateTransformerSettings ();
 				GUILayout.BeginVertical("","");
-				GUILayout.Label("Snap to: ");
-				GUILayout.BeginHorizontal();
-				if(GUILayout.Button("X"))
-					target.SendMessage("SnapToSpecificGrid",Vector3.right * gridSize);
-				if(GUILayout.Button("Y"))
-					target.SendMessage("SnapToSpecificGrid",Vector3.up * gridSize);
-				if(GUILayout.Button("Z"))
-					target.SendMessage("SnapToSpecificGrid",Vector3.forward * gridSize);
-				GUILayout.EndHorizontal();
+//				GUILayout.Label("Snap to: ");
+//				GUILayout.BeginHorizontal();
+//				if(GUILayout.Button("X"))
+//					target.SendMessage("SnapToSpecificGrid",Vector3.right * gridSize);
+//				if(GUILayout.Button("Y"))
+//					target.SendMessage("SnapToSpecificGrid",Vector3.up * gridSize);
+//				if(GUILayout.Button("Z"))
+//					target.SendMessage("SnapToSpecificGrid",Vector3.forward * gridSize);
+//				GUILayout.EndHorizontal();
 				GUILayout.BeginHorizontal();
 				GUILayout.Label("Grid Size:");
 				gridSize = System.Convert.ToSingle( GUILayout.TextField(gridSize.ToString()));

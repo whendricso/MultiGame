@@ -6,7 +6,7 @@ namespace MultiGame
 {
 
 
-	[RequireComponent (typeof(NavMeshAgent))]
+	[RequireComponent (typeof(UnityEngine.AI.NavMeshAgent))]
 	public class NavBot : MultiModule
 	{
 	
@@ -52,7 +52,7 @@ namespace MultiGame
 	
 	
 		[HideInInspector]
-		NavMeshAgent agent;
+		UnityEngine.AI.NavMeshAgent agent;
 		[HideInInspector]
 		public float originalSpeed;
 
@@ -64,7 +64,7 @@ namespace MultiGame
 		void Start ()
 		{
 			refireCouter = refireTime;
-			agent = GetComponent<NavMeshAgent> ();
+			agent = GetComponent<UnityEngine.AI.NavMeshAgent> ();
 			originalSpeed = agent.speed;
 			if (!selected && selectionIndicator != null) {
 				useIndicator = true;

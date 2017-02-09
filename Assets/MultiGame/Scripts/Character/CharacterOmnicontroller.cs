@@ -60,6 +60,9 @@ namespace MultiGame {
 		public AnimationCurve jumpRolloff;
 		private float jumpTimer;
 
+		[Tooltip("If true, will auto-parent to the object it stands on, for moving platform support.")]
+		public bool platformParent = true;
+
 		[Tooltip("Should we use a default attack for this character? You can disable this if you are using another system for melee attacks.")]
 		public bool useDefaultAttack = true;
 		[RequiredFieldAttribute("How long must we wait between attacks?")]
@@ -165,7 +168,8 @@ namespace MultiGame {
 
 			if (!controller.isGrounded) {
 				platform = null;
-				transform.SetParent(null);
+				if (platformParent)
+					transform.SetParent(null);
 			}
 			
 
@@ -310,7 +314,8 @@ namespace MultiGame {
 			if (_hit.moveDirection.y < 0.9f && _hit.normal.y > 0.5f) {
 				platform = _hit.gameObject;
 				previousPlatformPosition = platform.transform.position;
-				transform.SetParent(platform.transform.root, true);
+				if (platformParent)
+					transform.SetParent(platform.transform.root, true);
 			}
 		}
 			
