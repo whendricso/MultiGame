@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 using UnityEditorInternal;
 using System.Collections;
 using MultiGame;
@@ -7,6 +9,13 @@ using MultiGame;
 namespace MultiGame {
 
 	public class MGEditor : EditorWindow {
+
+
+		protected Transform sceneTransform;
+		public GameObject target;
+//		private GameObject template;
+
+
 
 		/// <summary>
 		/// Adds a child object cleanly and returns it, with undo registry.
@@ -79,6 +88,56 @@ namespace MultiGame {
 			_obj.transform.position = _position;
 			_obj.transform.rotation = _rotation;
 			return _obj;
+		}
+
+		/// <summary>
+		/// Creates an asset and returns it's path
+		/// </summary>
+		/// <returns>The asset path.</returns>
+		/// <param name="_asset">The new asset we are creating.</param>
+		/// <param name="_type">The System.Type of the asset.</param>
+		public string SmartCreateAsset (UnityEngine.Object _asset, string _fileExtension) {
+			if(!AssetDatabase.IsValidFolder("Assets/Generated"))
+				AssetDatabase.CreateFolder("Assets","Generated");
+			AssetDatabase.CreateAsset(_asset, "Assets/Generated/" + target.name + _fileExtension);
+			return AssetDatabase.GetAssetPath(_asset);
+		}
+
+		protected void ResolveOrCreateTarget () {
+			try {
+				sceneTransform = SceneView.lastActiveSceneView.camera.transform;
+			} catch {
+				Debug.LogWarning("Scene view inactive");
+				return;
+			}
+			if (Selection.activeGameObject == null) {
+//				if (template != null) {
+//					target = Instantiate<GameObject>(template);
+//					Undo.RegisterCreatedObjectUndo(target,"Create From Template");
+//					string[] parts = target.name.Split('(');
+//					target.name = parts[0];
+//					target.transform.position = sceneTransform.TransformPoint(Vector3.forward * 10f);
+//					target.transform.rotation = Quaternion.identity;
+//					Selection.activeGameObject = target;
+//				} else { //No template found, create something from nothing!
+					target = new GameObject("New MultiGame Object");
+					Undo.RegisterCreatedObjectUndo(target,"Create New Object");
+					target.transform.position = sceneTransform.TransformPoint(Vector3.forward * 10f);
+					target.transform.rotation = Quaternion.identity;
+					Selection.activeGameObject = target;
+//				}
+			} else { //Something is selected, use that instead of creating something
+				target = Selection.activeGameObject;
+			}
+		}
+
+		protected void SmartRenameTarget (string _newName) {
+			if (target.name == "New MultiGame Object")
+				target.name = _newName;
+		}
+
+		protected void RenameTarget(string _newName) {
+			target.name = _newName;
 		}
 	}
 

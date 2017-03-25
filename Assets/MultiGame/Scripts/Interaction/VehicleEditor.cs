@@ -10,27 +10,21 @@ namespace MultiGame {
 		[Tooltip("Used to delineate attachment node objects, which should have this tag. If you want the nodes to turn on/off automatically when building, add a MessageToggle component to them.")]
 		public string nodeTag;
 		public List<GameObject> modules = new List<GameObject>();
+		[Tooltip("The collision layers which the modules deploy ray collides with. These usually include the modules themselves as well as any ground plane or background geometry, for best results.")]
+		public LayerMask moduleMask;
 		public List<GameObject> attachables = new List<GameObject>();
+		[Tooltip("The collision mask for objects we can actually deploy attachables onto, this represents surfaces on the inside or outside of the vehicle where things can be attached.")]
+		public LayerMask attachableMask;
+
+		public float snapDistance = 16f;
 
 		public KeyCode cancelKey = KeyCode.Mouse1;
 		public KeyCode placementKey = KeyCode.Mouse0;
 
-		public KeyCode increaseHeight = KeyCode.Q;
-		public KeyCode decreaseHeight = KeyCode.E;
+//		public KeyCode increaseHeight = KeyCode.Q;
+//		public KeyCode decreaseHeight = KeyCode.E;
 
-		[Tooltip("Height difference between each Y level for the vehicle. So, if the height of a corridor prefab is 3 meters (including floor and ceiling) then this number should be 3.")]
-		public float yLevelHeight = 3f;
-		/// <summary>
-		/// The current Y level is multiplied by yLevelHeight to give us the actual Y Offset of the placement plane
-		/// </summary>
-		private int currentYLevel = 0;
-		/// <summary>
-		/// The placement plane is an invisible collider which we raycast onto to get the final object placement
-		/// </summary>
-		private GameObject placementPlane;
-		private Collider placementCollider;
-
-		[HideInInspector]
+		[Tooltip("The root object of the vehicle, if undefined, this will be the first section placed.")]
 		public GameObject vehicle;
 		/// <summary>
 		/// The selector indicates which module or attachable we currently have selected.
@@ -44,23 +38,27 @@ namespace MultiGame {
 		public enum Modalities {Modules, Attachables};
 		public Modalities modality = Modalities.Modules;
 
+		public bool debug = false;
+
 		/// <summary>
 		/// Placement active is true when we want to place an object on the vehicle.
 		/// </summary>
 		private bool placementActive = false;
 		private Vector2 scrollArea;
 
-		public class CustomCursor {
-			public Texture2D texture;
-			public Vector2 hotspot;
-			public CursorMode mode;
+		private RaycastHit hinfo;
 
-			CustomCursor(Texture2D _texture, Vector2 _hotspot, CursorMode _mode) {
-				texture = _texture;
-				hotspot = _hotspot;
-				mode = _mode;
-			}
-		}
+//		public class CustomCursor {
+//			public Texture2D texture;
+//			public Vector2 hotspot;
+//			public CursorMode mode;
+//
+//			CustomCursor(Texture2D _texture, Vector2 _hotspot, CursorMode _mode) {
+//				texture = _texture;
+//				hotspot = _hotspot;
+//				mode = _mode;
+//			}
+//		}
 
 		void OnGUI() {
 			if (!useGui)
@@ -102,15 +100,35 @@ namespace MultiGame {
 			if (!placementActive)
 				return;
 
-			if (placementPlane != null) {
-				RaycastHit hinfo;
-				bool didHit = placementCollider.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hinfo, 1000f);
-				if (didHit) {
-					placementPlane.transform.position = new Vector3(hinfo.point.x, (yLevelHeight * currentYLevel),hinfo.point.z);
-
+			if (Input.GetKeyDown(placementKey) && currentPlacement != null) {
+				List<GameObject> snapNodes = new List<GameObject>();
+				for (int i = 0; i < currentPlacement.transform.childCount; i++) {
+					if (currentPlacement.transform.GetChild(i).tag == nodeTag)
+						snapNodes.Add(currentPlacement.transform.GetChild(i).gameObject);
+				}
+				foreach( GameObject gobj in GameObject.FindGameObjectsWithTag(nodeTag)) {
+					for (int j = 0; j < snapNodes.Count; j++) {
+						if (Vector3.Distance( Camera.main.WorldToScreenPoint(gobj.transform.position) , Camera.main.WorldToScreenPoint(snapNodes[j].transform.position) ) < snapDistance) {
+							SnapTo(gobj, snapNodes[j]);
+						}
+					}
 				}
 			}
 
+			if (currentPlacement != null) {
+				if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hinfo, 1000f, moduleMask, QueryTriggerInteraction.Ignore)) {
+					currentPlacement.transform.position = hinfo.point;
+				}
+
+
+			}
+		}
+
+		private void SnapTo (GameObject baseNode, GameObject targetNode) {
+			if (debug)
+				Debug.Log("Vehicle Editor " + gameObject.name + " is snapping " + targetNode.transform.root.gameObject.name + " to " + baseNode.name);
+
+			targetNode.transform.root.position = (baseNode.transform.parent.position + baseNode.transform.localPosition) - targetNode.transform.localPosition;
 		}
 
 		public MessageHelp placeAgainHelp = new MessageHelp("PlaceAgain","Call this to repeat placement of the previous object without opening the GUI");
@@ -120,19 +138,24 @@ namespace MultiGame {
 
 		private void EnablePlacement () {
 			placementActive = true;
-			placementPlane = GameObject.CreatePrimitive(PrimitiveType.Cube);
-			placementPlane.transform.RotateAround(placementPlane.transform.position, Vector3.right, 90f);
-			placementPlane.transform.localScale = new Vector3(100f,.1f,100f);
-			placementPlane.GetComponent<MeshRenderer>().enabled = false;
-			placementCollider = placementPlane.GetComponent<Collider>();
 			foreach (GameObject gobj in GameObject.FindGameObjectsWithTag(nodeTag)) {
 				gobj.SendMessage("ToggleOn", SendMessageOptions.DontRequireReceiver);
+			}
+
+			if (modality == Modalities.Modules) {
+				currentPlacement = Instantiate(modules[selector], transform.position, transform.rotation);
+				if (vehicle == null) {
+					vehicle = currentPlacement;
+					placementActive = false;//stop placement if we're placing the root object
+				}
+				else
+					MessageManager.Send(new MessageManager.ManagedMessage(currentPlacement,"ToggleOn", MessageManager.ManagedMessage.SendMessageTypes.Broadcast,null,MessageManager.ManagedMessage.ParameterModeTypes.None));
+
+
 			}
 		}
 		private void DisablePlacement () {
 			placementActive = false;
-			if (placementPlane != null)
-				Destroy(placementPlane);
 			foreach (GameObject gobj in GameObject.FindGameObjectsWithTag(nodeTag)) {
 				gobj.SendMessage("ToggleOff", SendMessageOptions.DontRequireReceiver);
 			}

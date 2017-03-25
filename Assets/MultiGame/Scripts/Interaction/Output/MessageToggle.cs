@@ -13,7 +13,8 @@ namespace MultiGame {
 		public MonoBehaviour[] scriptTargets;
 		[Tooltip("Light we wish to toggle")]
 		public Light lightTarget;
-		[Tooltip("Should we toggle the opposite way?")]
+//		[Tooltip("Should we toggle the opposite way?")]
+		[HideInInspector]
 		public bool invert = false;
 
 		private bool previousVal;

@@ -2,7 +2,6 @@ using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
-using UnityEngine.Networking;
 //using System.IO;
 using System.Collections;
 using System.Collections.Generic;
@@ -18,14 +17,12 @@ namespace MultiGame {
 
 	public class MultiGameToolbar : MGEditor {
 
-		public enum Modes {Basic, Triggers, Logic, Combat, Player, AI, Utility, Networking};
+		public enum Modes {Basic, UI, Logic, Combat, Player, AI, Utility, Help};
 		public Modes mode = Modes.Basic;
 
 		public GameObject template;
 
-		public GameObject target;
 
-		private Transform sceneTransform;
 		private Vector2 scrollView = new Vector2(0f,0f);
 
 		private bool iconsLoaded = false;
@@ -110,17 +107,7 @@ namespace MultiGame {
 //		private static Texture2D photonAvatarIcon;
 //		private static Texture2D photonSceneIcon;
 //		private static Texture2D photonChannelIcon;
-		private static Texture2D unetIcon;
-		private static Texture2D unetPosition;
-		private static Texture2D unetSpawn;
-		private static Texture2D unetPlayer;
-		private static Texture2D unetRelay;
-		private static Texture2D unetTagRelay;
-		private static Texture2D unetLocalizer;
-		private static Texture2D unetChannel;
-		private static Texture2D unetHealth;
-		private static Texture2D unetPlayerSpawn;
-		private static Texture2D unetAnimator;
+
 
 		private Material triggerMat;
 		private Material collMat;
@@ -214,17 +201,7 @@ namespace MultiGame {
 //			photonAvatarIcon = Resources.Load("PhotonAvatarButton", typeof(Texture2D)) as Texture2D;
 //			photonSceneIcon = Resources.Load("PhotonSceneButton", typeof(Texture2D)) as Texture2D;
 //			photonChannelIcon = Resources.Load("PhotonChannelButton", typeof(Texture2D)) as Texture2D;
-			unetIcon = Resources.Load("UNetButton", typeof(Texture2D)) as Texture2D;
-			unetPlayer = Resources.Load("UNetPlayer", typeof(Texture2D)) as Texture2D;
-			unetPosition = Resources.Load("UNetMotion", typeof(Texture2D)) as Texture2D;
-			unetSpawn = Resources.Load("UNetSpawn", typeof(Texture2D)) as Texture2D;
-			unetRelay = Resources.Load("UNetRelay", typeof(Texture2D)) as Texture2D;
-			unetTagRelay = Resources.Load("UNetTagRelay", typeof(Texture2D)) as Texture2D;
-			unetLocalizer = Resources.Load("UNetLocalizer", typeof(Texture2D)) as Texture2D;
-			unetChannel = Resources.Load("UNetChannel", typeof(Texture2D)) as Texture2D;
-			unetPlayerSpawn = Resources.Load("UNetPlayerSpawn", typeof(Texture2D)) as Texture2D;
-			unetHealth = Resources.Load("UNetHealth", typeof(Texture2D)) as Texture2D;
-			unetAnimator = Resources.Load("UNetAnimator", typeof(Texture2D)) as Texture2D;
+
 
 			
 			triggerMat = Resources.Load("MGTrigger", typeof(Material)) as Material;
@@ -255,8 +232,8 @@ namespace MultiGame {
 				if (GUILayout.Button("B", GUILayout.Width (20f), GUILayout.Height(16f)))
 					mode = Modes.Basic;
 				GUI.color = new Color(1f, .75f, 0f);
-				if (GUILayout.Button("T", GUILayout.Width (20f), GUILayout.Height(16f)))
-					mode = Modes.Triggers;
+				if (GUILayout.Button("U", GUILayout.Width (20f), GUILayout.Height(16f)))
+					mode = Modes.UI;
 				GUI.color = Color.blue;
 				if (GUILayout.Button("L", GUILayout.Width (20f), GUILayout.Height(16f)))
 					mode = Modes.Logic;
@@ -279,8 +256,8 @@ namespace MultiGame {
 				if (GUILayout.Button("U", GUILayout.Width (20f), GUILayout.Height(16f)))
 					mode = Modes.Utility;
 				GUI.color = new Color(.3f, .8f, 1f);
-				if (GUILayout.Button("N", GUILayout.Width (20f), GUILayout.Height(16f)))
-					mode = Modes.Networking;
+				if (GUILayout.Button("H", GUILayout.Width (20f), GUILayout.Height(16f)))
+					mode = Modes.Help;
 			
 				GUI.color = Color.white;
 				EditorGUILayout.EndHorizontal ();
@@ -293,8 +270,8 @@ namespace MultiGame {
 				case Modes.Basic:
 					BasicObjectGUI();
 					break;
-				case Modes.Triggers:
-					TriggerObjectGUI();
+				case Modes.UI:
+					UIObjectGUI();
 					break;
 				case Modes.Logic:
 					LogicObjectGUI();
@@ -311,14 +288,14 @@ namespace MultiGame {
 				case Modes.Utility:
 					UtilityObjectGUI();
 					break;
-				case Modes.Networking:
-					NetworkingObjectGUI();
+				case Modes.Help:
+					HelpGUI();
 					break;
 				}
 				GUI.color = Color.gray;
 				EditorGUILayout.LabelField("MultiGame");
 				EditorGUILayout.LabelField("Copyright " );
-				EditorGUILayout.LabelField("2012 - 2016 " );
+				EditorGUILayout.LabelField("2012 - 2017 " );
 				EditorGUILayout.LabelField("William " );
 				EditorGUILayout.LabelField("Hendrickson ");
 				EditorGUILayout.LabelField("all rights ");
@@ -357,10 +334,10 @@ namespace MultiGame {
 				EditorGUILayout.LabelField("Basic");
 				EditorGUILayout.EndHorizontal();
 				break;
-			case Modes.Triggers:
+			case Modes.UI:
 				GUI.color = new Color(1f, .75f, 0f);
 				EditorGUILayout.BeginHorizontal("box"/*, GUILayout.Width(112f)*/);
-				EditorGUILayout.LabelField("Triggers");
+				EditorGUILayout.LabelField("UI");
 				EditorGUILayout.EndHorizontal();
 				break;
 			case Modes.Logic:
@@ -395,10 +372,10 @@ namespace MultiGame {
 				EditorGUILayout.LabelField("Utility");
 				EditorGUILayout.EndHorizontal();
 				break;
-			case Modes.Networking:
+			case Modes.Help:
 				GUI.color = new Color(.3f, .8f, 1f);
 				EditorGUILayout.BeginHorizontal("box"/*, GUILayout.Width(112f)*/);
-				EditorGUILayout.LabelField("Network");
+				EditorGUILayout.LabelField("Help");
 				EditorGUILayout.EndHorizontal();
 				break;
 			}
@@ -609,43 +586,9 @@ namespace MultiGame {
 			EditorGUILayout.EndHorizontal();
 		}
 
-		void ResolveOrCreateTarget () {
-			try {
-				sceneTransform = SceneView.lastActiveSceneView.camera.transform;
-			} catch {
-				return;
-			}
-			if (Selection.activeGameObject == null) {
-				if (template != null) {
-					target = Instantiate<GameObject>(template);
-					Undo.RegisterCreatedObjectUndo(target,"Create From Template");
-					string[] parts = target.name.Split('(');
-					target.name = parts[0];
-					target.transform.position = sceneTransform.TransformPoint(Vector3.forward * 10f);
-					target.transform.rotation = Quaternion.identity;
-					Selection.activeGameObject = target;
-				} else { //No template found, create something from nothing!
-					target = new GameObject("New MultiGame Object");
-					Undo.RegisterCreatedObjectUndo(target,"Create New Object");
-					target.transform.position = sceneTransform.TransformPoint(Vector3.forward * 10f);
-					target.transform.rotation = Quaternion.identity;
-					Selection.activeGameObject = target;
-				}
-			} else { //Something is selected, use that instead of creating something
-				target = Selection.activeGameObject;
-			}
-		}
 
-		void SmartRenameTarget (string _newName) {
-			if (target.name == "New MultiGame Object")
-				target.name = _newName;
-		}
 
-		void RenameTarget(string _newName) {
-			target.name = _newName;
-		}
-
-		void TriggerObjectGUI () {
+		void UIObjectGUI () {
 			try {
 				sceneTransform = SceneView.lastActiveSceneView.camera.transform;
 			} catch {
@@ -660,6 +603,71 @@ namespace MultiGame {
 
 
 			EditorGUILayout.BeginVertical("box"/*, GUILayout.Width(112f)*/);
+			if (MGButton(multiMenuIcon, "Legacy IMGUI\nMenu")) {
+				ResolveOrCreateTarget();
+				GameObject _child = AddDirectChild(target);
+				_child.name = "MultiMenu";
+				Undo.RegisterCreatedObjectUndo(target,"Create MultiMenu");
+				Undo.AddComponent<MultiMenu>(_child);
+				SmartRenameTarget("Legacy Menu");
+			}
+			if (MGButton(UGUIIcon, "UGUI\nCanvas")) {
+				ResolveOrCreateTarget();
+				GameObject _child = Instantiate<GameObject>(Resources.Load("Canvas", typeof(GameObject)) as GameObject);
+				Undo.RegisterCreatedObjectUndo(target,"Create UGUI");
+				_child.name = "UGUI Menu";
+				_child.transform.SetParent(target.transform);
+				_child.transform.localPosition = Vector3.zero;
+				_child.transform.localRotation = Quaternion.identity;
+				_child.transform.localScale = Vector3.one;
+				UnityEngine.EventSystems.EventSystem _eventSystem = GameObject.FindObjectOfType<UnityEngine.EventSystems.EventSystem>();
+				GameObject _sys;
+				if (_eventSystem == null) {
+					_sys = new GameObject("Event System");
+					_eventSystem = _sys.AddComponent<UnityEngine.EventSystems.EventSystem>();
+					_sys.AddComponent<UnityEngine.EventSystems.StandaloneInputModule>();
+				}
+				SmartRenameTarget("UGUI");
+			}
+			if(MGButton(UGUIIcon, "UGUI\nPanel")) {
+				GameObject _child = Instantiate<GameObject>(Resources.Load("Panel", typeof(GameObject)) as GameObject);
+				Undo.RegisterCreatedObjectUndo(target,"Create Panel");
+				_child.name = "UGUI Panel";
+				if (target.GetComponent<Canvas>() != null)
+					_child.transform.SetParent(target.transform);
+				else {
+					_child.transform.SetParent(target.transform.root.GetComponentInChildren<Canvas>().transform);
+				}
+				_child.transform.localPosition = Vector3.zero;
+				_child.transform.localRotation = Quaternion.identity;
+//				_child.transform.localScale = Vector3.one;
+				RectTransform _tran = _child.GetComponent<RectTransform>();
+				_tran.anchorMin = Vector2.zero;
+				_tran.anchorMax = Vector2.one;
+				_tran.pivot = new Vector2(.5f,.5f);
+			}
+
+			EditorGUILayout.EndVertical();
+		}
+
+		void LogicObjectGUI () {
+			try {
+				sceneTransform = SceneView.lastActiveSceneView.camera.transform;
+			} catch {
+				return;
+			}
+//			GUI.color = Color.blue;
+//			EditorGUILayout.BeginHorizontal("box"/*, GUILayout.Width(112f)*/);
+//			GUI.color = Color.white;
+//			EditorGUILayout.LabelField("Logic");
+//			GUI.color = Color.blue;
+//			EditorGUILayout.EndHorizontal();
+//			GUI.color = Color.white;
+//			GUIHeader();
+
+			
+			EditorGUILayout.BeginVertical("box"/*, GUILayout.Width(112f)*/);
+
 			if (MGButton(startMessageIcon, "Automatic\nLogic")) {
 				ResolveOrCreateTarget();
 				Undo.AddComponent<StartMessage>(target);
@@ -687,52 +695,6 @@ namespace MultiGame {
 				Undo.AddComponent<OnDestruct>(target);
 				SmartRenameTarget("Destruction Message");
 			}
-			if (MGButton(activeZoneIcon, "Trigger\nLogic")) {
-				SetupTriggerBox();
-				SmartRenameTarget("Trigger");
-			}
-			if (MGButton(activeZoneSphereIcon, "Trigger\nLogic")) {
-				SetupTriggerSphere();
-				SmartRenameTarget("Trigger");
-			}
-			if (MGButton(activeCollIcon, "Collision\nLogic")) {
-				SetupActiveBox();
-				SmartRenameTarget("Collidable");
-			}
-			if (MGButton(activeCollSphereIcon, "Collision\nLogic")) {
-				SetupActiveSphere();
-				SmartRenameTarget("Collidable");
-			}
-			if (MGButton(camZoneIcon, "Camera\nZone")) {
-				SetupCamBox();
-				SmartRenameTarget("Cam Zone");
-			}
-			if (MGButton(camSphereIcon, "Camera\nZone")) {
-				SetupCamSphere();
-				SmartRenameTarget("Cam Zone");
-			}
-			EditorGUILayout.EndVertical();
-		}
-
-		void LogicObjectGUI () {
-			try {
-				sceneTransform = SceneView.lastActiveSceneView.camera.transform;
-			} catch {
-				return;
-			}
-//			GUI.color = Color.blue;
-//			EditorGUILayout.BeginHorizontal("box"/*, GUILayout.Width(112f)*/);
-//			GUI.color = Color.white;
-//			EditorGUILayout.LabelField("Logic");
-//			GUI.color = Color.blue;
-//			EditorGUILayout.EndHorizontal();
-//			GUI.color = Color.white;
-//			GUIHeader();
-
-			
-			EditorGUILayout.BeginVertical("box"/*, GUILayout.Width(112f)*/);
-
-
 			if (MGButton(relayIcon, "Message\nRelay")) {
 				ResolveOrCreateTarget();
 				GameObject _child = AddDirectChild (target);
@@ -754,39 +716,29 @@ namespace MultiGame {
 				Undo.AddComponent<MessageToggle>(target);
 				SmartRenameTarget("Message Toggle");
 			}
-			if (MGButton(UGUIIcon, "UGUI\nCanvas")) {
-				ResolveOrCreateTarget();
-				GameObject _child = Instantiate<GameObject>(Resources.Load("Canvas", typeof(GameObject)) as GameObject);
-				Undo.RegisterCreatedObjectUndo(target,"Create UGUI");
-				_child.name = "UGUI Menu";
-				_child.transform.SetParent(target.transform);
-				_child.transform.localPosition = Vector3.zero;
-				_child.transform.localRotation = Quaternion.identity;
-				_child.transform.localScale = Vector3.one;
-				UnityEngine.EventSystems.EventSystem _eventSystem = GameObject.FindObjectOfType<UnityEngine.EventSystems.EventSystem>();
-				GameObject _sys;
-				if (_eventSystem == null) {
-					_sys = new GameObject("Event System");
-					_eventSystem = _sys.AddComponent<UnityEngine.EventSystems.EventSystem>();
-					_sys.AddComponent<UnityEngine.EventSystems.StandaloneInputModule>();
-				}
-				SmartRenameTarget("UGUI");
-			}
-			if (MGButton(multiMenuIcon, "Legacy IMGUI\nMenu")) {
-				ResolveOrCreateTarget();
-				GameObject _child = AddDirectChild(target);
-				_child.name = "MultiMenu";
-				Undo.RegisterCreatedObjectUndo(target,"Create MultiMenu");
-				Undo.AddComponent<MultiMenu>(_child);
-				SmartRenameTarget("Legacy Menu");
-			}
+
 			if (MGButton(randomIcon, "Randomized\nLogic")) {
 				ResolveOrCreateTarget();
 				Undo.AddComponent<RandomizedMessage>(target);
 //				Undo.AddComponent<RandomizeFloat>(target);
 				SmartRenameTarget("Randomizer");
 			}
-
+			if (MGButton(activeZoneIcon, "Trigger\nLogic")) {
+				SetupTriggerBox();
+				SmartRenameTarget("Trigger");
+			}
+			if (MGButton(activeZoneSphereIcon, "Trigger\nLogic")) {
+				SetupTriggerSphere();
+				SmartRenameTarget("Trigger");
+			}
+			if (MGButton(activeCollIcon, "Collision\nLogic")) {
+				SetupActiveBox();
+				SmartRenameTarget("Collidable");
+			}
+			if (MGButton(activeCollSphereIcon, "Collision\nLogic")) {
+				SetupActiveSphere();
+				SmartRenameTarget("Collidable");
+			}
 			EditorGUILayout.EndVertical();
 		}
 
@@ -1202,10 +1154,18 @@ namespace MultiGame {
 				Undo.AddComponent<AudioListener>(_child);
 				SmartRenameTarget("Backup Camera");
 			}
+			if (MGButton(camZoneIcon, "Camera\nZone")) {
+				SetupCamBox();
+				SmartRenameTarget("Cam Zone");
+			}
+			if (MGButton(camSphereIcon, "Camera\nZone")) {
+				SetupCamSphere();
+				SmartRenameTarget("Cam Zone");
+			}
 			EditorGUILayout.EndVertical();
 		}
 
-		void NetworkingObjectGUI () {
+		void HelpGUI () {
 			try {
 				sceneTransform = SceneView.lastActiveSceneView.camera.transform;
 			} catch {
@@ -1218,121 +1178,121 @@ namespace MultiGame {
 //			GUI.color = Color.white;
 //			GUIHeader();
 
-			GUILayout.Box("Netowrking components are always added to the root object.","box",GUILayout.Width(112f));
+//			GUILayout.Box("UNet components are always added to the root object.","box",GUILayout.Width(112f));
 			
 			EditorGUILayout.BeginVertical("box", GUILayout.Width(112f));
 
-			if (MGButton(unetIcon, "UNet-ify")) {
-				ResolveOrCreateTarget();
-
-				if (target.transform.root.gameObject.GetComponent<NetworkIdentity>() == null)
-					Undo.AddComponent<NetworkIdentity>(target.transform.root.gameObject);
-				SmartRenameTarget("UNetObject");
-			}
-			if (MGButton(unetChannel, "UNet Manager")) {
-				ResolveOrCreateTarget();
-
-				if (target.transform.root.gameObject.GetComponent<NetworkManager>() == null)
-					Undo.AddComponent<NetworkManager>(target.transform.root.gameObject);
-				SmartRenameTarget("UNetManager");
-			}
-			if (MGButton(unetPosition, "UNet\nPosition Sync")) {
-				ResolveOrCreateTarget();
-
-				if (target.transform.root.gameObject.GetComponent<NetworkTransform>() == null)
-					Undo.AddComponent<NetworkTransform>(target.transform.root.gameObject);
-
-				SmartRenameTarget("UNet Transform");
-			}
-			if (MGButton(unetPlayer, "UNet Player")) {
-				ResolveOrCreateTarget();
-
-				if (target.transform.root.gameObject.GetComponent<UNetPlayerTagHelper>() == null)
-					Undo.AddComponent<UNetPlayerTagHelper>(target.transform.root.gameObject);
-//				if (target.transform.root.gameObject.GetComponent<UNetAuthority>() == null)
-//					Undo.AddComponent<UNetAuthority>(target.transform.root.gameObject);
-				if (target.transform.root.gameObject.GetComponent<NetworkIdentity>() == null)
-					Undo.AddComponent<NetworkIdentity>(target.transform.root.gameObject);
-				if (target.transform.root.gameObject.GetComponent<NetworkTransform>() == null)
-					Undo.AddComponent<NetworkTransform>(target.transform.root.gameObject);
-
-				NetworkIdentity _ident = target.transform.root.gameObject.GetComponent<NetworkIdentity>();
-				_ident.localPlayerAuthority = true;
-
-				SmartRenameTarget("UNetPlayer");
-			}
-			if (MGButton(unetLocalizer, "UNet Localizer")) {
-				ResolveOrCreateTarget();
-
-				if (target.transform.root.gameObject.GetComponent<UNetLocalizer>() == null)
-				Undo.AddComponent<UNetLocalizer>(target.transform.root.gameObject);
-
-				SmartRenameTarget("UNetLocalizedObj");
-			}
-			if (MGButton(unetHealth, "UNet Health")) {
-				ResolveOrCreateTarget();
-
-				UNetHealth _un = target.transform.root.gameObject.GetComponent<UNetHealth>();
-
-				if (_un == null)
-					_un = Undo.AddComponent<UNetHealth>(target.transform.root.gameObject);
-
-				Health _hp = target.transform.root.gameObject.GetComponent<Health>();
-				if (_hp != null) {
-
-					_un.maxHP = _hp.maxHP;
-					_un.hp = _hp.hp;
-					_un.showHealthBarGUI = _hp.showHealthBarGUI;
-					_un.autoHide = _hp.autoHide;
-					_un.barColor = _hp.barColor;
-					_un.autodestruct = _hp.autodestruct;
-					_un.hitMessage = _hp.hitMessage;
-					_un.healthGoneMessage = _hp.healthGoneMessage;
-
-					#if UNITY_EDITOR
-					DestroyImmediate(_hp, false);
-					#endif
-				}
-
-				SmartRenameTarget("UNetMortal");
-			}
-			if (MGButton(unetRelay, "UNet Relay")) {
-				ResolveOrCreateTarget();
-
-				Undo.AddComponent<UNetRelay>(target.transform.root.gameObject);
-
-				SmartRenameTarget("UNetRelay");
-			}
-			if (MGButton(unetPlayerSpawn, "UNet Player\nSpawn")) {
-				ResolveOrCreateTarget();
-
-				Undo.AddComponent<NetworkStartPosition>(target.transform.root.gameObject);
-
-				SmartRenameTarget("UNetPlayerSpawn");
-			}
-			if (MGButton(unetAnimator, "UNet Animator")) {
-				ResolveOrCreateTarget();
-
-				Undo.AddComponent<NetworkAnimator>(target.transform.root.gameObject);
-
-				SmartRenameTarget("UNetRelay");
-			}
-			//TODO
-			if (MGButton(unetSpawn, "UNet Spawn")) {
-				ResolveOrCreateTarget();
-
-				Undo.AddComponent<UNetSpawn>(target.transform.root.gameObject);
-
-				SmartRenameTarget("UNetSpawn");
-			}
-			if (MGButton(destructibleIcon, "UNet \nDestructible")) {
-				ResolveOrCreateTarget();
-
-				if (target.transform.root.gameObject.GetComponent<UNetDestructible>() == null)
-					Undo.AddComponent<UNetDestructible>(target.transform.root.gameObject);
-
-				SmartRenameTarget("UNet Destructible");
-			}
+//			if (MGButton(unetIcon, "UNet-ify")) {
+//				ResolveOrCreateTarget();
+//
+//				if (target.transform.root.gameObject.GetComponent<NetworkIdentity>() == null)
+//					Undo.AddComponent<NetworkIdentity>(target.transform.root.gameObject);
+//				SmartRenameTarget("UNetObject");
+//			}
+//			if (MGButton(unetChannel, "UNet Manager")) {
+//				ResolveOrCreateTarget();
+//
+//				if (target.transform.root.gameObject.GetComponent<NetworkManager>() == null)
+//					Undo.AddComponent<NetworkManager>(target.transform.root.gameObject);
+//				SmartRenameTarget("UNetManager");
+//			}
+//			if (MGButton(unetPosition, "UNet\nPosition Sync")) {
+//				ResolveOrCreateTarget();
+//
+//				if (target.transform.root.gameObject.GetComponent<NetworkTransform>() == null)
+//					Undo.AddComponent<NetworkTransform>(target.transform.root.gameObject);
+//
+//				SmartRenameTarget("UNet Transform");
+//			}
+//			if (MGButton(unetPlayer, "UNet Player")) {
+//				ResolveOrCreateTarget();
+//
+//				if (target.transform.root.gameObject.GetComponent<UNetPlayerTagHelper>() == null)
+//					Undo.AddComponent<UNetPlayerTagHelper>(target.transform.root.gameObject);
+////				if (target.transform.root.gameObject.GetComponent<UNetAuthority>() == null)
+////					Undo.AddComponent<UNetAuthority>(target.transform.root.gameObject);
+//				if (target.transform.root.gameObject.GetComponent<NetworkIdentity>() == null)
+//					Undo.AddComponent<NetworkIdentity>(target.transform.root.gameObject);
+//				if (target.transform.root.gameObject.GetComponent<NetworkTransform>() == null)
+//					Undo.AddComponent<NetworkTransform>(target.transform.root.gameObject);
+//
+//				NetworkIdentity _ident = target.transform.root.gameObject.GetComponent<NetworkIdentity>();
+//				_ident.localPlayerAuthority = true;
+//
+//				SmartRenameTarget("UNetPlayer");
+//			}
+//			if (MGButton(unetLocalizer, "UNet Localizer")) {
+//				ResolveOrCreateTarget();
+//
+//				if (target.transform.root.gameObject.GetComponent<UNetLocalizer>() == null)
+//				Undo.AddComponent<UNetLocalizer>(target.transform.root.gameObject);
+//
+//				SmartRenameTarget("UNetLocalizedObj");
+//			}
+//			if (MGButton(unetHealth, "UNet Health")) {
+//				ResolveOrCreateTarget();
+//
+//				UNetHealth _un = target.transform.root.gameObject.GetComponent<UNetHealth>();
+//
+//				if (_un == null)
+//					_un = Undo.AddComponent<UNetHealth>(target.transform.root.gameObject);
+//
+//				Health _hp = target.transform.root.gameObject.GetComponent<Health>();
+//				if (_hp != null) {
+//
+//					_un.maxHP = _hp.maxHP;
+//					_un.hp = _hp.hp;
+//					_un.showHealthBarGUI = _hp.showHealthBarGUI;
+//					_un.autoHide = _hp.autoHide;
+//					_un.barColor = _hp.barColor;
+//					_un.autodestruct = _hp.autodestruct;
+//					_un.hitMessage = _hp.hitMessage;
+//					_un.healthGoneMessage = _hp.healthGoneMessage;
+//
+//					#if UNITY_EDITOR
+//					DestroyImmediate(_hp, false);
+//					#endif
+//				}
+//
+//				SmartRenameTarget("UNetMortal");
+//			}
+//			if (MGButton(unetRelay, "UNet Relay")) {
+//				ResolveOrCreateTarget();
+//
+//				Undo.AddComponent<UNetRelay>(target.transform.root.gameObject);
+//
+//				SmartRenameTarget("UNetRelay");
+//			}
+//			if (MGButton(unetPlayerSpawn, "UNet Player\nSpawn")) {
+//				ResolveOrCreateTarget();
+//
+//				Undo.AddComponent<NetworkStartPosition>(target.transform.root.gameObject);
+//
+//				SmartRenameTarget("UNetPlayerSpawn");
+//			}
+//			if (MGButton(unetAnimator, "UNet Animator")) {
+//				ResolveOrCreateTarget();
+//
+//				Undo.AddComponent<NetworkAnimator>(target.transform.root.gameObject);
+//
+//				SmartRenameTarget("UNetRelay");
+//			}
+//			//TODO
+//			if (MGButton(unetSpawn, "UNet Spawn")) {
+//				ResolveOrCreateTarget();
+//
+//				Undo.AddComponent<UNetSpawn>(target.transform.root.gameObject);
+//
+//				SmartRenameTarget("UNetSpawn");
+//			}
+//			if (MGButton(destructibleIcon, "UNet \nDestructible")) {
+//				ResolveOrCreateTarget();
+//
+//				if (target.transform.root.gameObject.GetComponent<UNetDestructible>() == null)
+//					Undo.AddComponent<UNetDestructible>(target.transform.root.gameObject);
+//
+//				SmartRenameTarget("UNet Destructible");
+//			}
 
 
 //			if (MGButton(photonIcon, "Photonize")) {
@@ -1482,37 +1442,8 @@ namespace MultiGame {
 
 			}
 
-			//old Photon code
-//			if (target.GetComponent<PhotonDestructible>() == null)
-//				Undo.AddComponent<PhotonDestructible>(target);
-//			PhotonMessageRelay _healthRelay = Undo.AddComponent<PhotonMessageRelay>(target);
-//			_healthRelay.localMessage = new MessageManager.ManagedMessage(target, "ModifyHealth");
-//			_healthRelay.localMessage.msgOverride = true;
-//			_healthRelay.localMessage.parameter = "-10";
-//			_healthRelay.localMessage.parameterMode = MessageManager.ManagedMessage.ParameterModeTypes.FloatingPoint;
 		}
 
-//		public void SetupLocalizer () {
-//			PhotonLocalizer _localizer = target.GetComponent<PhotonLocalizer>();
-//			if (_localizer == null)
-//				_localizer = Undo.AddComponent<PhotonLocalizer>(target);
-//			List <MonoBehaviour> _localComponents = new List<MonoBehaviour>();
-//			//add **ALL** single-player modules to the localization list
-//			_localComponents.AddRange(target.GetComponentsInChildren<MultiModule>());				
-//			_localizer.localComponents = new MonoBehaviour[_localComponents.Count];
-//			for (int i = 0; i < _localizer.localComponents.Length; i++) {
-//				_localizer.localComponents[i] = _localComponents[i];
-//			}
-//
-//			List<GameObject> _cams = new List<GameObject>();
-//			foreach(Camera _cam in target.GetComponentsInChildren<Camera>() )
-//				_cams.Add(_cam.gameObject);
-//			_localizer.localObjects = new GameObject[_cams.Count];
-//			for (int ii = 0; ii < _cams.Count; ii++) {
-//				_localizer.localObjects[ii] = _cams[ii];
-//			}
-//
-//		}
 
 		public void SetupRigidbody () {
 			Rigidbody _rigid = target.GetComponent<Rigidbody>();
@@ -1675,19 +1606,6 @@ namespace MultiGame {
 					}
 				}
 			}
-		}
-
-		/// <summary>
-		/// Creates an asset and returns it's path
-		/// </summary>
-		/// <returns>The asset path.</returns>
-		/// <param name="_asset">The new asset we are creating.</param>
-		/// <param name="_type">The System.Type of the asset.</param>
-		public string SmartCreateAsset (UnityEngine.Object _asset, string _fileExtension) {
-			if(!AssetDatabase.IsValidFolder("Assets/Generated"))
-				AssetDatabase.CreateFolder("Assets","Generated");
-			AssetDatabase.CreateAsset(_asset, "Assets/Generated/" + target.name + _fileExtension);
-			return AssetDatabase.GetAssetPath(_asset);
 		}
 
 		public void SetupPhysics () {
