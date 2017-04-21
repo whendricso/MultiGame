@@ -25,7 +25,7 @@ namespace MultiGame {
 				return;
 			}
 
-			PhotonView view = GetComponent<PhotonView>();
+			PhotonView view = GetView();
 			if (view != null) {
 				if(!view.isMine) {
 					gameObject.tag = remotePlayerTag;

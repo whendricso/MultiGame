@@ -5,7 +5,6 @@ using MultiGame;
 namespace MultiGame {
 
 	[AddComponentMenu("MultiGame/Network/Photon Message Relay")]
-	[RequireComponent (typeof (PhotonView))]
 	public class PhotonMessageRelay : PhotonModule {
 
 		public MessageManager.ManagedMessage localMessage;
@@ -15,15 +14,22 @@ namespace MultiGame {
 		public MultiModule.HelpInfo help = new MultiModule.HelpInfo("Allows any message to be sent over Photon. " +
 			"'Relay' will relay the message as-is, whereas 'RelayWithParam' will override the parameter value with a new one.");
 
+		[System.NonSerialized]
+		public PhotonView view;
+
 		void OnValidate () {
 			MessageManager.UpdateMessageGUI(ref localMessage, gameObject);
+		}
+
+		void Start () {
+			view = GetView();
 		}
 
 		public void Relay () {
 			if (!enabled)
 				return;
-			if (GetView().isMine)
-				GetView().RPC("Retrieve", photonTargets);
+			if (view.isMine)
+				view.RPC("Retrieve", photonTargets);
 			if (debug)
 				Debug.Log("Photon Message Relay " + gameObject.name + " sent " + localMessage);
 		}
@@ -38,8 +44,8 @@ namespace MultiGame {
 		public void RelayWithParam(string _param) {
 			if (!enabled)
 				return;
-			if (GetView().isMine)
-				GetView().RPC("RetrieveWithParam", photonTargets, _param);
+			if (view.isMine)
+				view.RPC("RetrieveWithParam", photonTargets, _param);
 		}
 
 		[PunRPC]
@@ -50,8 +56,8 @@ namespace MultiGame {
 		public void RelayMessage (string _message) {
 			if (!enabled)
 				return;
-			if (GetView().isMine)
-				GetView().RPC("RetrieveSpecific", photonTargets, _message);
+			if (view.isMine)
+				view.RPC("RetrieveSpecific", photonTargets, _message);
 		}
 
 		[PunRPC]

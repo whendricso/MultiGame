@@ -141,10 +141,9 @@ namespace MultiGame {
 				ResolveOrCreateTarget();
 				if (target.GetComponent<PhotonPositionSync>() != null)
 					return;
-				/*PhotonView _view = */AddPhotonView();
 				SetupPhotonView(Undo.AddComponent<Rigidbody>(target));
-				//SetupObserved();
 				PhotonPositionSync _sync = Undo.AddComponent<PhotonPositionSync>(target);
+				SetupPhotonView(_sync);
 //				_view.ObservedComponents.Add(_sync);
 				SmartRenameTarget("Photon Rigidbody");
 			}
@@ -152,11 +151,10 @@ namespace MultiGame {
 				ResolveOrCreateTarget();
 				if (target.GetComponent<PhotonPositionSync>() != null)
 					return;
-				/*PhotonView _view = */AddPhotonView();
-				SetupObserved();
 				PhotonPositionSync _sync = Undo.AddComponent<PhotonPositionSync>(target);
 //				_view.ObservedComponents.Add(_sync);
 				_sync.syncMode = PhotonPositionSync.InterPositionMode.InterpolateTransformation;
+				SetupPhotonView(_sync);
 				SmartRenameTarget("Photon Movable");
 			}
 			if (MGButton(photonRelayIcon, "Relay")) {
@@ -173,10 +171,8 @@ namespace MultiGame {
 				if (_input == null)
 					_input = Undo.AddComponent<CharacterOmnicontroller>(target);
 
-				/*PhotonView _view = */AddPhotonView();
-				SetupObserved();
 				PhotonMessageRelay _relay = Undo.AddComponent<PhotonMessageRelay>(target);
-				SetupPhotonView(_relay);
+//				SetupPhotonView(_relay);
 				PhotonPositionSync _sync = target.GetComponent<PhotonPositionSync>();
 				if (_sync == null)
 					_sync = Undo.AddComponent<PhotonPositionSync>(target);
@@ -190,35 +186,36 @@ namespace MultiGame {
 				SmartRenameTarget("Photon Player Character");
 
 			}
-			if (MGButton(photonInventoryIcon, "Inventory")) {
-				ResolveOrCreateTarget();
-				if (target.GetComponent<PhotonLocalInventory>() != null)
-					return;
-				Undo.AddComponent<PhotonLocalInventory>(target);
-				SmartRenameTarget("Photon Local Static Player Inventory");
-			}
-			if (MGButton(photonItemIcon, "Item")) {
-				ResolveOrCreateTarget();
-				SmartRenameTarget("Photon Item");
-				GameObject _activeObj = Instantiate<GameObject>(target);
-				Undo.RegisterCreatedObjectUndo(_activeObj, "Create Active Object");
-				_activeObj.name = target.name + "Active";
-				_activeObj.tag = target.tag;
-				_activeObj.layer = target.layer;
-				PhotonActiveItem _active = Undo.AddComponent<PhotonActiveItem>(_activeObj);
-//				_active.inventoryKey = target.name;
-				Pickable _pickable = Undo.AddComponent<Pickable>(target);
-				_pickable.inventoryKey = target.name;
-				_pickable.pickMode = Pickable.PickModes.Item;
-				if (!Physics.Raycast(target.transform.position, Vector3.right, 2f))
-					_activeObj.transform.position = new Vector3(target.transform.position.x + 1.5f, target.transform.position.y, target.transform.position.z);
-				else if (!Physics.Raycast(target.transform.position, Vector3.left, 2f))
-					_activeObj.transform.position = new Vector3(target.transform.position.x - 1.5f, target.transform.position.y, target.transform.position.z);
-				else if (!Physics.Raycast(target.transform.position, Vector3.forward, 2f))
-					_activeObj.transform.position = new Vector3(target.transform.position.x, target.transform.position.y, target.transform.position.z + 1.5f);
-				else if (!Physics.Raycast(target.transform.position, Vector3.back, 2f))
-					_activeObj.transform.position = new Vector3(target.transform.position.x, target.transform.position.y, target.transform.position.z - 1.5f);
-			}
+//			if (MGButton(photonInventoryIcon, "Inventory")) {
+//				ResolveOrCreateTarget();
+//				if (target.GetComponent<PhotonLocalInventory>() != null)
+//					return;
+//				Undo.AddComponent<PhotonLocalInventory>(target);
+//				SetupPhotonView(null);
+//				SmartRenameTarget("Photon Local Static Player Inventory");
+//			}
+//			if (MGButton(photonItemIcon, "Item")) {
+//				ResolveOrCreateTarget();
+//				SmartRenameTarget("Photon Item");
+//				GameObject _activeObj = Instantiate<GameObject>(target);
+//				Undo.RegisterCreatedObjectUndo(_activeObj, "Create Active Object");
+//				_activeObj.name = target.name + "Active";
+//				_activeObj.tag = target.tag;
+//				_activeObj.layer = target.layer;
+//				PhotonActiveItem _active = Undo.AddComponent<PhotonActiveItem>(_activeObj);
+////				_active.inventoryKey = target.name;
+//				Pickable _pickable = Undo.AddComponent<Pickable>(target);
+//				_pickable.inventoryKey = target.name;
+//				_pickable.pickMode = Pickable.PickModes.Item;
+//				if (!Physics.Raycast(target.transform.position, Vector3.right, 2f))
+//					_activeObj.transform.position = new Vector3(target.transform.position.x + 1.5f, target.transform.position.y, target.transform.position.z);
+//				else if (!Physics.Raycast(target.transform.position, Vector3.left, 2f))
+//					_activeObj.transform.position = new Vector3(target.transform.position.x - 1.5f, target.transform.position.y, target.transform.position.z);
+//				else if (!Physics.Raycast(target.transform.position, Vector3.forward, 2f))
+//					_activeObj.transform.position = new Vector3(target.transform.position.x, target.transform.position.y, target.transform.position.z + 1.5f);
+//				else if (!Physics.Raycast(target.transform.position, Vector3.back, 2f))
+//					_activeObj.transform.position = new Vector3(target.transform.position.x, target.transform.position.y, target.transform.position.z - 1.5f);
+//			}
 
 			if (scrollView.y < 1f) {
 				EditorGUILayout.LabelField("\\/ More \\/");
@@ -229,12 +226,12 @@ namespace MultiGame {
 
 
 		public void SetupPhotonLocalizer () {
-			PhotonLocalizer _localizer = target.GetComponent<PhotonLocalizer>();
+			PhotonLocalizer _localizer = target.transform.root.GetComponent<PhotonLocalizer>();
 			if (_localizer == null)
-				_localizer = Undo.AddComponent<PhotonLocalizer>(target);
+				_localizer = Undo.AddComponent<PhotonLocalizer>(target.transform.root.gameObject);
 			List <MonoBehaviour> _localComponents = new List<MonoBehaviour>();
 			//add **ALL** single-player modules to the localization list
-			_localComponents.AddRange(target.GetComponentsInChildren<MultiModule>());				
+			_localComponents.AddRange(target.transform.root.GetComponentsInChildren<MultiModule>());				
 			_localizer.localComponents = new MonoBehaviour[_localComponents.Count];
 			for (int i = 0; i < _localizer.localComponents.Length; i++) {
 				_localizer.localComponents[i] = _localComponents[i];
@@ -254,6 +251,12 @@ namespace MultiGame {
 			Health _health = target.GetComponent<Health>();
 			if (_health == null)
 				_health = Undo.AddComponent<Health>(target);
+			_health.autodestruct = false;
+			_health.healthGoneMessage = new MessageManager.ManagedMessage(target, "Destruct");
+			_health.healthGoneMessage.msgOverride = true;
+
+			if (target.GetComponent<PhotonDestructible>() == null)
+				Undo.AddComponent<PhotonDestructible>(target);	
 			PhotonFieldSync _sync = target.GetComponent<PhotonFieldSync>();
 			if (_sync == null)
 				_sync = Undo.AddComponent<PhotonFieldSync>(target);
@@ -272,10 +275,12 @@ namespace MultiGame {
 			if (_view == null) {
 				_view = AddPhotonView();
 			}
-			SetupObserved();
 
-			if (!_view.ObservedComponents.Contains(_syncTarget))
-				_view.ObservedComponents.Add(_syncTarget);
+			if (_syncTarget != null) {
+				if (!_view.ObservedComponents.Contains(_syncTarget))
+					_view.ObservedComponents.Add(_syncTarget);
+			}
+			SetupObserved();
 		}
 
 		public PhotonView AddPhotonView () {

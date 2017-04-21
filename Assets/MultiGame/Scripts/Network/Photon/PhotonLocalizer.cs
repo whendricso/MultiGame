@@ -19,14 +19,16 @@ namespace MultiGame {
 			"This is important for things like character controllers, which you don't want running on the remote side. For things that should run on the 'server' such as mob spawners, " +
 			"add them as Master Client objects and components.");
 
+		public bool debug = false;
+
 		void Awake () {
-			PhotonView _view = GetComponent<PhotonView>();
+			PhotonView _view = GetView();
 			if (_view == null) {
 				Debug.LogError("Photon Localizer must be attached to an object with a Photon View on it!");
 				return;
 			}
 
-			if (GetView().isMine) {
+			if (_view.isMine) {
 				foreach (MonoBehaviour script in localComponents)
 					script.enabled = true;
 				foreach (GameObject obj in localObjects)

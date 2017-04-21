@@ -9,67 +9,34 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1000011485235658}
+  m_RootGameObject: {fileID: 1842435064079328}
   m_IsPrefabParent: 1
---- !u!1 &1000010161351042
+--- !u!1 &1077561427240082
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 4000010551848662}
-  - 33: {fileID: 33000014025838846}
-  - 65: {fileID: 65000011440576904}
-  - 23: {fileID: 23000010388305326}
+  - component: {fileID: 4107932474525752}
   m_Layer: 0
-  m_Name: Cube (1)
+  m_Name: CamTarget
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &1000011485235658
+--- !u!1 &1319879003791440
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 4000012239406592}
-  - 33: {fileID: 33000012815489790}
-  - 23: {fileID: 23000013812500990}
-  - 143: {fileID: 143000010449573816}
-  - 82: {fileID: 82000012594857032}
-  - 114: {fileID: 114000012005044018}
-  - 114: {fileID: 114000013607891076}
-  - 114: {fileID: 114000011568897544}
-  - 114: {fileID: 114000011789176034}
-  - 95: {fileID: 95000012087680990}
-  - 114: {fileID: 114000013138094892}
-  - 114: {fileID: 114000012150170614}
-  - 114: {fileID: 114000011141889248}
-  - 54: {fileID: 54000012360416438}
-  - 114: {fileID: 114000013811433966}
-  - 114: {fileID: 114000010897699030}
-  m_Layer: 0
-  m_Name: CapsulePlayer
-  m_TagString: Player
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!1 &1000012092935000
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 4000011776813068}
-  - 33: {fileID: 33000010103240004}
-  - 65: {fileID: 65000010813791390}
-  - 23: {fileID: 23000012062002246}
+  - component: {fileID: 4404145141291766}
+  - component: {fileID: 33813632714654802}
+  - component: {fileID: 65449302659490764}
+  - component: {fileID: 23343949051736082}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -77,151 +44,108 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &1000012141721202
+--- !u!1 &1428203813631100
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 4000011650962694}
-  - 20: {fileID: 20000013952447180}
-  - 92: {fileID: 92000010367059140}
-  - 124: {fileID: 124000011148406058}
-  - 81: {fileID: 81000011693110946}
-  - 114: {fileID: 114000012903388824}
-  - 114: {fileID: 114000012995666854}
+  - component: {fileID: 4177624527865876}
+  - component: {fileID: 33158094068271582}
+  - component: {fileID: 65889575393087772}
+  - component: {fileID: 23138225184141094}
   m_Layer: 0
-  m_Name: Main Camera
-  m_TagString: MainCamera
+  m_Name: Cube (1)
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4000010551848662
+--- !u!1 &1842435064079328
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4696772980067310}
+  - component: {fileID: 33544145646191956}
+  - component: {fileID: 23818183626361726}
+  - component: {fileID: 143055868171404758}
+  - component: {fileID: 82660072624882660}
+  - component: {fileID: 114966574901279178}
+  - component: {fileID: 114074862134769594}
+  - component: {fileID: 114795316748612028}
+  - component: {fileID: 114259852458121144}
+  m_Layer: 0
+  m_Name: CapsulePlayer
+  m_TagString: Player
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4107932474525752
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000010161351042}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.334, z: 0.473}
-  m_LocalScale: {x: 0.7611183, y: 0.1785286, z: 0.2796256}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_Children: []
-  m_Father: {fileID: 4000012239406592}
-  m_RootOrder: 1
---- !u!4 &4000011650962694
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000012141721202}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.341, z: 0.526}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_Children: []
-  m_Father: {fileID: 4000012239406592}
-  m_RootOrder: 2
---- !u!4 &4000011776813068
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000012092935000}
+  m_GameObject: {fileID: 1077561427240082}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.841, z: 0}
-  m_LocalScale: {x: 0.1642823, y: 0.44310737, z: 0.90337354}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.69, y: 2.34, z: -3.08}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 4000012239406592}
+  m_Father: {fileID: 4696772980067310}
   m_RootOrder: 0
---- !u!4 &4000012239406592
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4177624527865876
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000011485235658}
-  m_LocalRotation: {x: 0, y: 0.37298784, z: 0, w: 0.92783624}
-  m_LocalPosition: {x: 1.84, y: 1, z: 2.61}
+  m_GameObject: {fileID: 1428203813631100}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.91, z: 0}
+  m_LocalScale: {x: 0.3717722, y: 0.401718, z: 0.6719692}
+  m_Children: []
+  m_Father: {fileID: 4696772980067310}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4404145141291766
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1319879003791440}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.3, z: 0.301}
+  m_LocalScale: {x: 0.8939389, y: 0.2937994, z: 0.5127896}
+  m_Children: []
+  m_Father: {fileID: 4696772980067310}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4696772980067310
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1842435064079328}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.9111342, y: 1.13, z: 16.258282}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 43.8, z: 0}
   m_Children:
-  - {fileID: 4000011776813068}
-  - {fileID: 4000010551848662}
-  - {fileID: 4000011650962694}
+  - {fileID: 4107932474525752}
+  - {fileID: 4404145141291766}
+  - {fileID: 4177624527865876}
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!20 &20000013952447180
-Camera:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000012141721202}
-  m_Enabled: 1
-  serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
-  m_NormalizedViewPortRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 1
-  near clip plane: 0.3
-  far clip plane: 300
-  field of view: 60
-  orthographic: 0
-  orthographic size: 5
-  m_Depth: -1
-  m_CullingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_RenderingPath: -1
-  m_TargetTexture: {fileID: 0}
-  m_TargetDisplay: 0
-  m_TargetEye: 3
-  m_HDR: 0
-  m_OcclusionCulling: 1
-  m_StereoConvergence: 10
-  m_StereoSeparation: 0.022
-  m_StereoMirrorMode: 0
---- !u!23 &23000010388305326
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!23 &23138225184141094
 MeshRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000010161351042}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_Materials:
-  - {fileID: 2100000, guid: cdb3a8d8a0c76f84b9157a87fca30abe, type: 2}
-  m_SubsetIndices: 
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_PreserveUVs: 1
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_SelectedWireframeHidden: 0
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingOrder: 0
---- !u!23 &23000012062002246
-MeshRenderer:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000012092935000}
+  m_GameObject: {fileID: 1428203813631100}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -230,7 +154,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_Materials:
   - {fileID: 2100000, guid: 981157648f5c32243bef262ecba7b13d, type: 2}
-  m_SubsetIndices: 
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
@@ -238,19 +164,20 @@ MeshRenderer:
   m_PreserveUVs: 1
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_SelectedWireframeHidden: 0
+  m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!23 &23000013812500990
+--- !u!23 &23343949051736082
 MeshRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000011485235658}
+  m_GameObject: {fileID: 1319879003791440}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -258,8 +185,10 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 6b6fc6cb1b419374aaa0401d97ca0eae, type: 2}
-  m_SubsetIndices: 
+  - {fileID: 2100000, guid: b7c4c6f5651796a438097a027bf73928, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
@@ -267,86 +196,97 @@ MeshRenderer:
   m_PreserveUVs: 1
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_SelectedWireframeHidden: 0
+  m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!33 &33000010103240004
+--- !u!23 &23818183626361726
+MeshRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1842435064079328}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_Materials:
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 1
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!33 &33158094068271582
 MeshFilter:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000012092935000}
+  m_GameObject: {fileID: 1428203813631100}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!33 &33000012815489790
+--- !u!33 &33544145646191956
 MeshFilter:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000011485235658}
+  m_GameObject: {fileID: 1842435064079328}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
---- !u!33 &33000014025838846
+--- !u!33 &33813632714654802
 MeshFilter:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000010161351042}
+  m_GameObject: {fileID: 1319879003791440}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!54 &54000012360416438
-Rigidbody:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000011485235658}
-  serializedVersion: 2
-  m_Mass: 2.8
-  m_Drag: 0.63
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
---- !u!65 &65000010813791390
+--- !u!65 &65449302659490764
 BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000012092935000}
+  m_GameObject: {fileID: 1319879003791440}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!65 &65000011440576904
+--- !u!65 &65889575393087772
 BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000010161351042}
+  m_GameObject: {fileID: 1428203813631100}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!81 &81000011693110946
-AudioListener:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000012141721202}
-  m_Enabled: 1
---- !u!82 &82000012594857032
+--- !u!82 &82660072624882660
 AudioSource:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000011485235658}
+  m_GameObject: {fileID: 1842435064079328}
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
@@ -357,6 +297,7 @@ AudioSource:
   Loop: 0
   Mute: 0
   Spatialize: 0
+  SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
@@ -369,12 +310,14 @@ AudioSource:
   rolloffCustomCurve:
     serializedVersion: 2
     m_Curve:
-    - time: 0
+    - serializedVersion: 2
+      time: 0
       value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
-    - time: 1
+    - serializedVersion: 2
+      time: 1
       value: 0
       inSlope: 0
       outSlope: 0
@@ -385,7 +328,8 @@ AudioSource:
   panLevelCustomCurve:
     serializedVersion: 2
     m_Curve:
-    - time: 0
+    - serializedVersion: 2
+      time: 0
       value: 0
       inSlope: 0
       outSlope: 0
@@ -396,7 +340,8 @@ AudioSource:
   spreadCustomCurve:
     serializedVersion: 2
     m_Curve:
-    - time: 0
+    - serializedVersion: 2
+      time: 0
       value: 0
       inSlope: 0
       outSlope: 0
@@ -407,7 +352,8 @@ AudioSource:
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
-    - time: 0
+    - serializedVersion: 2
+      time: 0
       value: 1
       inSlope: 0
       outSlope: 0
@@ -415,129 +361,84 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
---- !u!92 &92000010367059140
-Behaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000012141721202}
-  m_Enabled: 1
---- !u!95 &95000012087680990
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000011485235658}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 39c1e6fffc6c328478e6af76ac474b8c, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114000010897699030
+--- !u!114 &114074862134769594
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000011485235658}
+  m_GameObject: {fileID: 1842435064079328}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f845c0df2314d664f9eff70c97903497, type: 3}
+  m_Script: {fileID: 11500000, guid: 35574e0ae8d92da4eb77f4fcfa6a4f2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deathPrefabs: []
+  localComponents:
+  - {fileID: 114966574901279178}
+  remoteComponents: []
+  localObjects: []
+  remoteObjects: []
+  masterClientComponents: []
+  masterClientObjects: []
   help:
     showInfo: 0
-    helpText: 'This component allows things to be destroyed by receiving the ''Destruct''
-      message. Very handy.
-
-
-      Drag and drop prefabs onto the ''Death Prefabs'' list to make handy things come
-      to life when this one dies.'
+    helpText: This component toggles components and objects based on whether they
+      are controlled by the local player. This is important for things like character
+      controllers, which you don't want running on the remote side. For things that
+      should run on the 'server' such as mob spawners, add them as Master Client objects
+      and components.
   debug: 0
-  destructHelp:
-    showInfo: 0
-    messageName: Destruct
-    helpText: Deletes this object from the scene, and spawns the supplied list of
-      'Death Prefabs' if any
-    argumentType: 0
-    argumentText: 
---- !u!114 &114000011141889248
+--- !u!114 &114259852458121144
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000011485235658}
+  m_GameObject: {fileID: 1842435064079328}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f6f499a2a09b2441aa93433303e1a0b, type: 3}
+  m_Script: {fileID: 11500000, guid: 97d9868c9628ba24c91907466744c5b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerTag: Player
-  remotePlayerTag: Ally
---- !u!114 &114000011568897544
+  spawnPoint: {fileID: 0}
+  spawningObject: {fileID: 0}
+  interPosition: 1
+  syncMode: 0
+  interpolationBias: 5
+  correctPosition: {x: 0, y: 0, z: 0}
+  correctRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_InterpolationBackTime: 0.1
+  m_ExtrapolationLimit: 0.5
+--- !u!114 &114795316748612028
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000011485235658}
+  m_GameObject: {fileID: 1842435064079328}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 372142912, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_SceneId:
-    m_Value: 0
-  m_AssetId:
-    i0: 66
-    i1: 19
-    i2: 220
-    i3: 255
-    i4: 101
-    i5: 134
-    i6: 236
-    i7: 20
-    i8: 170
-    i9: 155
-    i10: 45
-    i11: 173
-    i12: 114
-    i13: 52
-    i14: 176
-    i15: 185
-  m_ServerOnly: 0
-  m_LocalPlayerAuthority: 0
---- !u!114 &114000011789176034
+  ownerId: 0
+  group: 0
+  OwnerShipWasTransfered: 0
+  prefixBackup: -1
+  synchronization: 3
+  onSerializeTransformOption: 3
+  onSerializeRigidBodyOption: 2
+  ownershipTransfer: 0
+  ObservedComponents:
+  - {fileID: 114259852458121144}
+  ObservedComponentsFoldoutOpen: 1
+  viewIdField: 0
+  instantiationId: -1
+  currentMasterID: -1
+  isRuntimeInstantiated: 0
+--- !u!114 &114966574901279178
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000011485235658}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -1768714887, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_TransformSyncMode: 4
-  m_SendInterval: 0.1
-  m_SyncRotationAxis: 2
-  m_RotationSyncCompression: 0
-  m_SyncSpin: 0
-  m_MovementTheshold: 0.001
-  m_SnapThreshold: 5
-  m_InterpolateRotation: 1
-  m_InterpolateMovement: 1
---- !u!114 &114000012005044018
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000011485235658}
+  m_GameObject: {fileID: 1842435064079328}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 12f7976070b14bd43a8297a00b19023a, type: 3}
@@ -546,19 +447,19 @@ MonoBehaviour:
   runSpeed: 7
   deadzone: 0.24
   strafeSpeed: 4.5
-  autoTurn: 0
-  rotateToPointer: 0
+  autoTurn: 1
+  rotateToPointer: 1
   walkRayMask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 4865
   autoTurnSpeed: 8
-  animatorRun: 
+  animatorRun: Run
   runSound: {fileID: 0}
   minRunThreshold: 0.3
   footstepInterval: 0.35
-  animatorStrafe: 
+  animatorStrafe: Strafe
   strafeSound: {fileID: 0}
-  animatorJump: 
+  animatorJump: Jump
   animatorJumpReturn: 
   jumpSound: {fileID: 0}
   landingSound: {fileID: 0}
@@ -571,12 +472,12 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  platformParent: 0
+  platformParent: 1
   useDefaultAttack: 1
   attackCooldown: 1
   attackButton: Fire1
   attackKey: 323
-  animatorAttack: 
+  animatorAttack: Attack
   attackSound: {fileID: 0}
   animatorFire: Fire
   fireSound: {fileID: 0}
@@ -592,365 +493,12 @@ MonoBehaviour:
       To use for third person, make sure you have a camera in your scene that is either
       positioned carefully or follows the player. For top-down games we recommend
       using 'Rotate To Pointer' to give an intuitive feel.
---- !u!114 &114000012150170614
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000011485235658}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc46bd0b3c56d7c4f8c1a2235d11d23a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hp: 100
-  maxHP: 100
-  autodestruct: 1
-  deathPrefabs: []
-  guiSkin: {fileID: 0}
-  showHealthBarGUI: 0
-  healthBar:
-    serializedVersion: 2
-    x: 0.2
-    y: 0.01
-    width: 0.4
-    height: 0.085
-  autoHide: 1
-  barColor: {r: 1, g: 1, b: 1, a: 1}
-  healthGoneMessage:
-    target: {fileID: 0}
-    message: --none--
-    msgOverride: 0
-    messageIndex: 0
-    possibleMessages:
-    - FootFall
-    - set_serverOnly
-    - set_localPlayerAuthority
-    - ForceSceneId
-    - RebuildObservers
-    - set_sendInterval
-    - set_syncSpin
-    - set_movementTheshold
-    - set_snapThreshold
-    - set_interpolateRotation
-    - set_interpolateMovement
-    - set_grounded
-    - OnStartServer
-    - GetNetworkChannel
-    - GetNetworkSendInterval
-    - OnStartAuthority
-    - Localize
-    - Die
-    - ModifyHealth
-    - ModifyMaxHealth
-    - set_Networkhp
-    - set_NetworkmaxHP
-    - Destruct
-    - LockMouse
-    - UnlockMouse
-    isDirty: 0
-    sendMessageType: 0
-    parameter: 
-    parameterMode: 0
-  hitMessage:
-    target: {fileID: 0}
-    message: --none--
-    msgOverride: 0
-    messageIndex: 0
-    possibleMessages:
-    - FootFall
-    - set_serverOnly
-    - set_localPlayerAuthority
-    - ForceSceneId
-    - RebuildObservers
-    - set_sendInterval
-    - set_syncSpin
-    - set_movementTheshold
-    - set_snapThreshold
-    - set_interpolateRotation
-    - set_interpolateMovement
-    - set_grounded
-    - OnStartServer
-    - GetNetworkChannel
-    - GetNetworkSendInterval
-    - OnStartAuthority
-    - Localize
-    - Die
-    - ModifyHealth
-    - ModifyMaxHealth
-    - set_Networkhp
-    - set_NetworkmaxHP
-    - Destruct
-    - LockMouse
-    - UnlockMouse
-    isDirty: 0
-    sendMessageType: 0
-    parameter: 
-    parameterMode: 0
-  help:
-    showInfo: 0
-    helpText: This generic Health implementation is fully compatible with all MultiGame
-      systems and forms the basis for combat and death in your game worlds. It receives
-      the 'ModifyHealth' message with a floating point value. Make anything killable!
-  debug: 0
-  dieHelp:
-    showInfo: 0
-    messageName: Die
-    helpText: Kill this object immediately!
-    argumentType: 0
-    argumentText: 
-  modifyHealthHelp:
-    showInfo: 0
-    messageName: ModifyHealth
-    helpText: Change the health this object has
-    argumentType: 3
-    argumentText: Amount to change the health by. Positive to increase, negative to
-      decrease.
-  modifyMaxHealthHelp:
-    showInfo: 0
-    messageName: ModifyMaxHealth
-    helpText: Change the maximum health this object can have
-    argumentType: 3
-    argumentText: Amount to change the max health by. Positive to increase, negative
-      to decrease.
---- !u!114 &114000012903388824
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000012141721202}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a42415259cab454680501d4499e25f1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  axes: 2
-  sensitivityX: 2
-  sensitivityY: 2
-  minimumX: -360
-  maximumX: 360
-  minimumY: -60
-  maximumY: 60
-  rotateOn: 0
-  help:
-    showInfo: 0
-    helpText: This component functions like the old MouseLook component from previous
-      versions of Unity. The object will rotate without constraint based on the settings
-      you supply.
---- !u!114 &114000012995666854
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000012141721202}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cf882b19cfa93eb459b2a15ea8b5ac8f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  unLockKeys: 1b0000003201000044010000
-  lockKeys: 77000000610000007300000064000000
-  help:
-    showInfo: 0
-    helpText: This component allows the cursor to hide/unhide based on messages sent
-      from other components, or just when the player clicks on the game.
---- !u!114 &114000013138094892
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000011485235658}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00d27e3087339974fb14162d91180bc6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  localObjects:
-  - {fileID: 1000012141721202}
-  remoteObjects: []
-  localComponents:
-  - {fileID: 114000012005044018}
-  - {fileID: 114000013607891076}
-  remoteComponents: []
-  autoLocalize: 1
-  help:
-    showInfo: 0
-    helpText: U Net Localizer handles local/remote object differentiation by enabling
-      and disabling things depending on where this object is vs. where it's owner
-      is. For example, adding player character input controllers to 'Local Components'
-      is a good idea, because you only want the local player to control their own
-      movement.
-  debug: 1
-  localizeHelp:
-    showInfo: 0
-    messageName: Localize
-    helpText: Sets all Local Objects and Local Components to be active only on the
-      local player, and Remote Objects and Components will be active only on objects
-      representing remote players. If you want something to be active on both, don't
-      add it to either list.
-    argumentType: 0
-    argumentText: 
---- !u!114 &114000013607891076
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000011485235658}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a42415259cab454680501d4499e25f1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  axes: 1
-  sensitivityX: 2
-  sensitivityY: 2
-  minimumX: -360
-  maximumX: 360
-  minimumY: -60
-  maximumY: 60
-  rotateOn: 0
-  help:
-    showInfo: 0
-    helpText: This component functions like the old MouseLook component from previous
-      versions of Unity. The object will rotate without constraint based on the settings
-      you supply.
---- !u!114 &114000013811433966
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000011485235658}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 247b8f498f07e604cbd4b468c104adf8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  key: 122
-  button: 
-  keyDownMessage:
-    target: {fileID: 0}
-    message: Destruct
-    msgOverride: 1
-    messageIndex: 29
-    possibleMessages:
-    - FootFall
-    - set_serverOnly
-    - set_localPlayerAuthority
-    - ForceSceneId
-    - RebuildObservers
-    - set_sendInterval
-    - set_syncSpin
-    - set_movementTheshold
-    - set_snapThreshold
-    - set_interpolateRotation
-    - set_interpolateMovement
-    - set_grounded
-    - OnStartServer
-    - GetNetworkChannel
-    - GetNetworkSendInterval
-    - OnStartAuthority
-    - Localize
-    - Die
-    - ModifyHealth
-    - ModifyMaxHealth
-    - set_Networkhp
-    - set_NetworkmaxHP
-    - Destruct
-    - LockMouse
-    - UnlockMouse
-    isDirty: 0
-    sendMessageType: 0
-    parameter: 
-    parameterMode: 0
-  keyHeldMessage:
-    target: {fileID: 0}
-    message: --none--
-    msgOverride: 0
-    messageIndex: 0
-    possibleMessages:
-    - FootFall
-    - set_serverOnly
-    - set_localPlayerAuthority
-    - ForceSceneId
-    - RebuildObservers
-    - set_sendInterval
-    - set_syncSpin
-    - set_movementTheshold
-    - set_snapThreshold
-    - set_interpolateRotation
-    - set_interpolateMovement
-    - set_grounded
-    - OnStartServer
-    - GetNetworkChannel
-    - GetNetworkSendInterval
-    - OnStartAuthority
-    - Localize
-    - Die
-    - ModifyHealth
-    - ModifyMaxHealth
-    - set_Networkhp
-    - set_NetworkmaxHP
-    - Destruct
-    - LockMouse
-    - UnlockMouse
-    isDirty: 0
-    sendMessageType: 0
-    parameter: 
-    parameterMode: 0
-  keyUpMessage:
-    target: {fileID: 0}
-    message: --none--
-    msgOverride: 0
-    messageIndex: 0
-    possibleMessages:
-    - FootFall
-    - set_serverOnly
-    - set_localPlayerAuthority
-    - ForceSceneId
-    - RebuildObservers
-    - set_sendInterval
-    - set_syncSpin
-    - set_movementTheshold
-    - set_snapThreshold
-    - set_interpolateRotation
-    - set_interpolateMovement
-    - set_grounded
-    - OnStartServer
-    - GetNetworkChannel
-    - GetNetworkSendInterval
-    - OnStartAuthority
-    - Localize
-    - Die
-    - ModifyHealth
-    - ModifyMaxHealth
-    - set_Networkhp
-    - set_NetworkmaxHP
-    - Destruct
-    - LockMouse
-    - UnlockMouse
-    isDirty: 0
-    sendMessageType: 0
-    parameter: 
-    parameterMode: 0
-  target: {fileID: 0}
-  debug: 0
-  help:
-    showInfo: 0
-    helpText: This component sends messages based on the state of a key or button.
-      Buttons are defined in (Edit -> Project Settings -> Input)
---- !u!124 &124000011148406058
-Behaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000012141721202}
-  m_Enabled: 1
---- !u!143 &143000010449573816
+--- !u!143 &143055868171404758
 CharacterController:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000011485235658}
+  m_GameObject: {fileID: 1842435064079328}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1

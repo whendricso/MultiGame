@@ -8,7 +8,7 @@ namespace MultiGame {
 	public class PhotonModule : Photon.MonoBehaviour {
 
 		protected PhotonView GetView () {
-			return transform.root.gameObject.GetComponent<PhotonView>();
+			return transform.root.gameObject.GetComponentInChildren<PhotonView>() as PhotonView;
 		}
 
 		protected PhotonView AddPhotonView () {

@@ -5,7 +5,6 @@ using MultiGame;
 
 namespace MultiGame {
 	[AddComponentMenu("MultiGame/Network/Photon Instantiator")]
-	[RequireComponent (typeof(PhotonView))]
 	public class PhotonInstantiator : PhotonModule {
 
 		[Tooltip("Where, relative to this object's position, should we spawn the object?")]
