@@ -42,6 +42,12 @@ namespace MultiGame {
 		[Tooltip("How far forward in time are we trying to extrapolate? Only works with rigidbody extrapolation (expensive).")]
 		[Range(0f,0.5f)]
 		public double m_ExtrapolationLimit = 0.5;
+
+		private string debugLabel = "";
+
+		public Rect debugGUIArea = new Rect(.01f,.01f,.2f,.2f);
+		public bool debug = false;
+
 		internal struct State
 		{
 			internal double timestamp;
@@ -61,6 +67,8 @@ namespace MultiGame {
 //		public PhotonView GetView();
 
 		void Start () {
+			if (debug)
+				Debug.Log("Photon Position Sync " + gameObject.name + " started, is mine: " + GetView().isMine + ", is scene-owned: " + GetView().isSceneView);
 //			GetView() = PhotonView.Get(this);//GetComponent<PhotonView>();
 			if (!GetView().ObservedComponents.Contains(this)) {
 //				GetView().ObservedComponents.Add(this);//for some reason causes a problem...
@@ -74,15 +82,25 @@ namespace MultiGame {
 				Debug.LogWarning("Photon Position Sync " + gameObject.name + " needs to be observed by an attached Photon View to work!");
 			}
 		}
-		
+
+		void OnGUI () {
+			if (!debug)
+				return;
+			GUILayout.BeginArea(new Rect(Screen.width * debugGUIArea.x, Screen.height * debugGUIArea.y, Screen.width * debugGUIArea.width, Screen.height * debugGUIArea.height),"","box");
+			GUILayout.Label(debugLabel);
+			GUILayout.EndArea();
+		}
+
 		void Update () {
 			if (interPosition && !GetView().isMine) {
 				if (syncMode == InterPositionMode.InterpolateTransformation || GetComponent<Rigidbody>() == null) {
+					debugLabel = "position: " + transform.position + ", correcting towards " + correctPosition;
 					transform.position = Vector3.Lerp(transform.position, correctPosition, Time.deltaTime * interpolationBias);
 					transform.rotation = Quaternion.Lerp(transform.rotation, correctRotation, Time.deltaTime * interpolationBias);
 				}
 				else
 					UpdateRigidbody();
+				
 			}
 		}
 		
@@ -217,7 +235,11 @@ namespace MultiGame {
 					UpdateTransformMetaData(stream, info);
 			}
 		}
-		
+
+		void OnPhotonInstantiate (PhotonMessageInfo info) {
+			correctPosition = transform.position;
+		}
+
 		protected bool CheckIsConnected() {
 			return PhotonNetwork.connected;
 		}
