@@ -61,10 +61,10 @@ namespace MultiGame {
 			if (!Input.GetKey(upThrusters) && !Input.GetKey(downThrusters))
 				axisY = 0.0f;
 			
-			else
+
 			
-				body.AddRelativeForce(axisX, axisY, axisZ, ForceMode.Force);
-				body.AddRelativeTorque(Input.GetAxis("Mouse Y") * yawTorque * -1, Input.GetAxis("Mouse X") * rudderTorque, 0.0f);
+			body.AddRelativeForce(axisX, axisY, axisZ, ForceMode.Force);
+			body.AddRelativeTorque(Input.GetAxis("Mouse Y") * yawTorque * -1, Input.GetAxis("Mouse X") * rudderTorque, 0.0f);
 			
 			if (Input.GetKey(pitchCW))
 				body.AddRelativeTorque(0.0f, 0.0f, -pitchTorque);

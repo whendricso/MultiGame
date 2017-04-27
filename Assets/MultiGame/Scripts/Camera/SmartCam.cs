@@ -32,16 +32,15 @@ namespace Terrium.Cameras
 		public float sensitivityY = 2f;
 
 		public enum UpdateModes {Late, Fixed};
+		[Tooltip("Change this if you experience jitter")]
 		public UpdateModes updateMode = UpdateModes.Fixed;
 		public bool autoRetarget = true;
 		public float autoRetargetTime = .6f;
 		private float autoRetargetCounter;
 
-		public string playerTag = "Player";
+		public string targetTag = "Player";
 
 		private MouseAim mAim;
-
-		private Vector3 offset;
 		private Vector3 newPos;
 
 		public HelpInfo help = new HelpInfo("Smart Cam automatically follows an object. If there is no object to follow, it will attempt to find the Player object by tag.");
@@ -51,24 +50,14 @@ namespace Terrium.Cameras
 			autoRetargetCounter = autoRetargetTime;
 		}
 
-//		void Start ()
-//		{
-//			if (listenEvents)
-//				TerriumGameManager.singleton.onRegisterTarget.AddListener (SetTarget);
-//			else
-//				SetTarget (target);
-//		}
-
-
-
 		void FixedUpdate ()
 		{
 			if (target == null) {
 				autoRetargetCounter -= Time.deltaTime;
 				if (autoRetargetCounter <= 0) {
 					autoRetargetCounter = autoRetargetTime;
-					if (GameObject.FindGameObjectWithTag(playerTag) != null)
-						target = GameObject.FindGameObjectWithTag(playerTag).transform;
+					if (GameObject.FindGameObjectWithTag(targetTag) != null)
+						target = GameObject.FindGameObjectWithTag(targetTag).transform;
 				}
 			}
 
@@ -83,7 +72,7 @@ namespace Terrium.Cameras
 
 		void FollowTarget () {
 			if (target) {
-				newPos = target.position + offset;
+				newPos = target.position;
 				transform.position = Vector3.Lerp (transform.position, newPos, followSpeed * Time.deltaTime);
 				RotateToTarget();
 			}
@@ -105,14 +94,7 @@ namespace Terrium.Cameras
 				}
 			}
 		}
-
-		private void SetTarget (Transform mTarget)
-		{
-			if (mTarget) {
-				target = mTarget;
-				offset = transform.position - target.position;
-			}
-		}
+			
 
 		public MessageHelp setXSensitivityHelp = new MessageHelp("SetXSensitivity","Sets the up/down sensitivity which controls rotation of the camera on the X axis",3,"The new sensitivity level. Default is 2.");
 		public void SetXSensitivity (float _sensitivity) {
