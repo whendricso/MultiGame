@@ -11,11 +11,41 @@ namespace MultiGame {
 		
 		public bool snapOnStart = false;
 		public Vector3 gridSetting = Vector3.one;
-		
+		[BoolButton]
+		public bool snapNow = false;
+		[Tooltip("If true, the object will snap itself constantly while in edit mode. Disable this when finished, as it uses CPU cycles each frame.")]
+		public bool autoSnapWhileEditing = false;
+		[Tooltip("Snaps the object to the grid every single frame")]
+		public bool snapEachFrame = false;
+
 		void Start () {
 			if (!snapOnStart)
 				return;
 			SnapToGrid();
+		}
+
+		void OnValidate () {
+			#if UNITY_EDITOR
+			runInEditMode = autoSnapWhileEditing;
+			#endif
+			if (!snapNow)
+				return;
+
+			SnapToGrid ();
+
+			snapNow = false;
+		}
+
+		#if UNITY_EDITOR
+		void Update () {
+			if ( autoSnapWhileEditing)
+				SnapToGrid ();
+		}
+		#endif
+
+		void LateUpdate () {
+			if (snapEachFrame)
+				SnapToGrid ();
 		}
 
 		public void SnapToGrid () { 

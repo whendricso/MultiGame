@@ -16,7 +16,7 @@ using MultiGame;
 namespace MultiGame {
 
 	public class MultiGameToolbar : MGEditor {
-
+		#if UNITY_EDITOR
 		public enum Modes {Basic, UI, Logic, Combat, Player, AI, Utility, Help};
 		public Modes mode = Modes.Basic;
 
@@ -1430,19 +1430,19 @@ namespace MultiGame {
 //				Undo.AddComponent<PhotonChannelManager>(target);
 //		}
 
-		public void SetupUNetHealth () {
-			Health _health = target.GetComponent<Health>();
-			if (_health == null)
-				_health = Undo.AddComponent<Health>(target);
-			_health.autodestruct = false;
-			_health.healthGoneMessage = new MessageManager.ManagedMessage(target, "Destruct");
-			_health.healthGoneMessage.msgOverride = true;
-
-			if (target.GetComponent<UNetDestructible>() == null) {
-
-			}
-
-		}
+//		public void SetupUNetHealth () {
+//			Health _health = target.GetComponent<Health>();
+//			if (_health == null)
+//				_health = Undo.AddComponent<Health>(target);
+//			_health.autodestruct = false;
+//			_health.healthGoneMessage = new MessageManager.ManagedMessage(target, "Destruct");
+//			_health.healthGoneMessage.msgOverride = true;
+//
+//			if (target.GetComponent<UNetDestructible>() == null) {
+//
+//			}
+//
+//		}
 
 
 		public void SetupRigidbody () {
@@ -1613,7 +1613,7 @@ namespace MultiGame {
 			Undo.AddComponent<Rigidbody>( target.transform.root.gameObject);
 			Undo.AddComponent<PhysicsToggle>( target.transform.root.gameObject);
 		}
-
+		#endif
 
 	}
 }

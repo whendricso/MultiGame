@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 using System.Collections;
 using MultiGame;
 
@@ -7,7 +9,7 @@ namespace MultiGame {
 
 	[CustomPropertyDrawer(typeof(MultiModule.MessageHelp))]
 	public class MessageHelpDrawer : PropertyDrawer {
-
+		#if UNITY_EDITOR
 		int argType;//{None, Bool, Int, Float, String}
 
 		public override void OnGUI (Rect position, SerializedProperty property, GUIContent label) {
@@ -63,5 +65,6 @@ namespace MultiGame {
 			else
 				return 16f;
 		}
+		#endif
 	}
 }

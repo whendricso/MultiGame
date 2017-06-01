@@ -1,14 +1,17 @@
 ﻿using UnityEngine;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 using MultiGame;
 using System.Collections;
 using System.Collections.Generic;
 
 namespace MultiGame {
-
+	#if UNITY_EDITOR
 	[CustomPropertyDrawer(typeof(RequiredFieldAttribute))]
+	#endif
 	public class RequiredPropertyDrawer : PropertyDrawer {
-
+		#if UNITY_EDITOR
 		bool showHelp;
 		Rect fieldPosition;
 		Rect helpButtonPosition;
@@ -222,5 +225,6 @@ namespace MultiGame {
 			else
 				return 96;
 		}
+		#endif
 	}
 }

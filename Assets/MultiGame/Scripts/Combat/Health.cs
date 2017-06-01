@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 using MultiGame;
 
 namespace MultiGame {
@@ -16,6 +17,9 @@ namespace MultiGame {
 		[Tooltip("What should we spawn when we die from HP loss?")]
 		public GameObject[] deathPrefabs;
 		//public GameObject deathCam;//optional camera to be spawned, which watches the first death prefab
+
+		[Tooltip("If using the Unity UI, create a scroll bar for the health and drop a reference to it here. The handle of the scrollbar is resized to show the health amount.")]
+		public Scrollbar uIhealthBar;
 
 		[RequiredFieldAttribute("What skin should we use for the Legacy GUI",RequiredFieldAttribute.RequirementLevels.Optional)]
 		public GUISkin guiSkin;
@@ -54,6 +58,9 @@ namespace MultiGame {
 	//			Die();
 			if (hp > maxHP)
 				hp = maxHP;
+
+			if (uIhealthBar != null)
+				uIhealthBar.size = hp / maxHP;
 		}
 		
 		void OnGUI () {

@@ -7,7 +7,7 @@ using System.Collections.Generic;
 namespace MultiGame {
 	
 	public class Shelves : MGEditor {
-
+		#if UNITY_EDITOR
 		public static List<GameObject> objects = new List<GameObject>(10);
 
 		public static bool iconsLoaded = false;
@@ -186,5 +186,7 @@ namespace MultiGame {
 				objects.Add(null);
 			}
 		}
+		#endif
 	}
+
 }

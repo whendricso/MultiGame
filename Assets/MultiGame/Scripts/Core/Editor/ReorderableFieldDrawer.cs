@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
+#if UNITY_EDITOR
 using UnityEditor;
 using UnityEditorInternal;
+#endif
 using System.Collections;
 
 [CustomPropertyDrawer(typeof(ReorderableField))]

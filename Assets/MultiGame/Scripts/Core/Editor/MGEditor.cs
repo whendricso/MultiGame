@@ -9,7 +9,7 @@ using MultiGame;
 namespace MultiGame {
 
 	public class MGEditor : EditorWindow {
-
+		#if UNITY_EDITOR
 
 		protected Transform sceneTransform;
 		public GameObject target;
@@ -139,7 +139,6 @@ namespace MultiGame {
 		protected void RenameTarget(string _newName) {
 			target.name = _newName;
 		}
+		#endif
 	}
-
-
 }

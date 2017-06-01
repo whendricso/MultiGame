@@ -10,6 +10,7 @@ using MultiGame;
 namespace MultiGame {
 
 	public class PhotonToolbar : MGEditor {
+		#if UNITY_EDITOR
 
 		private bool iconsLoaded = false;
 		Vector2 scrollView;
@@ -248,12 +249,10 @@ namespace MultiGame {
 		}
 
 		public void SetupPhotonHealth () {
-			Health _health = target.GetComponent<Health>();
+			PhotonHealth _health = target.GetComponent<PhotonHealth>();
 			if (_health == null)
-				_health = Undo.AddComponent<Health>(target);
-			_health.autodestruct = false;
-			_health.healthGoneMessage = new MessageManager.ManagedMessage(target, "Destruct");
-			_health.healthGoneMessage.msgOverride = true;
+				_health = Undo.AddComponent<PhotonHealth>(target);
+			_health.autodestruct = true;
 
 			if (target.GetComponent<PhotonDestructible>() == null)
 				Undo.AddComponent<PhotonDestructible>(target);	
@@ -297,6 +296,7 @@ namespace MultiGame {
 					_view.ObservedComponents.RemoveAt(i);
 			}
 		}
+		#endif
 
 	}
 }

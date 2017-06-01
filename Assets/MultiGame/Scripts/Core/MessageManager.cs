@@ -42,6 +42,13 @@ namespace MultiGame {
 
 		}
 
+		[System.Serializable]
+		public class TaggedMessage
+		{
+			ManagedMessage message;
+			string targetTag;
+		}
+
 		public static void SendAll () {
 			foreach (ManagedMessage msg in managedMessages) {
 				Send(msg);

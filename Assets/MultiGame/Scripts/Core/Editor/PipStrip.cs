@@ -1,12 +1,14 @@
 ﻿using UnityEngine;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 using System.Collections;
 using MultiGame;
 
 namespace MultiGame {
 
 	public class PipStrip : MGEditor {
-
+		#if UNITY_EDITOR
 		private int mode = 0;
 		private bool showHelp = false;
 
@@ -22,5 +24,6 @@ namespace MultiGame {
 
 			EditorGUILayout.EndHorizontal();
 		}
+		#endif
 	}
 }
