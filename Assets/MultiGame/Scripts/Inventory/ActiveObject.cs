@@ -10,27 +10,34 @@ namespace MultiGame {
 	//plays an audio clip, if one is on the object
 	[AddComponentMenu("MultiGame/Inventory/Active Object")]
 	public class ActiveObject : MultiModule {
-		
+
 		public enum ItemTypes {WeaponR, WeaponL, EquipTorso, EquipBack, NoEquip};
-		[Tooltip("Type of item based on equip slot")]
+		[Tooltip("Type of item based on equip slot. No Equip are generally used for objects that don't attach to the character.")]
+		[Header("Item Settings")]
 		public ItemTypes itemType = ItemTypes.NoEquip;
-		[RequiredFieldAttribute("Icon for this object in inventory",RequiredFieldAttribute.RequirementLevels.Recommended)]
-		public Texture2D icon;
-		public float iconSizeX = 32.0f;
-		public float iconSizeY = 32.0f;
-		[RequiredFieldAttribute("Unique name of this inventory item, matching it's 'Pickable' mate")]
+		[RequiredFieldAttribute("Unique name of this inventory item, matching it's 'Pickable' mate. This tells MultiGame what Inventory Item this is and allows it to keep track. It must match the 'Pickable' Inventory Key")]
 		public string inventoryKey;
-		[RequiredFieldAttribute("The pickable object associated with this item")]
+		[RequiredFieldAttribute("The pickable object associated with this item. MultiGame's local inventory system tracks objects through the Pickable")]
 		public GameObject pickable;
-		public bool debug = false;
+
+		[Header("GUI Settings")]
 		[Tooltip("Close inventory GUI automatically when selecting an item?")]
 		public bool closeInventoryOnSelect = true;
+		[RequiredFieldAttribute("Icon for this object in inventory",RequiredFieldAttribute.RequirementLevels.Recommended)]
+		public Texture2D icon;
+		[RequiredFieldAttribute("Width of inventory icons")]
+		public float iconSizeX = 32.0f;
+		[RequiredFieldAttribute("Height of inventory icons")]
+		public float iconSizeY = 32.0f;
 	//	public float weight = 1.0f;
 
 		public HelpInfo help = new HelpInfo("This component represents an inventory item that is currently in-use. Generally, this is something attached to the player like a " +
 			"+5 Helmet of the Dunce or a machine gun. It must have a 'Pickable' prefab associated with it that has a 'Pickable' component on it and both must be inside a " +
-			"'Resources' folder, otherwise you will get an error. Add an audio clip for stow/drop to the object and it will play automatically.");
-		
+			"'Resources' folder, otherwise you will get an error. Add an audio clip for stow/drop to the object and it will play automatically (Audio Source component).");
+
+		[Tooltip("Log messages in the Console and log file when we interact with this component.")]
+		public bool debug = false;
+
 		void Start () {
 			#region errorHandling
 			if (string.IsNullOrEmpty( inventoryKey)) {
@@ -47,8 +54,8 @@ namespace MultiGame {
 		}
 
 		
-
-		public MessageHelp stowHelp = new MessageHelp("Stow","Removes the item from the character and puts it back in the Inventory");
+		[Header("Available Messages")]
+		public MessageHelp stowHelp = new MessageHelp("Stow","Removes the item from the character heirarchy and puts it back in the Inventory");
 		public void Stow () {//put the item back in inventory
 			GameObject player = GameObject.FindGameObjectWithTag("Player");
 			Inventory inventory = player.GetComponent<Inventory>();
@@ -66,7 +73,7 @@ namespace MultiGame {
 			Destroy(gameObject);
 		}
 
-		public MessageHelp dropHelp = new MessageHelp("Drop","Removes the item from the character and instantiates it's pickable at this location");
+		public MessageHelp dropHelp = new MessageHelp("Drop","Removes the item from the character heirarchy and instantiates it's pickable at this location");
 		public void Drop () {
 			if(debug)
 				Debug.Log("Dropped pickable: " + pickable);

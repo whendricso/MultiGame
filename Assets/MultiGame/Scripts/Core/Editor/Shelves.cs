@@ -71,7 +71,7 @@ namespace MultiGame {
 			GUILayout.BeginArea(new Rect(Camera.current.pixelWidth * 0.01f, Camera.current.pixelHeight * 0.01f, 146f, 304f),"Shelf");
 
 			GUILayout.BeginHorizontal();
-			GUILayout.Label("Shelf");
+			GUILayout.Label("Prefab Painter");
 			GUILayout.FlexibleSpace();
 			if (MGPip(cancelIcon)) {
 				SceneView.onSceneGUIDelegate -= OnSceneView;

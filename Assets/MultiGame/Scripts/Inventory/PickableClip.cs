@@ -10,7 +10,9 @@ namespace MultiGame {
 		[Tooltip("Clip Inventory index this increments")]
 		public int clipType = 0;
 
-		public HelpInfo help = new HelpInfo("This component represents an ammo clip, this is needed for 'ModernGun' and 'ClipInventory' to know what type of ammo this is.");
+		public HelpInfo help = new HelpInfo("This component represents an ammo clip, this is needed for 'ModernGun' and 'ClipInventory' to know what type of ammo this is. To use, define an ammo type in the 'Clip Inventory' component " +
+			"attached to your player. These are zero-indexed, meaning the first type in the list is 0, the second is 1, etc. You must define both NumClips and MaxClips for each type for it to work. Clip Types are numbered, not named. " +
+			"For example if you have two clip types, one for bullets and the other for plasma charges, bullets might be ClipType 0 and plasma might be ClipType 1.");
 
 		public bool debug = false;
 

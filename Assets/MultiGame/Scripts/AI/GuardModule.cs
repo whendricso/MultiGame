@@ -7,6 +7,7 @@ namespace MultiGame {
 	[AddComponentMenu("MultiGame/AI/Guard Module")]
 	public class GuardModule : MultiModule {
 
+		[Header("Objectives")]
 		[Tooltip("What are we trying to guard?")]
 		public GameObject objective;
 		[System.NonSerialized]
@@ -14,11 +15,12 @@ namespace MultiGame {
 		[System.NonSerialized]
 		public Vector3 persistentMoveTarget;
 
-		[Tooltip("Who you wan' me kill?")]
+		[Tooltip("Who you wan' me kill? (Assigns a target that already exists in the scene, good for scripted events)")]
 		public GameObject killTarget;
+		
+		[Header("Behavior Modifiers")]
 		[Tooltip("How often do I think about changing targets?")]
 		public float targetCooldownTime = 6.0f;
-
 		[Tooltip("How far from my objective can I travel?")]
 		public float guardRange = 30.0f;
 		[Tooltip("How far do I turn while guarding a position?")]
@@ -107,7 +109,7 @@ namespace MultiGame {
 			}
 			gameObject.SendMessage("MoveTo", objectivePosition, SendMessageOptions.DontRequireReceiver);
 		}
-
+		[Header("Available Messages")]
 		public MessageHelp wanderHelp = new MessageHelp("Wander", "Causes the Guard Module to immediately begin wandering to a new location.");
 		public void Wander () {
 			if (objective != null)

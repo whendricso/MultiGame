@@ -22,6 +22,7 @@ namespace MultiGame {
 
 		public MessageHelp autoTargetHelp = new MessageHelp("AutoTarget","Causes the Tag Targeter to attempt to assign any 'Target' variable with a game object by finding the appropriately tagged object in the Scene.");
 		public void AutoTarget () {
+			//TODO: Sometimes fails!
 			if (targetComponent == null)
 				return;
 			FieldInfo field = targetComponent.GetType().GetField("target");

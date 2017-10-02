@@ -10,7 +10,11 @@ namespace MultiGame
 	public class Explosion : MultiModule
 	{
 
+		[Header("Important - Must populate")]
+		[Tooltip ("What layers should be checked against a ray at explosion time? Add the layers of the targets as well as occluders.")]
+		public LayerMask rayMask;
 		//public GameObject[] fxPrefabs;
+		[Header("Explosion Settings")]
 		[RequiredFieldAttribute ("How large is the explosion influence (also affects damage!)",RequiredFieldAttribute.RequirementLevels.Required)]
 		public float radius = 10.0f;
 		[RequiredFieldAttribute ("How much force?", RequiredFieldAttribute.RequirementLevels.Required)]
@@ -36,17 +40,18 @@ namespace MultiGame
 		//		[System.NonSerialized]//TODO: allow explosions that pass through objects!
 		//		public bool useRayCheck = true;//forced TRUE - please fix! ^^
 
-		[Tooltip ("How should the force of the explosion be affected by distance?")]
-		public AnimationCurve roloff;
+		[Tooltip ("How should the force of the explosion be affected by distance? Values on the left side are closer to the origin of the explosion, values on the right are closer to the edge. Damage is " +
+			"calculated with the formula (damage * rolloff.Evaluate (_distance / radius)). 'Evaluate' is a built-in Unity function that determines the final value based on 'rolloff' curve defined here. If no " +
+			"curve is defined, the rolloff wil be defined linearly.")]
+		public AnimationCurve rolloff;
 
-		[Tooltip ("What layers should be checked against a ray at explosion time? Add the layers of the targets as well as occluders.")]
-		public LayerMask rayMask;
+
 
 		private bool applied = false;
 
 		public HelpInfo help = new HelpInfo ("BOOM! This component implements damage and physics effects from explosions. You will also need to add a particle effect to your explosion" +
 		                       " object, and we recommend adding some lights, animation, sound etc as well. This object can destroy itself immeditately after dealing damage & adding force, or " +
-		                       "you can destroy it a few moments later using other means.");
+			"you can destroy it a few moments later using other means (if it has visuals attached, this is recommended).");
 
 		[Tooltip ("WARNING! SLOW OPERATION! Send errors to the console and draw lines")]
 		public bool debug = false;
@@ -67,9 +72,9 @@ namespace MultiGame
 				break;
 			}
 
-			if (roloff.keys.Length < 1) {
-				roloff.AddKey (0f, 1f);
-				roloff.AddKey (1f, 0f);
+			if (rolloff.keys.Length < 1) {
+				rolloff.AddKey (0f, 1f);
+				rolloff.AddKey (1f, 0f);
 			}
 		}
 
@@ -104,10 +109,10 @@ namespace MultiGame
 		{
 			float _distance = Vector3.Distance (transform.position, _hinfo.point);
 //			if (_distance < radius) {
-			_target.SendMessage ("ModifyHealth", -(damage * roloff.Evaluate (_distance / radius)), SendMessageOptions.DontRequireReceiver);
+			_target.SendMessage ("ModifyHealth", -(damage * rolloff.Evaluate (_distance / radius)), SendMessageOptions.DontRequireReceiver);
 			MessageManager.SendTo (hitMessage, _target);
 			if (debug)
-				Debug.Log ("Sending ModifyHealth " + (-(damage * roloff.Evaluate (_distance / radius))));
+				Debug.Log ("Sending ModifyHealth " + (-(damage * rolloff.Evaluate (_distance / radius))));
 			if (_target.GetComponent<Rigidbody> () != null) {
 				if (debug)
 					Debug.Log ("Adding " + power + " explosion force at object " + gameObject.name);

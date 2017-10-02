@@ -8,14 +8,17 @@ namespace MultiGame {
 	[RequireComponent (typeof(Rigidbody))]
 	public class ActiveCollider : MultiModule {
 
+		[Header("Important - Must be populated")]
 		[Tooltip("List of tags that trigger this message sender")]
 		public string[] activeTags;
+		[Header("Activation Settings")]
 		[Tooltip("If true, the tag check will be compared against the root transform of the object hit, otherwise it will be performed against the hit collider's transform.")]
 		public bool checkRoot = true;
 		[RequiredFieldAttribute("Minimum velocity required",RequiredFieldAttribute.RequirementLevels.Recommended)]
 		public float velocityThreshold = 0.0f;
 		[HideInInspector]//[Tooltip("Message target override")]
 		public GameObject target;
+		[Header("Output Settings")]
 		[Tooltip("Object to spawn at collision point")]
 		public GameObject hitPrefab;
 		[System.NonSerialized]//TODO: Update animation code to work with Mecanim

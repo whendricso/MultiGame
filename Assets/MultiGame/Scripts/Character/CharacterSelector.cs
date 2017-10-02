@@ -8,29 +8,31 @@ namespace MultiGame {
 	[AddComponentMenu("MultiGame/Character/Character Selector")]
 	public class CharacterSelector : MultiModule {
 		
+		[Header("GUI Settings")]
+		[Tooltip("Should we show the GUI right now?")]
+		public bool showGUI = false;
 		[Tooltip("Normalized viewport rectangle indicating the button area. values between 0 and 1")]
 		public Rect guiArea = new Rect(0.3f,0.3f,0.3f,0.3f);
-		[Tooltip("Should the camera be destroyed when switching characters?")]
-		public bool destroyCamera = true;
-		[Tooltip("What characters can we select from?")]
-		public List<GameObject> characters;
 		[Tooltip("Allow this script to control the cursor?")]
 		public bool toggleCursor = false;
-		
-		[RequiredFieldAttribute("If greater than 0, close the GUI if the player leaves this radius", RequiredFieldAttribute.RequirementLevels.Optional)]
+		[Tooltip("Should the camera be destroyed when switching characters?")]
+		public bool destroyCamera = true;
+		[RequiredFieldAttribute("If greater than 0, close the GUI if the player leaves this radius. Assumes that the player is tagged 'Player'", RequiredFieldAttribute.RequirementLevels.Optional)]
 		public float maxDistance = 0.0f;
 		[RequiredFieldAttribute("Unique window ID number for this window, must not conflict with any others (change it if it does!)")]
 		public int windowID = 92829;
 		
+		[Header("Spawn Settings")]
 		[RequiredFieldAttribute("Where do we spawn the new player object?", RequiredFieldAttribute.RequirementLevels.Optional)]
 		public GameObject spawnPoint;
+		[Tooltip("What characters can we select from?")]
+		public List<GameObject> characters;
 
-		[Tooltip("Should we show the GUI right now?")]
-		public bool showGUI = false;
 
 		public HelpInfo help = new HelpInfo("NOTE: Character Selector implements character selection using the legacy Unity GUI. Not suitable for mobile." +
 			"\n\n" +
-			"Provide a list of characters, and send a message to this object when it's time for character selection (ToggleOn & ToggleOff) to show the menu.");
+			"Provide a list of characters, and send a message to this object when it's time for character selection (ToggleOn & ToggleOff) to show the menu. This allows the player to switch characters " +
+			"mid-game");
 
 		void Start () {
 			if (spawnPoint == null)
@@ -67,6 +69,7 @@ namespace MultiGame {
 
 		}
 
+		[Header("Available Messages")]
 		public MessageHelp toggleOnHelp = new MessageHelp("ToggleOn","Enables the character selection GUI");
 		public void ToggleOn() {
 			Toggle(true);

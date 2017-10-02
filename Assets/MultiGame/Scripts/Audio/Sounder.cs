@@ -9,8 +9,10 @@ namespace MultiGame {
 	[RequireComponent(typeof(AudioSource))]
 	public class Sounder : MultiModule {
 
+		[Header("Available sounds")]
 		[Tooltip("A list of clips we can play by using 'PlaySelectedSound' and sending an integer representing which clip we want. 0 for first, 1 for second and son forth")]
 		public AudioClip[] clips;
+		[Header("Playback Settings")]
 		[Tooltip("How long do we need to wait between sounds?")]
 		public float cooldown = 0.3f;
 		private bool canSound = true;
@@ -21,7 +23,10 @@ namespace MultiGame {
 		[System.NonSerialized]
 		public AudioSource source;
 
-		public HelpInfo help = new HelpInfo("This component allows you to play arbitrary sounds based on messages sent from other components.");
+		public HelpInfo help = new HelpInfo("The ultimate audio component! This component allows you to play arbitrary sounds based on messages sent from other components. To use, add it to the source object where " +
+			"you want sound to originate. For a single sound, just add the sound to the 'Audio Clip' attribute in the 'Audio Source' comonent attached to this object. If you want to play one of a set of sounds, add them all to the " +
+			"'Clips' attribute above. Then, send the message 'PlaySelectedSound' with an integer (starting at 0) indicating which you wish to play. For example, to play the second sound send 'PlaySelectedSound' with parameter '1' " +
+			"and 'Integer' parameter mode. Any message sender can be used, for example the 'Key Message' component can trigger this Sounder with the press of a key.");
 
 		public bool debug = false;
 
@@ -39,6 +44,7 @@ namespace MultiGame {
 			InitiateCooldown();
 		}
 
+		[Header("Available Messages")]
 		public MessageHelp playSoundHelp = new MessageHelp("PlaySound","Plays the sound currently assigned to the Audio Source attached to this object");
 		public void PlaySound () {
 			if (!canSound) return;

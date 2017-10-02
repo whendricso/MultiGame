@@ -6,7 +6,8 @@ namespace MultiGame {
 
 	[AddComponentMenu("MultiGame/Interaction/Key Toggle")]
 	public class KeyToggle : MultiModule {
-		
+
+		[Header("Toggle Targets")]
 		[Tooltip("Game Objects we will toggle")]
 		public GameObject[] gameObjectTargets;//a list of targets to toggle
 		[Tooltip("Scripts we will toggle")]
@@ -15,6 +16,7 @@ namespace MultiGame {
 		public Collider colliderTarget;
 		[Tooltip("Render we will toggle")]
 		public MeshRenderer rendererTarget;
+		[Header("Input Settings")]
 		[Tooltip("Key to be pressed to toggle off")]
 		public KeyCode off = KeyCode.LeftControl;
 		[Tooltip("Key to be released to toggle on")]
@@ -28,7 +30,7 @@ namespace MultiGame {
 
 		public HelpInfo help = new HelpInfo("This component allows objects, colliders, renderers, and scripts to be toggled based on the state of a given key. Off key is read on key up, On key is read on key down." +
 			" This prevents key collisions when using the same key for both. If you want these objects and components to start in a 'Toggled off' state, set 'Toggle' to false, otherwise they will be enabled " +
-			"automatically when the game starts.");
+			"automatically when the game starts. It may be more convenient to use this component than using a Message Toggle and Key Message in some situations.");
 		
 		void Start () {
 			if (reverse) {

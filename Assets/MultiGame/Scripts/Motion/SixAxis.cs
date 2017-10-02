@@ -36,9 +36,13 @@ namespace MultiGame {
 
 		public HelpInfo help = new HelpInfo("This component is a player input controller allowing the user to fly in all directions, truly utilizing 3D space. It takes input from the " +
 			"user, processes it for precision, and applies it as force to the attached Rigidbody" +
-			"/n/n" +
+			"\n\n" +
 			"To use, add to the base object that you want the player to fly. If this is a multiplayer game, localize it as a Local Component ([N]etworking tab). Adjust the thrust amount for " +
 			"each direction");
+
+		void Reset () {
+			GetComponent<Rigidbody> ().useGravity = false;
+		}
 
 		void Start () {
 			if (body == null)

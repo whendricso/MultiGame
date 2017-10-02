@@ -17,7 +17,9 @@ namespace MultiGame {
 		[System.NonSerialized]
 		private float originalDrag;
 
-		public HelpInfo help = new HelpInfo("This component allows a physics object to slow down in midair using drag based on the state of a key.");
+		private bool msgBrake = false;
+
+		public HelpInfo help = new HelpInfo("This component allows a physics object to slow down in midair using drag based on the state of a key, or by receiving Messages.");
 
 		// Use this for initialization
 		void Start () {
@@ -38,6 +40,17 @@ namespace MultiGame {
 				myRigidbody.drag = brakingDrag;
 			else
 				myRigidbody.drag = originalDrag;
+		}
+
+		[Header("Available Messages")]
+		public MessageHelp applyBrakesHelp = new MessageHelp("ApplyBrakes","Causes the drag on this Rigidbody to increase to 'Braking Drag'");
+		public void ApplyBrakes () {
+			msgBrake = true;
+		}
+
+		public MessageHelp releaseBrakesHelp = new MessageHelp("ReleaseBrakes","Causes the drag on this Rigidbody to return to the value set on the Rigidbody");
+		public void ReleaseBrakes () {
+			msgBrake = false;
 		}
 	}
 }

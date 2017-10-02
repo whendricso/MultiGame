@@ -398,7 +398,7 @@ namespace MultiGame {
 
 			EditorGUILayout.BeginHorizontal("box",GUILayout.Width(113f));
 			EditorGUILayout.BeginVertical("box", GUILayout.Width(92f));
-			if (MGButton(shelfIcon, "Prefab\nShelf")) {
+			if (MGButton(shelfIcon, "Prefab\nPainter")) {
 				if(!Shelves.running)
 					Shelves.ShowWindow();
 			}

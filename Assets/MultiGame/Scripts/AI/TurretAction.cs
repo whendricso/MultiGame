@@ -9,27 +9,25 @@ namespace MultiGame {
 	[RequireComponent (typeof(AudioSource))]
 	public class TurretAction : MultiModule {
 		
-		[RequiredFieldAttribute("How often does a bullet leave the muzzle?", RequiredFieldAttribute.RequirementLevels.Required)]
-		public float delay = 0.25f;
-	//	public bool autoRotate = true;
-	//	public float autoRotateInterval = 10.0f;
-	//	public float autoRotationAngle = 30.0f;
-	//	public float rotationTime = 2.0f;
-	//	public float directionChangeFrequency = 0.3f;
-	//	private float rotationTarget;
-		public bool requireTarget = false;
-		[RequiredFieldAttribute("What are we shooting out?",RequiredFieldAttribute.RequirementLevels.Required)]
-		public GameObject projectile;
-		[RequiredFieldAttribute("Should we spawn an object each time we fire?",RequiredFieldAttribute.RequirementLevels.Optional)]
-		public GameObject muzzleFlash;
-		[RequiredFieldAttribute("A trigger to be played on any attached Animator, if any, when the turret fires.",RequiredFieldAttribute.RequirementLevels.Optional)]
-		public string mecanimFireTrigger = "";
-		[RequiredFieldAttribute("How long should that object be alive?",RequiredFieldAttribute.RequirementLevels.Required)]
-		public float flashDuration = 0.0125f;
+		[Header("Required Fire Settings")]
 		[RequiredFieldAttribute("An object representing the exit point of the projectiles. Z direction is forward",RequiredFieldAttribute.RequirementLevels.Required)]
 		public GameObject muzzleTransform;
+		[RequiredFieldAttribute("How often does a bullet leave the muzzle?", RequiredFieldAttribute.RequirementLevels.Required)]
+		public float delay = 0.25f;
+		[Tooltip("If false, we'll just fire even if we don't have a target")]
+		public bool requireTarget = true;
+		[RequiredFieldAttribute("What are we shooting out?",RequiredFieldAttribute.RequirementLevels.Required)]
+		public GameObject projectile;
+		[RequiredFieldAttribute("How long should that object be alive?",RequiredFieldAttribute.RequirementLevels.Required)]
+		public float flashDuration = 0.0125f;
+
+		[Header("Cosmetics")]
+		[RequiredFieldAttribute("A trigger to be played on any attached Animator, if any, when the turret fires.",RequiredFieldAttribute.RequirementLevels.Optional)]
+		public string mecanimFireTrigger = "";
 		[HideInInspector]
 		public GameObject target;
+		[RequiredFieldAttribute("Should we spawn an object each time we fire?",RequiredFieldAttribute.RequirementLevels.Optional)]
+		public GameObject muzzleFlash;
 		[RequiredFieldAttribute("Sound to play when firing",RequiredFieldAttribute.RequirementLevels.Recommended)]
 		public AudioClip fireSound;
 		[RequiredFieldAttribute("Sound to play on target acquisition",RequiredFieldAttribute.RequirementLevels.Optional)]
@@ -95,6 +93,7 @@ namespace MultiGame {
 				GetComponent<AudioSource>().PlayOneShot(targetAcquired);
 		}
 
+		[Header("Available Messages")]
 		public MessageHelp clearTargetHelp = new MessageHelp("ClearTarget","Clears the turret action's target, causing it to stop firing. It will still cease firing if it's not requiring targets.");
 		public void ClearTarget () {
 			target = null;

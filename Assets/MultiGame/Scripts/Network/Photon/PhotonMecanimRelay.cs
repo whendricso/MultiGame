@@ -38,7 +38,7 @@ namespace MultiGame {
 			TriggerAnimation(animatedStates[animatedState].trigger);
 		}
 
-		MultiModule.MessageHelp triggerAnimationHelp = new MultiModule.MessageHelp("TriggerAnimation","Causes the supplied Mecanim trigger to fire across all clients connected to this server",4,"The exact name of the trigger we wish to fire");
+		public MultiModule.MessageHelp triggerAnimationHelp = new MultiModule.MessageHelp("TriggerAnimation","Causes the supplied Mecanim trigger to fire across all clients connected to this server",4,"The exact name of the trigger we wish to fire");
 		public void TriggerAnimation (string anim) {
 			if (view.isMine) {
 				view.RPC("AnimateByMecanim", PhotonTargets.All, anim);

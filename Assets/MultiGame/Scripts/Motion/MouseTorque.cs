@@ -17,22 +17,29 @@ namespace MultiGame {
 		[Tooltip("Optional key to rotate around the Z axis")]
 		public KeyCode rotateLeft = KeyCode.Q;
 
-		public HelpInfo help = new HelpInfo("This component applies torque based on mouse movement");
+		public HelpInfo help = new HelpInfo("This component applies torque based on mouse movement. It applies rotation on the X axis when the user moves the mouse up or down, and on the Y axis when the user moves the mouse " +
+			"sideways. It can be combined with other components to create more complex controllers.");
+
+		private Rigidbody rigid;
+
+		void Start() {
+			rigid = GetComponent<Rigidbody> ();
+		}
 
 		void FixedUpdate () {
 			if (!maverickStyle) {
 				if (Input.GetKey(rotateRight))
-					GetComponent<Rigidbody>().AddRelativeTorque((-Vector3.forward * power) * Time.deltaTime);
+					rigid.AddRelativeTorque((-Vector3.forward * power) * Time.deltaTime);
 				if (Input.GetKey(rotateLeft))
-					GetComponent<Rigidbody>().AddRelativeTorque((Vector3.forward * power) * Time.deltaTime);
-				GetComponent<Rigidbody>().AddRelativeTorque(new Vector3(-Input.GetAxis( "Mouse Y") * power, Input.GetAxis("Mouse X") * power, 0.0f) * Time.deltaTime, ForceMode.Force);
+					rigid.AddRelativeTorque((Vector3.forward * power) * Time.deltaTime);
+				rigid.AddRelativeTorque(new Vector3(-Input.GetAxis( "Mouse Y") * power, Input.GetAxis("Mouse X") * power, 0.0f) * Time.deltaTime, ForceMode.Force);
 			}
 			else {
 				if (Input.GetKey(rotateRight))
-					GetComponent<Rigidbody>().AddRelativeTorque((Vector3.up * power)*Time.deltaTime);
+					rigid.AddRelativeTorque((Vector3.up * power)*Time.deltaTime);
 				if (Input.GetKey(rotateLeft))
-					GetComponent<Rigidbody>().AddRelativeTorque((-Vector3.up * power) * Time.deltaTime);
-				GetComponent<Rigidbody>().AddRelativeTorque(new Vector3(-Input.GetAxis( "Mouse Y") * power, 0.0f, -Input.GetAxis("Mouse X") * power) * Time.deltaTime, ForceMode.Force);
+					rigid.AddRelativeTorque((-Vector3.up * power) * Time.deltaTime);
+				rigid.AddRelativeTorque(new Vector3(-Input.GetAxis( "Mouse Y") * power, 0.0f, -Input.GetAxis("Mouse X") * power) * Time.deltaTime, ForceMode.Force);
 			}
 		}
 	}

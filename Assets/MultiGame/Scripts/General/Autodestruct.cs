@@ -7,6 +7,7 @@ namespace MultiGame {
 	[AddComponentMenu("MultiGame/General/Autodestruct")]
 	public class Autodestruct : MultiModule {
 		
+		[Header("Destruction Settings")]
 		[RequiredFieldAttribute("How long until destruction?")]
 		public float liveTime = 2.0f;
 		[RequiredFieldAttribute("What should we create on death?",RequiredFieldAttribute.RequirementLevels.Recommended)]
@@ -28,6 +29,7 @@ namespace MultiGame {
 			Destroy(gameObject);
 		}
 
+		[Header("Available Messages")]
 		public MessageHelp cancelDestructionHelp = new MessageHelp("CancelDestruction","If received in time, stops this object from self-destructing.");
 		public void CancelDestruction () {
 			StopAllCoroutines();

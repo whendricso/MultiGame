@@ -8,6 +8,11 @@ namespace MultiGame {
 	[RequireComponent (typeof(Rigidbody))]
 	public class Bullet : MultiModule {
 		
+		[Header("Important - Must be populated")]
+		[Tooltip("What layers can this projectile collide with?")]
+		public LayerMask rayMask;
+
+		[Header("Projectile Settings")]
 		[RequiredFieldAttribute("How fast does this projectile travel when it leaves the muzzle?")]
 		public float muzzleVelocity = 1500.0f;
 		[RequiredFieldAttribute("How much hurt?",RequiredFieldAttribute.RequirementLevels.Recommended)]
@@ -18,8 +23,7 @@ namespace MultiGame {
 		public GameObject bulletSplash;
 		private bool fired = false;
 		private Vector3 lastPosition;
-		[Tooltip("What layers can this projectile collide with?")]
-		public LayerMask rayMask;
+
 		[Tooltip("Message to be sent to the object we hit")]
 		public MessageManager.ManagedMessage message;
 
@@ -80,8 +84,8 @@ namespace MultiGame {
 			if (bulletSplash != null) {
 				Instantiate(bulletSplash, rayhit.point, transform.rotation);
 			}
-			if(transform.FindChild("BulletTrail") != null) {
-				GameObject myTrail = transform.FindChild("BulletTrail").gameObject;
+			if(transform.Find("BulletTrail") != null) {
+				GameObject myTrail = transform.Find("BulletTrail").gameObject;
 				if (myTrail != null)
 					myTrail.transform.parent = null;
 			}

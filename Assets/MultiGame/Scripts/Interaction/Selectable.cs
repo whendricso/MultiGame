@@ -25,7 +25,9 @@ namespace MultiGame {
 		[Tooltip("A list of messages which can be sent depending on whether or not the object is selected by the player")]
 		public List<MessageManager.ManagedMessage> messages = new List<MessageManager.ManagedMessage>();
 
-		public HelpInfo help = new HelpInfo("");
+		public HelpInfo help = new HelpInfo("This component implements a generic selection system for your game. To use add some indicators to the prefab you wish to be selectable like green circles around the feet or " +
+			"arrows above the head. Also determine if you want any functionality to occur when the object is selected for example opening a production menu on unit production structures. Add all of these to the appropriate lists " +
+			"above. Then, send the 'Select' and 'Deselect' messages to the object when appropriate using any message sender.");
 
 		void OnValidate () {
 			MessageManager.ManagedMessage _msg;
@@ -52,6 +54,7 @@ namespace MultiGame {
 				script.enabled = !selected;
 		}
 
+		[Header("Available Messages")]
 		public MessageHelp selectHelp = new MessageHelp("Select","Selects this object, activating/deactivating the appropriate scripts and objects, listed above");
 		public void Select () {
 			selected = true;

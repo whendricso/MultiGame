@@ -21,14 +21,15 @@ namespace MultiGame {
 		public PickModes pickMode = PickModes.Item;
 		[RequiredFieldAttribute("A Game Object prefab with an Active Object component, matching this one with Inventory Key")]
 		public GameObject activeObject;//the object to be instantiated when used
-		[RequiredFieldAttribute("A unique key identifying this as a unique type of object")]
+		[RequiredFieldAttribute("A unique key (string) identifying this as a unique type of object. This must match the corresponding field in the corresponding ActiveItem, which is a component attached to the object representing this item while it's in-use.")]
 		public string inventoryKey;
 		public bool debug = false;
 		
 		private bool picked  = false;
 
 		public HelpInfo help = new HelpInfo("This component implements items that can be picked up and placed in inventory. To cause this to happen, send the 'Pick' message to" +
-			" this object. Pickables need a corresponding ActiveObject which represents the item while it's in-use.");
+			" this object. Pickables need a corresponding ActiveObject which represents the item while it's in-use. A 'Pickable' and 'ActiveObject' pair represent one Inventory Item. These objects must both be inside a Resources " +
+			"folder in your Project, or Unity will throw an error when you try to use them in your game.");
 		
 		void Start () {
 			switch (pickMode) {

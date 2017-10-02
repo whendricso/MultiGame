@@ -29,7 +29,13 @@ namespace MultiGame {
 		[System.NonSerialized]
 		public int collected = 0;
 
-		public HelpInfo help = new HelpInfo("This component handles basic collectible-based scoring");
+		public HelpInfo help = new HelpInfo("This component handles basic collectible-based scoring. To use, add this to an object in the scene and add a 'Collectible' component to the prefab for your " +
+			"game's collectible item. When one is collected, 'Collection Message' will be sent. When the player reaches the 'Max' (defined above), 'Maxed Message' will be sent. For example you could have coins, and set " +
+			"the 'Max' to 100. Then, if you have 'lives' in your game you could add an additional life to the player by sending a message to the component which manages player lives. To write a message in a script, simply implement " +
+			"a new method as such:" +
+			"\n\n" +
+			"public void MyNewMessage( )\n" +
+			"The message you implement may have 0 arguments, or it may take an integer, float, bool, or string. This will tell MultiGame to add it to the Messages list when you hit 'Refresh Messages'.");
 
 		void Start () {
 			if (target == null)
@@ -53,7 +59,7 @@ namespace MultiGame {
 			GUILayout.Window(windowID, new Rect(guiArea.x * Screen.width, guiArea.y * Screen.height, guiArea.width * Screen.width, guiArea.height * Screen.height), CollectionWindow, windowTitle);
 		}
 
-		MessageHelp collectHelp = new MessageHelp("Collect","Increments the collection count by one, sending messages as appropriate");
+		public MessageHelp collectHelp = new MessageHelp("Collect","Increments the collection count by one, sending messages as appropriate");
 		public void Collect () {
 			collected ++;
 			if( collectionMessage.message != "" || collectionMessage.message!= "--none--")

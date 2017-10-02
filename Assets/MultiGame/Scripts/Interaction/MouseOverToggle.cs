@@ -15,7 +15,8 @@ namespace MultiGame {
 		[Tooltip("Should on/off be reversed?")]
 		public bool reverse;
 
-		public HelpInfo help = new HelpInfo("This component turns things on/off based on whether the mouse is positioned over a collider on this object.");
+		public HelpInfo help = new HelpInfo("This component turns things on/off based on whether the mouse is positioned over a collider on this object. To use, add some scripts or objects to the lists above. Entries in " +
+			"each list will have their active state swapped when the mouse enters/exits the collider.");
 		
 		void Start () {
 			if (scripts.Length < 1 && objects.Length < 1) {

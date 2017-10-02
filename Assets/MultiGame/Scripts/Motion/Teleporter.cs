@@ -77,6 +77,7 @@ namespace MultiGame {
 			}
 		}
 
+		[Header("Available Messages")]
 		public MessageHelp teleportToTargetHelp = new MessageHelp("TeleportToTarget","Teleports this object to the supplied 'Tele Target' scene object, if any.");
 		public void TeleportToTarget () {
 			if (splashPrefab != null)

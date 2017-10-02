@@ -12,15 +12,26 @@ namespace MultiGame {
 	[AddComponentMenu("MultiGame/Interaction/Mouse Commander")]
 	public class MouseCommander : MultiModule {
 
+		[Header("Important - Must be Populated")]
+		[Tooltip("What objects can we deploy on, by collision mask?")]
+		public LayerMask deployMask;
 		//public int windowID = 0;
+
+		[Header("GUI Settings")]
 		[Tooltip("Should we use Unity's legacy GUI for this? Not suitable for mobile devices")]
 		public bool useGUI = true;
-		[Tooltip("Should we control the position of this object using a rigidbody? Useful for command cameras")]
-		public bool controlPosition = true;
+		public enum Layouts {Vertical, Horizontal };
+		[Tooltip("Which direction should the buttons be drawn in?")]
+		public Layouts layout = Layouts.Horizontal;
 		[Tooltip("Normalized viewport rectangle indicating where we should draw the buttons. Numbers  indicate a percentage of screen space from 0 to 1")]
 		public Rect guiArea = new Rect(0.01f, 0.8f, .98f, .79f);
 		public GUISkin guiSkin;
+		public int buttonWidth = 64;
+		public int buttonHeight = 64;
 
+		[Header("Input and Motion")]
+		[Tooltip("Should we control the position of this object using a rigidbody? Useful for command cameras")]
+		public bool controlPosition = true;
 		[RequiredFieldAttribute("Stick dead zone, for control smoothing")]
 		public float deadZone = 0.25f;
 		[HideInInspector]
@@ -29,14 +40,18 @@ namespace MultiGame {
 		public float force = 1000.0f;
 		[Tooltip("How fast does the scroll wheel move us?")]
 		public float ySpeed = 20.0f;
-		[System.NonSerialized]//TODO: fully implement this!
-		public float populationMultiplier = 1f;
+		[Tooltip("What key, if any, can the player hold down to keep deploying more of the same thing?")]
+		public KeyCode continuationModifier = KeyCode.LeftShift;
 
-		[Tooltip("What objects can we deploy on, by collision mask?")]
-		public LayerMask deployMask;
-		[Tooltip("Tag of objects we can't deploy close to")]
+		[Header("Deploys and Resources")]
+		[RequiredFieldAttribute("Tag of objects we can't deploy close to", RequiredFieldAttribute.RequirementLevels.Recommended)]
 		public string radiusSearchTag = "";//tag to check against for deploy radius constraint
+		[Tooltip("What objects can the player buy?")]
+		public Deployable[] deploys;
+		[Tooltip("What resources, if any, exist in the game?")]//[ReorderableField()]//TODO: Finish reorderable fields
+		public List<ResourceManager.GameResource> resources = new List<ResourceManager.GameResource>();
 
+		[Header("Message Senders")]
 		[Tooltip("Sent when we can't afford something")]
 		public MessageManager.ManagedMessage insufficientResourceMessage;
 		[Tooltip("Sent when we can afford a selection")]
@@ -44,46 +59,36 @@ namespace MultiGame {
 		[Tooltip("Sent when we failed to deploy something due to radius restriction")]
 		public MessageManager.ManagedMessage itemTooCloseMessage;
 
-		//cutscene mode disables movement handling until we're told to leave cutscene mode
-		public enum Modes {Build, Command, Cutscene };
 		[HideInInspector]
-		public Modes mode = Modes.Build;
-		public enum Layouts {Vertical, Horizontal };
-		[Tooltip("Which direction should the buttons be drawn in?")]
-		public Layouts layout = Layouts.Horizontal;
-
-		[System.NonSerialized]
-		public int currentSelection = -1;
-		public int buttonWidth = 64;
-		public int buttonHeight = 64;
-		[Tooltip("What key, if any, can the player hold down to keep deploying more of the same thing?")]
-		public KeyCode continuationModifier = KeyCode.LeftShift;
-		[Tooltip("What objects can the player buy?")]
-		public Deployable[] deploys;
-		[HideInInspector]
-		public GameObject[] deployables;
+		public GameObject[] deployables;// these purely exist for backwards-compatibility
 		[HideInInspector]
 		public Texture2D[] icons;
 		[HideInInspector]
 		public int[] quantities;
 		[HideInInspector]
 		public int[] maxQuantities;
+
+		//some local variables
+		[System.NonSerialized]
+		public int currentSelection = -1;
 		[System.NonSerialized]
 		public Vector2 scrollPosition = Vector2.zero;
-		[Tooltip("What resources, if any, exist in the game?")]//[ReorderableField()]//TODO: Finish reorderable fields
-		public List<ResourceManager.GameResource> resources = new List<ResourceManager.GameResource>();
-
+		[System.NonSerialized]//TODO: fully implement this!
+		public float populationMultiplier = 1f;
 		[System.NonSerialized]
 		public Rigidbody body;
 		[System.NonSerialized]
 		Camera cam;
+		//cutscene mode disables movement handling until we're told to leave cutscene mode
+		public enum Modes {Build, Command, Cutscene };
+		[HideInInspector]//this is probably just bloat
+		public Modes mode = Modes.Build;
 
 		public HelpInfo help = new HelpInfo("This component implements RTS-style camera motion and object deployment. Legacy GUI is not recommended for mobile. To use, add this " +
 			"to your MainCamera (which must be tagged 'MainCamera') and then set up a list of deployable objects. This works with the 'ResourceManager' component (optionally) to " +
 			"allow for a resource-based experience." +
 			"\n\n" +
-			"SelectDeploy takes an integer corresponding to which deploy you want to select (Useful for using other GUI solutions)\n" +
-			"");
+			"There is a more in-depth manual 'MouseCommanderDoc.rtf' found in the MultiGame/Scripts/Interaction/RTS folder in your project, explaining the system in more detail than can fit in this text box.");
 
 		[Tooltip("Send useful information to the console")]
 		public bool debug = false;
@@ -264,6 +269,7 @@ namespace MultiGame {
 
 		}
 
+		[Header("Available Messages")]
 		public MessageHelp selectDeployHelp = new MessageHelp("SelectDeploy","Activate deployment for a 'Deployable'", 2, "Index indicating which of the 'Deploys' you wish to allow the player to place '");
 		public void SelectDeploy (int _selector) {
 			currentSelection = _selector;//Deploy(i);
@@ -395,6 +401,7 @@ namespace MultiGame {
 			return ret;
 		}
 
+		public MessageHelp toggleBuildGUIHelp = new MessageHelp("ToggleBuildGUI","Opens/closes the build GUI");
 		public void ToggleBuildGUI () {
 			useGUI = !useGUI;
 		}
@@ -403,10 +410,12 @@ namespace MultiGame {
 			useGUI = _enabled;
 		}
 
+		public MessageHelp enableBuildGUIHelp = new MessageHelp("EnableBuildGUI","Opens the build GUI");
 		public void EnableBuildGui () {
 			ToggleBuildGui(true);
 		}
 
+		public MessageHelp disableBuildGUIHelp = new MessageHelp("DisableBuildGUI","Closes the build GUI");
 		public void DisableBuildGui() {
 			ToggleBuildGui(false);
 		}

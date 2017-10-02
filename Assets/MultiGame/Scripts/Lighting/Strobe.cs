@@ -20,7 +20,9 @@ namespace MultiGame {
 		[Tooltip("Optional reference to a Day Night Manager object, will assign itself automatically if one is in the scene at start")]
 		public DayNightManager dayNightManager;
 
-		public HelpInfo help = new HelpInfo("This component turns a light and optionally a lens flare on and off based on timers.");
+		public HelpInfo help = new HelpInfo("This component turns a light and optionally a lens flare on and off based on timers. To use, add it to an object with a Light component or to an object which you wish to manage a " +
+			"child light (in this case, assign 'Target Light' in the Inspector). You can also add a lens flare component to control that if you wish. Next, set a Blink Rate and optionally Timer Offset to tell the Strobe how fast " +
+			"it should blink and when to start. By combining multiple strobes in sequence you can create dancing light effects, wing beacons for aircraft, police lights or pulsing muzzle flashes. Be creative!");
 		
 		// Use this for initialization
 		void Start () {

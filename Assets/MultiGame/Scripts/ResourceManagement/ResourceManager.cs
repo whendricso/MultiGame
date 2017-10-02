@@ -9,6 +9,9 @@ namespace MultiGame
 	[RequireComponent(typeof(Persistent))]
 	public class ResourceManager : MultiModule
 	{
+		[Header("Important - Must be populated")]
+		public List<GameResource> startingResources = new List<GameResource>();
+		[Header("IMGUI Settings")]
 		[Tooltip("Should we show the resources using a legacy GUI? Not suitable for mobile.")]
 		public bool showGui = true;
 		[Tooltip("Normalized viewport rectangle indicating the screen area for the IMGUI. Numbers are a percentage of screen space between 0 and 1. Not suitable for mobile devices.")]
@@ -16,7 +19,6 @@ namespace MultiGame
 		[Tooltip("An optional skin for the IMGUI, if used")]
 		public GUISkin guiSkin;
 
-		public List<GameResource> startingResources = new List<GameResource>();
 		private bool resourcesInitiated = false;
 
 		[Tooltip("A list of resources in your game for a given player. Could be minerals, gold, mana, or even experience points. Anything that the player " +
@@ -145,6 +147,7 @@ namespace MultiGame
 			resources[_index].quantity = Mathf.Clamp(resources[_index].quantity, 0f, resources[_index].limit);
 		}
 
+		[Header("Available Messages")]
 		public MessageHelp saveHelp = new MessageHelp("Save","Saves the current resources to Player Prefs. Works on all platforms.");
 		public void Save ()
 		{

@@ -7,7 +7,11 @@ namespace MultiGame {
 	[AddComponentMenu("MultiGame/General/Snap To Surface")]
 	public class SnapToSurface : MultiModule {
 
+		[Header("Important - Must be populated")]
+		[Tooltip("What objects can we snap to? Make sure they are on the supplied layers, or nothing will happen!")]
+		public LayerMask snapMask;
 		public enum SnapModes {Validate, Start};
+		[Header("Snap Settings")]
 		[Tooltip("Start is for run-time, validate is for in-editor (snaps when a value is changed)")]
 		public SnapModes snapMode = SnapModes.Validate;
 		public enum SurfaceDetectModes {WorldY, LocalZ};
@@ -16,8 +20,7 @@ namespace MultiGame {
 		
 		[Tooltip("Where should the origin of the ray be offset?")]
 		public Vector3 rayOffset = new Vector3(0f, 100f, 0f);
-		[Tooltip("What objects can we snap to?")]
-		public LayerMask snapMask;
+
 
 		public HelpInfo help = new HelpInfo("This component allows objects to snap to colliders in your scene automatically. This is great for construction sims or other games where" +
 			" things are being created that need to \"stick\" to static geometry.");
@@ -32,6 +35,8 @@ namespace MultiGame {
 				Snap ();
 		}
 
+		[Header("Available Messages")]
+		public MessageHelp snapHelp = new MessageHelp("Snap","Snaps the object based on the settings above");
 		public void Snap () {
 			RaycastHit _hinfo;
 			bool _didHit = false;

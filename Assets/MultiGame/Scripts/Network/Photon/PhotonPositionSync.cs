@@ -26,7 +26,7 @@ namespace MultiGame {
 		public enum InterPositionMode {InterpolateTransformation, ExtrapolateRigidbodyPhysics};
 		[Tooltip("Should we use a simple transform interpolation, which takes fewer resources but is less accurate, or should we extrapolate rigidbody motion for a more crisp experience " +
 			"at the cost of additional CPU and network traffic?")]
-		public InterPositionMode syncMode = InterPositionMode.ExtrapolateRigidbodyPhysics;
+		public InterPositionMode syncMode = InterPositionMode.InterpolateTransformation;
 		[Tooltip("Multiplied by the time delta to adjust smoothness. Smaller numbers are more accurate but look more laggy.")]
 		[Range(1f, 30f)]
 		public float interpolationBias = 5.0f;
@@ -251,11 +251,14 @@ namespace MultiGame {
 			return ret;
 		}
 
-		void Activate () {
+		[Header("Available Messages")]
+		public MultiModule.MessageHelp activateHelp = new MultiModule.MessageHelp("Activate","Causes this object to sync it's position across the network");
+		public void Activate () {
 			interPosition = true;
 		}
 
-		void Deactivate () {
+		public MultiModule.MessageHelp deactivateHelp = new MultiModule.MessageHelp("Deactivate","Causes this object to stop syncing it's position across the network");
+		public void Deactivate () {
 			interPosition = false;
 		}
 	}

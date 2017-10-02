@@ -6,6 +6,7 @@ namespace MultiGame {
 
 	public class DepthTextureManager : MultiModule  {
 
+		[Header("Modality")]
 		[Tooltip("Default depth texture mode for this camera")]
 		public DepthTextureMode depthMode = DepthTextureMode.None;
 		Camera cam;
@@ -22,6 +23,7 @@ namespace MultiGame {
 			}
 		}
 
+		[Header("Available Messages")]
 		public MessageHelp enableDepthTexturesHelp = new MessageHelp("EnableDepthTextures","Causes any camera attached to this object (or it's children) to begin writing depth textures which can be used for some effects");
 		public void EnableDepthTextures () {
 			cam.depthTextureMode = DepthTextureMode.Depth;

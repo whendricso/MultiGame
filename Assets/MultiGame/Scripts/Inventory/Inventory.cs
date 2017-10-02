@@ -10,12 +10,8 @@ namespace MultiGame {
 	[AddComponentMenu("MultiGame/Inventory/Inventory")]
 	public class Inventory : MultiModule {
 		
-		[Tooltip("Items already in the inventory")]
-		public static Dictionary<string, GameObject> inv = new Dictionary<string, GameObject>();
-		[Tooltip("number of each remaining")]
-		public static Dictionary<string, int> invCount = new Dictionary<string, int>();
-		[Tooltip("Should we use buttons to drop/stow items held in the hand?")]
-		public bool useHandButtons = true;
+
+		[Header("Heirarchy Settings")]
 		[RequiredFieldAttribute("Right hand transform, should be an empty object parented to the hand and rotated to match the rotation of any items you wish the character to hold")]
 		public GameObject rWeaponMount;
 		[RequiredFieldAttribute("Left hand transform, should be an empty object parented to the hand and rotated to match the rotation of any items you wish the character to hold")]
@@ -24,33 +20,50 @@ namespace MultiGame {
 		public GameObject torsoMount;
 		[RequiredFieldAttribute("Back transform, should be an empty object parented to the back and rotated to match the rotation of any items you wish the character to wear")]
 		public GameObject backMount;
-		[RequiredFieldAttribute("A transform generally in front of the character where items which are instantiated rather than equipped will appear")]
+		[RequiredFieldAttribute("A transform generally in front of the character where items which are instantiated rather than equipped will appear. Used mostly for single-use items.")]
 		public GameObject instantiationTransform;//Where do we instantiate objects that are "no equip" type?
+
+		[Header("Inventory Settings")]
 		[Tooltip("Max items in inventory")]
 		public int inventorySize = 10;
-		[Tooltip("How many buttons can we have in a row?")]
-		public int numButtonsPerRow = 4;
-		[Tooltip("How many buttons can we have in a column?")]
-		public int numButtonsPerColumn = 4;
 		[HideInInspector]
 		public float buttonPad = 5.0f;
-		[Tooltip("Should we show a legacy Unity GUI displaying the inventory contents?")]
-		public bool showInventoryGUI = false;
+
+		[RequiredFieldAttribute("File name to store this inventory under")]
+		public string fileName = "inv";
+
+		[Header("Input Settings")]
 		[Tooltip("Key allowing the player to open/close the inventory GUI")]
 		public KeyCode inventoryKey = KeyCode.I;
-		public GUISkin guiSkin;
-		[Tooltip("Normalized viewport rectangle indicating the inventory GUI area")]
-		public Rect inventoryArea = new Rect(.2f,.2f,.6f,.6f);
-		[Tooltip("Can the first items be accessed using number keys?")]
+		[Tooltip("Can the first items be accessed using number keys? This iterates through the inventory in-order looking for anything that is set to 'Weapon R' mount (right-handed weapon).")]
 		public bool allowNumberKeys = true;
 		public KeyCode nextWeapon = KeyCode.Q;
 		public KeyCode previousWeapon = KeyCode.None;
 		[Tooltip("How sensitive is the mouse wheel when switching weapons?")]
 		public float weaponSwapSensitivity = 0.25f;
-		private GameObject lastWeapon;
+
+		[Header("GUI Settings")]
+		[Tooltip("Should we show a legacy Unity GUI displaying the inventory contents?")]
+		public bool showInventoryGUI = false;
+		[Tooltip("Should we use buttons to drop/stow items held in the hand?")]
+		public bool useHandButtons = true;
+		public GUISkin guiSkin;
+		[Tooltip("Normalized viewport rectangle indicating the inventory GUI area")]
+		public Rect inventoryArea = new Rect(.2f,.2f,.6f,.6f);
+		[Tooltip("How many buttons can we have in a row?")]
+		public int numButtonsPerRow = 4;
+		[Tooltip("How many buttons can we have in a column?")]
+		public int numButtonsPerColumn = 4;
+
+
+
+		//Local members
+		//		[Tooltip("Items already in the inventory")]
+		public static Dictionary<string, GameObject> inv = new Dictionary<string, GameObject>();
+		//		[Tooltip("number of each remaining")]
+		public static Dictionary<string, int> invCount = new Dictionary<string, int>();
 		private string lastKey;
-		[RequiredFieldAttribute("File name to store this inventory under")]
-		public string fileName = "inv";
+		private GameObject lastWeapon;
 
 		public HelpInfo help = new HelpInfo("This component implements a locally-savedsingle-player only inventory for player items. It's static, meaning there can only be one at any given time," +
 			" or weird stuff might happen (probably not, but no guarantees). Each inventory item needs 2 prefabs: an 'ActiveItem' which represents the object while it's in-use," +
@@ -81,6 +94,7 @@ namespace MultiGame {
 				ProcessNumberKeys();
 		}
 
+		[Header("Available Messages")]
 		public MessageHelp saveHelp = new MessageHelp("Save","Saves the inventory in a binary file on the player's machine. Does not work on web builds");
 		public void Save () {
 			BinaryFormatter formatter = new BinaryFormatter();

@@ -31,7 +31,7 @@ namespace MultiGame {
 			if (property.FindPropertyRelative("showInfo").boolValue == true)
 				return 192f;
 			else
-				return 16f;
+				return 32f;
 		}
 		#endif
 	}

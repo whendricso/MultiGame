@@ -24,7 +24,8 @@ namespace MultiGame {
 		public bool debug = false;
 
 		public HelpInfo help = new HelpInfo("Object Group Serializer allows you to save/load object children at runtime. All first-level child objects that you want to save must have a prefab in a " +
-			"'Resources' folder somewhere in your project, or Unity will throw an error when you try to load them.");
+			"'Resources' folder somewhere in your project, or Unity will throw an error when you try to load them. This can be used to save a customized vehicle or character - if you've set up such gameplay already, " +
+			"this component can save it.");
 
 
 		[System.Serializable]
@@ -83,6 +84,7 @@ namespace MultiGame {
 			objects.Add (_hobj);
 		}
 
+		[Header("Available Messages")]
 		public MessageHelp populateHelp = new MessageHelp("Populate","Populates the temporary object list by recording all of it's first-level children. If 'Auto Save On Populate' is disabled, you need to call Save afterwards");
 		public void Populate () {
 			if (autoClear)

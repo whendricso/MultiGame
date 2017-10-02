@@ -7,6 +7,7 @@ namespace MultiGame {
 	[AddComponentMenu("MultiGame/Serialization/PlayerPrefs Save Game Manager")]
 	public class PlayerPrefsSaveGameManager : MultiModule {
 
+		[Header("IMGUI Settings")]
 		[Tooltip("Normalized viewport rectangle indicating the percentages of screen space where the legacy GUI will appear, if used. Not suitable for mobile devices")]
 		public Rect guiArea = new Rect(.01f, .01f, .5f, .5f);
 		[RequiredFieldAttribute("Unique window identifier, must be different from all other windows in the game")]
@@ -14,7 +15,7 @@ namespace MultiGame {
 		[Tooltip("Should we show the legacy Unity GUI? Not suitable for mobile devices")]
 		public bool showGui = false;
 
-		public HelpInfo help = new HelpInfo("Player Prefs Save Game Manager allows you to clear Player Prefs");
+		public HelpInfo help = new HelpInfo("Player Prefs Save Game Manager allows you to clear Player Prefs using an IMGUI window, or by sending a message.");
 
 		void OnGUI () {
 			if (!(guiArea.width > 0f) || !showGui)
@@ -28,6 +29,7 @@ namespace MultiGame {
 				ClearPrefs();
 		}
 
+		[Header("Available Messages")]
 		public MessageHelp clearPrefsHelp = new MessageHelp("ClearPrefs","DELETES ALL PLAYER PREFS, CANNOT BE UNDONE!");
 		public void ClearPrefs () {
 			PlayerPrefs.DeleteAll();

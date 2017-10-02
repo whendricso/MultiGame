@@ -10,6 +10,7 @@ namespace MultiGame {
 
 		[System.NonSerialized]
 		public Animator anim;
+		[Header("Combat Settings")]
 		[RequiredFieldAttribute("Trigger in the Animator Controller on this object to be sent when the AI attacks", RequiredFieldAttribute.RequirementLevels.Recommended)]
 		public string attackAnimationTrigger;
 		[Tooltip("Cooldown duration")]
@@ -24,6 +25,7 @@ namespace MultiGame {
 		[Tooltip("What collision layers can we hit?")]
 		public LayerMask damageRayMask;
 		private float lastTriggerTime;
+		[Header("Message Senders")]
 		[Tooltip("Messages to send when damage is dealt")]
 		public List<MessageManager.ManagedMessage> attackMessages = new List<MessageManager.ManagedMessage>();
 		[Tooltip("Messages sent to the victim when damage is dealt")]

@@ -23,6 +23,10 @@ namespace MultiGame {
 		public HelpInfo help = new HelpInfo("Graviton allows a gravitational force to affect two or more rigidbodies. Just add this component to the object and " +
 			"any other Gravitons in the scene will be attracted to it based on mass.");
 
+		void Reset () {
+			GetComponent<Rigidbody> ().useGravity = false;
+		}
+
 		void Awake () {
 			gravitons.Add(this);
 		}

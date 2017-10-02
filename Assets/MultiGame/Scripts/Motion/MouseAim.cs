@@ -9,10 +9,12 @@ namespace MultiGame {
 	public class MouseAim : MultiModule {
 
 		public enum RotationAxes { MouseXAndY = 0, MouseX = 1, MouseY = 2 }
+		[Header("Axis Settings")]
 		public RotationAxes axes = RotationAxes.MouseXAndY;
 		public float sensitivityX = 2f;
 		public float sensitivityY = 2F;
 		
+		[Header("Constraints")]
 		public float minimumX = -360F;
 		public float maximumX = 360F;
 		
@@ -27,7 +29,7 @@ namespace MultiGame {
 		private bool lockCursor = false;
 
 		public HelpInfo help = new HelpInfo("This component functions like the old MouseLook component from previous versions of Unity. The object will rotate without constraint " +
-			"based on the settings you supply.");
+			"based on the settings you supply. If it's attached to a 'Smart Cam' component, then that component controls it's activation/deactivation directly. It only works when the cursor is locked.");
 
 		void Start () {
 			// Make the rigid body not change rotation

@@ -25,7 +25,9 @@ namespace MultiGame {
 		[Tooltip("The default state of this door")]
 		public DoorStates doorState = DoorStates.Closed;
 
-		public HelpInfo help = new HelpInfo("Door Controller allows for hinged or sliding doors to be animated without creating new animation data.");
+		public HelpInfo help = new HelpInfo("Door Controller allows for hinged or sliding doors to be animated without creating new animation data. To use, parent a door model to the object that this component is attached to. " +
+			"Move the parented door so that this object is at the hinge point of the door (for example, a revolving door should be centered on this object while a swinging door should be off to one side). Then, send messages to this " +
+			"component from any Message sender, such as ClickMessage or ActiveZone when you want the door to open/close. The simplest message to send is 'ToggleDoor' but more can be found below.");
 
 		void Start () {
 			if (doorState == DoorStates.Opening)
@@ -75,6 +77,7 @@ namespace MultiGame {
 			}
 		}
 
+		[Header("Available Messages")]
 		public MessageHelp openDoorHelp = new MessageHelp("OpenDoor","Opens this door based on your settings");
 		public void OpenDoor () {
 			if (doorState != DoorStates.Closed)

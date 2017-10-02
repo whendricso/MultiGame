@@ -101,7 +101,7 @@ namespace MultiGame {
 		void Update () {
 			if (!inUse)
 				return;
-
+			//TODO: Add additional targeting help to the Muzzle Transform, accuracy currently suffers if the transform is not exactly along the Z axis!
 			if (aimHelper != null) {
 				if (turretCam != null && turretCam.transform.parent != aimHelper.transform) {
 					turretCam.transform.SetParent(aimHelper.transform);

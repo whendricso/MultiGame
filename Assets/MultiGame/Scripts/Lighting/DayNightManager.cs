@@ -5,9 +5,10 @@ using MultiGame;
 namespace MultiGame {
 
 //	[AddComponentMenu("MultiGame/Lighting/Day Night Manager")]
-	[RequireComponent (typeof(Animation))]
+//	[RequireComponent (typeof(Animation))]
 	public class DayNightManager : MultiModule {
-		
+
+		[RequiredFieldAttribute("How long is a full cycle of day & night, in seconds?")]
 		public float cycleDuration = 600.0f;//duration of a full day/night cycle
 		public bool useSkyLighting = true;//ignore the light color gradient in favor for the sky color?
 		public Gradient skyColor;

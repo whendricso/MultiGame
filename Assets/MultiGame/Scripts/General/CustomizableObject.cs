@@ -46,7 +46,7 @@ namespace MultiGame {
 		
 
 		void OnGUI () {
-		//TODO
+		//TODO: Everything! Implement Customizable Object
 		}
 
 		public void SelectExclusive (int _index) {

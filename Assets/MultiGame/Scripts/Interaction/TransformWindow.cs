@@ -7,14 +7,16 @@ namespace MultiGame {
 	[AddComponentMenu("MultiGame/Interaction/Transform Window")]
 	public class TransformWindow : MultiModule {
 
+		[Header("Important - Must be populated")]
+		[Tooltip("Collision layers of objects that we can transform")]
+		public LayerMask rayMask;
+		[Header("Interaction Settings")]
 		[Tooltip("Unique identifier for the legacy Unity GUI window")]
 		public int windowID = 1234;
 		[Tooltip("Normalized viewport rectangle indicating the area for the legacy Unity GUI window")]
 		public Rect guiArea = new Rect(0.8f, .4f, .19f, .4f);
 		public GUISkin guiSkin;
-		[Tooltip("Collision layers of objects that we can transform")]
-		public LayerMask rayMask;
-		[Tooltip("Mouse button for activating transform on an object")]
+		[Tooltip("Mouse button for activating transform on an object. 0 = left, 1 = right, 2 = middle.")]
 		public int mouseButton = 2;
 
 		[HideInInspector]

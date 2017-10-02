@@ -8,6 +8,7 @@ namespace MultiGame {
 	[AddComponentMenu("MultiGame/Camera/Cam Zone")]
 	public class CamZone : MultiModule {
 
+		[Header("Important - Must be populated")]
 		public List<string> targetTags = new List<string>();
 
 		private List<GameObject> targets = new List<GameObject>();

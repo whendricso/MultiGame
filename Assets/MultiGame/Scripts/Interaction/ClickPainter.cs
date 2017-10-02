@@ -7,16 +7,22 @@ namespace MultiGame {
 	[AddComponentMenu("MultiGame/Interaction/Click Painter")]
 	public class ClickPainter : MultiModule {
 
-		[Tooltip("Normalized viewport rectangle indicating the area reserved for palette selection")]
-		public Rect guiArea = new Rect(0.75f, 0.1f, 3.49f, 2f);
-		[Tooltip("Button used to click on objects in the scene to select which material to replace")]
-		public int mouseButton = 1;
+		[Header("Important - Must be populated")]
 		[Tooltip("List of materials available as paint")]
 		public Material[] materials;
 		[Tooltip("List of tags of objects we can paint on")]
 		public string[] paintableTags;
+
+		[Header("GUI Settings")]
 		[Tooltip("Should we use the Legacy Unity GUI? Not suitable for mobile devices")]
 		public bool useGUI = true;
+		public GUISkin guiSkin;
+		[Tooltip("Normalized viewport rectangle indicating the area reserved for palette selection")]
+		public Rect guiArea = new Rect(0.75f, 0.1f, 3.49f, 2f);
+		[Tooltip("Button used to click on objects in the scene to select which material to replace")]
+		public int mouseButton = 1;
+
+
 
 	//	private int currentButton = 0;
 		private int selector = 0;
@@ -32,9 +38,13 @@ namespace MultiGame {
 		public Material[] _mats;
 
 		public HelpInfo help = new HelpInfo("This component allows the player to change the material on objects. You need to provide a list of materials to choose from, and " +
-			"a tag representing the objects that can be repainted. Legacy GUI is not recommended for mobile (in this case you must implement your own).");
+			"a tag representing the objects that can be repainted. Legacy GUI is not recommended for mobile (in this case you must implement your own). Once the materials and tags are set, make sure this object is enabled " +
+			"when you want the player to be able to change the materials on an object. Then, when the player clicks the indicated mouse button (0 = left, 1 = right, 2 = middle) on an object with a listed tag, they will be able " +
+			"to change it's materials using the GUI.");
 
 		void OnGUI () {
+			if (guiSkin != null)
+				GUI.skin = guiSkin;
 			GUILayout.Window(101010,new Rect(guiArea.x * Screen.width, guiArea.y * Screen.height, guiArea.width * Screen.width, guiArea.height * Screen.height),MaterialWindow, "Paint Options");
 		}
 

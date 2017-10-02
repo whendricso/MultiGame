@@ -19,7 +19,6 @@ namespace MultiGame
 			GUI.color = Color.white;
 
 			EditorGUI.BeginProperty (position, label, property);
-
 			position = EditorGUI.PrefixLabel (position, GUIUtility.GetControlID (FocusType.Passive), label);
 			int indent = EditorGUI.indentLevel;
 			EditorGUI.indentLevel = 0;
@@ -68,7 +67,7 @@ namespace MultiGame
 					property.FindPropertyRelative ("messageIndex").intValue = EditorGUI.Popup (messageRect, property.FindPropertyRelative ("messageIndex").intValue, possibleMessages);
 					GUI.color = Color.white;
 					property.FindPropertyRelative ("message").stringValue = possibleMessages [property.FindPropertyRelative ("messageIndex").intValue];
-					if (GUI.Button (rescanButtonRect, "Rescan For Messages"))
+					if (GUI.Button (rescanButtonRect, "Refresh Messages"))
 						property.FindPropertyRelative ("isDirty").boolValue = true;
 						
 				} else {
@@ -83,6 +82,8 @@ namespace MultiGame
 				else
 					GUI.color = Color.yellow;
 			}
+			if (!property.FindPropertyRelative("msgOverride").boolValue)
+				EditorGUI.LabelField (new Rect (messageRect.width - messageRect.x * 1.1f, messageRect.y, messageRect.width * .2f, messageRect.height),"Lck");
 			EditorGUI.PropertyField (new Rect (messageRect.width - messageRect.x * 0.8f, messageRect.y, messageRect.width * .2f, messageRect.height), property.FindPropertyRelative ("msgOverride"), GUIContent.none);
 			GUI.color = Color.white;
 			if ((property.FindPropertyRelative ("message").stringValue != "--none--" && !string.IsNullOrEmpty (property.FindPropertyRelative ("message").stringValue)) && property.FindPropertyRelative ("msgOverride").boolValue != false) {

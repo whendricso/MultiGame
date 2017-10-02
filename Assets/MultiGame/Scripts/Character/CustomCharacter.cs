@@ -8,18 +8,24 @@ namespace MultiGame {
 
 	public class CustomCharacter : MultiModule {
 
-		[RequiredFieldAttribute("The default name for new characters.", RequiredFieldAttribute.RequirementLevels.Recommended)]
-		public string characterName = "Player";
+		[Header("GUI Settings")]
 		[Tooltip("Should we use the built-in GUI? Not suitable for mobile devices.")]
 		public bool showGui = true;
 		[Tooltip("an optional skin to use for the GUI")]
 		public GUISkin guiSkin;
+		[Space]
 		[Tooltip("Normalized viewport rectangle indicating the area where the GUI will appear. Values must be between 0 and 1 and indicate a percentage of screen space")]
 		public Rect guiArea = new Rect(0.3f,0.6f,.3f,.3f);
+		[Space]
 		[Tooltip("Normalized viewport rectangle indicating the area where the Load window will appear. Values must be between 0 and 1 and indicate a percentage of screen space")]
 		public Rect loadWindow = new Rect(0.61f,0.6f,.3f,.3f);
+		[Space]
 		[Tooltip("A unique ID for the load character window, if used. Must be different from any other window ID in your game.")]
 		public int windowID = 94556;
+		[RequiredFieldAttribute("The default name for new characters.", RequiredFieldAttribute.RequirementLevels.Recommended)]
+		public string characterName = "Player";
+
+		[Header("Object Settings")]
 		[Tooltip("Prefabs that can be used as a base model. Must match the prefab name exactly. The prefab must be directly inside a 'Resources' folder.")]
 		public List<string> baseModels = new List<string>();
 		private int currentBaseModel = 0;
@@ -36,15 +42,17 @@ namespace MultiGame {
 
 		private Vector2 scrollArea = Vector2.zero;
 
-		public bool debug = false;
 
 		public HelpInfo help = new HelpInfo("Custom Character allows the player to create a custom character by selecting prefabs and attaching cosmetics. It works by searching 'Resources' " +
-			"folders inside your project for the Prefab names you specify. This allows it to load the same Prefabs across multiple clients and allows the character to be saved as a sharable string. " +
+			"folders inside your project for the Prefab names you specify. This allows it to load the same Prefabs across multiple clients. " +
 			"To use this component, first create some basic character prefabs, name them uniquely and place inside a 'Resources' folder in your Project. Then, make some accessories and also place them in " +
 			"another 'Resources' folder. Add the basic character prefab names to the 'Base Models' list. Find or create some transforms on the character, where 'Attachable Slots' could be (for example a spot " +
 			"for a hat), name these uniquely and add their names to the 'Attachable Slots' list." +
 			"\n\n" +
-			"Takes 'Save' 'Load' which takes a string matching the character's name, 'EditCharacter' and messages to toggle the immediate mode Unity GUI. The built-in GUI does not work on mobile devices.");
+			"Takes 'Save' 'Load' which takes a string matching the character's name, 'EditCharacter' and messages to toggle the immediate mode Unity GUI. The built-in GUI does not work on mobile devices. " +
+			"Player data is saved inside of PlayerPrefs, so if PlayerPrefs are cleared, all characters will be lost! Be sure to get user confirmation *BEFORE* clearing PlayerPrefs!");
+
+		public bool debug = false;
 
 		[System.Serializable]
 		public class AttachableSlot {
@@ -177,6 +185,8 @@ namespace MultiGame {
 			attachableSlots[_slot].currentAttachment.transform.localRotation = Quaternion.identity;
 		}
 
+		[Header("Available Messages")]
+		public MessageHelp disableControlsHelp = new MessageHelp("DisableControls","Disables control of the character without affecting the menu.");
 		public void DisableControls() {
 			if(character == null) {
 				Debug.LogError("Character object must be instantiated before controls can be disabled.");
@@ -201,6 +211,7 @@ namespace MultiGame {
 				_cmp.enabled = false;
 		}
 
+		public MessageHelp enableControlsHelp = new MessageHelp("EnableControls","Enables control of the character without affecting the menu.");
 		public void EnableControls() {
 			if(character == null) {
 				Debug.LogError("Character object must be instantiated before controls can be enabled.");
@@ -284,19 +295,24 @@ namespace MultiGame {
 			}
 		}
 
+		[Header("Available Messages")]
+		public MessageHelp editCharacterHelp = new MessageHelp("EditCharacter","Enables character editing and disables controls for a clean experience.");
 		public void EditCharacter () {
 			OpenMenu();
 			DisableControls();
 		}
 
+		public MessageHelp openMenuHelp = new MessageHelp("OpenMenu","Opens the character editor without toggling controls.");
 		public void OpenMenu() {
 			showGui = true;
 		}
 
+		public MessageHelp closeMenuHelp = new MessageHelp("CloseMenu","Closes the character editor without toggling controls.");
 		public void CloseMenu() {
 			showGui = false;
 		}
 
+		public MessageHelp toggleMenuHelp = new MessageHelp("ToggleMenu","Toggles the character editor without toggling controls.");
 		public void ToggleMenu() {
 			showGui = !showGui;
 		}

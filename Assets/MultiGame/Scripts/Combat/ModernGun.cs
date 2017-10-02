@@ -8,67 +8,41 @@ namespace MultiGame {
 	[RequireComponent (typeof(AudioSource))]
 	public class ModernGun : MultiModule {
 
-		[Tooltip("Should we use Unity's built-in input for fire button handling? If false, send 'Fire' each frame.")]
-		public bool useFireButton = true;
-		[RequiredFieldAttribute("The button in the Input Manager associated with shooting things.",RequiredFieldAttribute.RequirementLevels.Required)]
-		public string fireButton = "Fire1";
-		[RequiredFieldAttribute("The model of the weapon, if unassigned and no Animator found, no animations will be sent!", RequiredFieldAttribute.RequirementLevels.Recommended)]
-		public GameObject image;
 		public enum AimCorrectionTypes {None, Raycast, DistantPoint};
-		[Tooltip("What type of aim correction should we use? Raycast aims directly at what we point at, distant point aims at a point in the far distance representing our crosshair location (recommended for FPS games)")]
-		public AimCorrectionTypes aimCorrection = AimCorrectionTypes.None;
+
+		[Header("Legacy IMGUI Settings")]
 		[Tooltip("Show how much ammo we currently have with a legacy Unity GUI? Not suitable for mobile devices.")]
 		public bool showAmmoGUI = true;
 		[Tooltip("Normalized viewport rectangle representing the area used by the legacy GUI, values between 0 and 1")]
 		public Rect guiArea = new Rect(0.01f, 0.9f, 0.2f, 0.09f);
 		public GUISkin guiSkin;
+		[RequiredFieldAttribute("A nice crosshair texture",RequiredFieldAttribute.RequirementLevels.Recommended)]
+		public Texture2D crosshairs;
+		[RequiredFieldAttribute("How much to increase the size of the crosshairs when indicating spread")]
+		public float crossSpreadScalar = 1.0f;
+
+		[Header("Input Settings")]
+		[Tooltip("Should we use Unity's built-in input for fire button handling? If false, send 'Fire' each frame.")]
+		public bool useFireButton = true;
+		[RequiredFieldAttribute("The button in the Input Manager associated with shooting things.",RequiredFieldAttribute.RequirementLevels.Required)]
+		public string fireButton = "Fire1";
+		public KeyCode reload = KeyCode.R;
+
+		[Header("Action Settings")]
+		[Tooltip("What type of aim correction should we use? Raycast aims directly at what we point at, distant point aims at a point in the far distance representing our crosshair location (recommended for FPS games)")]
+		public AimCorrectionTypes aimCorrection = AimCorrectionTypes.None;
 		[RequiredFieldAttribute("What do we spawn from the muzzle of the gun?")]
 		public GameObject projectile;
 		[Tooltip("Multiplied by the velocity before it's transferred to the projectile")]
 		public float inheritVelocityScale = 1f;
-		[HideInInspector]
-		public GameObject reloadMessageReceiver;
 		[RequiredFieldAttribute("How many shots per mag?")]
 		public int magazineMax = 32;
-		[HideInInspector]
-		public int magazineCount;
-		[HideInInspector]
-		public bool reloading = false;
-		[Tooltip("Which clip type from Clip Inventory do we use?")]
-		public int clipType = 0;
-		public KeyCode reload = KeyCode.R;
+		[Tooltip("Which clip type from Clip Inventory do we use? First clip type is 0, second is 1, and so forth.")]
+		public int magazineType = 0;
 		[RequiredFieldAttribute("How long does it take us to reload?")]
 		public float reloadTime = 2.2f;
 		[RequiredFieldAttribute("A game object representing the exit point of the projectile")]
 		public GameObject muzzleTransform;
-		[RequiredFieldAttribute("An object spawned at the muzzle transform representing visual flash effects", RequiredFieldAttribute.RequirementLevels.Recommended)]
-		public GameObject muzzleFlash;
-		[Tooltip("An optionally different flash spawn transform")]
-		public GameObject muzzleFlashSpawnTransform;
-		[Tooltip("How long should the flash object be alive?")]
-		public float flashDuration = 0.125f;
-
-		[RequiredFieldAttribute("'BANG!'", RequiredFieldAttribute.RequirementLevels.Recommended)]
-		public AudioClip fireSound;
-		[RequiredFieldAttribute("A Mecanim trigger that will be sent to the Image",RequiredFieldAttribute.RequirementLevels.Recommended)]
-		public string mecanimFireTrigger;
-		[Tooltip("Message sent on successfully firing a round")]
-		public MessageManager.ManagedMessage fireMessage;
-
-		[RequiredFieldAttribute("Sound made when reloading", RequiredFieldAttribute.RequirementLevels.Recommended)]
-		public AudioClip reloadSound;
-		[RequiredFieldAttribute("A Mecanim trigger that will be sent to the Image",RequiredFieldAttribute.RequirementLevels.Recommended)]
-		public string mecanimReloadTrigger;
-		[Tooltip("Message sent when starting to reload")]
-		public MessageManager.ManagedMessage reloadingMessage;
-
-		[RequiredFieldAttribute("The worst sound you can hear in a firefight",RequiredFieldAttribute.RequirementLevels.Recommended)]
-		public AudioClip ammoExhaustedClick;
-		[RequiredFieldAttribute("A Mecanim trigger that will be sent to the Image",RequiredFieldAttribute.RequirementLevels.Recommended)]
-		public string mecanimAmmoExhaustedTrigger;
-		[Tooltip("Message sent when we have run out of ammo")]
-		public MessageManager.ManagedMessage ammoExhaustedMessage;
-
 		[RequiredFieldAttribute("How long, in seconds, between each bullet?")]
 		public float refireTime = 0.4f;
 		[RequiredFieldAttribute("Minimum variation of a bullet from center")]
@@ -79,13 +53,50 @@ namespace MultiGame {
 		public float roundSpreadCost = 1.4f;
 		[RequiredFieldAttribute("How fast the spread decreases")]
 		public float refocusRate = 1.2f;
+
+		[Header("Audio Settings")]
+		[RequiredFieldAttribute("'BANG!'", RequiredFieldAttribute.RequirementLevels.Recommended)]
+		public AudioClip fireSound;
+		[RequiredFieldAttribute("Sound made when reloading", RequiredFieldAttribute.RequirementLevels.Recommended)]
+		public AudioClip reloadSound;
+		[RequiredFieldAttribute("The worst sound you can hear in a firefight",RequiredFieldAttribute.RequirementLevels.Recommended)]
+		public AudioClip ammoExhaustedClick;
+
+		[Header("Visual Settings")]
+		[RequiredFieldAttribute("The model of the weapon, if unassigned and no Animator found, no animations will be sent!", RequiredFieldAttribute.RequirementLevels.Recommended)]
+		public GameObject image;
+		[RequiredFieldAttribute("An object spawned at the muzzle transform representing visual flash effects", RequiredFieldAttribute.RequirementLevels.Recommended)]
+		public GameObject muzzleFlash;
+		[Tooltip("An optionally different flash spawn transform")]
+		public GameObject muzzleFlashSpawnTransform;
+		[Tooltip("How long should the flash object be alive?")]
+		public float flashDuration = 0.125f;
+		[RequiredFieldAttribute("A Mecanim trigger that will be sent to the Image",RequiredFieldAttribute.RequirementLevels.Recommended)]
+		public string mecanimFireTrigger;
+		[RequiredFieldAttribute("A Mecanim trigger that will be sent to the Image",RequiredFieldAttribute.RequirementLevels.Recommended)]
+		public string mecanimReloadTrigger;
+		[RequiredFieldAttribute("A Mecanim trigger that will be sent to the Image",RequiredFieldAttribute.RequirementLevels.Recommended)]
+		public string mecanimAmmoExhaustedTrigger;
+
+		[Header("Message Senders")]
+		[Tooltip("Message sent on successfully firing a round")]
+		public MessageManager.ManagedMessage fireMessage;
+		[Tooltip("Message sent when starting to reload")]
+		public MessageManager.ManagedMessage reloadingMessage;
+		[Tooltip("Message sent when we have run out of ammo")]
+		public MessageManager.ManagedMessage ammoExhaustedMessage;
+
+		[HideInInspector]
+		public GameObject reloadMessageReceiver;
+		[HideInInspector]
+		public int magazineCount;
+		[HideInInspector]
+		public bool reloading = false;
 		private float currentSpread;
 		private float refireCounter;
 		private Vector3 muzzleOrientation;
-		[RequiredFieldAttribute("A nice crosshair texture",RequiredFieldAttribute.RequirementLevels.Recommended)]
-		public Texture2D crosshairs;
-		[RequiredFieldAttribute("How much to increase the size of the crosshairs when indicating spread")]
-		public float crossSpreadScalar = 1.0f;
+
+
 		
 		private bool saved = false;
 
@@ -149,6 +160,7 @@ namespace MultiGame {
 			}
 		}
 
+		[Header("Available Messages")]
 		public MessageHelp fireHelp = new MessageHelp("Fire", "Causes the ranged weapon to emit a projectile, respecting all firing rules.");
 		public void Fire() {
 			if (refireCounter > 0)
@@ -261,8 +273,8 @@ namespace MultiGame {
 				enabled = false;
 				return;
 			}
-			if (clipInv.numClips[clipType] > 0) {
-				clipInv.numClips[clipType]--;
+			if (clipInv.numClips[magazineType] > 0) {
+				clipInv.numClips[magazineType]--;
 				if (image != null && !string.IsNullOrEmpty(mecanimReloadTrigger))
 					image.GetComponent<Animator>().SetTrigger(mecanimReloadTrigger);
 				if (!string.IsNullOrEmpty(reloadingMessage.message))

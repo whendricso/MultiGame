@@ -5,7 +5,7 @@ using MultiGame;
 
 namespace MultiGame {
 
-	[AddComponentMenu("MultiGame/General/Curve Controlled Value")]
+//	[AddComponentMenu("MultiGame/General/Curve Controlled Value")]
 	public class CurveControlledValue : MultiModule {
 
 		[RequiredFieldAttribute("The script with a value we want to animate over time. Drag and drop the component header in here to attach.")]
@@ -24,6 +24,7 @@ namespace MultiGame {
 			"Float Over Time to open the curve editor. Zoom in for smaller values and zoom out for larger ones. Hold ctrl, shift, or cmd to change the axis of zoom.");
 
 		void Start() {
+			//TODO: Sometimes fails!
 			if (targetComponent.GetType().GetField(floatValue) == null || targetComponent.GetType().GetField(floatValue).GetType() != typeof(float)) {
 				Debug.LogError("Curve Controlled Value " + gameObject.name + " could not find a field named " + floatValue + " or it is not a floating point number!" +
 					" Please make sure that you spelled it correctly. If it appears in the inspector as 'My Float Value' then it's proper name is 'myFloatValue' capitalization must match!");

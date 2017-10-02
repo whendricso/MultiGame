@@ -9,7 +9,7 @@ namespace MultiGame {
 
 		public MessageManager.ManagedMessage message;
 
-		public MultiModule.HelpInfo help = new MultiModule.HelpInfo("Photon Room Joined Message sends a message when this object joins a Photon room.");
+		public MultiModule.HelpInfo help = new MultiModule.HelpInfo("Photon Room Joined Message sends a message when this object joins a Photon room. Useful to cause some logic to happen when a new player joins");
 
 		public bool debug = false;
 

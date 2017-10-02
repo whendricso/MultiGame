@@ -28,6 +28,7 @@ namespace MultiGame {
 
 		public bool debug = false;
 
+		[Header("Available Messages")]
 		public MessageHelp saveHelp = new MessageHelp("Save","Saves the 'Target Field' from 'Target Component' into 'File Name'");
 
 		public void Save () {

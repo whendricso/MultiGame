@@ -26,6 +26,7 @@ namespace MultiGame {
 			"The 'Increment' message takes a string, which is the name of the achievement we are incrementing. \n" +
 			"This component can also 'Save' and 'Load' it's achievement list from PlayerPrefs, which is supported on all platforms.");
 
+
 		[System.Serializable]
 		public class Achievement {
 			[RequiredFieldAttribute("Name of this achievement", RequiredFieldAttribute.RequirementLevels.Required)]
@@ -34,7 +35,7 @@ namespace MultiGame {
 			public int quantityRequired = 1;
 			public int currentQuantity = 0;
 			public MessageManager.ManagedMessage completionMessage;
-			public MessageManager.ManagedMessage onLoadOrCompletionMessage;
+			public MessageManager.ManagedMessage onLoadMessage;
 
 
 			public Achievement(string _name) {
@@ -47,7 +48,7 @@ namespace MultiGame {
 			for (int i = 0; i < achievements.Count; i++) {
 				MessageManager.ManagedMessage _msg = achievements[i].completionMessage;
 				MessageManager.UpdateMessageGUI(ref _msg, gameObject);
-				_msg = achievements[i].onLoadOrCompletionMessage;
+				_msg = achievements[i].onLoadMessage;
 				MessageManager.UpdateMessageGUI(ref _msg, gameObject);
 			}
 		}
@@ -72,6 +73,7 @@ namespace MultiGame {
 
 			GUILayout.EndArea();
 		}
+		[Header("Available Messages")]
 
 		public MessageHelp incrementHelp = new MessageHelp("Increment","takes a string, which is the name of the achievement we are incrementing", 4,
 			"Name of the achievement we wish to increment. Must match the name above exactly.");
@@ -82,8 +84,6 @@ namespace MultiGame {
 				}
 				if (achv.currentQuantity >= achv.quantityRequired) {
 					MessageManager.Send(achv.completionMessage);
-					MessageManager.Send(achv.onLoadOrCompletionMessage);
-					
 				}
 			}
 		}
@@ -102,7 +102,7 @@ namespace MultiGame {
 			foreach (Achievement achv in achievements) {
 				achv.currentQuantity = PlayerPrefs.GetInt("achv" + achv.name);
 				if (achv.currentQuantity >= achv.quantityRequired)
-					MessageManager.Send(achv.onLoadOrCompletionMessage);
+					MessageManager.Send(achv.onLoadMessage);
 			}
 		}
 

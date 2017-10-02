@@ -45,6 +45,7 @@ namespace MultiGame {
 		private void Update () {
 			if (!running)
 				return;
+			duration = Mathf.Abs (duration);
 			if (goingForward) {
 				progress += Time.deltaTime / duration;
 				if (progress > 1f) {

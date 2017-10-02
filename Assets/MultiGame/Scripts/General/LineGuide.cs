@@ -9,6 +9,7 @@ namespace MultiGame {
 	[RequireComponent(typeof(LineRenderer))]
 	public class LineGuide : MultiModule {
 
+		[Header("Important - Must be populated")]
 		[Tooltip("List of objects, in order, that the line passes through")]
 		public List<GameObject> anchors = new List<GameObject>();
 		private LineRenderer line;

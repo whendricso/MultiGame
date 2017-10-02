@@ -12,57 +12,63 @@ namespace MultiGame {
 		public enum RelativityModes {Character, Camera };
 //		public RelativityModes relativityMode = RelativityModes.Camera;
 
-		[RequiredFieldAttribute("Moving forward, how fast can the character go at full sprint?")]
-		public float runSpeed = 7f;
+		[Header("Important - Must be populated")]
+		[Tooltip("What physics layers can the player walk on?")]
+		public LayerMask walkRayMask;
+
+		[Header("Input")]
 		[RequiredFieldAttribute("How close do we stop when chasing the pointer?")]
 		public float deadzone = .24f;
+		[Tooltip("Should this component rotate the character to face the mouse pointer using a raycast into the scene?")]
+		public bool rotateToPointer = false;
+		[RequiredFieldAttribute("How fast is our jump?")]
+		public float jumpPower = 6f;
+		[RequiredFieldAttribute("How long can the player continue holding jump to increase the height?")]
+		public float extraJumpTime = .8f;
+		[Tooltip("How much does the jump slow over time? This defines the arc of the jump while moving up. Gravity defines the fall.")]
+		public AnimationCurve jumpRolloff;
+
+		[Header("Motion")]
+		[Tooltip("If true, will auto-parent to the object it stands on, for moving platform support.")]
+		public bool platformParent = true;
+		[RequiredFieldAttribute("Moving forward, how fast can the character go at full sprint?")]
+		public float runSpeed = 7f;
 		[RequiredFieldAttribute("How fast are we able to move sideways?")]
 		public float strafeSpeed = 4.5f;
 		[Tooltip("Should this component enforce a rotation on the character?")]
 		public bool autoTurn = false;
-		[Tooltip("Should this component rotate the character to face the mouse pointer?")]
-		public bool rotateToPointer = false;
-		[Tooltip("What physics layers can the player walk on?")]
-		public LayerMask walkRayMask;
 		[RequiredFieldAttribute("When rotating based on direction, how fast can we spin?")]
 		public float autoTurnSpeed = 8f;
 		[RequiredFieldAttribute("How fast can we move backwards?")]
 		float backpedalSpeed = 3f;
+		[RequiredFieldAttribute("How much air control do we have?")]
+		public float airControlMultiplier  = .3f;
 
+		[Header("Animation")]
 		[RequiredFieldAttribute("Name of a floating-point value in the attached Animator, if any. Sends the Vertical axis.", RequiredFieldAttribute.RequirementLevels.Recommended)]
 		public string animatorRun = "Run";
+		[RequiredFieldAttribute("Name of a floating-point value in the attached Animator, if any. Sends the Horizontal axis", RequiredFieldAttribute.RequirementLevels.Recommended)]
+		public string animatorStrafe = "Strafe";
+		[RequiredFieldAttribute("Name of a trigger in the attached Animator, if any.", RequiredFieldAttribute.RequirementLevels.Recommended)]
+		public string animatorJump = "Jump";
+		[RequiredFieldAttribute("An optional return trigger fired when we hit the ground", RequiredFieldAttribute.RequirementLevels.Optional)]
+		public string animatorJumpReturn = "";
+
+		[Header("Audio")]
 		[Tooltip("Looping footstep sound")]
 		public AudioClip runSound;
 		[Tooltip("Minimum vertical input (between 0 and 1) needed to hear the footfall sound.")]
 		public float minRunThreshold = .3f;
 		[Tooltip("Time, in seconds, between footfalls")]
 		public float footstepInterval = .35f;
-		[RequiredFieldAttribute("Name of a floating-point value in the attached Animator, if any. Sends the Horizontal axis", RequiredFieldAttribute.RequirementLevels.Recommended)]
-		public string animatorStrafe = "Strafe";
 		[Tooltip("Looping footstep sound")]
 		public AudioClip strafeSound;
-		[RequiredFieldAttribute("Name of a trigger in the attached Animator, if any.", RequiredFieldAttribute.RequirementLevels.Recommended)]
-		public string animatorJump = "Jump";
-		[RequiredFieldAttribute("An optional return trigger fired when we hit the ground", RequiredFieldAttribute.RequirementLevels.Optional)]
-		public string animatorJumpReturn = "";
 		[Tooltip("Played when we begin jumping")]
 		public AudioClip jumpSound;
 		[Tooltip("Played when we land")]
 		public AudioClip landingSound;
-		private bool jumping = false;
-		[RequiredFieldAttribute("How much air control do we have?")]
-		public float airControlMultiplier  = .3f;
-		[RequiredFieldAttribute("How fast is our jump?")]
-		public float jumpPower = 6f;
-		[RequiredFieldAttribute("How long can the player continue holding jump to increase the height?")]
-		public float extraJumpTime = .8f;
-		[Tooltip("How much does the jump slow over time?")]
-		public AnimationCurve jumpRolloff;
-		private float jumpTimer;
 
-		[Tooltip("If true, will auto-parent to the object it stands on, for moving platform support.")]
-		public bool platformParent = true;
-
+		[Header("Combat")]
 		[Tooltip("Should we use a default attack for this character? You can disable this if you are using another system for melee attacks.")]
 		public bool useDefaultAttack = true;
 		[RequiredFieldAttribute("How long must we wait between attacks?")]
@@ -75,19 +81,24 @@ namespace MultiGame {
 		public string animatorAttack = "Attack";
 		[Tooltip("Hyyyyah!!")]
 		public AudioClip attackSound;
-//		[Tooltip("How much do we vary the pitch of the sound? Small values add realism.")]
-//		[Range(0f,.99f)]
-//		public float attackSoundVariance = 0f;
+		//		[Tooltip("How much do we vary the pitch of the sound? Small values add realism.")]
+		//		[Range(0f,.99f)]
+		//		public float attackSoundVariance = 0f;
 		[RequiredFieldAttribute("Name of a trigger in the attached Animator, if any.", RequiredFieldAttribute.RequirementLevels.Recommended)]
 		public string animatorFire = "Fire";
 		[Tooltip("Played during the character's built-in ranged attack")]
 		public AudioClip fireSound;
 		[Tooltip("How much do we vary the pitch of the sound? Small values add realism.")]
 		public float fireSoundVariance = 0f;
+
+		[Header("Custom")]
 		[Tooltip("Custom input actions which respond to a key and/or button press. When activated, any supplied parameters for that CustomAction will be used and the rest ignored.")]
 		public List<CustomAction> customActions = new List<CustomAction>();
 
+		private bool jumping = false;
+		private float jumpTimer;
 		private bool moveLocked = false;
+
 		[System.Serializable]
 		public class CustomAction {
 			public KeyCode key;

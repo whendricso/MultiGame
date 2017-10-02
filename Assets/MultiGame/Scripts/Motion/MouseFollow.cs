@@ -6,11 +6,14 @@ namespace MultiGame {
 
 	[AddComponentMenu("MultiGame/Motion/Mouse Follow")]
 	public class MouseFollow : MultiModule {
-		
-		[RequiredFieldAttribute("How far away can the mouse be at most?")]
-		public float maxDistance = 1500.0f;
+
+		[Header("Important - Must be populated")]
 		[Tooltip("What kinds of things can the mouse pass onto?")]
 		public LayerMask layerMask;
+
+		[Header("Constraint Settings")]
+		[RequiredFieldAttribute("How far away can the mouse be at most?")]
+		public float maxDistance = 1500.0f;
 		[Tooltip("Should my position be constrained on the X axis?")]
 		public bool constrainX = false;
 		private float originalX = 0;
@@ -21,7 +24,9 @@ namespace MultiGame {
 		public bool constrainZ = false;
 		private float originalZ = 0;
 
-		public HelpInfo help = new HelpInfo("This component causes an object to always be at the position of the mouse in the world.");
+		public HelpInfo help = new HelpInfo("This component causes an object to always be at the position of the mouse in the world. To use, add it to an object that you want to follow the mouse. Then, populate the Layer Mask at the " +
+			"top with layers of objects that represent the world geometry, such as the terrain. Then, this object will always be under the player's cursor while it's alive, as long as the cursor is over one of these object groups. " +
+			"This can be useful for selection painting, object placement, spellcasting, or creating a light around the cursor in dimly-lit game areas.");
 
 		void Awake () {
 			originalX = transform.position.x;

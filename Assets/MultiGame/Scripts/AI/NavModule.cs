@@ -14,7 +14,7 @@ namespace MultiGame {
 		[RequiredFieldAttribute("A float in your Mecanim controller representing movement speed. Must be in range between 0 and 1 where 0 is standing still and 1 is full sprint", RequiredFieldAttribute.RequirementLevels.Recommended)]
 		public string animatorMovementFloat;
 
-		[Tooltip("Should we always move towards a specific target?")]
+		[RequiredFieldAttribute("Should we always move towards a specific target?", RequiredFieldAttribute.RequirementLevels.Optional)]
 		public GameObject navTarget;
 		private Vector3 targetPosition;
 		[HideInInspector]
@@ -163,6 +163,7 @@ namespace MultiGame {
 			navTarget = _target;
 		}
 
+		[Header("Available Messages")]
 		public MessageHelp stopMovingHelp = new MessageHelp("StopMoving","Causes the Nav Module to stop and target this position as it's move target.");
 		public void StopMoving () {
 			if(debug)

@@ -33,7 +33,8 @@ namespace MultiGame {
 	//	private bool levelingOut = false;
 
 		public HelpInfo help = new HelpInfo("This component implements physics-based flight control with motion similar to that of a fighter jet (or starfighter). 'Thrust' indicates " +
-			"how much power the engines have in each axis, except that W represents the negative Z axis (so that you can have a different speed in reverse).");
+			"how much power the engines have in each axis, except that W represents the negative Z axis (so that you can have a different speed in reverse). It takes horizontal & vertical axis inputs to apply forward/reverse and " +
+			"strafe thrust, and keys can be configured to roll the craft. This component works well with the AirBrakes component.");
 
 		public Rigidbody body;
 

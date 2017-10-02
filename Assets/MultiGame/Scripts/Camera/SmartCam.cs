@@ -8,37 +8,49 @@ namespace Terrium.Cameras
 	[RequireComponent(typeof(MouseAim))]
 	public class SmartCam : MultiModule
 	{
+		[Header("Targeting Settings")]
 		[RequiredField("The object this camera should follow",RequiredFieldAttribute.RequirementLevels.Optional)]
 		public Transform target;
-		[RequiredField("Max speed to catch up")]
-		public float followSpeed = 5f;
-		[RequiredField("Whe automatically orienting towards the player's Y rotation, how fast can we turn?")]
-		public float rotationSpeed = 1f;
+		[RequiredField("The tag of the object we wish to follow.")]
+		public string targetTag = "Player";
+		[Tooltip("Should we search for a new target if the current one is lost?")]
+		public bool autoRetarget = true;
+		[Tooltip("How long should we wait before trying to retarget?")]
+		public float autoRetargetTime = .6f;
+		private float autoRetargetCounter;
+
 //		public bool listenEvents = true;
 
+		[Header("Input Settings")]
 		[Tooltip("The key used to break the view for camera orbit using the mouse")]
 		public KeyCode mouseBreak = KeyCode.Mouse1;
 		[RequiredField("Horizontal camera control axis (for controllers)",RequiredFieldAttribute.RequirementLevels.Recommended)]
 		public string camAdjustX = "";
 		[RequiredField("Vertical camera control axis (for controllers)", RequiredFieldAttribute.RequirementLevels.Recommended)]
 		public string camAdjustY = "";
-		[Tooltip("How long do we wait after breaking rotation to start rotating automatically again?")]
-		public float refollowTime = 1.2f;
-		private float refollowCounter = 0;
-
 		[RequiredField("How sensitive is the up/down look direction?")]
 		public float sensitivityX = 2f;
 		[RequiredField("How sensitive is the left/right look direction?")]
 		public float sensitivityY = 2f;
 
+		[Header("Auto move settings")]
+		[RequiredField("Max speed to catch up")]
+		public float followSpeed = 5f;
+		[RequiredField("Whe automatically orienting towards the player's Y rotation, how fast can we turn?")]
+		public float rotationSpeed = 1f;
+		[RequiredField("How long do we wait after breaking rotation to start rotating automatically again?", RequiredFieldAttribute.RequirementLevels.Recommended)]
+		public float refollowTime = 1.2f;
+		private float refollowCounter = 0;
+
+
+
+
 		public enum UpdateModes {Late, Fixed};
 		[Tooltip("Change this if you experience jitter")]
-		public UpdateModes updateMode = UpdateModes.Fixed;
-		public bool autoRetarget = true;
-		public float autoRetargetTime = .6f;
-		private float autoRetargetCounter;
+		public UpdateModes updateMode = UpdateModes.Late;
 
-		public string targetTag = "Player";
+
+
 
 		private MouseAim mAim;
 		private Vector3 newPos;
@@ -96,6 +108,7 @@ namespace Terrium.Cameras
 		}
 			
 
+		[Header("Available Messages")]
 		public MessageHelp setXSensitivityHelp = new MessageHelp("SetXSensitivity","Sets the up/down sensitivity which controls rotation of the camera on the X axis",3,"The new sensitivity level. Default is 2.");
 		public void SetXSensitivity (float _sensitivity) {
 			sensitivityX = _sensitivity;

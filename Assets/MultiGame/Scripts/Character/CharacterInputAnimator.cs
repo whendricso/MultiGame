@@ -8,10 +8,12 @@ namespace MultiGame {
 	[AddComponentMenu("MultiGame/Character/Character Input Animator")]
 	public class CharacterInputAnimator : MultiModule {
 
+		[Header("Essential Settings")]
 		public Animator animator;
 		[Tooltip("Is this Character Input Animator currently controlling character animations?")]
 		public bool currentlyAnimating = true;
 
+		[Header("Input Settings")]
 		[RequiredFieldAttribute ("Axis in the Input manage (Edit -> Project Settings -> Input) indicating the horizonta axis, which will be sent as a float to the Animator", RequiredFieldAttribute.RequirementLevels.Required)]
 		public string horizontalAxis = "Horizontal";
 		[RequiredFieldAttribute("A float defined in the Animator indicating how fast we're strafing. -1 is left, 1 is right and 0 is no strafing at all", RequiredFieldAttribute.RequirementLevels.Required)]
@@ -30,7 +32,7 @@ namespace MultiGame {
 		public float deadzone = 0.2f;
 
 		public HelpInfo help = new HelpInfo("Character Input Animator takes user input and applies that as Mecanim floats and triggers. This is useful for root motion characters, when you don't want a movement " +
-			"script interfering with carefully-controlled animations.");
+			"script interfering with carefully-controlled animations, or for animating characters on a character customization screen. Just don't forget to provide some input help to the user in this second case.");
 
 		[System.Serializable]
 		public class UserState {
@@ -92,7 +94,8 @@ namespace MultiGame {
 				_ret = true;
 			return _ret;
 		}
-		public MessageHelp triggerCharacterStateHelp = new MessageHelp("TriggerCharacterState","Force Character Input Animator to enter one of the 'User States'", 2, "The index of the state we want to trigger");
+		[Header("Available Messages")]
+		public MessageHelp triggerChracterStateHelp = new MessageHelp("TriggerCharacterState","Force Character Input Animator to enter one of the 'User States'", 2, "The index of the state we want to trigger");
 		public void TriggerCharacterState(int _state) {
 			animator.SetTrigger(userStates[_state].trigger);
 		}

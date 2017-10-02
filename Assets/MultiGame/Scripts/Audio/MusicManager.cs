@@ -8,6 +8,7 @@ namespace MultiGame {
 	[RequireComponent (typeof(AudioSource))]
 	public class MusicManager : MultiModule {
 		
+		[Header("General Music Settings")]
 		[RequiredFieldAttribute("If supplied, play this before the first track", RequiredFieldAttribute.RequirementLevels.Optional)]
 		public AudioClip startSplashSound;
 		[Tooltip("A modifier applied to music globally")]
@@ -15,13 +16,8 @@ namespace MultiGame {
 		
 		[Tooltip("Should the music play now?")]
 		public bool enableMusic = true;
-		
-		public enum MusicCategories {One, Two, Three};
-		[Tooltip("What is the default category of music?")]
-		public MusicCategories musicCategory = MusicCategories.One;
-		[Tooltip("Allow the user to select from one of the other categories, or just use one?")]
-		public bool allowExtraCategories = true;
 
+		[Header("IMGUI Settings")]
 		[Tooltip("Should we show the legacy Unity GUI? Not suitable for mobile.")]
 		public bool showGui = false;
 		public GUISkin guiSkin;
@@ -29,6 +25,13 @@ namespace MultiGame {
 		public bool showAudioGUI = false;
 		[Tooltip("Normalized viewport rectangle representing the are the GUI is drawn in, numbers between 0 and 1")]
 		public Rect audioGUI = new Rect(0.01f, 0.01f, 0.3f, 0.4f);
+
+		public enum MusicCategories {One, Two, Three};
+		[Tooltip("What is the default category of music?")]
+		[Header("Category Settings")]
+		public MusicCategories musicCategory = MusicCategories.One;
+		[Tooltip("Allow the user to select from one of the other categories, or just use one? If false, only the first category is used.")]
+		public bool allowExtraCategories = true;
 
 		public string category1Name = "";
 		[Tooltip("List of all songs, in order, in the category")]
@@ -44,7 +47,8 @@ namespace MultiGame {
 		private int current3 = 0;
 
 		public HelpInfo help = new HelpInfo("This component allows the user to adjust the volume of music, or (if enabled by you) select from one of 3 musical sets. It " +
-			"provides generic music handling functionality");
+			"provides generic music handling functionality. For global in-game music, add this component to an object and add a 'Persistent' component, to prevent it from being destroyed when the scene changes. " +
+			"Alternatively, add a different one to each scene for varied music from scene-to-scene.");
 		
 		void Start () {
 			if (startSplashSound != null) {
@@ -131,6 +135,7 @@ namespace MultiGame {
 			}
 		}
 
+		[Header("Available Messages")]
 		public MessageHelp toggleMusicGUIHelp = new MessageHelp("ToggleMusicGUI","Toggles the legacy Unity GUI for music control.");
 		public void ToggleMusicGUI () {
 			showAudioGUI = !showAudioGUI;

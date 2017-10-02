@@ -10,15 +10,19 @@ namespace MultiGame {
 	/// </summary>
 	[AddComponentMenu("MultiGame/Inventory/Minion Spawn")]
 	public class MinionSpawn : MultiModule {
-		
-		[RequiredFieldAttribute("Unit we are attempting to spawn")]
-		public GameObject minion;
+
+		[Header("Important - Must be populated")]
+		[Tooltip("What objects should we look for to spawn on? This performs a raycast straight down to find out if we're deploying onto a valid surface. Generally, this will occur at the Instantiation Transform designated on the Inventory component.")]
+		public LayerMask rayMask;
+
+		[Header("Spawn Settings")]
 		[RequiredFieldAttribute("How far down from the origin are we willing to look for a surface to spawn on?")]
 		public float rayDistance = 2.0f;
-		[Tooltip("What objects should we look for to spawn on?")]
-		public LayerMask rayMask;
+		[RequiredFieldAttribute("Unit we are attempting to spawn")]
+		public GameObject minion;
 		[RequiredFieldAttribute("A reference to an inventory item that will be added back in to the inventory in case we fail to spawn anything")]
 		public GameObject activeObject;
+
 		[HideInInspector]
 		public ActiveObject activ;
 

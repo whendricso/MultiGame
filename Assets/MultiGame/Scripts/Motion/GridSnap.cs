@@ -7,7 +7,8 @@ namespace MultiGame {
 	//Functionality to snap objects to grid by transform origin:
 	//the gridSpace argument allows a different size grid to be used on each world axis
 //	[AddComponentMenu("MultiGame/Motion/Grid Snap")]
-	public class GridSnap : MonoBehaviour {
+	[AddComponentMenu("MultiGame/Motion/GridSnap")]
+	public class GridSnap : MultiModule {
 		
 		public bool snapOnStart = false;
 		public Vector3 gridSetting = Vector3.one;
@@ -15,8 +16,12 @@ namespace MultiGame {
 		public bool snapNow = false;
 		[Tooltip("If true, the object will snap itself constantly while in edit mode. Disable this when finished, as it uses CPU cycles each frame.")]
 		public bool autoSnapWhileEditing = false;
-		[Tooltip("Snaps the object to the grid every single frame")]
+		[Tooltip("Snaps the object to the grid every single frame while the game is running? Occurs in LateUpdate.")]
 		public bool snapEachFrame = false;
+
+		public HelpInfo help = new HelpInfo("Grid Snap allows you to define a custom grid per-object. To use the same grid, simply right-click this component's header (the line at the top with the component name and collapse " +
+			"triangle) and click 'Copy Component' and you can then paste it as a new component or paste it's values into another Grid Snap. This component works both during edit and runtime, so it can be used to make a grid-based game " +
+			"or just to help out while snapping prefabs in the Editor.");
 
 		void Start () {
 			if (!snapOnStart)
@@ -48,6 +53,7 @@ namespace MultiGame {
 				SnapToGrid ();
 		}
 
+		public MessageHelp snapToGridHelp = new MessageHelp("SnapToGrid","Immediately snaps this object to the grid. Grid snap occurs in global coordinates.");
 		public void SnapToGrid () { 
 			SnapToSpecificGrid(gridSetting);
 		}

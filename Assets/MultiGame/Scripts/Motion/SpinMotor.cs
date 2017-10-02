@@ -13,7 +13,8 @@ namespace MultiGame {
 		[Tooltip("If no rigidbody, the number of degrees per second per axis, otherwise the amount of torque per fixed update")]
 		public Vector3 impetus = Vector3.zero;
 
-		public HelpInfo help = new HelpInfo("This component, similar to ConstantForce component, adds a constant spin or torque instead. Rigidbody use is optional.");
+		public HelpInfo help = new HelpInfo("This component, similar to ConstantForce component, adds a constant spin or torque instead. Rigidbody use is optional. To use, add to any object that you would like to spin, and " +
+			"either set the rotation speed/force above in the 'Impetus' setting, or send messages to set the spin at runtime.");
 		
 		// Update is called once per frame
 		void FixedUpdate () {
@@ -24,6 +25,7 @@ namespace MultiGame {
 			}
 		}
 
+		[Header("Available Messages")]
 		public MessageHelp setImpetusXHelp = new MessageHelp("SetImpetusX","Changes the impetus on the X axis.",3,"The new rotational impetus");
 		public void SetImpetusX(float _impetus) {
 			impetus.x = _impetus;

@@ -16,7 +16,7 @@ namespace MultiGame {
 		[HideInInspector]
 		public HingeJoint joint;
 
-		public HelpInfo help = new HelpInfo("This component allows a hinge joint to be used as a motor. For example spinning arms on a hostile robot.");
+		public HelpInfo help = new HelpInfo("This component allows a hinge joint to be used as a motor. It takes input from the player and applies torque to the hinge.");
 
 		void Start () {
 			joint = GetComponent<HingeJoint>();

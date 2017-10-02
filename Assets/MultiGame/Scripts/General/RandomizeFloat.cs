@@ -5,7 +5,7 @@ using MultiGame;
 
 namespace MultiGame {
 
-	[AddComponentMenu("MultiGame/General/Randomize Float")]
+//	[AddComponentMenu("MultiGame/General/Randomize Float")]
 	public class RandomizeFloat : MultiModule {
 
 		[RequiredFieldAttribute("The component conatining the value we want to randomize")]
@@ -42,6 +42,7 @@ namespace MultiGame {
 
 		public MessageHelp randomizeHelp = new MessageHelp("Randomize","Randomize the value of the float between 'Minimum Value' and 'Maximum Value'");
 		public void Randomize () {
+			//TODO: Sometimes fails!
 			if (field == null)
 				field = targetComponent.GetType().GetField(floatName);
 			field.SetValue(targetComponent, Random.Range(minimumValue, maximumValue));

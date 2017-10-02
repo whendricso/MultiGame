@@ -56,6 +56,7 @@ namespace MultiGame {
 			StartCoroutine(DelayedMessage(timeDelay + Random.Range(-variance, variance)));
 		}
 
+		public MessageHelp abortHelp = new MessageHelp("Abort", "Stops execution of the timer immediately.");
 		public void Abort () {
 			StopAllCoroutines();
 		}

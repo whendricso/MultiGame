@@ -17,7 +17,9 @@ namespace MultiGame {
 
 		private GameObject spawnedEntity;
 
-		public HelpInfo help = new HelpInfo("This component is a really easy way to spawn objects without a limit using the 'Spawn' message");
+		public HelpInfo help = new HelpInfo("Simply send 'Spawn' or 'SpawnAsChild' to this component to instantiate 'Item' at 'SpawnPoint'. 'Item' does not have to be an Inventory Pickable, but it can be if you wish. It can be " +
+			"any object that you want to instantiate into your game for any reason. For example you could spawn anthropomorphic bullets out of a cartoon cannon in your level using this, or you could spawn items or even " +
+			"invisible sound effect objects. Really, any prefab is a valid choice.");
 
 		void Start () {
 			if (spawnPoint == null)

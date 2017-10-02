@@ -27,9 +27,8 @@ namespace MultiGame {
 		private bool useTargetRigidbody = false;
 
 		public HelpInfo help = new HelpInfo("This component adds thrust to a given Rigidbody. It also works with the 'InputVector' component (optionally) allthoug it can be used" +
-			" either by itself or with any message sender/toggle component." +
-			"\n---Messages:---\n" +
-			"'ThrustAmount' takes a float representing how much to multiply the 'Thrust' vector and add it once this frame.");
+			" either by itself or with any message sender/toggle component. To use, add this to an object with a Rigidbody component that you'd like to push around. Then, input some 'Thrust' settings above to tell the Thruster " +
+			"how strong it is in which directions. Negative values may be used. Finally, either set it's 'Thrusting' setting to true, or send messages to it to control it's thrust state.");
 
 		void Start () {
 			if (GetComponent<Rigidbody>() == null && target == null) {
@@ -88,6 +87,7 @@ namespace MultiGame {
 			}
 		}
 
+		[Header("Available Messages")]
 		public MessageHelp beginThrustHelp = new MessageHelp("BeginThrust","Start to send the predetermined amount of force to the rigidbody each frame until stopped.");
 		public void BeginThrust () {
 			thrusting = true;
@@ -102,18 +102,18 @@ namespace MultiGame {
 		public void ThrustAmount (float scalar) {
 			if (scalar != 0.0f) {
 				if (space == Space.Self)
-					GetComponent<Rigidbody>().AddRelativeForce(thrust * scalar);
+					rigid.AddRelativeForce(thrust * scalar);
 				else
-					GetComponent<Rigidbody>().AddForce(thrust * scalar, ForceMode.Force);
+					rigid.AddForce(thrust * scalar, ForceMode.Force);
 			}
 		}
 
 		public void ThrustVector (Vector3 input) {
 			Debug.Log("Thrust " + input);
 			if (space == Space.Self)
-				GetComponent<Rigidbody>().AddRelativeForce(new Vector3( input.x * thrust.x, input.y * thrust.y, input.z * thrust.z));
+				rigid.AddRelativeForce(new Vector3( input.x * thrust.x, input.y * thrust.y, input.z * thrust.z));
 			else
-				GetComponent<Rigidbody>().AddForce(new Vector3( input.x * thrust.x, input.y * thrust.y, input.z * thrust.z));
+				rigid.AddForce(new Vector3( input.x * thrust.x, input.y * thrust.y, input.z * thrust.z));
 		}
 	}
 }

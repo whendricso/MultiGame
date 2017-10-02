@@ -7,6 +7,7 @@ namespace MultiGame {
 	[AddComponentMenu("MultiGame/Camera/Cursor Lock")]
 	public class CursorLock : MultiModule {
 
+		[Header("Key Settings")]
 		[Tooltip("List of keys that unlock the mouse")]
 		public KeyCode[] unLockKeys = new KeyCode[] {KeyCode.Escape, KeyCode.LeftControl};
 		[Tooltip("List of keys that lock the mouse")]
@@ -14,7 +15,8 @@ namespace MultiGame {
 		[System.NonSerialized]
 		public bool lockOnClick = false;
 
-		public HelpInfo help = new HelpInfo("This component allows the cursor to hide/unhide based on messages sent from other components, or just when the player clicks on the game.");
+		public HelpInfo help = new HelpInfo("This component allows the cursor to hide/unhide based on messages sent from other components, or just when the player clicks on the game. By default, it hides the cursor when the " +
+			"player moves with WASD and unlocks when the player presses [ESCAPE] or [CTRL]");
 
 		void Update () {
 			if (lockOnClick)
@@ -38,11 +40,14 @@ namespace MultiGame {
 			}
 		}
 
+		[Header("Available Messages")]
+		public MessageHelp lockMouseHelp = new MessageHelp("LockMouse","Locks and hides the cursor when receiving a message from a message sender.");
 		public void LockMouse () {
 			Cursor.lockState = CursorLockMode.Locked;
 			Cursor.visible = false;
 		}
 
+		public MessageHelp unLockMouseHelp = new MessageHelp("UnLockMouse","Unlocks and reveals the cursor when receiving a message from a message sender.");
 		public void UnlockMouse () {
 			Cursor.lockState = CursorLockMode.None;
 			Cursor.visible = true;

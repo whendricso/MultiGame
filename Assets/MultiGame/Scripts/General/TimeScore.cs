@@ -8,22 +8,26 @@ namespace MultiGame {
 	//[AddComponentMenu("MultiGame/General/Time Score")]
 	public class TimeScore : MultiModule {
 
-		[Tooltip("Should we show a legacy Unity GUI?")]
+		[Header("Legacy GUI Settings")]
+		[Tooltip("Should we show a legacy Unity GUI? Not recommended for mobile devices")]
 		public bool showGUI = true;
 		[RequiredFieldAttribute("Unique identifier for the window, must be unique! (change it if it's not!)")]
 		public int windowID = 37503;
 		[Tooltip("Normalized viewport rectangle for the legacy GUI, values between 0 and 1")]
 		public Rect guiArea = new Rect(0.6f, 0.01f, 0.125f, .125f);
+		public GUISkin guiSkin;
+		private bool showLastTime = false;
+		private bool showBestTime = false;
 
-		[RequiredFieldAttribute("A Text component you wish to use to display the timer. Works on mobile.", RequiredFieldAttribute.RequirementLevels.Optional)]
+		[Header("UGUI Settings")]
+		[RequiredFieldAttribute("A Text component you wish to use to display the timer. Works on mobile. Overrides Legacy GUI if used.", RequiredFieldAttribute.RequirementLevels.Optional)]
 		public Text timerDisplay;
 
-		[System.NonSerialized]
-		public float startTime = 0.0f;
+		[Header("Timer Settings")]
+		[Tooltip("Should we automatically record the time when this object is destroyed?")]
+		public bool autorecord = true;
 		[RequiredFieldAttribute("How long do we have?")]
 		public float totalTime = 0.0f;
-		[Tooltip("What message do we send when time runs out?")]
-		public MessageManager.ManagedMessage timeUpMessage;
 		[HideInInspector]
 		public bool started = false;
 		[HideInInspector]
@@ -33,9 +37,13 @@ namespace MultiGame {
 
 		[Tooltip("Start the timer when the object is created?")]
 		public bool startOnStart = true;
-		private bool showLastTime = false;
-		private bool showBestTime = false;
 
+		[Header("Message Senders")]
+		[Tooltip("What message do we send when time runs out?")]
+		public MessageManager.ManagedMessage timeUpMessage;
+
+		[System.NonSerialized]
+		public float startTime = 0.0f;
 		private float timeSinceStart = 0;
 
 		public HelpInfo help = new HelpInfo("This component gives the player a bit of urgency and helps with speedruns. Using the legacy GUI is not recommended for mobile." +
@@ -73,11 +81,6 @@ namespace MultiGame {
 				timerDisplay.text = "Current Time: " + Mathf.FloorToInt( timeSinceStart) + "Last: " + Mathf.FloorToInt( previousTime ) + " Remaining: " + (totalTime - timeSinceStart);
 			}
 
-
-
-
-
-
 			if (timerDisplay != null)
 				return;
 			if (Input.GetKeyUp(KeyCode.T))
@@ -85,13 +88,16 @@ namespace MultiGame {
 		}
 
 		void OnGUI () {
-			if(showGUI)
-				GUILayout.Window(windowID, new Rect(guiArea.x * Screen.width, guiArea.y * Screen.height, guiArea.width * Screen.width, guiArea.height * Screen.height), TimeScoreWindow, "[T]ime:");
+			if (showGUI) {
+				GUI.skin = guiSkin;
+				GUILayout.Window (windowID, new Rect (guiArea.x * Screen.width, guiArea.y * Screen.height, guiArea.width * Screen.width, guiArea.height * Screen.height), TimeScoreWindow, "[T]ime:");
+
+			}
 		}
 
 		void TimeScoreWindow (int id) {
 			if (GUILayout.Button("Reset"))
-				ResetTimes();
+				ResetSavedTimes();
 			if (showLastTime && previousTime > 0)
 				GUILayout.Label("Last Time: " + Mathf.FloorToInt(previousTime));
 			if (showBestTime && bestTime > 0)
@@ -103,7 +109,9 @@ namespace MultiGame {
 
 		}
 
-		void RecordTime () {
+		[Header("Available Messages")]
+		public MessageHelp recordTimeHelp = new MessageHelp("RecordTime","Saves the current time to PlayerPrefs, and updates 'Best Time' if necessary.");
+		public void RecordTime () {
 			previousTime = Time.time - startTime;
 			PlayerPrefs.SetFloat("timeScorePreviousTime", previousTime);
 			if (timeSinceStart < bestTime || !PlayerPrefs.HasKey("timeScoreBestTime")) {
@@ -118,7 +126,8 @@ namespace MultiGame {
 			MessageManager.Send(timeUpMessage);
 		}
 
-		void Begin () {
+		public MessageHelp beginHelp = new MessageHelp("Begin","Begins the timer, and resets it if already running.");
+		public void Begin () {
 			startTime = Time.time;
 			timeSinceStart = 0f;
 			started = true;
@@ -126,24 +135,29 @@ namespace MultiGame {
 				StartCoroutine(TimeUp());
 		}
 
-		void ResetTimes () {
+		public MessageHelp resetSavedTimesHelp = new MessageHelp("ResetSavedTimes","Clears any saved times out of PlayerPrefs");
+		public void ResetSavedTimes () {
 			PlayerPrefs.DeleteKey("timeScorePreviousTime");
 			PlayerPrefs.DeleteKey("timeScoreBestTime");
 		}
 
 		void OnDestroy () {
-			RecordTime();
+			if (autorecord)
+				RecordTime();
 		}
 
-		void EnableTimeGUI () {
+		public MessageHelp enableTimeGUIHelp = new MessageHelp ("EnableTimeGUI","Shows the Legacy Time GUI. Not suitable for mobile.");
+		public void EnableTimeGUI () {
 			showGUI = true;
 		}
 
-		void DisableTimeGUI () {
+		public MessageHelp disableTimeGUIHelp = new MessageHelp ("DisableTimeGUI","Hides the Legacy Time GUI. Not suitable for mobile.");
+		public void DisableTimeGUI () {
 			showGUI = false;
 		}
 
-		void ToggleTimeGUI () {
+		public MessageHelp toggleTimeGUIHelp = new MessageHelp ("ToggleTimeGUI","Toggles the Legacy Time GUI. Not suitable for mobile.");
+		public void ToggleTimeGUI () {
 			showGUI = !showGUI;
 		}
 	}

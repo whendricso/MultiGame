@@ -8,15 +8,15 @@ namespace MultiGame {
 	[AddComponentMenu("MultiGame/AI/Targeting Computer")]
 	public class TargetingComputer : MultiModule
 	{
-		[RequiredFieldAttribute("The base rigidbody this is parented to", RequiredFieldAttribute.RequirementLevels.Required)]
+		[RequiredFieldAttribute("The base rigidbody this is parented to. Can be kinematic, but kinematic bodies may produce less accurate results especially at high speeds.", RequiredFieldAttribute.RequirementLevels.Required)]
 		public Rigidbody mainBody;
-		[RequiredFieldAttribute("How fast does our projectile travel?", RequiredFieldAttribute.RequirementLevels.Required)]
+		[RequiredFieldAttribute("How fast does our projectile travel in meters per second (assuming 1 Unity unit == 1 meter)? Used to calculate lead distance.", RequiredFieldAttribute.RequirementLevels.Required)]
 		public float shotSpeed;
-		[RequiredFieldAttribute("Should we fire at something specific, right now?", RequiredFieldAttribute.RequirementLevels.Optional)]
+		[RequiredFieldAttribute("Should we fire at something specific, right now? Good for scripted sequences.", RequiredFieldAttribute.RequirementLevels.Optional)]
 		public GameObject target;
-		[Tooltip("Should we turn this object so it's Z-axis faces the target, with lead time taken into account?")]
+		[Tooltip("Should we turn this object so it's Z-axis faces the target, with lead time taken into account? (Recommended)")]
 		public bool autoLook = true;//Automatically look at the target position?
-		[Tooltip("Should we constrain X to 0 during the turn operation?")]
+		[Tooltip("Should we constrain X to 0 during the turn operation? If true, this object won't look up or down.")]
 		public bool constrainX = false;
 
 		public HelpInfo help = new HelpInfo("This component points it's positive Z direction at the target, automatically taking into account lead distance. " +
@@ -105,6 +105,7 @@ namespace MultiGame {
 			target = tgt;
 		}
 
+		[Header("Available Messages")]
 		public MessageHelp clearTargetHelp = new MessageHelp("ClearTarget","Causes the Targeting Computer to lose it's current target, allowing it to target something else");
 		public void ClearTarget () {
 			if (debug)

@@ -15,10 +15,10 @@ namespace MultiGame {
 		public TargetingMode targetingMode = TargetingMode.Both;
 		[RequiredFieldAttribute("How fast is the minimum speed we need to do damage? If 0, this will be ignored.",RequiredFieldAttribute.RequirementLevels.Optional)]
 		public float speedThreshold = 20.0f;
-		[RequiredFieldAttribute("The health component receiving the damage, if none then we will use the component on this object")]
+		[RequiredFieldAttribute("The health component receiving the damage, if none then we will use the component on this object", RequiredFieldAttribute.RequirementLevels.Recommended)]
 		public Health health;
 		public HelpInfo help = new HelpInfo("This component sends 'ModifyHealth' to objects involved in collisions. Crash your car at high speed? This component decides how much " +
-			"damage is dealt.");
+			"damage is dealt. Recommend reviewing the Rigidbody settings on this object.");
 
 		public bool debug = false;
 
@@ -30,11 +30,11 @@ namespace MultiGame {
 			}
 			if (health == null)
 				health = GetComponent<Health>();
-			if (health == null) {
-				Debug.Log ("Impact Damage " + gameObject.name + " needs a health component!");
-				enabled = false;
-				return;
-			}
+//			if (health == null) {
+//				Debug.Log ("Impact Damage " + gameObject.name + " needs a health component!");
+//				enabled = false;
+//				return;
+//			}
 		}
 		
 		void OnCollisionEnter (Collision collision) {
@@ -42,10 +42,10 @@ namespace MultiGame {
 				if (debug)
 					Debug.Log ("Apply impact damage");
 				if (targetingMode == TargetingMode.Self || targetingMode == TargetingMode.Both)
-					gameObject.BroadcastMessage("ModifyHealth", damage * collision.relativeVelocity.magnitude, SendMessageOptions.DontRequireReceiver);
+					gameObject.SendMessage("ModifyHealth", damage * collision.relativeVelocity.magnitude, SendMessageOptions.DontRequireReceiver);
 				else
 				if (targetingMode == TargetingMode.Other || targetingMode == TargetingMode.Both)
-					collision.gameObject.BroadcastMessage("ModifyHealth", damage * collision.relativeVelocity.magnitude, SendMessageOptions.DontRequireReceiver);
+						collision.gameObject.SendMessage("ModifyHealth", damage * collision.relativeVelocity.magnitude, SendMessageOptions.DontRequireReceiver);
 				
 			}
 		}

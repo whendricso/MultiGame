@@ -8,6 +8,10 @@ namespace MultiGame {
 	[AddComponentMenu("MultiGame/AI/Minion Module")]
 	public class MinionModule : MultiModule {
 
+		[Header("Important - Must be populated")]
+		[Tooltip("Layer mask indicating what we can click against")]
+		public LayerMask clickMask;
+		[Header("Command Settings")]
 		[RequiredFieldAttribute("When clicked, objects of this tag will cause deselection. Send the 'Select' message to this object to select it", RequiredFieldAttribute.RequirementLevels.Required)]
 		public string deselectionTag;
 		[RequiredFieldAttribute("When clicked with 'moveButton', will cause a move order to be issued", RequiredFieldAttribute.RequirementLevels.Required)]
@@ -20,8 +24,6 @@ namespace MultiGame {
 		public int selectButton = 0;
 		[Tooltip("An object, parented to this one, which indicates selection when active (Like a health bar, or something glowy)")]
 		public GameObject selectionIndicator;
-		[Tooltip("Layer mask indicating what we can click against")]
-		public LayerMask clickMask;
 		[Tooltip("How far we should move forward when spawned")]
 		public float initialMoveDistance = 3.0f;
 
@@ -84,6 +86,7 @@ namespace MultiGame {
 			return _ret;
 		}
 
+		[Header("Available Messages")]
 		public MessageHelp selectHelp = new MessageHelp("Select","Causes this Minion Module to become selected, ready to receive orders from mouse events.");
 		public void Select () {
 			selected = true;

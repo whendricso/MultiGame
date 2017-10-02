@@ -22,13 +22,15 @@ namespace MultiGame {
 			"if you try to save the enemy's health, then when you load the game *every* enemy with that prefab will load the health of the last one to save with that 'Unique Identifier'. " +
 			"But, if you save the Player's health, that is fine since there is only one local player at a time so there are no duplicates to cause errors. This component saves to Player Prefs " +
 			"and therefore works on all platforms that support MultiGame.");
-
+	
 		private string key;
 
 		void Start () {
 			key = "" + gameObject.name + uniqueIdentifier;
 		}
 
+		[Header("Available Messages")]
+		public MessageHelp saveHelp = new MessageHelp("Save","Saves the field to PlayerPrefs with the Unique Identifier, which is used internally to identify the field data between sessions");
 		public void Save () {
 			if (!ValidateSetup()) {
 				Debug.LogError("Unique Preference Serializer " + gameObject.name + " is not configured correctly!");
@@ -63,6 +65,7 @@ namespace MultiGame {
 
 		}
 
+		public MessageHelp loadHelp = new MessageHelp("Load","Loads the field from PlayerPrefs and populates it's value with the one previously saved");
 		public void Load () {
 			if (!ValidateSetup()) {
 				Debug.LogError("Unique Preference Serializer " + gameObject.name + " is not configured correctly!");

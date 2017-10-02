@@ -6,7 +6,11 @@ namespace MultiGame {
 
 	[AddComponentMenu("MultiGame/AI/Targeting Sensor")]
 	public class TargetingSensor : MultiModule {
-		
+
+		[Header("Important - must be populated")]
+		[Tooltip("What tags are we looking for while targeting? Any Game Object with one of these tags that is found will be passed as a target to the 'Message Receiver' defined below.")]
+		public string[] targetTags;
+		[Header("Target Settings")]
 		[RequiredFieldAttribute("What object has a targeting computer, or other MultiGame AI component attached that needs a target?", RequiredFieldAttribute.RequirementLevels.Required)]
 		public GameObject messageReceiver;
 		private GameObject lastTarget;
@@ -15,8 +19,7 @@ namespace MultiGame {
 		private bool canRetarget = true;
 		[RequiredFieldAttribute("How far away does our target need to get before we look for another?", RequiredFieldAttribute.RequirementLevels.Required)]
 		public float maxDistance = 25.0f;
-		[Tooltip("What tags are we looking for while targeting?")]
-		public string[] targetTags;
+
 
 		public HelpInfo help = new HelpInfo("This component should be attached to a trigger that is parented to an AI. It provides target information to other AI components." +
 			" To use most effectively, we recommend creating 4 collision layers (at least), one each for friendlies and enemies, and one each for friendly and enemy sensors." +

@@ -43,6 +43,7 @@ namespace MultiGame {
 			MessageManager.UpdateMessageGUI(ref teamChangedMessage, gameObject);
 		}
 
+		public MultiModule.MessageHelp setTeamHelp = new MultiModule.MessageHelp("SetTeam","Changes the object's team",2,"The new team for the object");
 		public void SetTeam (int _team) {
 			photonView.RPC("RemoteSetTeam", PhotonTargets.AllBufferedViaServer, _team);
 		}

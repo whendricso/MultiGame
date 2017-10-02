@@ -25,6 +25,7 @@ namespace MultiGame {
 			view = GetView();
 		}
 
+		public MultiModule.MessageHelp relayHelp = new MultiModule.MessageHelp("Relay","Sends the message to GameObjects synchronously across the network");
 		public void Relay () {
 			if (!enabled)
 				return;
@@ -41,6 +42,7 @@ namespace MultiGame {
 			MessageManager.Send(localMessage);
 		}
 
+		public MultiModule.MessageHelp relayWithParamHelp = new MultiModule.MessageHelp("RelayWithParam","Relays the message synchronously across the network, taking a string parameter",4,"The string parameter of the message");
 		public void RelayWithParam(string _param) {
 			if (!enabled)
 				return;
@@ -53,7 +55,7 @@ namespace MultiGame {
 			MessageManager.Send(new MessageManager.ManagedMessage(this.localMessage.target, localMessage.message, localMessage.sendMessageType, _param, localMessage.parameterMode));
 		}
 
-		public void RelayMessage (string _message) {
+		private void RelayMessage (string _message) {
 			if (!enabled)
 				return;
 			if (view.isMine)
