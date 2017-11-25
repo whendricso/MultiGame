@@ -189,7 +189,19 @@ namespace MultiGame {
 				}
 			}
 		}
-		
+
+		public MessageHelp cancelDeployHelp = new MessageHelp("CancelDeploy","Stops the deployment process");
+		public void CancelDeploy () {
+			deploying = false;
+		}
+
+		public MessageHelp selectDeployableHelp = new MessageHelp("SelectDeployable","Changes which deployable is currently selected and initiates deployment.", 2, "An integer indicating which deployable we wish to use. Zero-indexed, so the first element is 0, and the last is the number of elements minus one.");
+		public void SelectDeployable (int selection) {
+			currentItem = selection;
+			deploying = true;
+		}
+
+		public MessageHelp deployHelp = new MessageHelp("Deploy","Attempts to deploy the currently selected Deployable");
 		public void Deploy () {
 			if (canDeploy && deployablesCount[currentItem] > 0) {
 				deployablesCount[currentItem]--;
@@ -216,6 +228,6 @@ namespace MultiGame {
 				}
 			}
 		}
-			#endregion
+		#endregion
 	}
 }

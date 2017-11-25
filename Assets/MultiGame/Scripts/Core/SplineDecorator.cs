@@ -7,14 +7,21 @@ namespace MultiGame {
 	[ExecuteInEditMode]
 	public class SplineDecorator : MonoBehaviour {
 
+		public enum InstantiationModes {Awake, Editor};
+		public enum ScalingModes {Vector, Radial};
+
+		[Header("Essential Settings")]
 		[RequiredFieldAttribute("A reference to the spline component")]
 		public BezierSpline spline;
+		[Tooltip("A list of decorations we want to distribute along the spline")]
+		public GameObject[] decorations;
 
-		public enum InstantiationModes {Awake, Editor};
+		[Header("Instantiation Settings")]
 		[Tooltip("Should we create these decorations in the editor, or at runtime?")]
 		public InstantiationModes instantiationMode = InstantiationModes.Editor;
-
-		[RequiredFieldAttribute("How many times should we place each decorations on the spline?", RequiredFieldAttribute.RequirementLevels.Recommended)]
+		[Tooltip("Should we select the decorations randomly? If not, we will cycle through them in sequence instead.")]
+		public bool randomize = false;
+		[RequiredFieldAttribute("How many times should we place each decoration on the spline?", RequiredFieldAttribute.RequirementLevels.Recommended)]
 		public int frequency = 1;
 		[Tooltip("How much should we vary the spacing of each object?")]
 		[Range(0f,1f)]
@@ -24,18 +31,22 @@ namespace MultiGame {
 		[Tooltip("How much should we vary each object's rotation on each axis?")]
 		public Vector3 rotationalJitter = Vector3.zero;
 
+		[Header("Scaling Settings")]
+		[Tooltip("If set to Radial, only X and Y are taken into account, Z scale will be set to the X value, eliminating horizontal stretching.")]
+		public ScalingModes scalingMode = ScalingModes.Vector;
+		[Tooltip("Decorations' minimum size in 3 axes when randomized. Set all of these and Maximum Scale to 1 to disable randomization. Randomization breaks batching for these objects.")]
+		public Vector3 minimumScale = Vector3.one;
+		[Tooltip("Decorations' maximum size in 3 axes when randomized. Set all of these and Minimum Scale to 1 to disable randomization. Randomization breaks batching for these objects.")]
+		public Vector3 maximumScale = Vector3.one;
 		[Tooltip("Should each decoration change it's orientation to face the spline direction?")]
-		public bool lookForward = true;
+		public bool lookForward = false;
 
-		[Tooltip("A list of decorations we want to distribute along the spline")]
-		public GameObject[] decorations;
-		[Tooltip("Should we select the decorations randomly?")]
-		public bool randomize = false;
 		[System.NonSerialized]
 		public GameObject[] instantiated;
 
 		[BoolButton]
 		public bool refreshDecorations = false;
+		private float radius = 0f;
 
 		public MultiModule.HelpInfo help = new MultiModule.HelpInfo("Spline Decorator allows objects to be placed procedurally along a spline that you define in the editor.\n" +
 			"\n" +
@@ -115,6 +126,15 @@ namespace MultiGame {
 					decoration.transform.localRotation = Quaternion.Euler(new Vector3(decoration.transform.localRotation.eulerAngles.x + UnityEngine.Random.Range(-rotationalJitter.x, rotationalJitter.x),decoration.transform.localRotation.eulerAngles.y + UnityEngine.Random.Range(-rotationalJitter.y, rotationalJitter.y),decoration.transform.localRotation.eulerAngles.z + UnityEngine.Random.Range(-rotationalJitter.z, rotationalJitter.z)));
 					decoration.transform.parent = transform;
 
+					if (minimumScale != Vector3.one || maximumScale != Vector3.one) {
+						if (scalingMode == ScalingModes.Vector)
+							decoration.transform.localScale = new Vector3 (UnityEngine.Random.Range (minimumScale.x, maximumScale.x), UnityEngine.Random.Range (minimumScale.y, maximumScale.y), UnityEngine.Random.Range (minimumScale.z, maximumScale.z));
+						if (scalingMode == ScalingModes.Radial) {
+							radius = UnityEngine.Random.Range (minimumScale.x, maximumScale.x);
+							decoration.transform.localScale = new Vector3 (radius, UnityEngine.Random.Range (minimumScale.y, maximumScale.y), radius);
+					
+						}
+					}
 				}
 			}
 

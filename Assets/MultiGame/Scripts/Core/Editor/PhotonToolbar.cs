@@ -256,12 +256,12 @@ namespace MultiGame {
 
 			if (target.GetComponent<PhotonDestructible>() == null)
 				Undo.AddComponent<PhotonDestructible>(target);	
-			PhotonFieldSync _sync = target.GetComponent<PhotonFieldSync>();
-			if (_sync == null)
-				_sync = Undo.AddComponent<PhotonFieldSync>(target);
-			_sync.targetComponent = _health;
-			_sync.fieldName = "hp";
-			SetupPhotonView(_sync);
+//			PhotonFieldSync _sync = target.GetComponent<PhotonFieldSync>();
+//			if (_sync == null)
+//				_sync = Undo.AddComponent<PhotonFieldSync>(target);
+//			_sync.targetComponent = _health;
+//			_sync.fieldName = "hp";
+//			SetupPhotonView(_sync);
 		}
 
 		/// <summary>
