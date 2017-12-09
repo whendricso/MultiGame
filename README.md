@@ -1,7 +1,7 @@
 
 ![alt text](https://preview.ibb.co/iRV6Sw/Heli_Havoc_Pedestrians_And_Cars2.png "HeliHavoc made with MultiGame")
 # MultiGame
-MultiGame is a tool for rapid development in Unity, designed to save time for programmers, artists and designers.
+MultiGame makes game development in Unity fast and simple for artists, programmers, and designers of all stripes!
 
 It works with all other scripts, tools, add-ons. It also has programmer helper functions to improve your Inspector readability or send events in a cleaner and more versatile way than Unity Events without the need for messy delagates.
 
