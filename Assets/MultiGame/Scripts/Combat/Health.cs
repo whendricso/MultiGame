@@ -18,7 +18,8 @@ namespace MultiGame {
 		public bool autodestruct = true;
 		[Tooltip("What should we spawn when we die from HP loss?")]
 		public GameObject[] deathPrefabs;
-		//public GameObject deathCam;//optional camera to be spawned, which watches the first death prefab
+		[RequiredFieldAttribute("Specify a key to save the health in Player Prefs. Will load when any instance of this object is instantiated. If you don't want to save, just leave this blank.",RequiredFieldAttribute.RequirementLevels.Optional)]
+		public string autoSaveKey = "";
 
 		[Header("GUI Settings")]
 		[Tooltip("If using the Unity UI, create a scroll bar for the health and drop a reference to it here. The handle of the scrollbar is resized to show the health amount. This can be used to create " +
@@ -50,9 +51,15 @@ namespace MultiGame {
 
 		
 		void Start () {
-	//		hp = maxHP;
+			if (PlayerPrefs.HasKey ("Health" + autoSaveKey))
+				hp = PlayerPrefs.GetFloat ("Health" + autoSaveKey);
 			if (healthGoneMessage.target == null)
 				healthGoneMessage.target = gameObject;
+		}
+
+		void OnDestroy () {
+			if (!string.IsNullOrEmpty (autoSaveKey))
+				PlayerPrefs.SetFloat ("Health" + autoSaveKey, hp);
 		}
 
 		void OnValidate () {
@@ -61,8 +68,6 @@ namespace MultiGame {
 		}
 		
 		void Update () {
-	//		if (hp <= 0)
-	//			Die();
 			if (hp > maxHP)
 				hp = maxHP;
 

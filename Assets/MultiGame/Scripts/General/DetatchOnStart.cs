@@ -14,7 +14,7 @@ namespace MultiGame {
 			" For example, you can parent an auto-follow camera to your player prefab and add this component, creating a convenient way to instantiate both at once.");
 
 		void Start () {
-			transform.parent = null;
+			transform.SetParent(null);
 		}
 	}
 }

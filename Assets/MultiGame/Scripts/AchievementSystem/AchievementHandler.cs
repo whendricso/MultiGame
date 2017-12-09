@@ -5,6 +5,7 @@ using MultiGame;
 
 namespace MultiGame {
 	[AddComponentMenu("MultiGame/AchievementHandler")]
+	[RequireComponent(typeof(AudioSource))]
 	public class AchievementHandler : MultiModule {
 
 		[Tooltip("A list of achievements for this object. It's object-specific, allowing you to create multiple achievement lists if you desire")]
@@ -15,7 +16,17 @@ namespace MultiGame {
 		public Rect guiArea = new Rect(0.2f, .2f, 0.6f, 0.6f);
 		[Tooltip("An optional GUI Skin to use for the achievement list display on-screen.")]
 		public GUISkin guiSkin;
+		public Color guiColor = Color.white;
+		[Tooltip("If there is a MusicManager in the scene, should we fade it out during the acievement?")]
+		public bool fadeMusic = true;
 
+		public bool autoSave = true;
+
+		private AudioSource source;
+
+		private MusicManager musicMan;
+
+		public bool debug = false;
 
 		public HelpInfo help = new HelpInfo("This component provides support of a discreet list of achievements. It can be assigned on a per-object basis, for 'context-sensitive'" +
 			" achievements, or you can use just one in your whole game for a global achievement list. The latter is the conventional approach. To use it in this way, simply" +
@@ -34,9 +45,12 @@ namespace MultiGame {
 			[RequiredFieldAttribute("How many times must we 'Increment' this achievement before it is acieved?", RequiredFieldAttribute.RequirementLevels.Required)]
 			public int quantityRequired = 1;
 			public int currentQuantity = 0;
+			public AudioClip clip;
 			public MessageManager.ManagedMessage completionMessage;
 			public MessageManager.ManagedMessage onLoadMessage;
 
+			[HideInInspector]
+			public int previousQuantity = 0;
 
 			public Achievement(string _name) {
 				name = _name;
@@ -54,6 +68,8 @@ namespace MultiGame {
 		}
 
 		void Start () {
+			musicMan = FindObjectOfType<MusicManager> ();
+			source = GetComponent<AudioSource> ();
 			foreach (Achievement achv in achievements) {
 				if (achv.completionMessage.target == null)
 					achv.completionMessage.target = gameObject;
@@ -64,8 +80,10 @@ namespace MultiGame {
 			if (!showGui)
 				return;
 			GUI.skin = guiSkin;
+			GUI.color = guiColor;
 
-			GUILayout.BeginArea(new Rect(guiArea.x * Screen.width, guiArea.y * Screen.height, guiArea.width * Screen.width, guiArea.height * Screen.height), "Achievements:", "box");
+			GUILayout.BeginArea(new Rect(guiArea.x * Screen.width, guiArea.y * Screen.height, guiArea.width * Screen.width, guiArea.height * Screen.height), "", "box");
+			GUILayout.Label("Achievements:");
 
 			foreach (Achievement achv in achievements) {
 				GUILayout.Label(achv.name + ": " + achv.currentQuantity + " / " + achv.quantityRequired);
@@ -73,6 +91,11 @@ namespace MultiGame {
 
 			GUILayout.EndArea();
 		}
+		public void OnDestroy () {
+			if (autoSave)
+				Save ();
+		}
+
 		[Header("Available Messages")]
 
 		public MessageHelp incrementHelp = new MessageHelp("Increment","takes a string, which is the name of the achievement we are incrementing", 4,
@@ -80,10 +103,18 @@ namespace MultiGame {
 		public void Increment (string _name) {
 			foreach (Achievement achv in achievements) {
 				if (_name == achv.name) {
+					achv.previousQuantity = achv.currentQuantity;
 					achv.currentQuantity ++;
 				}
-				if (achv.currentQuantity >= achv.quantityRequired) {
+				if (_name == achv.name && achv.previousQuantity < achv.quantityRequired && achv.currentQuantity >= achv.quantityRequired) {
+					if (debug)
+						Debug.Log ("Achieved " + achv.name + " with quantity " + achv.currentQuantity + " and previous quantity " + achv.previousQuantity);
 					MessageManager.Send(achv.completionMessage);
+					if (achv.clip != null) {
+						if (musicMan != null)
+							musicMan.SendMessage ("FadeIn");
+						source.PlayOneShot (achv.clip);
+					}
 				}
 			}
 		}
@@ -92,6 +123,7 @@ namespace MultiGame {
 		public void Save() {
 			foreach (Achievement achv in achievements) {
 				PlayerPrefs.SetInt("achv" + achv.name, achv.currentQuantity);
+				PlayerPrefs.SetInt("achvPrev" + achv.name, achv.previousQuantity);
 			}
 			PlayerPrefs.Save();
 		}
@@ -100,7 +132,10 @@ namespace MultiGame {
 
 		public void Load() {
 			foreach (Achievement achv in achievements) {
-				achv.currentQuantity = PlayerPrefs.GetInt("achv" + achv.name);
+				if (PlayerPrefs.HasKey("achv" + achv.name)) 
+					achv.currentQuantity = PlayerPrefs.GetInt("achv" + achv.name);
+				if (PlayerPrefs.HasKey ("achvPrev" + achv.name))
+					achv.previousQuantity = PlayerPrefs.GetInt ("achvPrev" + achv.name);
 				if (achv.currentQuantity >= achv.quantityRequired)
 					MessageManager.Send(achv.onLoadMessage);
 			}

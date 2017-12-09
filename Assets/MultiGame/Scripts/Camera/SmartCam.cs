@@ -3,7 +3,7 @@ using System.Collections;
 using System;
 using MultiGame;
 
-namespace Terrium.Cameras
+namespace MultiGame
 {
 	[RequireComponent(typeof(MouseAim))]
 	public class SmartCam : MultiModule
@@ -13,13 +13,13 @@ namespace Terrium.Cameras
 		public Transform target;
 		[RequiredField("The tag of the object we wish to follow.")]
 		public string targetTag = "Player";
+		[RequiredField("The tag of the object we should always keep on screen.",RequiredFieldAttribute.RequirementLevels.Optional)]
+		public string autoLookTag = "Player";
 		[Tooltip("Should we search for a new target if the current one is lost?")]
 		public bool autoRetarget = true;
 		[Tooltip("How long should we wait before trying to retarget?")]
 		public float autoRetargetTime = .6f;
 		private float autoRetargetCounter;
-
-//		public bool listenEvents = true;
 
 		[Header("Input Settings")]
 		[Tooltip("The key used to break the view for camera orbit using the mouse")]
@@ -42,8 +42,7 @@ namespace Terrium.Cameras
 		public float refollowTime = 1.2f;
 		private float refollowCounter = 0;
 
-
-
+		private GameObject lookAtTarget;
 
 		public enum UpdateModes {Late, Fixed};
 		[Tooltip("Change this if you experience jitter")]
@@ -64,6 +63,9 @@ namespace Terrium.Cameras
 
 		void FixedUpdate ()
 		{
+			if (lookAtTarget == null && !string.IsNullOrEmpty (autoLookTag)) {
+				lookAtTarget = GameObject.FindGameObjectWithTag (autoLookTag);
+			}
 			if (target == null) {
 				autoRetargetCounter -= Time.deltaTime;
 				if (autoRetargetCounter <= 0) {
@@ -96,8 +98,12 @@ namespace Terrium.Cameras
 				refollowCounter = refollowTime;
 
 			if (refollowCounter <= 0f) {
-				mAim.enabled = false;
-				transform.rotation = Quaternion.Slerp (transform.rotation, target.rotation, Time.deltaTime * rotationSpeed);
+				if (lookAtTarget != null) {
+					transform.LookAt (lookAtTarget.transform, Vector3.up);
+				} else {
+					mAim.enabled = false;
+					transform.rotation = Quaternion.Slerp (transform.rotation, target.rotation, Time.deltaTime * rotationSpeed);
+				}
 			} else {
 				mAim.enabled = true;
 				if (!string.IsNullOrEmpty(camAdjustX) && !string.IsNullOrEmpty(camAdjustY)) {

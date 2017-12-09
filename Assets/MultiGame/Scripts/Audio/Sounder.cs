@@ -77,6 +77,10 @@ namespace MultiGame {
 			source.Stop();
 		}
 
+		public void SetVolume (float newVolume) {
+			source.volume = newVolume;
+		}
+
 		void InitiateCooldown () {
 			canSound = false;
 			StartCoroutine(ResetCooldown(cooldown));

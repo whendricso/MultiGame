@@ -231,7 +231,7 @@ namespace MultiGame {
 				GUI.color = Color.green;
 				if (GUILayout.Button("B", GUILayout.Width (20f), GUILayout.Height(16f)))
 					mode = Modes.Basic;
-				GUI.color = new Color(1f, .75f, 0f);
+				GUI.color = XKCDColors.Lightgreen;//new Color(1f, .75f, 0f);
 				if (GUILayout.Button("U", GUILayout.Width (20f), GUILayout.Height(16f)))
 					mode = Modes.UI;
 				GUI.color = Color.blue;
@@ -329,7 +329,7 @@ namespace MultiGame {
 		void ModeLabel () {
 			switch (mode) {
 			case Modes.Basic:
-				GUI.color = Color.green;
+				GUI.color = XKCDColors.Lightgreen;
 				EditorGUILayout.BeginHorizontal("box"/*, GUILayout.Width(112f)*/);
 				EditorGUILayout.LabelField("Basic");
 				EditorGUILayout.EndHorizontal();

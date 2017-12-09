@@ -20,6 +20,10 @@ namespace MultiGame {
 		public static bool randomRotation = true;
 		public static bool autoParent = true;
 		public static float minimumDistance = 1f;
+		public static bool randomScale = false;
+		public static Vector2 randomizedScaleMin = new Vector2(.5f,.5f);
+		public static Vector2 randomizedScaleMax = new Vector2(2f,2f);
+		public static bool paintAll = false;
 
 		public static Vector3 lastPlacement = Vector3.zero;
 		public static Ray mouseRay;
@@ -27,10 +31,15 @@ namespace MultiGame {
 		public static bool didHit = false;
 		public static GameObject target;
 
+		public static GameObject targetCandidate;
+
 		public static Texture2D cancelIcon;
 		public static Texture2D paintIcon;
 		public static Texture2D plusIcon;
 		public static Texture2D minusIcon;
+
+		public static float baseHeight = 330f;
+		private static float adjustedHeight = 330f;
 
 		[MenuItem ("Window/MultiGame/Prefab Shelf")]
 		public static void  ShowWindow () {
@@ -47,15 +56,15 @@ namespace MultiGame {
 				Handles.DrawWireDisc(hinfo.point, hinfo.normal, minimumDistance);
 				Handles.color = Color.white;
 			}
-			if (!running || Selection.activeGameObject == null)
-				return;
-			if (Tools.current == Tool.Move)
-				Selection.activeGameObject.transform.position = Handles.PositionHandle(Selection.activeGameObject.transform.position,Selection.activeGameObject.transform.rotation);
-			if (Tools.current == Tool.Rotate)
-				Selection.activeGameObject.transform.rotation = Handles.RotationHandle(Selection.activeGameObject.transform.rotation, Selection.activeGameObject.transform.position);
-			if (Tools.current == Tool.Scale)
-				Selection.activeGameObject.transform.localScale = Handles.ScaleHandle(Selection.activeGameObject.transform.localScale,Selection.activeGameObject.transform.position, Selection.activeGameObject.transform.rotation, HandleUtility.GetHandleSize(Selection.activeGameObject.transform.position));
-
+//			if (!running || Selection.activeGameObject == null)
+//				return;
+//			if (Tools.current == Tool.Move)
+//				Selection.activeGameObject.transform.position = Handles.PositionHandle(Selection.activeGameObject.transform.position,Selection.activeGameObject.transform.rotation);
+//			if (Tools.current == Tool.Rotate)
+//				Selection.activeGameObject.transform.rotation = Handles.RotationHandle(Selection.activeGameObject.transform.rotation, Selection.activeGameObject.transform.position);
+//			if (Tools.current == Tool.Scale)
+//				Selection.activeGameObject.transform.localScale = Handles.ScaleHandle(Selection.activeGameObject.transform.localScale,Selection.activeGameObject.transform.position, Selection.activeGameObject.transform.rotation, HandleUtility.GetHandleSize(Selection.activeGameObject.transform.position));
+//
 		}
 
 		public static void OnSceneView (SceneView sceneView) {
@@ -68,7 +77,13 @@ namespace MultiGame {
 				return;
 			
 			GUI.backgroundColor = Color.cyan;
-			GUILayout.BeginArea(new Rect(Camera.current.pixelWidth * 0.01f, Camera.current.pixelHeight * 0.01f, 146f, 304f),"Shelf");
+
+			adjustedHeight = baseHeight;
+			if (randomScale)
+				adjustedHeight += 34f;
+			
+
+			GUILayout.BeginArea(new Rect(Camera.current.pixelWidth * 0.01f, Camera.current.pixelHeight * 0.01f, randomScale ? 210f : 146f, adjustedHeight),"Shelf");
 
 			GUILayout.BeginHorizontal();
 			GUILayout.Label("Prefab Painter");
@@ -81,17 +96,19 @@ namespace MultiGame {
 
 			GUILayout.BeginHorizontal();
 			for (int i = 0; i < objects.Count; i++) {
-				if (painting && selection == i)
+				if (painting && (selection == i || (paintAll && objects[i] != null)))
 					GUI.color = Color.green;
 				else
 					GUI.color = Color.white;
 				objects[i] = EditorGUI.ObjectField(new Rect(1f, 20f + (18f * i), 110, 16f), objects[i], typeof(GameObject),false) as GameObject;
 				if (MGPip(paintIcon, new Rect(111f, 20f + (18f * i), 16f, 16f))) {
-					if (selection == i && painting)
+					if (painting)
 						painting = false;
 					else {
-						selection = i;
-						painting = true;
+						if (objects [i] != null) {
+							selection = i;
+							painting = true;
+						}
 					}
 				}
 				if (MGPip(plusIcon, new Rect(130f, 20f + (18f * i), 16f, 16f))) {
@@ -112,6 +129,7 @@ namespace MultiGame {
 			GUILayout.EndHorizontal();
 			GUILayout.FlexibleSpace();
 			GUILayout.Space(2f);
+			paintAll = GUILayout.Toggle (paintAll, "Paint All");
 			GUILayout.BeginHorizontal();
 			GUILayout.Label("Spread");
 			minimumDistance = System.Convert.ToSingle( GUILayout.TextField(minimumDistance.ToString(), GUILayout.Width(48f)));
@@ -125,8 +143,22 @@ namespace MultiGame {
 			randomRotation = GUILayout.Toggle(randomRotation,"Random Rotation", GUILayout.ExpandWidth(true));
 			autoParent = GUILayout.Toggle(autoParent,"Auto Parent", GUILayout.ExpandWidth(true));
 
-			GUI.backgroundColor = Color.white;
 
+			randomScale = GUILayout.Toggle (randomScale, "Randomize Scale");
+			if (randomScale) {
+				GUILayout.BeginHorizontal ();
+				GUILayout.Label ("Minimum Scale");
+				randomizedScaleMin.x = System.Convert.ToSingle(GUILayout.TextField (randomizedScaleMin.x.ToString()));
+				randomizedScaleMin.y = System.Convert.ToSingle(GUILayout.TextField (randomizedScaleMin.y.ToString()));
+				GUILayout.EndHorizontal ();
+				GUILayout.BeginHorizontal ();
+				GUILayout.Label ("Maximum Scale");
+				randomizedScaleMax.x = System.Convert.ToSingle(GUILayout.TextField (randomizedScaleMax.x.ToString()));
+				randomizedScaleMax.y = System.Convert.ToSingle(GUILayout.TextField (randomizedScaleMax.y.ToString()));
+				GUILayout.EndHorizontal ();
+			}
+
+			GUI.backgroundColor = Color.white;
 			if (GUILayout.Button("Clear Shelves")) {
 				objects.Clear();
 				InitializeShelves();
@@ -156,14 +188,28 @@ namespace MultiGame {
 
 					if (Vector3.Distance(hinfo.point, lastPlacement) > minimumDistance || Event.current.shift) {
 						if (randomRotation) {
-							target = InstantiateLinkedPrefab(objects[selection], hinfo.point, Quaternion.LookRotation(hinfo.normal * Random.Range(0f, 360f))) as GameObject;
+							if (!paintAll)
+								target = InstantiateLinkedPrefab (objects [selection], hinfo.point, Quaternion.LookRotation (hinfo.normal * Random.Range (0f, 360f))) as GameObject;
+							else {
+								targetCandidate = objects [Random.Range (0, objects.Count - 1)];
+								while (targetCandidate == null) {
+									targetCandidate = objects [Random.Range (0, objects.Count - 1)];
+								}
+								target = InstantiateLinkedPrefab (targetCandidate, hinfo.point, Quaternion.LookRotation (hinfo.normal * Random.Range (0f, 360f))) as GameObject;
+
+							}
 							target.transform.RotateAround(target.transform.position, target.transform.right, 90f);
 							target.transform.RotateAround(target.transform.position, target.transform.up, Random.Range(0f,360f));
 						} else {
 							target = InstantiateLinkedPrefab(objects[selection], hinfo.point, Quaternion.LookRotation(hinfo.normal)) as GameObject;
 							target.transform.RotateAround(target.transform.position, target.transform.right, 90f);
 						}
-						target.transform.SetParent(hinfo.collider.gameObject.transform);
+						if (autoParent)
+							target.transform.SetParent(hinfo.collider.gameObject.transform);
+						if (randomScale) {
+							float newWidth = Random.Range (randomizedScaleMin.x, randomizedScaleMax.x);
+							target.transform.localScale = new Vector3 (newWidth,Random.Range (randomizedScaleMin.y, randomizedScaleMax.y),newWidth);
+						}
 						Undo.RegisterCreatedObjectUndo(target, "Painted Object");
 						lastPlacement = hinfo.point;
 					}
