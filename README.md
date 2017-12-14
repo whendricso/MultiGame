@@ -1,3 +1,4 @@
+![alt-text](https://dl.dropbox.com/s/o32xx1x70hqory7/ParkingLot.png "HeliHavoc 2: Helicopter Heroics created with MultiGame")
 # MultiGame
 MultiGame makes game development in Unity fast and simple for artists, programmers, and designers of all stripes!
 
