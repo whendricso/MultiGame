@@ -1,5 +1,3 @@
-
-![alt text](https://preview.ibb.co/iRV6Sw/Heli_Havoc_Pedestrians_And_Cars2.png "HeliHavoc made with MultiGame")
 # MultiGame
 MultiGame makes game development in Unity fast and simple for artists, programmers, and designers of all stripes!
 
