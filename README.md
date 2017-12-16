@@ -1,7 +1,6 @@
 
 ![](https://media.giphy.com/media/3ohs7HWsLHsjhrPwAg/giphy.gif)
 ![](https://media.giphy.com/media/3o6fJaE0wrm3kvjfWw/giphy.gif)
-## Professional Edition Available: https://gumroad.com/l/fSEKz
 # MultiGame
 MultiGame makes game development in Unity fast and simple for artists, programmers, and designers!
 
@@ -14,7 +13,7 @@ No longer will mundane tasks limit your progress. Clean, well-documented compone
 The most common components to any game project can be found inside! I'm so confident that you'll like MultiGame, I'm making half of it open source so that you can feel confident including it in your own projects.
 
 ### Powerful!
-
+MultiGame has been developed and tested on multiple projects since January 2013. It's flexible ManagedMessage system provides a powerful framework
 
 # Instructions
 ![alt text](https://preview.ibb.co/dxHNZb/Open_Multi_Game_Toolbar.png "Click Window MultiGame Rapid Dev Tool")
