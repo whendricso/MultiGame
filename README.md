@@ -17,6 +17,7 @@ MultiGame has been developed and tested on multiple projects since January 2013.
 
 ## I WANT MORE!
 ### Click this: https://gumroad.com/l/fSEKz
+More features, like Character systems, inventory, AI, combat and more. MultiGame professional is the right choice for professionals to save time and get the product finished!
 
 # Instructions
 ![alt text](https://preview.ibb.co/dxHNZb/Open_Multi_Game_Toolbar.png "Click Window MultiGame Rapid Dev Tool")
