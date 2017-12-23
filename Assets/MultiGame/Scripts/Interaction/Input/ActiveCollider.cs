@@ -36,7 +36,8 @@ namespace MultiGame {
 		[Tooltip("Name of the scene we want to load on collision. Must be added to build settings")]
 		public string targetLevel;
 
-		public HelpInfo help = new HelpInfo("This component sends messages when an object touches (or stops touching) it.");
+		public HelpInfo help = new HelpInfo("This component sends messages when an object touches (or stops touching) it. First add a list of Active Tags, these are tagged object groups that you want to activate this trigger.\n" +
+			"Next, add at least one message that you wish to send when the collision occurs.");
 
 		public bool debug = false;
 

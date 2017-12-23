@@ -19,7 +19,9 @@ namespace MultiGame {
 		private float autoRetargetCounter;
 
 		[Header("Auto move settings")]
-		[RequiredField("Max speed to catch up")]
+		[Tooltip("If true, follow speed is ignored and we're always at the target position")]
+		public bool instant = false;
+		[RequiredField("Max speed to catch up, if not set to 'Instant'")]
 		public float followSpeed = 5f;
 		[RequiredField("Whe automatically orienting towards the player's Y rotation, how fast can we turn?")]
 		public float rotationSpeed = 1f;
@@ -55,7 +57,12 @@ namespace MultiGame {
 		void FollowTarget () {
 			if (target) {
 				newPos = target.position;
-				transform.position = Vector3.Lerp (transform.position, newPos, followSpeed * Time.deltaTime);
+				if (instant)
+					transform.position = newPos;
+				else
+					transform.position = Vector3.Lerp (transform.position, newPos, followSpeed * Time.deltaTime);
+			} else {
+				target = GameObject.FindGameObjectWithTag (targetTag).transform;
 			}
 		}
 	}

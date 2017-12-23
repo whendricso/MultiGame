@@ -23,7 +23,7 @@ namespace MultiGame {
 				enabled = false;
 				return;
 			}
-			line.SetVertexCount(anchors.Count);
+			line.positionCount = anchors.Count;//.SetVertexCount(anchors.Count);
 		}
 		
 		void Update () {

@@ -13,15 +13,21 @@ namespace MultiGame {
 		[Tooltip("If no rigidbody, the number of degrees per second per axis, otherwise the amount of torque per fixed update")]
 		public Vector3 impetus = Vector3.zero;
 
+		private Rigidbody rigid;
+
 		public HelpInfo help = new HelpInfo("This component, similar to ConstantForce component, adds a constant spin or torque instead. Rigidbody use is optional. To use, add to any object that you would like to spin, and " +
 			"either set the rotation speed/force above in the 'Impetus' setting, or send messages to set the spin at runtime.");
-		
+
+		void Awake () {
+			rigid = GetComponent<Rigidbody> ();
+		}
+
 		// Update is called once per frame
 		void FixedUpdate () {
-			if (GetComponent<Rigidbody>() == null) {
+			if (rigid == null) {
 				transform.Rotate(impetus * Time.deltaTime);
 			} else {
-				GetComponent<Rigidbody>().AddRelativeTorque(impetus);
+				rigid.AddRelativeTorque(impetus);
 			}
 		}
 

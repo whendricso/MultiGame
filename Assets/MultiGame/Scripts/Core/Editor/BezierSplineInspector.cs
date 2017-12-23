@@ -32,9 +32,27 @@ namespace MultiGame {
 				EditorUtility.SetDirty(spline);
 				spline.Loop = loop;
 			}
-			if (selectedIndex >= 0 && selectedIndex < spline.ControlPointCount) {
-				DrawSelectedPointInspector();
-			}
+
+//			if (GUILayout.Button ("Free"))
+//				spline.SetControlPointMode(selectedIndex, BezierControlPointMode.Free);
+//			if (GUILayout.Button ("Aligned"))
+//				spline.SetControlPointMode(selectedIndex, BezierControlPointMode.Aligned);
+
+//			EditorGUI.BeginChangeCheck();
+//			BezierControlPointMode mode = (BezierControlPointMode)EditorGUILayout.EnumPopup("Mode", spline.GetControlPointMode(selectedIndex));
+//			if (EditorGUI.EndChangeCheck()) {
+//				Undo.RecordObject(spline, "Change Point Mode");
+//				spline.SetControlPointMode(selectedIndex, mode);
+//				EditorUtility.SetDirty(spline);
+//			}
+
+//			if (selectedIndex >= 0 && selectedIndex < spline.ControlPointCount) {
+//				GUILayout.Label ("Selected Point Inspector");
+//				DrawSelectedPointInspector ();
+//			} else {
+//				GUILayout.Label ("Selected Index: " + selectedIndex + "Control Point Count: " + spline.ControlPointCount);
+//
+//			}
 			if (GUILayout.Button("Add Node")) {
 				Undo.RecordObject(spline, "Add Node");
 				spline.AddNode();

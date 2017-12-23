@@ -117,7 +117,7 @@ namespace MultiGame {
 		}
 
 		void SteerForward (bool _avoidObstacles) {
-			agent.Stop();
+			agent.isStopped = true;//Stop();
 			if (_avoidObstacles)
 				AvoidObstacle();
 			if(debug)
@@ -181,7 +181,7 @@ namespace MultiGame {
 
 		public MessageHelp stopNavigatingHelp = new MessageHelp("StopNavigating","Tells the Nav Mesh Agent to stop immediately, but does not affect the Nav Module directly.");
 		public void StopNavigating () {
-			agent.Stop();
+			agent.isStopped = true;//Stop();
 		}
 	}
 }

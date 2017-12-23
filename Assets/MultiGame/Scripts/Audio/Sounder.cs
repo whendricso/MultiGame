@@ -16,8 +16,11 @@ namespace MultiGame {
 		[Tooltip("How long do we need to wait between sounds?")]
 		public float cooldown = 0.3f;
 		private bool canSound = true;
-		[RequiredFieldAttribute("How much should we vary the pitch each time?",RequiredFieldAttribute.RequirementLevels.Optional)]
+		[Range(0f,1f)]
+		[Tooltip("How much should we vary the pitch each time?")]//,RequiredFieldAttribute.RequirementLevels.Optional)]
 		public float pitchVariance = 0f;
+		[RequiredFieldAttribute("How much lower or higher do we want the default to be?",RequiredFieldAttribute.RequirementLevels.Optional)]
+		public float pitchOffset = 0f;
 		private float originalPitch;
 
 		[System.NonSerialized]
@@ -36,6 +39,11 @@ namespace MultiGame {
 				Debug.LogError("Sounder " + gameObject.name + " does not have an audio source!");
 			}
 			originalPitch = source.pitch;
+		}
+
+		void OnValidate () {
+			Mathf.Clamp (pitchVariance, 0, Mathf.Infinity);
+			Mathf.Clamp (pitchVariance, -1f, 1f);
 		}
 
 		public void PlayASound (AudioClip clip) {
@@ -95,8 +103,9 @@ namespace MultiGame {
 			if (debug)
 				Debug.Log("Sounder " + gameObject.name + " is playing sound " + clip.name);
 			if (pitchVariance > 0) {
-				source.pitch = originalPitch + Random.Range(-pitchVariance, pitchVariance);
-			}
+				source.pitch = originalPitch + Random.Range (-pitchVariance, pitchVariance) + pitchOffset;
+			} else
+				source.pitch = originalPitch + pitchOffset;
 			source.PlayOneShot(clip);
 		}
 	}

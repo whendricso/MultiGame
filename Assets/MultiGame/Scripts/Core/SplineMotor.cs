@@ -42,6 +42,10 @@ namespace MultiGame {
 			}
 		}
 
+		void Start () {
+			transform.SetParent(null);
+		}
+
 		private void Update () {
 			if (!running)
 				return;

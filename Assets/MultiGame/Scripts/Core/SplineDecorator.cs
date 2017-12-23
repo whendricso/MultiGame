@@ -30,6 +30,7 @@ namespace MultiGame {
 		public Vector3 jitterVector = Vector3.zero;
 		[Tooltip("How much should we vary each object's rotation on each axis?")]
 		public Vector3 rotationalJitter = Vector3.zero;
+		public Vector3 rotationalOffset = Vector3.zero;
 
 		[Header("Scaling Settings")]
 		[Tooltip("If set to Radial, only X and Y are taken into account, Z scale will be set to the X value, eliminating horizontal stretching.")]
@@ -123,7 +124,7 @@ namespace MultiGame {
 					if (lookForward) {
 						decoration.transform.LookAt(position + spline.GetDirection(p * stepSize));
 					}
-					decoration.transform.localRotation = Quaternion.Euler(new Vector3(decoration.transform.localRotation.eulerAngles.x + UnityEngine.Random.Range(-rotationalJitter.x, rotationalJitter.x),decoration.transform.localRotation.eulerAngles.y + UnityEngine.Random.Range(-rotationalJitter.y, rotationalJitter.y),decoration.transform.localRotation.eulerAngles.z + UnityEngine.Random.Range(-rotationalJitter.z, rotationalJitter.z)));
+					decoration.transform.localRotation = Quaternion.Euler( rotationalOffset + new Vector3(decoration.transform.localRotation.eulerAngles.x + UnityEngine.Random.Range(-rotationalJitter.x, rotationalJitter.x) ,decoration.transform.localRotation.eulerAngles.y + UnityEngine.Random.Range(-rotationalJitter.y, rotationalJitter.y),decoration.transform.localRotation.eulerAngles.z + UnityEngine.Random.Range(-rotationalJitter.z, rotationalJitter.z)));
 					decoration.transform.parent = transform;
 
 					if (minimumScale != Vector3.one || maximumScale != Vector3.one) {

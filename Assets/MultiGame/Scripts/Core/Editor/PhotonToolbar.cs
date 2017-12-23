@@ -27,7 +27,7 @@ namespace MultiGame {
 		private static Texture2D photonSpawnerIcon;
 		private static Texture2D photonAvatarIcon;
 		private static Texture2D photonSceneIcon;
-		private static Texture2D photonChannelIcon;
+//		private static Texture2D photonChannelIcon;
 
 		[MenuItem ("Window/MultiGame/Photon Tool")]
 		public static void  ShowWindow () {
@@ -47,7 +47,7 @@ namespace MultiGame {
 			photonSpawnerIcon = Resources.Load("PhotonSpawnButton", typeof(Texture2D)) as Texture2D;
 			photonAvatarIcon = Resources.Load("PhotonAvatarButton", typeof(Texture2D)) as Texture2D;
 			photonSceneIcon = Resources.Load("PhotonSceneButton", typeof(Texture2D)) as Texture2D;
-			photonChannelIcon = Resources.Load("PhotonChannelButton", typeof(Texture2D)) as Texture2D;
+//			photonChannelIcon = Resources.Load("PhotonChannelButton", typeof(Texture2D)) as Texture2D;
 
 		}
 

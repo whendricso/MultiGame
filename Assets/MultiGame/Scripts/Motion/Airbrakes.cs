@@ -36,7 +36,7 @@ namespace MultiGame {
 		
 		// Update is called once per frame
 		void Update () {
-			if(Input.GetKey(brake))
+			if(msgBrake || Input.GetKey(brake))
 				myRigidbody.drag = brakingDrag;
 			else
 				myRigidbody.drag = originalDrag;

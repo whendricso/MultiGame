@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+using System.Collections.Generic;
 using MultiGame;
 
 namespace MultiGame {
@@ -22,7 +22,7 @@ namespace MultiGame {
 		public bool spriteFlip = false;
 		public bool invert = false;
 
-		private Renderer rend;
+		private List<Renderer> rends = new List<Renderer> ();
 		private Vector3 originalScale;
 
 		public HelpInfo help = new HelpInfo("This component causes an object to turn to face another object automatically. If no Target is provided, the object will look at the " +
@@ -32,7 +32,7 @@ namespace MultiGame {
 
 		void OnEnable() {
 			originalScale = transform.localScale;
-			rend = GetComponentInChildren<Renderer>();
+			rends.AddRange( GetComponentsInChildren<Renderer>());
 		}
 
 		void Update () {
@@ -65,14 +65,16 @@ namespace MultiGame {
 		private void FlipSprite () {
 			if (transform.parent == null)
 				return;
-			if (rend == null)
+			if (rends.Count < 1)
 				return;
 			if (target == null)
 				return;
-			if (Vector3.Dot(transform.forward, spritesFaceRight ? transform.parent.TransformDirection(Vector3.left) : transform.parent.forward ) < 0f ) {
-				rend.transform.localScale = new Vector3((originalScale.x * -1 ) * (invert ? 1 : -1), originalScale.y, originalScale.z);
-			} else {
-				rend.transform.localScale = new Vector3( originalScale.x * (invert ? 1 : -1), originalScale.y, originalScale.z );
+			foreach (Renderer rend in rends) {
+				if (Vector3.Dot (transform.forward, spritesFaceRight ? transform.parent.TransformDirection (Vector3.left) : transform.parent.forward) < 0f) {
+					rend.transform.localScale = new Vector3 ((originalScale.x * -1) * (invert ? 1 : -1), originalScale.y, originalScale.z);
+				} else {
+					rend.transform.localScale = new Vector3 (originalScale.x * (invert ? 1 : -1), originalScale.y, originalScale.z);
+				}
 			}
 		}
 

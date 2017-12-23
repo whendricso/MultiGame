@@ -17,12 +17,12 @@ namespace MultiGame {
 		
 		void Reset () {
 			multiMesh = GetComponent<MultiMesh>();
-
-			multiMesh.SetControlMesh( multiMesh.BuildTri(new Vector3[] { 
-				new Vector3(0f, 0f, 0f),
-				new Vector3(0f, 1f, 0f),
-				new Vector3(1f, 1f, 0f),
-			}, true));
+//
+//			multiMesh.control =  multiMesh.BuildTri(new Vector3[] { 
+//				new Vector3(0f, 0f, 0f),
+//				new Vector3(0f, 1f, 0f),
+//				new Vector3(1f, 1f, 0f),
+//			}, true);
 		}
 		
 		// Update is called once per frame
@@ -30,8 +30,8 @@ namespace MultiGame {
 	//	
 	//	}
 
-		void LazyUpdateVolume (float _timeDelta) {
-
-		}
+//		void LazyUpdateVolume (float _timeDelta) {
+//
+//		}
 	}
 }
