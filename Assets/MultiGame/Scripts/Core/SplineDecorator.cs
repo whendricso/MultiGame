@@ -5,7 +5,7 @@ using MultiGame;
 
 namespace MultiGame {
 	[ExecuteInEditMode]
-	public class SplineDecorator : MonoBehaviour {
+	public class SplineDecorator : MultiModule {
 
 		public enum InstantiationModes {Awake, Editor};
 		public enum ScalingModes {Vector, Radial};
@@ -106,10 +106,10 @@ namespace MultiGame {
 					GameObject decoration;
 					#if UNITY_EDITOR
 					if (instantiationMode == InstantiationModes.Editor)
-						decoration = UnityEditor.PrefabUtility.InstantiatePrefab(decorations[i]) as GameObject;
+						decoration = UnityEditor.PrefabUtility.InstantiatePrefab(decorations[randomize ? UnityEngine.Random.Range(0, decorations.Length ) : i]) as GameObject;
 					else
 					#endif
-						decoration = Instantiate(decorations[i]) as GameObject;
+						decoration = Instantiate(decorations[randomize ? UnityEngine.Random.Range(0, decorations.Length ) : i]) as GameObject;
 					if (instantiated == null || instantiated.Length < 1) {
 						instantiated = new GameObject[frequency];
 						instantiated[i] = decoration;

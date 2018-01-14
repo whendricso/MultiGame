@@ -56,7 +56,16 @@ namespace MultiGame {
 		public MessageHelp playSoundHelp = new MessageHelp("PlaySound","Plays the sound currently assigned to the Audio Source attached to this object");
 		public void PlaySound () {
 			if (!canSound) return;
-			Sound(source.clip);
+			if (source.clip != null)
+				Sound (source.clip);
+			else {
+				if (clips.Length > 0)
+					PlayRandomSound ();
+				else {
+					Debug.LogError ("Sounder " + gameObject.name + " has no sound to play! Please provide at least one in the Inspector!");
+					return;
+				}
+			}
 			InitiateCooldown();
 		}
 

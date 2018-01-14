@@ -5,7 +5,7 @@ using MultiGame;
 
 namespace MultiGame {
 
-	[AddComponentMenu("MultiGame/General/Line Guide")]
+//	[AddComponentMenu("MultiGame/General/Line Guide")]
 	[RequireComponent(typeof(LineRenderer))]
 	public class LineGuide : MultiModule {
 
@@ -13,6 +13,9 @@ namespace MultiGame {
 		[Tooltip("List of objects, in order, that the line passes through")]
 		public List<GameObject> anchors = new List<GameObject>();
 		private LineRenderer line;
+
+		[BoolButton]
+		public bool refresh = false;
 
 		public HelpInfo help = new HelpInfo("This component allows you to use the LineRenderer component in interesting ways, creating a line between a list of transforms you provide.");
 
@@ -25,16 +28,41 @@ namespace MultiGame {
 			}
 			line.positionCount = anchors.Count;//.SetVertexCount(anchors.Count);
 		}
+
+		void OnValidate () {
+			if (refresh) {
+				UpdateAnchors ();
+				refresh = false;
+			}
+		}
 		
 		void Update () {
+			UpdateAnchors ();
+		}
+
+		//TODO: Fix automatic resizing
+		void UpdateAnchors () {
+			if (line == null)
+				line = GetComponent<LineRenderer>();
+
+			line.useWorldSpace = true;
+
+			line.positionCount = anchors.Count;
+
 			for (int i = 0; i < anchors.Count; i++) {
-				if (anchors[i].gameObject == null) {
-					Destroy(anchors[i].gameObject);
+				if (anchors[i] == null) {
 					anchors.RemoveAt(i);
-					i = 0;
+					anchors [i] = anchors [i + 1];
 				}
-				else
-					line.SetPosition(i, anchors[i].transform.position);
+				if (i >= anchors.Count)
+					break;
+			}
+
+//			line.positionCount = anchors.Count;
+
+			for (int j = 0; j < anchors.Count; j++) {
+				if (anchors[j] != null)
+					line.SetPosition(j, anchors[j].transform.position);
 			}
 		}
 	}

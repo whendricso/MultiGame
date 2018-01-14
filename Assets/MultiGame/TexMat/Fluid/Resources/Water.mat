@@ -8,154 +8,89 @@ Material:
   m_PrefabInternal: {fileID: 0}
   m_Name: Water
   m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: _ALPHAPREMULTIPLY_ON
-  m_LightmapFlags: 5
+  m_ShaderKeywords: _ALPHAPREMULTIPLY_ON _EMISSION
+  m_LightmapFlags: 1
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
   m_CustomRenderQueue: 3000
   stringTagMap:
     RenderType: Transparent
+  disabledShaderPasses: []
   m_SavedProperties:
-    serializedVersion: 2
+    serializedVersion: 3
     m_TexEnvs:
-    - first:
-        name: _BumpMap
-      second:
+    - _BumpMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1.2, y: 1.2}
         m_Offset: {x: 0, y: 0}
-    - first:
-        name: _Cube
-      second:
+    - _Cube:
         m_Texture: {fileID: 8900000, guid: 077441d7f83eb9e4c8cb1af28dbfb8b2, type: 2}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - first:
-        name: _DetailAlbedoMap
-      second:
+    - _DetailAlbedoMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - first:
-        name: _DetailMask
-      second:
+    - _DetailMask:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - first:
-        name: _DetailNormalMap
-      second:
+    - _DetailNormalMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - first:
-        name: _EmissionMap
-      second:
+    - _EmissionMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - first:
-        name: _MainTex
-      second:
+    - _MainTex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1.2, y: 1.2}
         m_Offset: {x: 0, y: 0}
-    - first:
-        name: _MetallicGlossMap
-      second:
+    - _MetallicGlossMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - first:
-        name: _OcclusionMap
-      second:
+    - _OcclusionMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - first:
-        name: _ParallaxMap
-      second:
+    - _ParallaxMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - first:
-        name: _Spec_Gloss_Reflec_Masks
-      second:
+    - _Spec_Gloss_Reflec_Masks:
         m_Texture: {fileID: 2800000, guid: 287aa52e20b1659448f6385782853ee6, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - first:
-        name: _BumpScale
-      second: 1
-    - first:
-        name: _Cutoff
-      second: 0.5
-    - first:
-        name: _Density
-      second: 0.495
-    - first:
-        name: _DetailNormalMapScale
-      second: 1
-    - first:
-        name: _DstBlend
-      second: 10
-    - first:
-        name: _EdgeAlpha
-      second: 0.08928572
-    - first:
-        name: _EmissionScaleUI
-      second: 0
-    - first:
-        name: _FrezFalloff
-      second: 1.6785715
-    - first:
-        name: _FrezPow
-      second: 1.3571428
-    - first:
-        name: _Gloss
-      second: 0.9464286
-    - first:
-        name: _Glossiness
-      second: 0.952
-    - first:
-        name: _Metalics
-      second: 0
-    - first:
-        name: _Metallic
-      second: 0.372
-    - first:
-        name: _Mode
-      second: 3
-    - first:
-        name: _OcclusionStrength
-      second: 1
-    - first:
-        name: _Parallax
-      second: 0.02
-    - first:
-        name: _Reflection
-      second: 0.46428573
-    - first:
-        name: _Shininess
-      second: 2.192919
-    - first:
-        name: _SrcBlend
-      second: 1
-    - first:
-        name: _UVSec
-      second: 0
-    - first:
-        name: _ZWrite
-      second: 0
+    - _BumpScale: 1
+    - _Cutoff: 0.5
+    - _Density: 0.495
+    - _DetailNormalMapScale: 1
+    - _DstBlend: 10
+    - _EdgeAlpha: 0.08928572
+    - _EmissionScaleUI: 0
+    - _FrezFalloff: 1.6785715
+    - _FrezPow: 1.3571428
+    - _Gloss: 0.9464286
+    - _GlossMapScale: 1
+    - _Glossiness: 0.952
+    - _GlossyReflections: 1
+    - _Metalics: 0
+    - _Metallic: 0.372
+    - _Mode: 3
+    - _OcclusionStrength: 1
+    - _Parallax: 0.02
+    - _Reflection: 0.46428573
+    - _Shininess: 2.192919
+    - _SmoothnessTextureChannel: 0
+    - _SpecularHighlights: 1
+    - _SrcBlend: 1
+    - _UVSec: 0
+    - _ZWrite: 0
     m_Colors:
-    - first:
-        name: _Color
-      second: {r: 0.64452696, g: 0.77860516, b: 0.9632365, a: 0.159}
-    - first:
-        name: _EmissionColor
-      second: {r: 0, g: 0, b: 0, a: 0}
-    - first:
-        name: _EmissionColorUI
-      second: {r: 1, g: 1, b: 1, a: 1}
-    - first:
-        name: _SpecColor
-      second: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 0.64452696, g: 0.77860516, b: 0.9632365, a: 0.159}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 0}
+    - _EmissionColorUI: {r: 1, g: 1, b: 1, a: 1}
+    - _SpecColor: {r: 1, g: 1, b: 1, a: 1}

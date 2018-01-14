@@ -221,7 +221,7 @@ namespace MultiGame {
 		}
 
 		//Allow the user to open the Game Generator window
-		[MenuItem ("Window/MultiGame/Game Generator")]
+		[MenuItem ("MultiGame/Experimental/Game Generator")]
 		public static void  ShowWindow () {
 			EditorWindow.GetWindow(typeof(GameGenerator));
 		}
@@ -766,10 +766,10 @@ namespace MultiGame {
 
 			FillMissingDetails();
 
-			float y_01;
-			float x_01;
-			float height;
-			float steepness;
+//			float y_01;
+//			float x_01;
+//			float height;
+//			float steepness;
 
 			float[,,] alphaMap = terrain.terrainData.GetAlphamaps(0,0,terrain.terrainData.alphamapWidth, terrain.terrainData.alphamapHeight);
 
@@ -781,11 +781,11 @@ namespace MultiGame {
 						for (int j = 0; j < terrain.terrainData.detailHeight; j++) {
 
 							// Normalise x/y coordinates to range 0-1
-							y_01 = (float)i/(float)terrain.terrainData.alphamapHeight;
-							x_01 = (float)j/(float)terrain.terrainData.alphamapWidth;
+//							y_01 = (float)i/(float)terrain.terrainData.alphamapHeight;
+//							x_01 = (float)j/(float)terrain.terrainData.alphamapWidth;
 
-							steepness = terrain.terrainData.GetSteepness(y_01,x_01);
-							height = terrain.terrainData.GetHeight(Mathf.RoundToInt(y_01 * terrain.terrainData.heightmapHeight),Mathf.RoundToInt(x_01 * terrain.terrainData.heightmapWidth) );
+//							steepness = terrain.terrainData.GetSteepness(y_01,x_01);
+//							height = terrain.terrainData.GetHeight(Mathf.RoundToInt(y_01 * terrain.terrainData.heightmapHeight),Mathf.RoundToInt(x_01 * terrain.terrainData.heightmapWidth) );
 
 							switch (l) {//set the detail for each based on the terrain texture
 							case 0:
@@ -826,10 +826,10 @@ namespace MultiGame {
 			float x_01;
 			
 			float height;
-			Vector3 normal;
+//			Vector3 normal;
 			float steepness;
 			float[] splatWeights = new float[terrain.terrainData.alphamapLayers];
-			float percentOfHeight;
+//			float percentOfHeight;
 
 			for (int y = 0; y < terrain.terrainData.alphamapHeight; y++)
 			{
@@ -841,9 +841,9 @@ namespace MultiGame {
 					x_01 = (float)x/(float)terrain.terrainData.alphamapWidth;
 
 					height = terrain.terrainData.GetHeight(Mathf.RoundToInt(y_01 * terrain.terrainData.heightmapHeight),Mathf.RoundToInt(x_01 * terrain.terrainData.heightmapWidth) );
-					normal = terrain.terrainData.GetInterpolatedNormal(y_01,x_01);
+//					normal = terrain.terrainData.GetInterpolatedNormal(y_01,x_01);
 					steepness = terrain.terrainData.GetSteepness(y_01,x_01);
-					percentOfHeight = height / terrain.terrainData.heightmapHeight;
+//					percentOfHeight = height / terrain.terrainData.heightmapHeight;
 
 					//first, we will do the underpainting, the three main textures are generated in first
 	//				splatWeights[1] = splatWeights[0] + percentOfHeight * level.textureBorder2;//grassland/forest

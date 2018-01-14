@@ -41,7 +41,7 @@ namespace MultiGame {
 		public static float baseHeight = 330f;
 		private static float adjustedHeight = 330f;
 
-		[MenuItem ("Window/MultiGame/Prefab Shelf")]
+		[MenuItem ("MultiGame/Prefab Painter")]
 		public static void  ShowWindow () {
 			if (running)
 				return;
@@ -114,7 +114,7 @@ namespace MultiGame {
 				if (MGPip(plusIcon, new Rect(130f, 20f + (18f * i), 16f, 16f))) {
 					if (objects[i] != null) {
 						selection = i;
-						Quaternion _placementRotation;
+//						Quaternion _placementRotation;
 
 						if (!randomRotation)
 							target = InstantiateLinkedPrefab(objects[selection], Camera.current.transform.TransformPoint(Vector3.forward * 10f), Quaternion.LookRotation(new Vector3( 0f, Camera.current.transform.eulerAngles.y, 0f))) as GameObject;

@@ -8,199 +8,106 @@ Material:
   m_PrefabInternal: {fileID: 0}
   m_Name: GlassBlade
   m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: _ALPHAPREMULTIPLY_ON
-  m_LightmapFlags: 5
+  m_ShaderKeywords: _ALPHAPREMULTIPLY_ON _EMISSION
+  m_LightmapFlags: 1
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
   m_CustomRenderQueue: 3000
   stringTagMap:
     RenderType: Transparent
+  disabledShaderPasses: []
   m_SavedProperties:
-    serializedVersion: 2
+    serializedVersion: 3
     m_TexEnvs:
-    - first:
-        name: _AO
-      second:
+    - _AO:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - first:
-        name: _BumpMap
-      second:
+    - _BumpMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - first:
-        name: _Cube
-      second:
+    - _Cube:
         m_Texture: {fileID: 8900000, guid: 077441d7f83eb9e4c8cb1af28dbfb8b2, type: 2}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - first:
-        name: _DetailAlbedoMap
-      second:
+    - _DetailAlbedoMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - first:
-        name: _DetailMask
-      second:
+    - _DetailMask:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - first:
-        name: _DetailNormalMap
-      second:
+    - _DetailNormalMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - first:
-        name: _EmissionMap
-      second:
+    - _EmissionMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - first:
-        name: _MainTex
-      second:
+    - _MainTex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - first:
-        name: _MetallicGlossMap
-      second:
+    - _MetallicGlossMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - first:
-        name: _OcclusionMap
-      second:
+    - _OcclusionMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - first:
-        name: _ParallaxMap
-      second:
+    - _ParallaxMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - first:
-        name: _TMAP
-      second:
+    - _TMAP:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - first:
-        name: _AOST
-      second: 1
-    - first:
-        name: _BumpScale
-      second: 1
-    - first:
-        name: _ColourIntensity
-      second: 1.3685715
-    - first:
-        name: _Cutoff
-      second: 0.5
-    - first:
-        name: _Density
-      second: 0.5
-    - first:
-        name: _DetailNormalMapScale
-      second: 1
-    - first:
-        name: _Dist
-      second: 1
-    - first:
-        name: _DstBlend
-      second: 10
-    - first:
-        name: _EdgeAlpha
-      second: 0
-    - first:
-        name: _EmissionScaleUI
-      second: 0
-    - first:
-        name: _FrezFalloff
-      second: 1.8571428
-    - first:
-        name: _FrezPow
-      second: 0.32142857
-    - first:
-        name: _Gloss
-      second: 0.5
-    - first:
-        name: _Glossiness
-      second: 0.961
-    - first:
-        name: _Kambient
-      second: 0.2
-    - first:
-        name: _Kdiffuse
-      second: 1
-    - first:
-        name: _Kspec
-      second: 0.45
-    - first:
-        name: _Metalics
-      second: 0.5
-    - first:
-        name: _Metallic
-      second: 0.231
-    - first:
-        name: _Mode
-      second: 3
-    - first:
-        name: _NormalBlend
-      second: 1.22
-    - first:
-        name: _OcclusionStrength
-      second: 1
-    - first:
-        name: _PP
-      second: 1
-    - first:
-        name: _Parallax
-      second: 0.02
-    - first:
-        name: _RedWeight
-      second: -0.1
-    - first:
-        name: _Reflection
-      second: 0.8214286
-    - first:
-        name: _ShadowStrength
-      second: 0.94
-    - first:
-        name: _Shininess
-      second: 0.085370645
-    - first:
-        name: _SrcBlend
-      second: 1
-    - first:
-        name: _TMUL
-      second: 1
-    - first:
-        name: _TPOW
-      second: 1
-    - first:
-        name: _UVSec
-      second: 0
-    - first:
-        name: _ZWrite
-      second: 0
+    - _AOST: 1
+    - _BumpScale: 1
+    - _ColourIntensity: 1.3685715
+    - _Cutoff: 0.5
+    - _Density: 0.5
+    - _DetailNormalMapScale: 1
+    - _Dist: 1
+    - _DstBlend: 10
+    - _EdgeAlpha: 0
+    - _EmissionScaleUI: 0
+    - _FrezFalloff: 1.8571428
+    - _FrezPow: 0.32142857
+    - _Gloss: 0.5
+    - _GlossMapScale: 1
+    - _Glossiness: 0.961
+    - _GlossyReflections: 1
+    - _Kambient: 0.2
+    - _Kdiffuse: 1
+    - _Kspec: 0.45
+    - _Metalics: 0.5
+    - _Metallic: 0.231
+    - _Mode: 3
+    - _NormalBlend: 1.22
+    - _OcclusionStrength: 1
+    - _PP: 1
+    - _Parallax: 0.02
+    - _RedWeight: -0.1
+    - _Reflection: 0.8214286
+    - _ShadowStrength: 0.94
+    - _Shininess: 0.085370645
+    - _SmoothnessTextureChannel: 0
+    - _SpecularHighlights: 1
+    - _SrcBlend: 1
+    - _TMUL: 1
+    - _TPOW: 1
+    - _UVSec: 0
+    - _ZWrite: 0
     m_Colors:
-    - first:
-        name: _Color
-      second: {r: 0.584721, g: 0.77205884, b: 0.63252443, a: 0.23529412}
-    - first:
-        name: _EmissionColor
-      second: {r: 0, g: 0, b: 0, a: 0}
-    - first:
-        name: _EmissionColorUI
-      second: {r: 1, g: 1, b: 1, a: 1}
-    - first:
-        name: _SSSC
-      second: {r: 1, g: 1, b: 1, a: 1}
-    - first:
-        name: _SpecColor
-      second: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    - _Color: {r: 0.584721, g: 0.77205884, b: 0.63252443, a: 0.23529412}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 0}
+    - _EmissionColorUI: {r: 1, g: 1, b: 1, a: 1}
+    - _SSSC: {r: 1, g: 1, b: 1, a: 1}
+    - _SpecColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}

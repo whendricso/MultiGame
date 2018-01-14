@@ -47,18 +47,19 @@ namespace MultiGame {
 		private static Texture2D gunIcon;
 		private static Texture2D inventoryIcon;
 		private static Texture2D itemIcon;
-		private static Texture2D itemSpawnIcon;
-		private static Texture2D meleeInputIcon;
+//		private static Texture2D itemSpawnIcon;
+//		private static Texture2D meleeInputIcon;
 		private static Texture2D fighterInputIcon;
-		private static Texture2D minionSpawnIcon;
+//		private static Texture2D minionSpawnIcon;
 		private static Texture2D turretIcon;
-		private static Texture2D meleeBotIcon;
+//		private static Texture2D meleeBotIcon;
 		private static Texture2D rangedBotIcon;
-		private static Texture2D unitSpawnIcon;
+//		private static Texture2D unitSpawnIcon;
 		private static Texture2D addColliderIcon;
 		private static Texture2D addRigidbodyIcon;
 		private static Texture2D particlesIcon;
 		private static Texture2D clickableIcon;
+		private static Texture2D mouseMessageIcon;
 		private static Texture2D sounderIcon;
 		private static Texture2D musicIcon;
 		private static Texture2D UGUIIcon;
@@ -77,13 +78,13 @@ namespace MultiGame {
 		private static Texture2D randomIcon;
 		private static Texture2D destructMessageIcon;
 		private static Texture2D missileIcon;
-		private static Texture2D mineIcon;
+//		private static Texture2D mineIcon;
 		private static Texture2D sceneChangeIcon;
 		private static Texture2D bulletIcon;
 		private static Texture2D clipIcon;
 		private static Texture2D clipInvIcon;
-		private static Texture2D meleeWeaponIcon;
-		private static Texture2D fpsIcon;
+//		private static Texture2D meleeWeaponIcon;
+//		private static Texture2D fpsIcon;
 		private static Texture2D sixAxisIcon;
 		private static Texture2D inputAnimatorIcon;
 		private static Texture2D characterCreatorIcon;
@@ -94,6 +95,14 @@ namespace MultiGame {
 		private static Texture2D savePrefsIcon;
 		private static Texture2D saveToDiskIcon;
 		private static Texture2D saveSceneIcon;
+		private static Texture2D lodIcon;
+		private static Texture2D helpIcon;
+		private static Texture2D messageHelpIcon;
+		private static Texture2D uvPlaneIcon;
+		private static Texture2D uvScalarIcon;
+		private static Texture2D uvCubeIcon;
+		private static Texture2D uvSphereIcon;
+		private static Texture2D uvConeIcon;
 //		private static Texture2D photonIcon;
 //		private static Texture2D photonCharacterIcon;
 //		private static Texture2D photonDestructibleIcon;
@@ -114,9 +123,11 @@ namespace MultiGame {
 		private Material camZoneMat;
 		
 
-		[MenuItem ("Window/MultiGame/Rapid Dev Tool")]
+		[MenuItem ("MultiGame/Rapid Dev Tool")]
 		public static void  ShowWindow () {
-			EditorWindow.GetWindow(typeof(MultiGameToolbar));
+			EditorWindow window = EditorWindow.GetWindow(typeof(MultiGameToolbar));
+			window.minSize = new Vector2 (114f, 640f );
+			window.maxSize = new Vector2 (114f, Mathf.Infinity);
 		}
 
 		void LoadIcons () {
@@ -141,18 +152,19 @@ namespace MultiGame {
 			moveRigidbodyIcon = Resources.Load("RigidbodyMotionButton", typeof(Texture2D)) as Texture2D;
 			inventoryIcon = Resources.Load("Inventory", typeof(Texture2D)) as Texture2D;
 			itemIcon = Resources.Load("Item", typeof(Texture2D)) as Texture2D;
-			itemSpawnIcon = Resources.Load("ItemSpawn", typeof(Texture2D)) as Texture2D;
-			meleeInputIcon = Resources.Load("MeleeInput", typeof(Texture2D)) as Texture2D;
+//			itemSpawnIcon = Resources.Load("ItemSpawn", typeof(Texture2D)) as Texture2D;
+//			meleeInputIcon = Resources.Load("MeleeInput", typeof(Texture2D)) as Texture2D;
 			fighterInputIcon = Resources.Load("FighterInput", typeof(Texture2D)) as Texture2D;
-			minionSpawnIcon = Resources.Load("MinionSpawn", typeof(Texture2D)) as Texture2D;
+//			minionSpawnIcon = Resources.Load("MinionSpawn", typeof(Texture2D)) as Texture2D;
 			turretIcon = Resources.Load("Turret", typeof(Texture2D)) as Texture2D;
-			meleeBotIcon = Resources.Load("MeleeAI", typeof(Texture2D)) as Texture2D;
+//			meleeBotIcon = Resources.Load("MeleeAI", typeof(Texture2D)) as Texture2D;
 			rangedBotIcon = Resources.Load("HitscanAI", typeof(Texture2D)) as Texture2D;
-			unitSpawnIcon = Resources.Load("UnitSpawnButton", typeof(Texture2D)) as Texture2D;
+//			unitSpawnIcon = Resources.Load("UnitSpawnButton", typeof(Texture2D)) as Texture2D;
 			addColliderIcon = Resources.Load("AddCollider", typeof(Texture2D)) as Texture2D;
 			addRigidbodyIcon = Resources.Load("RigidbodyButton", typeof(Texture2D)) as Texture2D;
 			particlesIcon = Resources.Load("Particles", typeof(Texture2D)) as Texture2D;
 			clickableIcon = Resources.Load("Clickable", typeof(Texture2D)) as Texture2D;
+			mouseMessageIcon = Resources.Load("MouseMessage", typeof(Texture2D)) as Texture2D;
 			sounderIcon = Resources.Load("Sounder", typeof(Texture2D)) as Texture2D;
 			musicIcon = Resources.Load("MusicButton", typeof(Texture2D)) as Texture2D;
 			UGUIIcon = Resources.Load("UGUIButton", typeof(Texture2D)) as Texture2D;
@@ -171,13 +183,13 @@ namespace MultiGame {
 			randomIcon = Resources.Load("Random", typeof(Texture2D)) as Texture2D;
 			destructMessageIcon = Resources.Load("DestructMessage", typeof(Texture2D)) as Texture2D;
 			missileIcon = Resources.Load("Missile", typeof(Texture2D)) as Texture2D;
-			mineIcon = Resources.Load("MineButton", typeof(Texture2D)) as Texture2D;
+//			mineIcon = Resources.Load("MineButton", typeof(Texture2D)) as Texture2D;
 			sceneChangeIcon = Resources.Load("SceneChange", typeof(Texture2D)) as Texture2D;
 			bulletIcon = Resources.Load("Bullet", typeof(Texture2D)) as Texture2D;
 			clipIcon = Resources.Load("Clip", typeof(Texture2D)) as Texture2D;
 			clipInvIcon = Resources.Load("ClipInventory", typeof(Texture2D)) as Texture2D;
-			meleeWeaponIcon = Resources.Load("MeleeWeapon", typeof(Texture2D)) as Texture2D;
-			fpsIcon = Resources.Load("FPSButton", typeof(Texture2D)) as Texture2D;
+//			meleeWeaponIcon = Resources.Load("MeleeWeapon", typeof(Texture2D)) as Texture2D;
+//			fpsIcon = Resources.Load("FPSButton", typeof(Texture2D)) as Texture2D;
 			sixAxisIcon = Resources.Load("SixAxisButton", typeof(Texture2D)) as Texture2D;
 			inputAnimatorIcon = Resources.Load("InputAnimatorButton", typeof(Texture2D)) as Texture2D;
 			characterCreatorIcon = Resources.Load("CharacterCreator", typeof(Texture2D)) as Texture2D;
@@ -188,6 +200,14 @@ namespace MultiGame {
 			savePrefsIcon = Resources.Load("PreferenceButton", typeof(Texture2D)) as Texture2D;
 			saveToDiskIcon = Resources.Load("SaveDiskButton", typeof(Texture2D)) as Texture2D;
 			saveSceneIcon = Resources.Load("SaveSceneButton", typeof(Texture2D)) as Texture2D;
+			lodIcon = Resources.Load("LODGroup", typeof(Texture2D)) as Texture2D;
+			messageHelpIcon = Resources.Load("MessageHelp", typeof(Texture2D)) as Texture2D;
+			helpIcon = Resources.Load("Help", typeof(Texture2D)) as Texture2D;
+			uvScalarIcon = Resources.Load("UVScalar", typeof(Texture2D)) as Texture2D;
+			uvCubeIcon = Resources.Load("UVCube", typeof(Texture2D)) as Texture2D;
+			uvSphereIcon = Resources.Load("UVSphere", typeof(Texture2D)) as Texture2D;
+			uvPlaneIcon = Resources.Load("UVPlane", typeof(Texture2D)) as Texture2D;
+			uvConeIcon = Resources.Load("UVCone", typeof(Texture2D)) as Texture2D;
 //			photonIcon = Resources.Load("PhotonButton", typeof(Texture2D)) as Texture2D;
 //			photonCharacterIcon = Resources.Load("PhotonCharacterButton", typeof(Texture2D)) as Texture2D;
 //			photonDestructibleIcon = Resources.Load("PhotonDestructibleButton", typeof(Texture2D)) as Texture2D;
@@ -215,6 +235,7 @@ namespace MultiGame {
 				if (Event.current.type == EventType.Repaint) {
 					if (!iconsLoaded) {
 						LoadIcons();
+						return;
 					}
 
 					if (activeCollIcon == null) {
@@ -227,14 +248,14 @@ namespace MultiGame {
 	//			if (EditorApplication.isPlaying)
 	//				return;
 
-				EditorGUILayout.BeginHorizontal("box", GUILayout.Width(112f));
+				EditorGUILayout.BeginHorizontal("box", GUILayout.Width(106f));
 				GUI.color = Color.green;
 				if (GUILayout.Button("B", GUILayout.Width (20f), GUILayout.Height(16f)))
 					mode = Modes.Basic;
-				GUI.color = XKCDColors.Lightgreen;//new Color(1f, .75f, 0f);
-				if (GUILayout.Button("U", GUILayout.Width (20f), GUILayout.Height(16f)))
+				GUI.color = XKCDColors.Lightblue;//new Color(1f, .75f, 0f);
+				if (GUILayout.Button("O", GUILayout.Width (20f), GUILayout.Height(16f)))
 					mode = Modes.UI;
-				GUI.color = Color.blue;
+				GUI.color = XKCDColors.LightOrange;
 				if (GUILayout.Button("L", GUILayout.Width (20f), GUILayout.Height(16f)))
 					mode = Modes.Logic;
 				GUI.color = Color.red;
@@ -271,7 +292,7 @@ namespace MultiGame {
 					BasicObjectGUI();
 					break;
 				case Modes.UI:
-					UIObjectGUI();
+					ObjectCreationGUI();
 					break;
 				case Modes.Logic:
 					LogicObjectGUI();
@@ -292,17 +313,17 @@ namespace MultiGame {
 					HelpGUI();
 					break;
 				}
+
 				GUI.color = Color.gray;
 				EditorGUILayout.LabelField("MultiGame");
 				EditorGUILayout.LabelField("Copyright " );
-				EditorGUILayout.LabelField("2012 - 2017 " );
-				EditorGUILayout.LabelField("William " );
+				EditorGUILayout.LabelField("2012 - 2018 " );
+				EditorGUILayout.LabelField("William H" );
 				EditorGUILayout.LabelField("Hendrickson ");
 				EditorGUILayout.LabelField("all rights ");
 				EditorGUILayout.LabelField("reserved.");
 				GUI.color = Color.white;
 				EditorGUILayout.EndScrollView();
-				
 				if (scrollView.y < 1f) {
 					EditorGUILayout.LabelField("\\/ More \\/");
 				}
@@ -317,13 +338,15 @@ namespace MultiGame {
 //			template = EditorGUILayout.ObjectField(template, typeof(GameObject), true, GUILayout.Width(64f), GUILayout.Height(16f)) as GameObject;
 			GUI.color = new Color(.6f,85f,1f);
 			EditorGUILayout.BeginHorizontal();
-			if (GUILayout.Button("Clear\nSelection", GUILayout.Width(102f), GUILayout.Height(52f))) {
+			if (GUILayout.Button("Clear\nSelection", GUILayout.Width(100f), GUILayout.Height(52f))) {
 				template = null;
 				Selection.activeGameObject = null;
 			}
 			GUI.color = Color.white;
 			EditorGUILayout.EndHorizontal();
 			EditorGUILayout.EndVertical();
+			GUI.Label (new Rect(114f,48f,256f,64f),"Hey! If you see this text,\nsquish the toolbar sideways >>><<<\nand dock it next to the Inpsector!","box");
+
 		}
 
 		void ModeLabel () {
@@ -335,13 +358,13 @@ namespace MultiGame {
 				EditorGUILayout.EndHorizontal();
 				break;
 			case Modes.UI:
-				GUI.color = new Color(1f, .75f, 0f);
+				GUI.color = XKCDColors.Lightblue;//new Color(1f, .75f, 0f);
 				EditorGUILayout.BeginHorizontal("box"/*, GUILayout.Width(112f)*/);
-				EditorGUILayout.LabelField("UI");
+				EditorGUILayout.LabelField("Object");
 				EditorGUILayout.EndHorizontal();
 				break;
 			case Modes.Logic:
-				GUI.color = Color.blue;
+				GUI.color = XKCDColors.LightOrange;
 				EditorGUILayout.BeginHorizontal("box"/*, GUILayout.Width(112f)*/);
 				GUI.color = Color.white;
 				EditorGUILayout.LabelField("Logic");
@@ -497,11 +520,7 @@ namespace MultiGame {
 				SetupHealth();
 				SmartRenameTarget("Mortal");
 			}
-			if (MGButton(doorIcon, "Door\nController")) {
-				ResolveOrCreateTarget();
-				Undo.AddComponent<DoorController>(target);
-				SmartRenameTarget("Door");
-			}
+
 			if (MGButton(itemIcon, "Inventory\nItem")) {
 				ResolveOrCreateTarget();
 				SmartRenameTarget("Item");
@@ -543,8 +562,10 @@ namespace MultiGame {
 			}
 			if (MGButton(lightIcon,"Light")) {
 				ResolveOrCreateTarget();
-				Undo.AddComponent<Light>(target);
-				SmartRenameTarget("Light");
+				GameObject _child = AddDirectChild (target);
+				Undo.AddComponent<Light>(_child);
+				_child.name = "Light";
+//				SmartRenameTarget("Light");
 			}
 			if (MGButton(sounderIcon,"Sound")) {
 				ResolveOrCreateTarget();
@@ -556,39 +577,43 @@ namespace MultiGame {
 			}
 			if (MGButton(particlesIcon,"Particles")) {
 				ResolveOrCreateTarget();
-				Undo.AddComponent<ParticleSystem>(target);
-				SmartRenameTarget("Particle");
+				GameObject _child = AddDirectChild (target);
+				Undo.AddComponent<ParticleSystem>(_child);
+				_child.name = "Particle";
+				Selection.SetActiveObjectWithContext (_child, _child);
+				//SmartRenameTarget("Particle");
 			}
 			EditorGUILayout.EndVertical();
-			EditorGUILayout.BeginVertical(GUILayout.Width(20f));
-			if (MGPip(lightIcon)) {
-				ResolveOrCreateTarget();
-				Undo.AddComponent<Light>(target);
-				SmartRenameTarget("Light");
-			}
-			GUILayout.Space(4f);
-			if (MGPip(sounderIcon)) {
-				ResolveOrCreateTarget();
-				if (target.GetComponent<Sounder>() != null)
-					return;
-				Undo.AddComponent<Sounder>(target);
-				target.GetComponent<AudioSource>().playOnAwake = false;
-				SmartRenameTarget("Sound");
-			}
-			GUILayout.Space(4f);
-			if (MGPip(particlesIcon)) {
-				ResolveOrCreateTarget();
-				Undo.AddComponent<ParticleSystem>(target);
-				SmartRenameTarget("Particle");
-			}
-			GUILayout.Space(4f);
-			EditorGUILayout.EndVertical();
+			//commenting these out, as the pips tend to confuse new users
+//			EditorGUILayout.BeginVertical(GUILayout.Width(20f));
+//			if (MGPip(lightIcon)) {
+//				ResolveOrCreateTarget();
+//				Undo.AddComponent<Light>(target);
+//				SmartRenameTarget("Light");
+//			}
+//			GUILayout.Space(4f);
+//			if (MGPip(sounderIcon)) {
+//				ResolveOrCreateTarget();
+//				if (target.GetComponent<Sounder>() != null)
+//					return;
+//				Undo.AddComponent<Sounder>(target);
+//				target.GetComponent<AudioSource>().playOnAwake = false;
+//				SmartRenameTarget("Sound");
+//			}
+//			GUILayout.Space(4f);
+//			if (MGPip(particlesIcon)) {
+//				ResolveOrCreateTarget();
+//				Undo.AddComponent<ParticleSystem>(target);
+//				SmartRenameTarget("Particle");
+//			}
+//			GUILayout.Space(4f);
+//			EditorGUILayout.EndVertical();
 			EditorGUILayout.EndHorizontal();
 		}
 
 
 
-		void UIObjectGUI () {
+		void ObjectCreationGUI () {
 			try {
 				sceneTransform = SceneView.lastActiveSceneView.camera.transform;
 			} catch {
@@ -603,50 +628,72 @@ namespace MultiGame {
 
 
 			EditorGUILayout.BeginVertical("box"/*, GUILayout.Width(112f)*/);
-			if (MGButton(multiMenuIcon, "Legacy IMGUI\nMenu")) {
-				ResolveOrCreateTarget();
-				GameObject _child = AddDirectChild(target);
-				_child.name = "MultiMenu";
-				Undo.RegisterCreatedObjectUndo(target,"Create MultiMenu");
-				Undo.AddComponent<MultiMenu>(_child);
-				SmartRenameTarget("Legacy Menu");
-			}
-			if (MGButton(UGUIIcon, "UGUI\nCanvas")) {
-				ResolveOrCreateTarget();
-				GameObject _child = Instantiate<GameObject>(Resources.Load("Canvas", typeof(GameObject)) as GameObject);
-				Undo.RegisterCreatedObjectUndo(target,"Create UGUI");
-				_child.name = "UGUI Menu";
-				_child.transform.SetParent(target.transform);
-				_child.transform.localPosition = Vector3.zero;
-				_child.transform.localRotation = Quaternion.identity;
-				_child.transform.localScale = Vector3.one;
-				UnityEngine.EventSystems.EventSystem _eventSystem = GameObject.FindObjectOfType<UnityEngine.EventSystems.EventSystem>();
-				GameObject _sys;
-				if (_eventSystem == null) {
-					_sys = new GameObject("Event System");
-					_eventSystem = _sys.AddComponent<UnityEngine.EventSystems.EventSystem>();
-					_sys.AddComponent<UnityEngine.EventSystems.StandaloneInputModule>();
-				}
-				SmartRenameTarget("UGUI");
-			}
-			if(MGButton(UGUIIcon, "UGUI\nPanel")) {
-				GameObject _child = Instantiate<GameObject>(Resources.Load("Panel", typeof(GameObject)) as GameObject);
-				Undo.RegisterCreatedObjectUndo(target,"Create Panel");
-				_child.name = "UGUI Panel";
-				if (target.GetComponent<Canvas>() != null)
-					_child.transform.SetParent(target.transform);
-				else {
-					_child.transform.SetParent(target.transform.root.GetComponentInChildren<Canvas>().transform);
-				}
-				_child.transform.localPosition = Vector3.zero;
-				_child.transform.localRotation = Quaternion.identity;
-//				_child.transform.localScale = Vector3.one;
-				RectTransform _tran = _child.GetComponent<RectTransform>();
-				_tran.anchorMin = Vector2.zero;
-				_tran.anchorMax = Vector2.one;
-				_tran.pivot = new Vector2(.5f,.5f);
-			}
 
+			if (MGButton (uvCubeIcon, "Procedural\nCube")) {
+				ResolveOrCreateTarget ();
+				GameObject _child = AddDirectChild (target);
+				_child.name = "UV Cube";
+				Selection.SetActiveObjectWithContext (_child, _child);
+				SmartRenameTarget ("Procedural Model");
+				Undo.AddComponent<ProcCube> (_child);
+			}
+			if (MGButton (uvPlaneIcon, "Procedural\nPlane")) {
+				ResolveOrCreateTarget ();
+				GameObject _child = AddDirectChild (target);
+				_child.name = "UV Plane";
+				Selection.SetActiveObjectWithContext (_child, _child);
+				SmartRenameTarget ("Procedural Model");
+				Undo.AddComponent<ProcPlane> (_child);
+			}
+			if (MGButton (uvConeIcon, "Procedural\nCylinder")) {
+				ResolveOrCreateTarget ();
+				GameObject _child = AddDirectChild (target);
+				_child.name = "UV Cone";
+				Selection.SetActiveObjectWithContext (_child, _child);
+				SmartRenameTarget ("Procedural Model");
+				Undo.AddComponent<ProcCone> (_child);
+			}
+			if (MGButton (uvSphereIcon, "Procedural\nSphere")) {
+				ResolveOrCreateTarget ();
+				GameObject _child = AddDirectChild (target);
+				_child.name = "UV Sphere";
+				Selection.SetActiveObjectWithContext (_child, _child);
+				SmartRenameTarget ("Procedural Model");
+				Undo.AddComponent<ProcSphere> (_child);
+			}
+			if (MGButton (uvScalarIcon, "UV Scalar")) {
+				ResolveOrCreateTarget ();
+				if (target.GetComponent<UVScalar> () == null && target.GetComponent<MeshRenderer> () != null)
+					Undo.AddComponent<UVScalar> (target);
+				SmartRenameTarget ("Scalable Model");
+//				List<GameObject> targetObjects = new List<GameObject> ();
+//				targetObjects.Add (target);
+//				for (int i = 0; i < target.transform.childCount; i++) {
+//					targetObjects.Add (target.transform.GetChild (i).gameObject);
+//				}
+//				for (int j = 0; j < targetObjects.Count; j++) {
+//					if (targetObjects[j].GetComponent<UVScalar>() == null && targetObjects[j].GetComponent<MeshFilter>() != null)
+//						Undo.AddComponent<UVScalar> (targetObjects[j]);
+//				}
+			}
+//			if(MGButton(UGUIIcon, "UGUI\nPanel")) {
+//				GameObject _child = Instantiate<GameObject>(Resources.Load("Panel", typeof(GameObject)) as GameObject);
+//				Undo.RegisterCreatedObjectUndo(target,"Create Panel");
+//				_child.name = "UGUI Panel";
+//				if (target.GetComponent<Canvas>() != null)
+//					_child.transform.SetParent(target.transform);
+//				else {
+//					_child.transform.SetParent(target.transform.root.GetComponentInChildren<Canvas>().transform);
+//				}
+//				_child.transform.localPosition = Vector3.zero;
+//				_child.transform.localRotation = Quaternion.identity;
+////				_child.transform.localScale = Vector3.one;
+//				RectTransform _tran = _child.GetComponent<RectTransform>();
+//				_tran.anchorMin = Vector2.zero;
+//				_tran.anchorMax = Vector2.one;
+//				_tran.pivot = new Vector2(.5f,.5f);
+//			}
+//
 			EditorGUILayout.EndVertical();
 		}
 
@@ -684,6 +731,11 @@ namespace MultiGame {
 				SetupRigidbody();
 				Undo.AddComponent<Clickable>(target);
 				SmartRenameTarget("Clickable");
+			}
+			if (MGButton (mouseMessageIcon, "Mouse\nMessage")) {
+				ResolveOrCreateTarget ();
+				Undo.AddComponent<MouseMessage> (target);
+				SmartRenameTarget ("Mouse Message");
 			}
 			if (MGButton(keyMessageIcon, "Key\nLogic")) {
 				ResolveOrCreateTarget();
@@ -765,13 +817,13 @@ namespace MultiGame {
 				SetupHealth();
 				SmartRenameTarget("Mortal");
 			}
-			if (MGButton(meleeWeaponIcon, "Melee\nWeapon")) {
-				ResolveOrCreateTarget();
-				if (target.GetComponent<MeleeWeaponAttributes>() != null)
-					return;
-				Undo.AddComponent<MeleeWeaponAttributes>(target);
-				SmartRenameTarget("Melee Weapon");
-			}
+//			if (MGButton(meleeWeaponIcon, "Melee\nWeapon")) {
+//				ResolveOrCreateTarget();
+//				if (target.GetComponent<MeleeWeaponAttributes>() != null)
+//					return;
+//				Undo.AddComponent<MeleeWeaponAttributes>(target);
+//				SmartRenameTarget("Melee Weapon");
+//			}
 			if (MGButton(gunIcon, "Gun")) {
 				ResolveOrCreateTarget();
 				if (target.GetComponent<ModernGun>() != null)
@@ -867,7 +919,7 @@ namespace MultiGame {
 					return;
 				if (target.GetComponentInChildren<CharacterOmnicontroller>() != null)
 					return;
-				CharacterOmnicontroller control = Undo.AddComponent<CharacterOmnicontroller>(target);
+				/*CharacterOmnicontroller control = */Undo.AddComponent<CharacterOmnicontroller>(target);
 				if ( target.tag == "Untagged")
 					target.tag = "Player";
 //				CharacterInputAnimator _input = Undo.AddComponent<CharacterInputAnimator>(target);
@@ -1095,7 +1147,37 @@ namespace MultiGame {
 
 			if (MGButton(layerMaskIcon, "Layer Mask"))
 				SetupLayerMask();
-
+			if (MGButton(multiMenuIcon, "Legacy IMGUI\nMenu")) {
+				ResolveOrCreateTarget();
+				GameObject _child = AddDirectChild(target);
+				_child.name = "MultiMenu";
+				Undo.RegisterCreatedObjectUndo(target,"Create MultiMenu");
+				Undo.AddComponent<MultiMenu>(_child);
+				SmartRenameTarget("Legacy Menu");
+			}
+			if (MGButton(UGUIIcon, "UGUI\nCanvas")) {
+				ResolveOrCreateTarget();
+				GameObject _child = Instantiate<GameObject>(Resources.Load("Canvas", typeof(GameObject)) as GameObject);
+				Undo.RegisterCreatedObjectUndo(target,"Create UGUI");
+				_child.name = "UGUI Menu";
+				_child.transform.SetParent(target.transform);
+				_child.transform.localPosition = Vector3.zero;
+				_child.transform.localRotation = Quaternion.identity;
+				_child.transform.localScale = Vector3.one;
+				UnityEngine.EventSystems.EventSystem _eventSystem = GameObject.FindObjectOfType<UnityEngine.EventSystems.EventSystem>();
+				GameObject _sys;
+				if (_eventSystem == null) {
+					_sys = new GameObject("Event System");
+					_eventSystem = _sys.AddComponent<UnityEngine.EventSystems.EventSystem>();
+					_sys.AddComponent<UnityEngine.EventSystems.StandaloneInputModule>();
+				}
+				SmartRenameTarget("UGUI");
+			}
+			if (MGButton(doorIcon, "Door\nController")) {
+				ResolveOrCreateTarget();
+				Undo.AddComponent<DoorController>(target);
+				SmartRenameTarget("Door");
+			}
 			if (MGButton(savePrefsIcon, "Player\nPreferences")) {
 				ResolveOrCreateTarget();
 				Undo.AddComponent<UniquePreferenceSerializer>(target);
@@ -1113,6 +1195,17 @@ namespace MultiGame {
 					return;
 				Undo.AddComponent<SceneObjectListSerializer>(target);
 				SmartRenameTarget("Scene Save");
+			}
+			if (MGButton (lodIcon, "Level Of\nDetail")) {
+				ResolveOrCreateTarget ();
+				LODGroup lodGroup = target.GetComponent<LODGroup> ();
+				if (lodGroup == null)
+					lodGroup = Undo.AddComponent<LODGroup> (target);
+				LOD[] lods = new LOD[1];
+				lods[0] = new LOD(.015f,target.GetComponentsInChildren<Renderer> ());
+				Debug.Log ("LOD Set");
+				lodGroup.SetLODs (lods);
+				lodGroup.RecalculateBounds ();
 			}
 			if (MGButton(musicIcon, "Music\nManager")) {
 				ResolveOrCreateTarget();
@@ -1180,7 +1273,11 @@ namespace MultiGame {
 
 //			GUILayout.Box("UNet components are always added to the root object.","box",GUILayout.Width(112f));
 			
-			EditorGUILayout.BeginVertical("box", GUILayout.Width(112f));
+			EditorGUILayout.BeginVertical("box"/*, GUILayout.Width(112f)*/);
+
+			if (MGButton (helpIcon, "Start\nHere")) {
+				Application.OpenURL ("https://youtu.be/8ptbRaj_qK8");
+			}
 
 //			if (MGButton(unetIcon, "UNet-ify")) {
 //				ResolveOrCreateTarget();

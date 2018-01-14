@@ -20,7 +20,7 @@ namespace MultiGame {
 		public List<string> activeTags = new List<string>();
 		[Header("Output Settings")]
 		[Tooltip("When checking tags, do we check the collision object or it's root transform?")]
-		public bool checkRoot = true;
+		public bool checkRoot = false;
 		[HideInInspector]
 		public string animEnter;
 		[HideInInspector]

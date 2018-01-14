@@ -97,7 +97,7 @@ namespace MultiGame {
 
 		private bool jumping = false;
 		private float jumpTimer;
-		private bool moveLocked = false;
+//		private bool moveLocked = false;
 
 		[System.Serializable]
 		public class CustomAction {
@@ -125,10 +125,10 @@ namespace MultiGame {
 //		private float originalPitch;
 		private float attackTimer = 0f;
 		private Vector3 lastGroundVel;
-		private Vector3 previousPlatformPosition = Vector3.zero;
+//		private Vector3 previousPlatformPosition = Vector3.zero;
 		private Rigidbody rigid;
 		private RaycastHit hinfo;
-		private bool didHit = false;
+//		private bool didHit = false;
 		private CharacterController controller;
 		private Animator anim;
 		private AudioSource source;
@@ -258,7 +258,7 @@ namespace MultiGame {
 			}
 
 			if (autoTurn && rotateToPointer) {
-				didHit = Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hinfo, 1000f, walkRayMask);
+				/*didHit = */Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hinfo, 1000f, walkRayMask);
 			}
 				
 			if (Input.GetAxis("Vertical") > 0f) {
@@ -324,7 +324,7 @@ namespace MultiGame {
 				return;
 			if (_hit.moveDirection.y < 0.9f && _hit.normal.y > 0.5f) {
 				platform = _hit.gameObject;
-				previousPlatformPosition = platform.transform.position;
+//				previousPlatformPosition = platform.transform.position;
 				if (platformParent)
 					transform.SetParent(platform.transform.root, true);
 			}

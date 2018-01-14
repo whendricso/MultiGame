@@ -5,18 +5,18 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 439586}
-  - 136: {fileID: 13653004}
-  - 195: {fileID: 19544970}
-  - 114: {fileID: 11405944}
-  - 114: {fileID: 11472414}
-  - 114: {fileID: 11416204}
-  - 114: {fileID: 11417132}
-  - 114: {fileID: 11467200}
-  - 114: {fileID: 11467676}
-  - 114: {fileID: 11419880}
+  - component: {fileID: 439586}
+  - component: {fileID: 13653004}
+  - component: {fileID: 19544970}
+  - component: {fileID: 11405944}
+  - component: {fileID: 11472414}
+  - component: {fileID: 11416204}
+  - component: {fileID: 11417132}
+  - component: {fileID: 11467200}
+  - component: {fileID: 11467676}
+  - component: {fileID: 11419880}
   m_Layer: 0
   m_Name: MeleeGuard
   m_TagString: Untagged
@@ -29,9 +29,9 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 481476}
+  - component: {fileID: 481476}
   m_Layer: 0
   m_Name: DamageRayOrigin
   m_TagString: Untagged
@@ -44,13 +44,13 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 416444}
-  - 33: {fileID: 3330432}
-  - 65: {fileID: 6555458}
-  - 23: {fileID: 2349286}
-  - 114: {fileID: 11424474}
+  - component: {fileID: 416444}
+  - component: {fileID: 3330432}
+  - component: {fileID: 6555458}
+  - component: {fileID: 2349286}
+  - component: {fileID: 11424474}
   m_Layer: 2
   m_Name: Sensor
   m_TagString: Untagged
@@ -63,11 +63,11 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 469742}
-  - 33: {fileID: 3333952}
-  - 23: {fileID: 2329930}
+  - component: {fileID: 469742}
+  - component: {fileID: 3333952}
+  - component: {fileID: 2329930}
   m_Layer: 0
   m_Name: Image
   m_TagString: Untagged
@@ -84,10 +84,10 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1, z: 8.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 439586}
   m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &439586
 Transform:
   m_ObjectHideFlags: 1
@@ -95,15 +95,16 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 107534}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.84, y: 1.53, z: -10.28}
+  m_LocalPosition: {x: -9.65, y: 1.53, z: -10.38}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 481476}
   - {fileID: 416444}
   - {fileID: 469742}
+  - {fileID: 4481097455691882}
   m_Father: {fileID: 0}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &469742
 Transform:
   m_ObjectHideFlags: 1
@@ -113,10 +114,10 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 439586}
   m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &481476
 Transform:
   m_ObjectHideFlags: 1
@@ -126,10 +127,10 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1.25, z: 0.458}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 439586}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &2329930
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -144,7 +145,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_Materials:
   - {fileID: 2100000, guid: 07d87132ff05b9b4590127843a0a12ab, type: 2}
-  m_SubsetIndices: 
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
@@ -152,12 +155,13 @@ MeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_SelectedWireframeHidden: 0
+  m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
 --- !u!23 &2349286
 MeshRenderer:
@@ -173,7 +177,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_Materials:
   - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
-  m_SubsetIndices: 
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
@@ -181,12 +187,13 @@ MeshRenderer:
   m_PreserveUVs: 1
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_SelectedWireframeHidden: 0
+  m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
 --- !u!33 &3330432
 MeshFilter:
@@ -209,7 +216,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 144730}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 7.09, y: 1, z: 12.42}
@@ -225,15 +232,43 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 793d1d61a44f72b4cac33a5070231a97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animatorMovementFloat: 
   navTarget: {fileID: 0}
   agent: {fileID: 0}
   avoidanceDetector: {fileID: 0}
   avoidanceTurnRate: 6
   pathRecalculationInterval: 0.2
   help:
-    showInfo: 1
-    helpText: 5468697320636f6d706f6e656e7420696d706c656d656e747320556e6974792773204e61764d657368206469726563746c792c20616c6c6f77696e6720414920746f207061746866696e642061726f756e6420656173696c792e20596f75206e65656420746f2062616b652061206e617669676174696f6e206d65736820666f7220796f7572207363656e65206265666f72652069742063616e20776f726b2c206f746865727769736520796f752077696c6c2067657420616e206572726f722e20436c69636b2057696e646f77202d3e204e617669676174696f6e20746f2062616b652061206e61766d6573682e0a0a546f206765742073746172746564206d6f7374206566666563746976656c792c207765207265636f6d6d656e6420616464696e6720736f6d65206f7468657220414920636f6d706f6e656e747320737563682061732061204775617264204d6f64756c652c204d656c6565204d6f64756c652c206f72206f746865727320646570656e64696e67206f6e207768617420796f752077616e7420746f206d616b652e20466f72206578616d706c652c20746f206d616b6520612074616e6b2c2066697273742063726561746520616e20656d707479206f626a6563742c20616e6420706172656e742061203344206d6f64656c206f6620612074616e6b20746f2069742e205468656e2c206164642061204775617264204d6f64756c652c204e6176204d6f64756c6520746f207468652062617365206f626a6563742e2046696e616c6c792c2061646420612054757272657420416374696f6e20746f207468652074757272657420697473656c662c206120546172676574696e6720436f6d70757465722028736f2069742063616e2061696d206174206d6f76696e67207269676964626f6469657320636f72726563746c79292c20616e642063726561746520616e20696e76697369626c6520747269676765722077697468206120546172676574696e672053656e736f7220636f6d706f6e656e7420746861742073656e6473206974277320746172676574206d65737361676520746f20746865207475727265742e2054686973206372656174657320612074616e6b2041492e
+    showInfo: 0
+    helpText: 'This component implements Unity''s NavMesh directly, allowing AI to
+      pathfind around easily. You need to bake a navigation mesh for your scene before
+      it can work, otherwise you will get an error. Click Window -> Navigation to
+      bake a navmesh.
+
+
+      To get started most effectively, we recommend adding some other AI components
+      such as a Guard Module, Melee Module, or others depending on what you want to
+      make. For example, to make a tank, first create an empty object, and parent
+      a 3D model of a tank to it. Then, add a Guard Module, Nav Module to the base
+      object. Finally, add a Turret Action to the turret itself, a Targeting Computer
+      (so it can aim at moving rigidbodies correctly), and create an invisible trigger
+      with a Targeting Sensor component that sends it''s target message to the turret.
+      This creates a tank AI.'
   debug: 0
+  stopMovingHelp:
+    showInfo: 0
+    messageName: StopMoving
+    helpText: Causes the Nav Module to stop and target this position as it's move
+      target.
+    argumentType: 0
+    argumentText: 
+  stopNavigatingHelp:
+    showInfo: 0
+    messageName: StopNavigating
+    helpText: Tells the Nav Mesh Agent to stop immediately, but does not affect the
+      Nav Module directly.
+    argumentType: 0
+    argumentText: 
 --- !u!114 &11416204
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -251,7 +286,10 @@ MonoBehaviour:
   help:
     showInfo: 0
     helpText: This component sends Animator triggers when it receives the 'TriggerAnimation'
-      message
+      message. This allows any message sender to cause Animator state transitions
+      for controlling logic or animation. It can also send a trigger that's not included
+      here by receiving the 'TriggerSpecificAnimation' message which takes the name
+      of the trigger as an argument.
   triggerAnimationHelp:
     showInfo: 0
     messageName: TriggerAnimation
@@ -297,16 +335,23 @@ MonoBehaviour:
     target: {fileID: 0}
     message: Select
     msgOverride: 1
-    messageIndex: 10
+    messageIndex: 8
     possibleMessages:
+    - StopMoving
+    - StopNavigating
     - TriggerAnimation
     - TriggerSpecificAnimation
+    - Die
+    - ModifyHealth
+    - ModifyMaxHealth
+    - Select
+    - Deselect
     isDirty: 0
     sendMessageType: 0
     parameter: 
     parameterMode: 0
-  asButton: 1
-  debug: 0
+  asButton: 0
+  debug: 1
   modifier: 0
   help:
     showInfo: 0
@@ -323,11 +368,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf9f727275515d5498c5c4427a532113, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetTags:
+  - Ball
   messageReceiver: {fileID: 107534}
   retargetTime: 0.75
   maxDistance: 25
-  targetTags:
-  - 4e65757472616c4e5043
   help:
     showInfo: 0
     helpText: 5468697320636f6d706f6e656e742073686f756c6420626520617474616368656420746f20612074726967676572207468617420697320706172656e74656420746f20616e2041492e2049742070726f76696465732074617267657420696e666f726d6174696f6e20746f206f7468657220414920636f6d706f6e656e74732e20546f20757365206d6f7374206566666563746976656c792c207765207265636f6d6d656e64206372656174696e67203420636f6c6c6973696f6e206c617965727320286174206c65617374292c206f6e65206561636820666f7220667269656e646c69657320616e6420656e656d6965732c20616e64206f6e65206561636820666f7220667269656e646c7920616e6420656e656d792073656e736f72732e205468656e20696e207468652050687973696373204d616e61676572202845646974202d3e2050726f6a6563742053657474696e6773202d3e205068797369637329206d616b6520697420736f20746861742074686520656e656d792073656e736f7220636f6c6c69646573206f6e6c79207769746820667269656e646c69657320616e64207669636520766572736120666f7220667269656e646c792073656e736f722e2054686973207370656564732075702074617267657420646574656374696f6e2c20616c6c6f77696e67206d6f726520414920746f20626520616374697665206174206f6e63652e20546f206675727468657220726566696e6520746172676574206c697374732c2061737369676e20736f6d65207461726765742074616773206265636175736520616e797468696e67206e6f7420696e2074686174206c69737420697320636f6d706c6574656c792069676e6f7265642e
@@ -347,35 +392,52 @@ MonoBehaviour:
   maxHP: 20
   autodestruct: 1
   deathPrefabs: []
+  autoSaveKey: 
+  uIhealthBar: {fileID: 0}
   guiSkin: {fileID: 0}
   showHealthBarGUI: 0
   healthBar:
-    x: 0.2
-    y: 0.01
-    width: 0.4
-    height: 0.085
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 0
+    height: 0
   autoHide: 1
-  barColor:
-    r: 1
-    g: 1
-    b: 1
-    a: 1
+  barColor: {r: 1, g: 1, b: 1, a: 1}
   healthGoneMessage:
     target: {fileID: 0}
-    message: 2d2d6e6f6e652d2d
+    message: --none--
     msgOverride: 1
     messageIndex: 0
-    possibleMessages: []
+    possibleMessages:
+    - StopMoving
+    - StopNavigating
+    - TriggerAnimation
+    - TriggerSpecificAnimation
+    - Die
+    - ModifyHealth
+    - ModifyMaxHealth
+    - Select
+    - Deselect
     isDirty: 0
     sendMessageType: 0
     parameter: 
     parameterMode: 0
   hitMessage:
     target: {fileID: 0}
-    message: 2d2d6e6f6e652d2d
+    message: --none--
     msgOverride: 1
     messageIndex: 0
-    possibleMessages: []
+    possibleMessages:
+    - StopMoving
+    - StopNavigating
+    - TriggerAnimation
+    - TriggerSpecificAnimation
+    - Die
+    - ModifyHealth
+    - ModifyMaxHealth
+    - Select
+    - Deselect
     isDirty: 0
     sendMessageType: 0
     parameter: 
@@ -384,6 +446,26 @@ MonoBehaviour:
     showInfo: 0
     helpText: 546869732067656e65726963204865616c746820696d706c656d656e746174696f6e2069732066756c6c7920636f6d70617469626c65207769746820616c6c204d756c746947616d652073797374656d7320616e6420666f726d732074686520626173697320666f7220636f6d62617420616e6420646561746820696e20796f75722067616d6520776f726c64732e2049742072656365697665732074686520274d6f646966794865616c746827206d6573736167652077697468206120666c6f6174696e6720706f696e742076616c75652e204d616b6520616e797468696e67206b696c6c61626c6521
   debug: 0
+  dieHelp:
+    showInfo: 0
+    messageName: Die
+    helpText: Kill this object immediately!
+    argumentType: 0
+    argumentText: 
+  modifyHealthHelp:
+    showInfo: 0
+    messageName: ModifyHealth
+    helpText: Change the health this object has
+    argumentType: 3
+    argumentText: Amount to change the health by. Positive to increase, negative to
+      decrease.
+  modifyMaxHealthHelp:
+    showInfo: 0
+    messageName: ModifyMaxHealth
+    helpText: Change the maximum health this object can have
+    argumentType: 3
+    argumentText: Amount to change the max health by. Positive to increase, negative
+      to decrease.
 --- !u!114 &11467676
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -395,19 +477,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3ebbd383b2ce184790bb0382e94fe1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deselectionTag: 576f726c64
-  movableTag: 576f726c64
-  attackableTags: []
+  clickMask:
+    serializedVersion: 2
+    m_Bits: 262400
+  deselectionTag: World
+  movableTag: World
+  attackableTags:
+  - Build
+  - Enemy
   moveButton: 1
   selectButton: 0
-  selectionIndicator: {fileID: 0}
-  clickMask: {}
+  selectionIndicator: {fileID: 1747325314141074}
   initialMoveDistance: 3
-  disabledWhileSelected:
-  - {fileID: 11405944}
+  disabledWhileSelected: []
   help:
     showInfo: 0
     helpText: 5468697320636f6d706f6e656e7420616c6c6f77732074686520706c6179657220746f2073656c6563742f646573656c65637420616e20414920616e64206769766520697420646972656374206d6f7665206f7264657273207769746820746865206d6f7573652e20546f20757365206974206566666563746976656c792c207765207265636f6d6d656e642070616972696e6720697420776974682061204e61764d6f64756c6520616e6420617474616368696e6720736f6d6520736f7274206f6620636f6d6261742041492073797374656d20746f2069742073756368206173206120274d656c6565204d6f64756c6527
+  selectHelp:
+    showInfo: 0
+    messageName: Select
+    helpText: Causes this Minion Module to become selected, ready to receive orders
+      from mouse events.
+    argumentType: 0
+    argumentText: 
+  deselectHelp:
+    showInfo: 0
+    messageName: Deselect
+    helpText: Causes this Minion Module to become deselected, no longer able to receive
+      orders from mouse events.
+    argumentType: 0
+    argumentText: 
 --- !u!114 &11472414
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -419,11 +518,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d84d607611c023e42bb88c48e160897c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackAnimationTrigger: 
   attackTime: 1
   attackDamage: 10
   damageRayOrigin: {fileID: 116954}
   meleeRange: 0.8
-  damageRayMask: {}
+  damageRayMask:
+    serializedVersion: 2
+    m_Bits: 319745
   attackMessages: []
   messagesToVictim: []
   help:
@@ -450,6 +552,7 @@ NavMeshAgent:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 107534}
   m_Enabled: 1
+  m_AgentTypeID: 0
   m_Radius: 0.5
   m_Speed: 3.5
   m_Acceleration: 8
@@ -461,7 +564,7 @@ NavMeshAgent:
   m_AutoRepath: 1
   m_Height: 2
   m_BaseOffset: 0
-  m_WalkableMask: 4294967295
+  m_WalkableMask: 5
   m_ObstacleAvoidanceType: 4
 --- !u!1001 &100100000
 Prefab:
@@ -474,3 +577,72 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 107534}
   m_IsPrefabParent: 1
+--- !u!1 &1747325314141074
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4481097455691882}
+  - component: {fileID: 33821845442275540}
+  - component: {fileID: 23784550900686248}
+  m_Layer: 0
+  m_Name: Sphere
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4481097455691882
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1747325314141074}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 2.47, z: 0}
+  m_LocalScale: {x: 0.5411456, y: 0.54114556, z: 0.54114556}
+  m_Children: []
+  m_Father: {fileID: 439586}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!23 &23784550900686248
+MeshRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1747325314141074}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_Materials:
+  - {fileID: 2100000, guid: feb754e8261052e478163813cac24f18, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 1
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!33 &33821845442275540
+MeshFilter:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1747325314141074}
+  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}

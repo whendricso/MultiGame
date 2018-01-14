@@ -18,7 +18,8 @@ namespace MultiGame {
 
 		public HelpInfo help = new HelpInfo("Rewinder allows you to rewind the position & rotation of an object for a limited period. This requires a LOT of memory! Use it sparingly.\n" +
 			"To use, add this to any object that moves, it does not need a rigidbody, but it does work with them. You can then send 'StartRewind' and 'StopRewind' to control the rewinding behavior. " +
-			"One Rewinder is needed on each object you wish to be rewindable. Having a TimeSpeedManager in your scene also allows you to control slow/fast motion, useful in time manipulation games.");
+			"One Rewinder is needed on each object you wish to be rewindable, so more rewinders or longer 'Max Rewind Time' consume more memory. Also having a TimeSpeedManager in your scene also allows you to " +
+			"control slow/fast motion, useful in time manipulation games.");
 
 		void Start () {
 			rewindStates = new List<RewindState> ();
@@ -61,12 +62,14 @@ namespace MultiGame {
 			}
 		}
 
+		public MessageHelp startRewindHelp = new MessageHelp ("StartRewind","Begins rewinding the object. This will continue until it receives 'StopRewind' or runs out of rewind frames");
 		public void StartRewind () {
 			rewinding = true;
 			if (rigid != null)
 				rigid.isKinematic = true;
 		}
 
+		public MessageHelp stopRewindHelp = new MessageHelp ("StopRewind","Stops rewinding the object and begins adding rewind frames to the buffer");
 		public void StopRewind () {
 			rewinding = false;
 			if (rigid != null)

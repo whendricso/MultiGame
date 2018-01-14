@@ -33,6 +33,8 @@ namespace MultiGame {
 		public HelpInfo help = new HelpInfo("This component allows the player to select/deselect an AI and give it direct move orders with the mouse. To use it effectively," +
 			" we recommend pairing it with a NavModule and attaching some sort of combat AI system to it such as a 'Melee Module'");
 
+		public bool debug = false;
+
 		[System.NonSerialized]
 		public bool selected = false;
 
@@ -65,8 +67,13 @@ namespace MultiGame {
 				if(!_didHit)
 					return;
 
+				if (debug)
+					Debug.Log ("Minion Module " + gameObject.name + " detected a click against it's mask");
+
 				if (selected ) {
 					if(_hinfo.collider.gameObject.tag == movableTag) {
+						if (debug)
+							Debug.Log ("Minion Module " + gameObject.name + " is moving towards " + _hinfo.point);
 						gameObject.SendMessage("MoveTo", _hinfo.point, SendMessageOptions.DontRequireReceiver);
 						gameObject.SendMessage("ClearTarget",SendMessageOptions.DontRequireReceiver);
 					}
@@ -89,6 +96,8 @@ namespace MultiGame {
 		[Header("Available Messages")]
 		public MessageHelp selectHelp = new MessageHelp("Select","Causes this Minion Module to become selected, ready to receive orders from mouse events.");
 		public void Select () {
+			if (debug)
+				Debug.Log ("Minion Module " + gameObject.name + " is selected");
 			selected = true;
 			ToggleScripts(!selected);
 			if (selectionIndicator != null)
@@ -97,6 +106,8 @@ namespace MultiGame {
 
 		public MessageHelp deselectHelp = new MessageHelp("Deselect","Causes this Minion Module to become deselected, no longer able to receive orders from mouse events.");
 		public void Deselect () {
+			if (debug)
+				Debug.Log ("Minion Module " + gameObject.name + " is deselected");
 			selected = false;
 			ToggleScripts(!selected);
 			if (selectionIndicator != null)
@@ -104,6 +115,8 @@ namespace MultiGame {
 		}
 
 		private void ToggleScripts (bool _val) {
+			if (debug)
+				Debug.Log ("Minion Module " + gameObject.name + " is toggling scripts to " + _val);
 			foreach (MonoBehaviour behaviour in disabledWhileSelected) {
 				behaviour.enabled = _val;
 			}

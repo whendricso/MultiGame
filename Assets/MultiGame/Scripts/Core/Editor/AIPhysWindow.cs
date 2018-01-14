@@ -10,6 +10,11 @@ namespace MultiGame {
 		private bool allExist = false;
 		private bool showHelp = false;
 
+		[MenuItem ("MultiGame/Layer Mask Wizard")]
+		public static void ShowWindow () {
+			EditorWindow.GetWindow(typeof(AIPhysWindow));
+		}
+
 		void OnGUI () {
 			allExist = CheckAllExist();
 			EditorGUILayout.Space();

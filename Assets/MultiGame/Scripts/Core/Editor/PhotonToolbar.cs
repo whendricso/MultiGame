@@ -19,17 +19,17 @@ namespace MultiGame {
 		private static Texture2D photonCharacterIcon;
 		private static Texture2D photonDestructibleIcon;
 		private static Texture2D photonHealthIcon;
-		private static Texture2D photonInventoryIcon;
-		private static Texture2D photonItemIcon;
+//		private static Texture2D photonInventoryIcon;
+//		private static Texture2D photonItemIcon;
 		private static Texture2D photonPositionIcon;
 		private static Texture2D photonRelayIcon;
 		private static Texture2D photonRigidbodyIcon;
 		private static Texture2D photonSpawnerIcon;
 		private static Texture2D photonAvatarIcon;
-		private static Texture2D photonSceneIcon;
+//		private static Texture2D photonSceneIcon;
 //		private static Texture2D photonChannelIcon;
 
-		[MenuItem ("Window/MultiGame/Photon Tool")]
+		[MenuItem ("MultiGame/Photon Tool")]
 		public static void  ShowWindow () {
 			EditorWindow.GetWindow(typeof(PhotonToolbar));
 		}
@@ -39,14 +39,14 @@ namespace MultiGame {
 			photonCharacterIcon = Resources.Load("PhotonCharacterButton", typeof(Texture2D)) as Texture2D;
 			photonDestructibleIcon = Resources.Load("PhotonDestructibleButton", typeof(Texture2D)) as Texture2D;
 			photonHealthIcon = Resources.Load("PhotonHealthButton", typeof(Texture2D)) as Texture2D;
-			photonInventoryIcon = Resources.Load("PhotonInventoryButton", typeof(Texture2D)) as Texture2D;
-			photonItemIcon = Resources.Load("PhotonItemButton", typeof(Texture2D)) as Texture2D;
+//			photonInventoryIcon = Resources.Load("PhotonInventoryButton", typeof(Texture2D)) as Texture2D;
+//			photonItemIcon = Resources.Load("PhotonItemButton", typeof(Texture2D)) as Texture2D;
 			photonPositionIcon = Resources.Load("PhotonPositionButton", typeof(Texture2D)) as Texture2D;
 			photonRelayIcon = Resources.Load("PhotonRelayButton", typeof(Texture2D)) as Texture2D;
 			photonRigidbodyIcon = Resources.Load("PhotonRigidbodyButton", typeof(Texture2D)) as Texture2D;
 			photonSpawnerIcon = Resources.Load("PhotonSpawnButton", typeof(Texture2D)) as Texture2D;
 			photonAvatarIcon = Resources.Load("PhotonAvatarButton", typeof(Texture2D)) as Texture2D;
-			photonSceneIcon = Resources.Load("PhotonSceneButton", typeof(Texture2D)) as Texture2D;
+//			photonSceneIcon = Resources.Load("PhotonSceneButton", typeof(Texture2D)) as Texture2D;
 //			photonChannelIcon = Resources.Load("PhotonChannelButton", typeof(Texture2D)) as Texture2D;
 
 		}
@@ -172,7 +172,7 @@ namespace MultiGame {
 				if (_input == null)
 					_input = Undo.AddComponent<CharacterOmnicontroller>(target);
 
-				PhotonMessageRelay _relay = Undo.AddComponent<PhotonMessageRelay>(target);
+				/*PhotonMessageRelay _relay = */Undo.AddComponent<PhotonMessageRelay>(target);
 //				SetupPhotonView(_relay);
 				PhotonPositionSync _sync = target.GetComponent<PhotonPositionSync>();
 				if (_sync == null)

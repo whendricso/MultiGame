@@ -36,6 +36,8 @@ namespace MultiGame {
 				enabled = false;
 				return;
 			}
+			if (target == null)
+				target = gameObject;
 			if (target != null && target.GetComponent<Rigidbody>() == null) {
 				Debug.LogError("Thruster " + gameObject.name + "must have attached rigidbody or a target with a rigidbody to work!");
 				enabled = false;
@@ -109,7 +111,6 @@ namespace MultiGame {
 		}
 
 		public void ThrustVector (Vector3 input) {
-			Debug.Log("Thrust " + input);
 			if (space == Space.Self)
 				rigid.AddRelativeForce(new Vector3( input.x * thrust.x, input.y * thrust.y, input.z * thrust.z));
 			else

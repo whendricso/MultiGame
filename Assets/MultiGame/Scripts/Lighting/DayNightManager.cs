@@ -23,12 +23,12 @@ namespace MultiGame {
 		private Light sunLight;
 
 		private float currentTime = 0;
-		private float startTime = 0;
+//		private float startTime = 0;
 		private float rotationSpeed = 0;
 		
 		void Start () {
 			rotationSpeed = ((360f / cycleDuration) * Time.fixedDeltaTime);
-			startTime = Time.time;
+//			startTime = Time.time;
 			transform.rotation = Quaternion.identity;
 			sunLight = GetComponent<Light> ();
 			if (sunLight == null) {

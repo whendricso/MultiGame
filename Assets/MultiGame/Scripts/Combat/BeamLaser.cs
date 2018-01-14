@@ -36,7 +36,7 @@ namespace MultiGame {
 			if (beamLine == null)
 				beamLine = gameObject.AddComponent<LineRenderer>();
 			beamLine.useWorldSpace = true;
-			beamLine.SetVertexCount(2);
+			beamLine.positionCount = 2;//.SetVertexCount(2);
 
 			beamLine.enabled = true;
 		}

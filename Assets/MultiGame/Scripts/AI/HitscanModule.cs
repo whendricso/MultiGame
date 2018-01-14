@@ -21,7 +21,7 @@ namespace MultiGame {
 		[RequiredFieldAttribute("An object representing a raycast where the damage starts. Should be an empty transform slightly in front of the character. Raycasts from this point to prevent damage through walls etc.", RequiredFieldAttribute.RequirementLevels.Required)]
 		public GameObject damageRayOrigin;
 		[Tooltip("Range of the attack")]
-		public float meleeRange = 0.8f;
+		public float hitscanRange = 0.8f;
 		[Tooltip("What collision layers can we hit?")]
 		public LayerMask damageRayMask;
 		private float lastTriggerTime;
@@ -82,7 +82,7 @@ namespace MultiGame {
 			damageCounter = attackTime;
 
 			RaycastHit _hinfo;
-			bool _didHit = Physics.Raycast(damageRayOrigin.transform.position, transform.TransformDirection(transform.forward), out _hinfo, meleeRange, damageRayMask);
+			bool _didHit = Physics.Raycast(damageRayOrigin.transform.position, transform.TransformDirection(transform.forward), out _hinfo, hitscanRange, damageRayMask);
 
 			if (!_didHit) {
 				GameObject _closest = null;
