@@ -1,6 +1,7 @@
 
+![](https://media.giphy.com/media/xULW8mTP6BxQRwiVUY/giphy.gif)
 ![](https://media.giphy.com/media/3ohs7HWsLHsjhrPwAg/giphy.gif)
-![](https://media.giphy.com/media/3o6fJaE0wrm3kvjfWw/giphy.gif)
+
 
 ## Tutorial video:
 https://youtu.be/8ptbRaj_qK8
