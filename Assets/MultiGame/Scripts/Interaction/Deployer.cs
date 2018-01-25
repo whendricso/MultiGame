@@ -22,15 +22,20 @@ namespace MultiGame {
 		public Rect deployButton = new Rect(0.89f, 0.01f, 0.2f, 0.1f);
 		
 		[Tooltip("Ordered list of objects that can be deployed")]
+		[ReorderableAttribute]
 		public GameObject[] deployables;
 		private GameObject deployedItem;
 		[Tooltip("Ordered list matching the Deployables list indicating prefabs with no collider used as 'ghosts' or 'holograms' showing where the object will go")]
+		[ReorderableAttribute]
 		public GameObject[] ghostDeployables;//the "ghost" or hologram-type image to show during the deploy process
 		[Tooltip("Ordered list matching the Deployables list indicating the button textures")]
+		[ReorderableAttribute]
 		public Texture2D[] buttons;
 		[Tooltip("Ordered list showing the available number of each deployable currently available")]
+		[ReorderableAttribute]
 		public int[] deployablesCount;
 		[Tooltip("Ordered list showing the max available for each deployable")]
+		[ReorderableAttribute]
 		public int[] deployablesMax;
 		public enum Directions {Horizontal, Vertical};
 		[Tooltip("Direction to render the button list")]

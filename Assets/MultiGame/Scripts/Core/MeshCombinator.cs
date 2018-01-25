@@ -46,12 +46,12 @@ namespace MultiGame {
 	        while (i < meshFilters.Length) {
 				combine[i].mesh = meshFilters[i].sharedMesh;
 	            combine[i].transform = meshFilters[i].transform.localToWorldMatrix;
-	            meshFilters[i].gameObject.active = false;
+				meshFilters[i].gameObject.SetActive(false);
 	            i++;
 	        }
 			transform.GetComponent<MeshFilter>().sharedMesh = new Mesh();
 			transform.GetComponent<MeshFilter>().sharedMesh.CombineMeshes(combine);
-	        transform.gameObject.active = true;
+			transform.gameObject.SetActive(true);
 	    }
 	}
 }

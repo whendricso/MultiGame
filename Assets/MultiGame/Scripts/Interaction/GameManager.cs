@@ -16,6 +16,7 @@ namespace MultiGame {
 		[Tooltip("How much is one score worth?")]
 		public int goalBaseValue = 10;
 		[Tooltip("What are our targets?")]
+		[ReorderableAttribute]
 		public VictoryCondition[] victoryConditions;
 		[Tooltip("What message do we send when we win?")]
 		public MessageManager.ManagedMessage victoryMessage;

@@ -4,6 +4,7 @@ using MultiGame;
 
 namespace MultiGame {
 
+	[AddComponentMenu("MultiGame/Lighting/Light Controller")]
 	[RequireComponent(typeof(Light))]
 	public class LightController : MultiModule {
 

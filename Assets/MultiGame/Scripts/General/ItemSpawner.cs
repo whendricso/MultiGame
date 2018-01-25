@@ -7,15 +7,17 @@ namespace MultiGame {
 //	[AddComponentMenu("MultiGame/General/Item Spawner")]
 	public class ItemSpawner : MultiModule {
 
+		[ReorderableAttribute]
 		[Tooltip("List of things we can spawn")]
 		public GameObject[] items;
+		[ReorderableAttribute]
 		[Tooltip("How many of each are available?")]
 		public int[] itemCounts;
 		[Tooltip("Should we spawn some as soon as we begin?")]
 		public bool spawnOnStart = true;
 
-		public HelpInfo help = new HelpInfo("This component spawns objects, but with a limited quantity. To use, supply a list of items, for each item supplying a corresponding count. so, item #3 would have 6 available" +
-			"if itemCounts #3 == 6");
+		public HelpInfo help = new HelpInfo("This component spawns objects, but with a limited quantity. To use, supply a list of items, for each item supplying a corresponding count. So, item #3 would have 6 available" +
+			"if itemCounts #3 == 6. Each list must have exactly the same size");
 
 		// Use this for initialization
 		void Start () {

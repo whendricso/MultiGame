@@ -107,6 +107,8 @@ namespace MultiGame {
 		public static void UpdateMessageGUI (ref ManagedMessage _msg , GameObject _self) {
 	//		if (!_msg.isDirty)
 	//			return;
+			if (_msg == null)
+				return;
 
 			List<Component> components = new List<Component>();
 			if (_msg.target == null)

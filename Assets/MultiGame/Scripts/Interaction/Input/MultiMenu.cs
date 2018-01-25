@@ -23,6 +23,8 @@ namespace MultiGame {
 		[Tooltip("What sort of text prompt do we need?")]
 		[Multiline()]
 		public string infoText;
+		[ReorderableAttribute]
+		public Button[] buttons;
 		public bool debug = false;
 
 		public HelpInfo help = new HelpInfo("This is a generic implementation of Unity's built-in GUI. Not suitable for mobile devices. " +
@@ -38,7 +40,7 @@ namespace MultiGame {
 			public List<MessageManager.ManagedMessage> messages = new List<MessageManager.ManagedMessage>();
 		}
 
-		public Button[] buttons;
+
 
 		void Awake () {
 			foreach (Button button in buttons) {
@@ -59,6 +61,8 @@ namespace MultiGame {
 		}
 
 		void OnValidate () {
+			if (buttons == null)
+				return;
 			for (int i = 0; i < buttons.Length; i++) {
 				for (int j = 0; j < buttons[i].messages.Count; j++) {
 					MessageManager.ManagedMessage _msg = buttons[i].messages[j];

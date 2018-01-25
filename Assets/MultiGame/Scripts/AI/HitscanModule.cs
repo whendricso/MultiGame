@@ -26,8 +26,10 @@ namespace MultiGame {
 		public LayerMask damageRayMask;
 		private float lastTriggerTime;
 		[Header("Message Senders")]
+		[ReorderableAttribute]
 		[Tooltip("Messages to send when damage is dealt")]
 		public List<MessageManager.ManagedMessage> attackMessages = new List<MessageManager.ManagedMessage>();
+		[ReorderableAttribute]
 		[Tooltip("Messages sent to the victim when damage is dealt")]
 		public List<MessageManager.ManagedMessage> messagesToVictim = new List<MessageManager.ManagedMessage>();
 

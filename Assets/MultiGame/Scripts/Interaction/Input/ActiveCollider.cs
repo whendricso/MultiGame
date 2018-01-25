@@ -10,6 +10,7 @@ namespace MultiGame {
 
 		[Header("Important - Must be populated")]
 		[Tooltip("List of tags that trigger this message sender")]
+		[ReorderableAttribute]
 		public string[] activeTags;
 		[Header("Activation Settings")]
 		[Tooltip("If true, the tag check will be compared against the root transform of the object hit, otherwise it will be performed against the hit collider's transform.")]

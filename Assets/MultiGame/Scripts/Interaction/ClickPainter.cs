@@ -9,8 +9,10 @@ namespace MultiGame {
 
 		[Header("Important - Must be populated")]
 		[Tooltip("List of materials available as paint")]
+		[ReorderableAttribute]
 		public Material[] materials;
 		[Tooltip("List of tags of objects we can paint on")]
+		[ReorderableAttribute]
 		public string[] paintableTags;
 
 		[Header("GUI Settings")]

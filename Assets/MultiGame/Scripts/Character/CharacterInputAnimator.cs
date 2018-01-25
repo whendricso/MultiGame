@@ -23,7 +23,7 @@ namespace MultiGame {
 		public string verticalAxis = "Vertical";
 		[RequiredFieldAttribute("A float defined in the Animator indicating how fast we're moving", RequiredFieldAttribute.RequirementLevels.Required)]
 		public string animatorVertical = "Run";
-
+		[ReorderableAttribute]
 		[Tooltip("A list of additional states you want to bring in to the Animator, which you can trigger with messages")]
 		public List<UserState> userStates = new List<UserState>();
 

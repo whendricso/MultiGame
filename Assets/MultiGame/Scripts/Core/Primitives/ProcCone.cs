@@ -2,46 +2,37 @@
 using System.Collections.Generic;
 using UnityEngine;
 using MultiGame;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 namespace MultiGame {
 
 
 	[RequireComponent(typeof(MeshFilter))]
 	[RequireComponent(typeof(MeshRenderer))]
-	public class ProcCone : MultiModule {
+	public class ProcCone : MultiMesh {
+		#if UNITY_EDITOR
 
 		public float height = 2f;
-		public float bottomRadius = .5f;
 		public float topRadius = .5f;
+		public float bottomRadius = .5f;
 		[Range(5,50)]
 		public int sides = 16;
 		public Vector2 uvTopScale = Vector2.one;
 		public Vector2 uvBottomScale = Vector2.one;
 		public Vector2 uvSideScale = new Vector2(4,4);
 
-		public bool debug = false;
-
-		[BoolButton]
-		public bool refreshMesh = false;
-		[BoolButton]
-		public bool addCollider = false;
-
 		int nbVerticesCap;
 
-
-		MeshFilter filter;
-		Mesh mesh;
-		MeshRenderer rend;
-		MeshCollider coll;
-
 		void OnValidate () {
+			if (refreshMesh)
+				rebuildMesh = true;
 			refreshMesh = false;
-			BuildCone ();
 
 			if (addCollider) {
 				SetupCollider ();
 			}
-
 		}
 
 		void Reset () {
@@ -54,53 +45,27 @@ namespace MultiGame {
 			BuildCone ();
 		}
 
-		void SetupCollider () {
-			coll = GetComponent<MeshCollider> ();
-			if (coll == null)
-				StartCoroutine (AddColl ());
-			addCollider = false;
-		}
+		void Update () {
+			if (Application.isPlaying)
+				return;
+			if (!Selection.Contains (gameObject))
+				return;
+			height = Mathf.Clamp (height,0.0001f, Mathf.Infinity);
+			rebuildMesh = false;
+			AcquireMesh ();
+			BuildCone ();
 
-		IEnumerator AddColl () {//Coroutine allows sending of Unity internal messages, preventing an error
-
-			yield return new WaitForSeconds (.001f);
-			coll = gameObject.AddComponent<MeshCollider> ();
-			coll.convex = true;
-		}
-
-		void AcquireMesh () {
-			if (filter == null)
-				filter = GetComponent<MeshFilter> ();
-			mesh = filter.sharedMesh;
-			if (mesh == null) {
-				mesh = new Mesh ();
-				filter.sharedMesh = mesh;
-			}
-			if (rend == null)
-				rend = GetComponent<MeshRenderer> ();
-			if (rend.sharedMaterial == null)
-				rend.sharedMaterial = Resources.Load<Material>("Gray");
-		}
-
-		void OnDrawGizmosSelected () {
-			
-			if (debug) {
-				Gizmos.DrawWireMesh (mesh, transform.position, transform.rotation);
-//				for (int i = 0; i < mesh.vertices.Length; i++) {
-//					Debug.DrawRay (transform.TransformPoint(mesh.vertices[i]), mesh.normals[i]);
-//				}
-//				Gizmos.DrawCube (transform.TransformPoint(mesh.vertices[1]),new Vector3(.1f,.1f,.1f));
-//				Gizmos.color = XKCDColors.Yellow;
-//				Gizmos.DrawCube (transform.TransformPoint(mesh.vertices[2]),new Vector3(.1f,.1f,.1f));
-//				Gizmos.color = XKCDColors.Red;
-//				Gizmos.DrawCube (transform.TransformPoint(mesh.vertices[3]),new Vector3(.1f,.1f,.1f));
-//				Gizmos.color = XKCDColors.Pink;
-//				Gizmos.DrawCube (transform.TransformPoint(mesh.vertices[5]),new Vector3(.1f,.1f,.1f));
-//				Gizmos.color = Color.white;
+			if (addCollider) {
+				SetupCollider ();
 			}
 		}
 
 		void BuildCone () {
+			if (Application.isPlaying)
+				return;
+			if (mesh == null)
+				AcquireMesh ();
+
 			mesh.Clear();
 			nbVerticesCap = sides + 1;
 
@@ -143,22 +108,22 @@ namespace MultiGame {
 			vertices[vert + 1] = vertices[sides * 2 + 3 ];
 			#endregion
 
-			#region Normales
+			#region 
 
 			// bottom + top + sides
-			Vector3[] normales = new Vector3[vertices.Length];
+			Vector3[] normals = new Vector3[vertices.Length];
 			vert = 0;
 
 			// Bottom cap
 			while( vert  <= sides )
 			{
-				normales[vert++] = Vector3.down;
+				normals[vert++] = Vector3.down;
 			}
 
 			// Top cap
 			while( vert <= sides * 2 + 1 )
 			{
-				normales[vert++] = Vector3.up;
+				normals[vert++] = Vector3.up;
 			}
 
 			// Sides
@@ -169,14 +134,14 @@ namespace MultiGame {
 				float cos = Mathf.Cos(rad);
 				float sin = Mathf.Sin(rad);
 
-				normales[vert] = new Vector3(cos, 0f, sin);
-				normales[vert+1] = normales[vert];
+				normals[vert] = new Vector3(cos, 0f, sin);
+				normals[vert+1] = normals[vert];
 
 				vert+=2;
 				v++;
 			}
-			normales[vert] = normales[ sides * 2 + 2 ];
-			normales[vert + 1] = normales[sides * 2 + 3 ];
+			normals[vert] = normals[ sides * 2 + 2 ];
+			normals[vert + 1] = normals[sides * 2 + 3 ];
 			#endregion
 
 			#region UVs
@@ -274,7 +239,7 @@ namespace MultiGame {
 			#endregion
 
 			mesh.vertices = vertices;
-			mesh.normals = normales;
+			mesh.normals = normals;
 			mesh.uv = uvs;
 			mesh.triangles = triangles;
 			mesh.RecalculateTangents ();
@@ -283,5 +248,6 @@ namespace MultiGame {
 				coll.sharedMesh = mesh;
 
 		}
+		#endif
 	}
 }

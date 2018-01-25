@@ -8,11 +8,17 @@ namespace MultiGame {
 	[RequireComponent(typeof(PhotonView))]
 	public class PhotonLocalizer : PhotonModule {
 		
+		[ReorderableAttribute]
 		public MonoBehaviour[] localComponents;
+		[ReorderableAttribute]
 		public MonoBehaviour[] remoteComponents;
+		[ReorderableAttribute]
 		public GameObject[] localObjects;
+		[ReorderableAttribute]
 		public GameObject[] remoteObjects;
+		[ReorderableAttribute]
 		public MonoBehaviour[] masterClientComponents;
+		[ReorderableAttribute]
 		public GameObject[] masterClientObjects;
 
 		public MultiModule.HelpInfo help = new MultiModule.HelpInfo("This component toggles components and objects based on whether they are controlled by the local player. " +

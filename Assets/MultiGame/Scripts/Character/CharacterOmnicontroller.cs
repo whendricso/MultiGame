@@ -91,6 +91,7 @@ namespace MultiGame {
 		[Tooltip("How much do we vary the pitch of the sound? Small values add realism.")]
 		public float fireSoundVariance = 0f;
 
+		[ReorderableAttribute]
 		[Header("Custom")]
 		[Tooltip("Custom input actions which respond to a key and/or button press. When activated, any supplied parameters for that CustomAction will be used and the rest ignored.")]
 		public List<CustomAction> customActions = new List<CustomAction>();

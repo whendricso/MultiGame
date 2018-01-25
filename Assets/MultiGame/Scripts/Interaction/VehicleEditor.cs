@@ -9,9 +9,11 @@ namespace MultiGame {
 
 		[Tooltip("Used to delineate attachment node objects, which should have this tag. If you want the nodes to turn on/off automatically when building, add a MessageToggle component to them.")]
 		public string nodeTag;
+		[ReorderableAttribute]
 		public List<GameObject> modules = new List<GameObject>();
 		[Tooltip("The collision layers which the modules deploy ray collides with. These usually include the modules themselves as well as any ground plane or background geometry, for best results.")]
 		public LayerMask moduleMask;
+		[ReorderableAttribute]
 		public List<GameObject> attachables = new List<GameObject>();
 		[Tooltip("The collision mask for objects we can actually deploy attachables onto, this represents surfaces on the inside or outside of the vehicle where things can be attached.")]
 		public LayerMask attachableMask;

@@ -14,7 +14,6 @@ using MultiGame;
 //3. Create variations
 
 namespace MultiGame {
-
 	public class MultiGameToolbar : MGEditor {
 		#if UNITY_EDITOR
 		public enum Modes {Basic, UI, Logic, Combat, Player, AI, Utility, Help};
@@ -26,8 +25,18 @@ namespace MultiGame {
 		private Vector2 scrollView = new Vector2(0f,0f);
 
 		private bool iconsLoaded = false;
+		private static Texture2D basicTab;
+		private static Texture2D objectTab;
+		private static Texture2D logicTab;
+		private static Texture2D combatTab;
+		private static Texture2D playerTab;
+		private static Texture2D aiTab;
+		private static Texture2D utilityTab;
+		private static Texture2D helpTab;
+
 		private static Texture2D healthIcon;
 		private static Texture2D splineIcon;
+		private static Texture2D snapIcon;
 		private static Texture2D layerMaskIcon;
 		private static Texture2D shelfIcon;
 		private static Texture2D moveIcon;
@@ -126,13 +135,23 @@ namespace MultiGame {
 		[MenuItem ("MultiGame/Rapid Dev Tool")]
 		public static void  ShowWindow () {
 			EditorWindow window = EditorWindow.GetWindow(typeof(MultiGameToolbar));
-			window.minSize = new Vector2 (114f, 640f );
-			window.maxSize = new Vector2 (114f, Mathf.Infinity);
+			window.minSize = new Vector2 (116f, 640f );
+			window.maxSize = new Vector2 (116f, Mathf.Infinity);
 		}
 
 		void LoadIcons () {
+			basicTab = Resources.Load("BasicTab", typeof(Texture2D)) as Texture2D;
+			objectTab = Resources.Load("ObjectTab", typeof(Texture2D)) as Texture2D;
+			logicTab = Resources.Load("LogicTab", typeof(Texture2D)) as Texture2D;
+			combatTab = Resources.Load("CombatTab", typeof(Texture2D)) as Texture2D;
+			playerTab = Resources.Load("PlayerTab", typeof(Texture2D)) as Texture2D;
+			aiTab = Resources.Load("AiTab", typeof(Texture2D)) as Texture2D;
+			utilityTab = Resources.Load("UtilityTab", typeof(Texture2D)) as Texture2D;
+			helpTab = Resources.Load("HelpTab", typeof(Texture2D)) as Texture2D;
+
 			splineIcon = Resources.Load("Spline", typeof(Texture2D)) as Texture2D;
 			layerMaskIcon = Resources.Load("LayerMask", typeof(Texture2D)) as Texture2D;
+			snapIcon = Resources.Load("Snap", typeof(Texture2D)) as Texture2D;
 			activeCollIcon = Resources.Load("ActiveCollider", typeof(Texture2D)) as Texture2D;
 			activeCollSphereIcon = Resources.Load("ActiveColliderSphere", typeof(Texture2D)) as Texture2D;
 			activeZoneIcon = Resources.Load("ActiveZone", typeof(Texture2D)) as Texture2D;
@@ -247,46 +266,46 @@ namespace MultiGame {
 				//but it causes problems when resetting out of play mode.
 	//			if (EditorApplication.isPlaying)
 	//				return;
-
-				EditorGUILayout.BeginHorizontal("box", GUILayout.Width(106f));
-				GUI.color = Color.green;
-				if (GUILayout.Button("B", GUILayout.Width (20f), GUILayout.Height(16f)))
-					mode = Modes.Basic;
-				GUI.color = XKCDColors.Lightblue;//new Color(1f, .75f, 0f);
-				if (GUILayout.Button("O", GUILayout.Width (20f), GUILayout.Height(16f)))
-					mode = Modes.UI;
-				GUI.color = XKCDColors.LightOrange;
-				if (GUILayout.Button("L", GUILayout.Width (20f), GUILayout.Height(16f)))
-					mode = Modes.Logic;
-				GUI.color = Color.red;
-				if (GUILayout.Button("C", GUILayout.Width (20f), GUILayout.Height(16f)))
-					mode = Modes.Combat;
-
-				GUI.color = Color.white;
-				EditorGUILayout.EndHorizontal ();
-				//second row
-				EditorGUILayout.BeginHorizontal("box", GUILayout.Width(112f));
-
-				GUI.color = Color.yellow;
-				if (GUILayout.Button("P", GUILayout.Width (20f), GUILayout.Height(16f)))
-					mode = Modes.Player;
-				GUI.color = Color.cyan;
-				if (GUILayout.Button("A", GUILayout.Width (20f), GUILayout.Height(16f)))
-					mode = Modes.AI;
-				GUI.color = Color.magenta;
-				if (GUILayout.Button("U", GUILayout.Width (20f), GUILayout.Height(16f)))
-					mode = Modes.Utility;
-				GUI.color = new Color(.3f, .8f, 1f);
-				if (GUILayout.Button("H", GUILayout.Width (20f), GUILayout.Height(16f)))
-					mode = Modes.Help;
-			
-				GUI.color = Color.white;
-				EditorGUILayout.EndHorizontal ();
+//				EditorGUILayout.BeginHorizontal("box", GUILayout.Width(106f));
+//				GUI.color = XKCDColors.Lightgreen;
+//				if (GUILayout.Button("B", GUILayout.Width (20f), GUILayout.Height(16f)))
+//					mode = Modes.Basic;
+//				GUI.color = XKCDColors.Lightblue;//new Color(1f, .75f, 0f);
+//				if (GUILayout.Button("O", GUILayout.Width (20f), GUILayout.Height(16f)))
+//					mode = Modes.UI;
+//				GUI.color = XKCDColors.LightOrange;
+//				if (GUILayout.Button("L", GUILayout.Width (20f), GUILayout.Height(16f)))
+//					mode = Modes.Logic;
+//				GUI.color = XKCDColors.LightRed;
+//				if (GUILayout.Button("C", GUILayout.Width (20f), GUILayout.Height(16f)))
+//					mode = Modes.Combat;
+//
+//				GUI.color = Color.white;
+//				EditorGUILayout.EndHorizontal ();
+//				//second row
+//				EditorGUILayout.BeginHorizontal("box", GUILayout.Width(112f));
+//
+//				GUI.color = XKCDColors.LightYellow;
+//				if (GUILayout.Button("P", GUILayout.Width (20f), GUILayout.Height(16f)))
+//					mode = Modes.Player;
+//				GUI.color = XKCDColors.PaleSkyBlue;
+//				if (GUILayout.Button("A", GUILayout.Width (20f), GUILayout.Height(16f)))
+//					mode = Modes.AI;
+//				GUI.color = XKCDColors.LightPurple;
+//				if (GUILayout.Button("U", GUILayout.Width (20f), GUILayout.Height(16f)))
+//					mode = Modes.Utility;
+//				GUI.color = XKCDColors.LightTeal;
+//				if (GUILayout.Button("H", GUILayout.Width (20f), GUILayout.Height(16f)))
+//					mode = Modes.Help;
+//			
+//				GUI.color = Color.white;
+//				EditorGUILayout.EndHorizontal ();
 
 				GUIHeader();
 				ModeLabel();
 
-				scrollView = EditorGUILayout.BeginScrollView(scrollView,false, true, GUIStyle.none, GUIStyle.none, GUIStyle.none, GUILayout.Width(130f));
+				scrollView = EditorGUILayout.BeginScrollView(scrollView,false, true, GUIStyle.none, GUIStyle.none, GUIStyle.none, GUILayout.Width(120f));
+				EditorGUILayout.BeginHorizontal("box",GUILayout.Width(113f));
 				switch (mode) {
 				case Modes.Basic:
 					BasicObjectGUI();
@@ -313,6 +332,27 @@ namespace MultiGame {
 					HelpGUI();
 					break;
 				}
+				EditorGUILayout.BeginVertical();
+				if (GUILayout.Button(basicTab, GUIStyle.none, GUILayout.Width(24), GUILayout.Height(73), GUILayout.ExpandWidth(false), GUILayout.ExpandHeight(false)))
+					mode = Modes.Basic;
+				if (GUILayout.Button(objectTab, GUIStyle.none, GUILayout.Width(24), GUILayout.Height(81), GUILayout.ExpandWidth(false), GUILayout.ExpandHeight(false)))
+					mode = Modes.UI;
+				if (GUILayout.Button(logicTab, GUIStyle.none, GUILayout.Width(24), GUILayout.Height(70), GUILayout.ExpandWidth(false), GUILayout.ExpandHeight(false)))
+					mode = Modes.Logic;
+				if (GUILayout.Button(combatTab, GUIStyle.none, GUILayout.Width(24), GUILayout.Height(88), GUILayout.ExpandWidth(false), GUILayout.ExpandHeight(false)))
+					mode = Modes.Combat;
+				if (GUILayout.Button(playerTab, GUIStyle.none, GUILayout.Width(24), GUILayout.Height(76), GUILayout.ExpandWidth(false), GUILayout.ExpandHeight(false)))
+					mode = Modes.Player;
+				if (GUILayout.Button(aiTab, GUIStyle.none, GUILayout.Width(24), GUILayout.Height(39), GUILayout.ExpandWidth(false), GUILayout.ExpandHeight(false)))
+					mode = Modes.AI;
+				if (GUILayout.Button(utilityTab, GUIStyle.none, GUILayout.Width(24), GUILayout.Height(70), GUILayout.ExpandWidth(false), GUILayout.ExpandHeight(false)))
+					mode = Modes.Utility;
+				if (GUILayout.Button(helpTab, GUIStyle.none, GUILayout.Width(24), GUILayout.Height(61), GUILayout.ExpandWidth(false), GUILayout.ExpandHeight(false)))
+					mode = Modes.Help;
+				GUILayout.FlexibleSpace();
+				EditorGUILayout.EndVertical();
+				EditorGUILayout.EndHorizontal();
+
 
 				GUI.color = Color.gray;
 				EditorGUILayout.LabelField("MultiGame");
@@ -333,19 +373,19 @@ namespace MultiGame {
 		}
 
 		void GUIHeader () {
-			EditorGUILayout.BeginVertical("box"/*, GUILayout.Width(112f)*/);
+			EditorGUILayout.BeginVertical("box", GUILayout.Width(112f), GUILayout.ExpandWidth(false));
 //			EditorGUILayout.LabelField("Create from:", GUILayout.Width(108f));
 //			template = EditorGUILayout.ObjectField(template, typeof(GameObject), true, GUILayout.Width(64f), GUILayout.Height(16f)) as GameObject;
 			GUI.color = new Color(.6f,85f,1f);
 			EditorGUILayout.BeginHorizontal();
-			if (GUILayout.Button("Clear\nSelection", GUILayout.Width(100f), GUILayout.Height(52f))) {
+			if (GUILayout.Button("Clear\nSelection", GUILayout.Width(100), GUILayout.Height(52))) {
 				template = null;
 				Selection.activeGameObject = null;
 			}
 			GUI.color = Color.white;
 			EditorGUILayout.EndHorizontal();
 			EditorGUILayout.EndVertical();
-			GUI.Label (new Rect(114f,48f,256f,64f),"Hey! If you see this text,\nsquish the toolbar sideways >>><<<\nand dock it next to the Inpsector!","box");
+			GUI.Label (new Rect(122f,48f,256f,64f),"Hey! If you see this text,\nsquish the toolbar sideways >>><<<\nand dock it next to the Inpsector!","box");
 
 		}
 
@@ -353,52 +393,58 @@ namespace MultiGame {
 			switch (mode) {
 			case Modes.Basic:
 				GUI.color = XKCDColors.Lightgreen;
-				EditorGUILayout.BeginHorizontal("box"/*, GUILayout.Width(112f)*/);
-				EditorGUILayout.LabelField("Basic");
+				EditorGUILayout.BeginHorizontal ("box", GUILayout.Width(100));
+				EditorGUILayout.LabelField ("Basic", GUILayout.Width(100));
+				GUILayout.FlexibleSpace ();
 				EditorGUILayout.EndHorizontal();
 				break;
 			case Modes.UI:
 				GUI.color = XKCDColors.Lightblue;//new Color(1f, .75f, 0f);
-				EditorGUILayout.BeginHorizontal("box"/*, GUILayout.Width(112f)*/);
-				EditorGUILayout.LabelField("Object");
+				EditorGUILayout.BeginHorizontal("box", GUILayout.Width(100));
+				EditorGUILayout.LabelField("Object", GUILayout.Width(100));
+				GUILayout.FlexibleSpace ();
 				EditorGUILayout.EndHorizontal();
 				break;
 			case Modes.Logic:
 				GUI.color = XKCDColors.LightOrange;
-				EditorGUILayout.BeginHorizontal("box"/*, GUILayout.Width(112f)*/);
-				GUI.color = Color.white;
-				EditorGUILayout.LabelField("Logic");
-				GUI.color = Color.blue;
+				EditorGUILayout.BeginHorizontal("box", GUILayout.Width(100));
+				EditorGUILayout.LabelField("Logic", GUILayout.Width(100));
+				GUILayout.FlexibleSpace ();
 				EditorGUILayout.EndHorizontal();
 				break;
 			case Modes.Combat:
-				GUI.color = Color.red;
-				EditorGUILayout.BeginHorizontal("box"/*, GUILayout.Width(112f)*/);
-				EditorGUILayout.LabelField("Combat");
+				GUI.color = XKCDColors.LightRed;
+				EditorGUILayout.BeginHorizontal("box", GUILayout.Width(100));
+				EditorGUILayout.LabelField("Combat", GUILayout.Width(100));
+				GUILayout.FlexibleSpace ();
 				EditorGUILayout.EndHorizontal();
 				break;
 			case Modes.Player:
-				GUI.color = Color.yellow;
-				EditorGUILayout.BeginHorizontal("box"/*, GUILayout.Width(112f)*/);
-				EditorGUILayout.LabelField("Player");
+				GUI.color = XKCDColors.LightYellow;
+				EditorGUILayout.BeginHorizontal("box", GUILayout.Width(100));
+				EditorGUILayout.LabelField("Player", GUILayout.Width(100));
+				GUILayout.FlexibleSpace ();
 				EditorGUILayout.EndHorizontal();
 				break;
 			case Modes.AI:
-				GUI.color = Color.cyan;
-				EditorGUILayout.BeginHorizontal("box"/*, GUILayout.Width(112f)*/);
-				EditorGUILayout.LabelField("AI");
+				GUI.color = XKCDColors.PaleSkyBlue;
+				EditorGUILayout.BeginHorizontal("box", GUILayout.Width(100));
+				EditorGUILayout.LabelField("AI", GUILayout.Width(100));
+				GUILayout.FlexibleSpace ();
 				EditorGUILayout.EndHorizontal();
 				break;
 			case Modes.Utility:
-				GUI.color = Color.magenta;
-				EditorGUILayout.BeginHorizontal("box"/*, GUILayout.Width(112f)*/);
-				EditorGUILayout.LabelField("Utility");
+				GUI.color = XKCDColors.LightPurple;
+				EditorGUILayout.BeginHorizontal("box", GUILayout.Width(100));
+				EditorGUILayout.LabelField("Utility", GUILayout.Width(100));
+				GUILayout.FlexibleSpace ();
 				EditorGUILayout.EndHorizontal();
 				break;
 			case Modes.Help:
-				GUI.color = new Color(.3f, .8f, 1f);
-				EditorGUILayout.BeginHorizontal("box"/*, GUILayout.Width(112f)*/);
-				EditorGUILayout.LabelField("Help");
+				GUI.color = XKCDColors.LightTeal;
+				EditorGUILayout.BeginHorizontal("box", GUILayout.Width(100));
+				EditorGUILayout.LabelField("Help", GUILayout.Width(100));
+				GUILayout.FlexibleSpace ();
 				EditorGUILayout.EndHorizontal();
 				break;
 			}
@@ -419,8 +465,7 @@ namespace MultiGame {
 
 //			GUIHeader();
 
-			EditorGUILayout.BeginHorizontal("box",GUILayout.Width(113f));
-			EditorGUILayout.BeginVertical("box", GUILayout.Width(92f));
+			EditorGUILayout.BeginVertical("box", GUILayout.Width(60f));
 			if (MGButton(shelfIcon, "Prefab\nPainter")) {
 				if(!Shelves.running)
 					Shelves.ShowWindow();
@@ -550,12 +595,12 @@ namespace MultiGame {
 				Undo.AddComponent<SceneTransition>(target);
 				SmartRenameTarget("Scene Changer");
 			}
-			if (MGButton(spawnIcon, "GameObject\nSpawner")) {
+			if (MGButton(spawnIcon, "Object\nSpawner")) {
 				ResolveOrCreateTarget();
 				Undo.AddComponent<MessageSpawner>(target);
 				SmartRenameTarget("Spawner");
 			}
-			if (MGButton(destructibleIcon, "Destructible")) {
+			if (MGButton(destructibleIcon, "Destructor")) {
 				ResolveOrCreateTarget();
 				Undo.AddComponent<MessageDestructor>(target);
 				SmartRenameTarget("Destructible");
@@ -608,10 +653,14 @@ namespace MultiGame {
 //			}
 //			GUILayout.Space(4f);
 //			EditorGUILayout.EndVertical();
-			EditorGUILayout.EndHorizontal();
 		}
 
-
+		void Tabs () {
+			GUILayout.BeginVertical ();
+			if (GUILayout.Button (basicTab,""))
+				mode = Modes.Basic;
+			GUILayout.EndVertical ();
+		}
 
 		void ObjectCreationGUI () {
 			try {
@@ -625,7 +674,6 @@ namespace MultiGame {
 //			EditorGUILayout.EndHorizontal();
 //			GUI.color = Color.white;
 //			GUIHeader();
-
 
 			EditorGUILayout.BeginVertical("box"/*, GUILayout.Width(112f)*/);
 
@@ -661,6 +709,8 @@ namespace MultiGame {
 				SmartRenameTarget ("Procedural Model");
 				Undo.AddComponent<ProcSphere> (_child);
 			}
+			if (MGButton(snapIcon, "Snap\nWindow"))
+				GetWindow<SnapWindow>();
 			if (MGButton (uvScalarIcon, "UV Scalar")) {
 				ResolveOrCreateTarget ();
 				if (target.GetComponent<UVScalar> () == null && target.GetComponent<MeshRenderer> () != null)
@@ -742,7 +792,7 @@ namespace MultiGame {
 				Undo.AddComponent<KeyMessage>(target);
 				SmartRenameTarget("Pressable");
 			}
-			if (MGButton(destructMessageIcon, "On Destruct\nLogic")) {
+			if (MGButton(destructMessageIcon, "Logic On\nDestruct")) {
 				ResolveOrCreateTarget();
 				Undo.AddComponent<OnDestruct>(target);
 				SmartRenameTarget("Destruction Message");
@@ -769,7 +819,7 @@ namespace MultiGame {
 				SmartRenameTarget("Message Toggle");
 			}
 
-			if (MGButton(randomIcon, "Randomized\nLogic")) {
+			if (MGButton(randomIcon, "Random\nLogic")) {
 				ResolveOrCreateTarget();
 				Undo.AddComponent<RandomizedMessage>(target);
 //				Undo.AddComponent<RandomizeFloat>(target);
@@ -968,7 +1018,7 @@ namespace MultiGame {
 //				Undo.AddComponent<MeleeInputController>(target);
 //				SmartRenameTarget("Player Melee Input");
 //			}
-			if (MGButton(RTSIcon, "Commander")) {
+			if (MGButton(RTSIcon, "RTS\nCommand")) {
 				ResolveOrCreateTarget();
 				if (target.GetComponent<MouseCommander>() != null)
 					return;
@@ -1048,7 +1098,7 @@ namespace MultiGame {
 			
 			EditorGUILayout.BeginVertical("box"/*, GUILayout.Width(112f)*/);
 
-			if (MGButton(layerMaskIcon, "Layer Mask"))
+			if (MGButton(layerMaskIcon, "Layer\nMask"))
 				SetupLayerMask();
 
 			if (MGButton(turretIcon, "Turret")) {
@@ -1144,16 +1194,20 @@ namespace MultiGame {
 //			GUIHeader();
 
 			EditorGUILayout.BeginVertical("box"/*, GUILayout.Width(112f)*/);
-
-			if (MGButton(layerMaskIcon, "Layer Mask"))
+			if (MGButton (snapIcon, "Snap\nComponent")) {
+				ResolveOrCreateTarget ();
+				Undo.AddComponent<GridSnap> (target);
+				SmartRenameTarget ("Grid Based Object");
+			}
+			if (MGButton(layerMaskIcon, "Layer\nMask"))
 				SetupLayerMask();
-			if (MGButton(multiMenuIcon, "Legacy IMGUI\nMenu")) {
+			if (MGButton(multiMenuIcon, "IMGUI\nMenu")) {
 				ResolveOrCreateTarget();
 				GameObject _child = AddDirectChild(target);
 				_child.name = "MultiMenu";
 				Undo.RegisterCreatedObjectUndo(target,"Create MultiMenu");
 				Undo.AddComponent<MultiMenu>(_child);
-				SmartRenameTarget("Legacy Menu");
+				SmartRenameTarget("IMGUI Menu");
 			}
 			if (MGButton(UGUIIcon, "UGUI\nCanvas")) {
 				ResolveOrCreateTarget();
@@ -1178,12 +1232,12 @@ namespace MultiGame {
 				Undo.AddComponent<DoorController>(target);
 				SmartRenameTarget("Door");
 			}
-			if (MGButton(savePrefsIcon, "Player\nPreferences")) {
+			if (MGButton(savePrefsIcon, "Player\nPrefs")) {
 				ResolveOrCreateTarget();
 				Undo.AddComponent<UniquePreferenceSerializer>(target);
 				SmartRenameTarget("Player Preferences");
 			}
-			if (MGButton(saveToDiskIcon, "Unique\nField Saver")) {
+			if (MGButton(saveToDiskIcon, "Unique\nField")) {
 				ResolveOrCreateTarget();
 				Undo.AddComponent<UniqueObjectSerializer>(target);
 				SmartRenameTarget("Unique Field");
@@ -1278,7 +1332,18 @@ namespace MultiGame {
 			if (MGButton (helpIcon, "Start\nHere")) {
 				Application.OpenURL ("https://youtu.be/8ptbRaj_qK8");
 			}
-
+			if (MGButton (helpIcon, "Splines")) {
+				Application.OpenURL ("https://youtu.be/uHvZw2q27H0");
+			}
+			if (MGButton (helpIcon, "Managed\nMessages")) {
+				Application.OpenURL ("https://youtu.be/lbfWxTDlfps");
+			}
+			if (MGButton (helpIcon, "Advanced\nMessages")) {
+				Application.OpenURL ("https://youtu.be/I_eG-bYCtaM");
+			}
+			if (MGButton (helpIcon,"Triggers")) {
+				Application.OpenURL ("https://youtu.be/K-7MAukHq-A");
+			}
 //			if (MGButton(unetIcon, "UNet-ify")) {
 //				ResolveOrCreateTarget();
 //
@@ -1374,7 +1439,7 @@ namespace MultiGame {
 //
 //				SmartRenameTarget("UNetRelay");
 //			}
-//			//TODO
+//			
 //			if (MGButton(unetSpawn, "UNet Spawn")) {
 //				ResolveOrCreateTarget();
 //
@@ -1673,11 +1738,28 @@ namespace MultiGame {
 		}
 
 		public void SetupColliders () {
+			Debug.Log ("Creating colliders");
 			MeshFilter[] _meshFilters = target.GetComponentsInChildren<MeshFilter>();
 			if (target.GetComponentInChildren<Collider>() == null) {
+				MultiMesh[] multiMeshes = target.GetComponentsInChildren<MultiMesh> ();
+				if (multiMeshes.Length > 0) {
+					foreach (MultiMesh multiMesh in multiMeshes) {
+						if (multiMesh.gameObject.GetComponent<ProcSphere> () != null) {
+							Undo.AddComponent<SphereCollider> (multiMesh.gameObject);
+						} else if (multiMesh.gameObject.GetComponent<ProcPlane> () != null) {
+							Undo.AddComponent<BoxCollider> (multiMesh.gameObject);
+						} else {
+							MeshCollider _coll = Undo.AddComponent<MeshCollider> (multiMesh.gameObject);
+							_coll.sharedMesh = multiMesh.mesh;
+							_coll.convex = true;
+						}
+					}
+				}
 				if (_meshFilters.Length > 0) {
-					foreach(MeshFilter _filter in _meshFilters)
-						Undo.AddComponent<MeshCollider>(_filter.gameObject).convex = true;
+					foreach (MeshFilter _filter in _meshFilters) {
+						if (_filter.gameObject.GetComponent<MultiMesh>() == null)
+							Undo.AddComponent<MeshCollider> (_filter.gameObject).convex = true;
+					}
 				} else {
 					Undo.AddComponent<SphereCollider>(target);
 				}
@@ -1687,17 +1769,37 @@ namespace MultiGame {
 		public void SetupModernGun () {
 			if (target.GetComponent<ModernGun>() != null)
 				return;
-			Undo.AddComponent<ModernGun>(target);
+			ModernGun gun = Undo.AddComponent<ModernGun>(target);
+			GameObject muzzle = new GameObject ("MuzzleTransform");
+			muzzle.transform.parent = target.transform;
+			muzzle.transform.localPosition = Vector3.forward;
+			gun.muzzleTransform = muzzle;
 		}
 
 		//add colliders to the entire selection
 		public void SetupAllColliders () {
+			Debug.Log ("Creating colliders");
 			foreach (GameObject _gobj in Selection.gameObjects) {
 				MeshFilter[] _meshFilters = _gobj.GetComponentsInChildren<MeshFilter>();
 				if (_gobj.GetComponentInChildren<Collider>() == null) {
+					MultiMesh[] multiMeshes = target.GetComponentsInChildren<MultiMesh> ();
+					if (multiMeshes.Length > 0) {
+						foreach (MultiMesh multiMesh in multiMeshes) {
+							if (multiMesh.gameObject.GetComponent<ProcSphere> () != null) {
+								Undo.AddComponent<SphereCollider> (multiMesh.gameObject);
+							} else if (multiMesh.gameObject.GetComponent<ProcPlane> () != null) {
+								Undo.AddComponent<BoxCollider> (multiMesh.gameObject);
+							} else {
+								MeshCollider _coll = Undo.AddComponent<MeshCollider> (multiMesh.gameObject);
+								_coll.sharedMesh = multiMesh.mesh;
+								_coll.convex = true;
+							}
+						}
+					}
 					if (_meshFilters.Length > 0) {
 						foreach(MeshFilter _filter in _meshFilters)
-							Undo.AddComponent<MeshCollider>(_filter.gameObject).convex = true;
+							if (_filter.gameObject.GetComponent<MultiMesh>() == null)
+								Undo.AddComponent<MeshCollider>(_filter.gameObject).convex = true;
 					} else {
 						Undo.AddComponent<SphereCollider>(_gobj);
 					}
@@ -1707,8 +1809,10 @@ namespace MultiGame {
 
 		public void SetupPhysics () {
 			SetupColliders();
-			Undo.AddComponent<Rigidbody>( target.transform.root.gameObject);
-			Undo.AddComponent<PhysicsToggle>( target.transform.root.gameObject);
+			if (target.GetComponent<Rigidbody>() == null)
+				Undo.AddComponent<Rigidbody>( target.transform.root.gameObject);
+			if (target.GetComponent<PhysicsToggle>() == null)
+				Undo.AddComponent<PhysicsToggle>( target.transform.root.gameObject);
 		}
 		#endif
 

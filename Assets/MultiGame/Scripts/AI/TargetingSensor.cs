@@ -7,6 +7,7 @@ namespace MultiGame {
 	[AddComponentMenu("MultiGame/AI/Targeting Sensor")]
 	public class TargetingSensor : MultiModule {
 
+		[ReorderableAttribute]
 		[Header("Important - must be populated")]
 		[Tooltip("What tags are we looking for while targeting? Any Game Object with one of these tags that is found will be passed as a target to the 'Message Receiver' defined below.")]
 		public string[] targetTags;

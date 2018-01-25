@@ -6,6 +6,7 @@ using MultiGame;
 
 namespace MultiGame {
 
+	[AddComponentMenu("MultiGame/Network/Photon Health")]
 	public class PhotonHealth : PhotonModule {
 
 		[RequiredFieldAttribute("How much health do we start with?")]

@@ -16,6 +16,7 @@ namespace MultiGame {
 		[Header("Destruction Settings")]
 		[Tooltip("Do we destroy the object when health runs out?")]
 		public bool autodestruct = true;
+		[ReorderableAttribute]
 		[Tooltip("What should we spawn when we die from HP loss?")]
 		public GameObject[] deathPrefabs;
 		[RequiredFieldAttribute("Specify a key to save the health in Player Prefs. Will load when any instance of this object is instantiated. If you don't want to save, just leave this blank.",RequiredFieldAttribute.RequirementLevels.Optional)]

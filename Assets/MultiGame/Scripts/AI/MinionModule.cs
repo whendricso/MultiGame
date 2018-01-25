@@ -16,6 +16,7 @@ namespace MultiGame {
 		public string deselectionTag;
 		[RequiredFieldAttribute("When clicked with 'moveButton', will cause a move order to be issued", RequiredFieldAttribute.RequirementLevels.Required)]
 		public string movableTag;
+		[ReorderableAttribute]
 		[Tooltip("Tags of objects we like to hunt")]
 		public List<string> attackableTags = new List<string>();
 		[Tooltip("Mouse button to use for movement, 0 = left, 1 = right, 2 = middle")]

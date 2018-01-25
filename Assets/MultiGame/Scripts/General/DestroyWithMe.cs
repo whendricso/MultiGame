@@ -7,6 +7,7 @@ namespace MultiGame {
 	[AddComponentMenu("MultiGame/General/Destroy With Me")]
 	public class DestroyWithMe : MultiModule {
 
+		[ReorderableAttribute]
 		[Header("Important - Must be populated")]
 		[Tooltip("List of things to destroy when I destroy")]
 		public GameObject[] targets;

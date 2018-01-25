@@ -5,8 +5,10 @@ using MultiGame;
 
 namespace MultiGame {
 
+	[AddComponentMenu("MultiGame/Motion/Massive Object")]
 	public class MassiveObject : MultiModule {
 
+		[ReorderableAttribute]
 		public static List<MassiveObject> massiveObjects = new List<MassiveObject>();
 
 		public float mass = 500f;

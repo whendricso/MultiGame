@@ -2,13 +2,15 @@
 using System.Collections.Generic;
 using MultiGame;
 using UnityEngine;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 namespace MultiGame {
 	[ExecuteInEditMode]
-	[RequireComponent(typeof(MeshFilter))]
-	[RequireComponent(typeof(MeshRenderer))]
-	public class ProcCube : MultiModule {
+	public class ProcCube : MultiMesh {
 
+		#if UNITY_EDITOR
 		public float width = 1f;
 		public float length = 1f;
 		public float height = 1f;
@@ -16,26 +18,8 @@ namespace MultiGame {
 		public Vector3 uvScale = Vector3.one;
 		public Vector3 uvOffset = Vector3.zero;
 
-		[BoolButton]
-		public bool addCollider = false;
-		[BoolButton]
-		public bool refreshMesh = false;//user option
-		private bool rebuildMesh = false;//internal command to refresh during Update()
-
-		private Mesh mesh;
-		private MeshFilter filter;
-		private MeshRenderer rend;
-		private MeshCollider coll;
-
-		public bool debug = false;
-
 		public HelpInfo help = new HelpInfo ("ProcCube is a powerful tool for object and level design. It allows you to make boxes of any given proportion, and properly changes the UV coordinates so that your " +
 			"textures don't stretch like they do with a normal Unity cube. To use, simply add this to an empty transform (or create it with a Rapid Dev Toolbar button)");
-
-		void OnDrawGizmosSelected () {
-			if (debug)
-				Gizmos.DrawWireMesh (mesh, transform.position, transform.rotation);
-		}
 
 		void OnValidate () {
 			if (Application.isPlaying)
@@ -62,47 +46,15 @@ namespace MultiGame {
 		void Update () {
 			if (Application.isPlaying)
 				return;
+			if (!Selection.Contains (gameObject))
+				return;
 			rebuildMesh = false;
 			AcquireMesh ();
 			BuildCube ();
 
-			if (debug) {
-				for (int i = 0; i < mesh.normals.Length; i++) {
-					Debug.DrawRay (mesh.vertices[i],mesh.normals[i]);
-				}
-			}
-
-
 			if (addCollider) {
 				SetupCollider ();
 			}
-		}
-
-		void SetupCollider () {
-			coll = GetComponent<MeshCollider> ();
-			if (coll == null)
-				StartCoroutine (AddColl ());
-			addCollider = false;
-		}
-
-		IEnumerator AddColl () {//Coroutine allows sending of Unity internal messages, preventing an error
-			
-			yield return new WaitForSeconds (.001f);
-			coll = gameObject.AddComponent<MeshCollider> ();
-			coll.convex = true;
-		}
-
-		void AcquireMesh () {
-			if (filter == null)
-				filter = GetComponent<MeshFilter> ();
-			mesh = new Mesh ();
-			filter.sharedMesh = mesh;
-			if (rend == null)
-				rend = GetComponent<MeshRenderer> ();
-			if (rend.sharedMaterial == null)
-				rend.sharedMaterial = Resources.Load<Material>("Gray");
-			if (coll == null)
-				coll = GetComponent<MeshCollider> ();
 		}
 
 		void BuildCube () {
@@ -143,7 +95,7 @@ namespace MultiGame {
 			};
 			#endregion
 
-			#region Normales
+			#region normals
 			Vector3 up = Vector3.up;
 			Vector3 down = Vector3.down;
 			Vector3 front = Vector3.forward;
@@ -254,5 +206,6 @@ namespace MultiGame {
 
 			//;
 		}
+		#endif
 	}
 }

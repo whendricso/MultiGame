@@ -9,6 +9,7 @@ namespace MultiGame
 	[AddComponentMenu("MultiGame/Interaction/Input/Mouse Message")]
 	public class MouseMessage : MultiModule
 	{
+		[ReorderableAttribute]
 		[Header("Important - Must be Populated")]
 		public List<string> targetTags = new List<string> ();
 		public LayerMask mouseRayMask;

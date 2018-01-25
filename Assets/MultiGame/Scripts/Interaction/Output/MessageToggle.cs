@@ -9,8 +9,10 @@ namespace MultiGame {
 
 		[Header("Important - Must be Populated")]
 		[Tooltip("Game Objects we will toggle")]
+		[ReorderableAttribute]
 		public GameObject[] gameObjectTargets;
 		[Tooltip("Scripts we will toggle")]
+		[ReorderableAttribute]
 		public MonoBehaviour[] scriptTargets;
 		[Header("Other Settings")]
 		[Tooltip("Light we wish to toggle")]

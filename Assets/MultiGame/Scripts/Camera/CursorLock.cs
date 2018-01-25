@@ -7,9 +7,11 @@ namespace MultiGame {
 	[AddComponentMenu("MultiGame/Camera/Cursor Lock")]
 	public class CursorLock : MultiModule {
 
+		[ReorderableAttribute]
 		[Header("Key Settings")]
 		[Tooltip("List of keys that unlock the mouse")]
 		public KeyCode[] unLockKeys = new KeyCode[] {KeyCode.Escape, KeyCode.LeftControl};
+		[ReorderableAttribute]
 		[Tooltip("List of keys that lock the mouse")]
 		public KeyCode[] lockKeys = new KeyCode[] {KeyCode.W, KeyCode.A, KeyCode.S, KeyCode.D};
 		[System.NonSerialized]

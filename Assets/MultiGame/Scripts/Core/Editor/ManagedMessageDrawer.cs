@@ -24,12 +24,12 @@ namespace MultiGame
 			EditorGUI.indentLevel = 0;
 
 
-			Rect targetRect = new Rect (position.x, position.y, position.width, 16f);
-			Rect messageRect = new Rect (position.x, position.y + 16f, position.width, 16f);
-			Rect sendTypeRect = new Rect (position.x, position.y + 80f, position.width, 16f);
-			Rect parameterRect = new Rect (position.x, position.y + 48f, position.width, 16f);
-			Rect parameterTypeRect = new Rect (position.x, position.y + 64f, position.width, 16f);
-			Rect rescanButtonRect = new Rect (position.x, position.y + 32f, position.width, 16f);
+			Rect targetRect = new Rect (position.x-32, position.y, position.width+32, 16f);
+			Rect messageRect = new Rect (position.x-64, position.y + 16f, position.width+64, 16f);
+			Rect sendTypeRect = new Rect (position.x-128, position.y + 80f, position.width+128, 16f);
+			Rect parameterRect = new Rect (position.x-128, position.y + 48f, position.width+128, 16f);
+			Rect parameterTypeRect = new Rect (position.x-128, position.y + 64f, position.width+128, 16f);
+			Rect rescanButtonRect = new Rect (position.x-128, position.y + 32f, position.width+128, 16f);
 
 
 			_msgStrings = new List<string> ();
@@ -42,7 +42,7 @@ namespace MultiGame
 				GUI.color = Color.cyan;
 			else
 				GUI.color = Color.white;
-			EditorGUI.PropertyField (targetRect, property.FindPropertyRelative ("target"), new GUIContent ("Message Target"));
+			EditorGUI.PropertyField (targetRect, property.FindPropertyRelative ("target"),GUIContent.none/*, new GUIContent ("Target")*/);
 				
 			//display as a string if the override is enabled, this also locks the message in so it won't change if the list is rebuilt
 			if (property.FindPropertyRelative ("msgOverride").boolValue) {
@@ -83,8 +83,8 @@ namespace MultiGame
 					GUI.color = Color.yellow;
 			}
 			if (!property.FindPropertyRelative("msgOverride").boolValue)
-				EditorGUI.LabelField (new Rect (messageRect.width - messageRect.x * 1.1f, messageRect.y, messageRect.width * .2f, messageRect.height),"Lck");
-			EditorGUI.PropertyField (new Rect (messageRect.width - messageRect.x * 0.8f, messageRect.y, messageRect.width * .2f, messageRect.height), property.FindPropertyRelative ("msgOverride"), GUIContent.none);
+				EditorGUI.LabelField (new Rect (/*messageRect.width - messageRect.x * */30, messageRect.y, messageRect.width * .2f, messageRect.height),"Lck");
+			EditorGUI.PropertyField (new Rect (/*messageRect.width - messageRect.x * */54, messageRect.y, messageRect.width * .2f, messageRect.height), property.FindPropertyRelative ("msgOverride"), GUIContent.none);
 			GUI.color = Color.white;
 			if ((property.FindPropertyRelative ("message").stringValue != "--none--" && !string.IsNullOrEmpty (property.FindPropertyRelative ("message").stringValue)) && property.FindPropertyRelative ("msgOverride").boolValue != false) {
 				EditorGUI.PropertyField (sendTypeRect, property.FindPropertyRelative ("sendMessageType"), new GUIContent ("Send Mode"));

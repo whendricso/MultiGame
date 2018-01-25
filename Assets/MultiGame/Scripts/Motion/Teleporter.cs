@@ -11,9 +11,11 @@ namespace MultiGame {
 		[RequiredFieldAttribute("Optional target destination. Send the 'TeleportToTarget' message to teleport to this object if it exists", RequiredFieldAttribute.RequirementLevels.Optional)]
 		public GameObject teleTarget;
 		[Tooltip("A list of tags representing objects that can be teleported automatically")]
+		[ReorderableAttribute]
 		public List<string> teleportableTags = new List<string>();
 		[Tooltip("A list of tags we can teleport to using the message 'TeleportToSelected' which takes an integer representing the index of the tag you wish to use from the list and " +
 			"will teleport this object to an object with that tag.")]
+		[ReorderableAttribute]
 		public List<string> teleTargetTags = new List<string>();
 		[Tooltip("If true, we will try to teleport any object that enters our trigger and has a matching tag")]
 		public bool automatic = true;

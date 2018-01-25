@@ -47,8 +47,10 @@ namespace MultiGame {
 		[RequiredFieldAttribute("Tag of objects we can't deploy close to", RequiredFieldAttribute.RequirementLevels.Recommended)]
 		public string radiusSearchTag = "";//tag to check against for deploy radius constraint
 		[Tooltip("What objects can the player buy?")]
+		[ReorderableAttribute]
 		public Deployable[] deploys;
 		[Tooltip("What resources, if any, exist in the game?")]//[ReorderableField()]//TODO: Finish reorderable fields
+		[ReorderableAttribute]
 		public List<ResourceManager.GameResource> resources = new List<ResourceManager.GameResource>();
 
 		[Header("Message Senders")]

@@ -8,6 +8,7 @@ namespace MultiGame {
 public class StartMessage : MultiModule {
 
 		[Tooltip("When this object is created, what message should we send?")]
+		[ReorderableAttribute]
 		public MessageManager.ManagedMessage[] messages;
 
 		public bool debug = false;
@@ -25,6 +26,8 @@ public class StartMessage : MultiModule {
 		}
 
 		void OnValidate () {
+			if (messages == null)
+				return;
 			for (int i = 0; i < this.messages.Length; i++) {
 				MessageManager.ManagedMessage _msg = messages[i];
 				MessageManager.UpdateMessageGUI(ref _msg, gameObject);

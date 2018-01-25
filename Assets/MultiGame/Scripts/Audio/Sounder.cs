@@ -9,6 +9,7 @@ namespace MultiGame {
 	[RequireComponent(typeof(AudioSource))]
 	public class Sounder : MultiModule {
 
+		[ReorderableAttribute]
 		[Header("Available sounds")]
 		[Tooltip("A list of clips we can play by using 'PlaySelectedSound' and sending an integer representing which clip we want. 0 for first, 1 for second and son forth")]
 		public AudioClip[] clips;

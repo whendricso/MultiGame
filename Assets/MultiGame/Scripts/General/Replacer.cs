@@ -7,7 +7,7 @@ namespace MultiGame {
 
 	[AddComponentMenu("MultiGame/General/Replacer")]
 	public class Replacer : MultiModule {
-
+		[ReorderableAttribute]
 		public List<GameObject> replacements;
 		public MessageManager.ManagedMessage replacementMessage;
 

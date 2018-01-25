@@ -10,12 +10,15 @@ namespace MultiGame {
 		[Tooltip("Should we use the built-in immediate mode GUI? (Unsupported on mobile)")]
 		public bool useGUI = true;
 		[Tooltip("A list of prefabs that the user can add to the object. Each has a name that is displayed to the user,")]
+		[ReorderableAttribute]
 		public List<Accessory> accessories = new List<Accessory>();
 		[Tooltip("A list of child transforms where accessories can be added. Each Accessory has a list of indices which correspond to these transforms.")]
+		[ReorderableAttribute]
 		public List<GameObject> accessoryTransforms = new List<GameObject>();
 		[Tooltip("The exclusive object that's selected by default")]
 		public GameObject exclusiveSelection;
 		[Tooltip("A list of child objects which can be selected from. For example, the base mesh of a character. Selecting one will disable the others. Objects are not destroyed.")]
+		[ReorderableAttribute]
 		public List<GameObject> mutuallyExclusiveSelections = new List<GameObject>();
 
 		public MessageManager.ManagedMessage accessoryEnabledMessage;

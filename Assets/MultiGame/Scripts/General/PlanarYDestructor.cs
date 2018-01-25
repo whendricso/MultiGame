@@ -10,7 +10,7 @@ namespace MultiGame {
 		
 		[RequiredFieldAttribute("The depth at which we must pass under before being automatically destroyed")]
 		public float minimumYLevel = -1000;//destroy the object if it falls below this plane
-
+		[ReorderableAttribute]
 		[Tooltip("Objects we should spawn if killed in this way")]
 		public List<GameObject> deathPrefabs = new List<GameObject>();
 		[Tooltip("A message we should send if we are killed in this way")]

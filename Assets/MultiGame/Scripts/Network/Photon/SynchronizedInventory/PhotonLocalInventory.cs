@@ -15,13 +15,12 @@ namespace MultiGame {
 		public Rect screenArea;
 		public GUISkin guiSkin;
 		public GameObject instantiationTransform;
+		[ReorderableAttribute]
 		public List<GameObject> equipSlots = new List<GameObject>();
 		public int maxItems = 10;
 		public bool automatic = true;
 		public string collectibleObjectTag = "Collectible";
 		public string activeObjectTag = "ActiveObject";
-
-
 
 		[HideInInspector]
 		public List<InventoryItem> items = new List<InventoryItem>();

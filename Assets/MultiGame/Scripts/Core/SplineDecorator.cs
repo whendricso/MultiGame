@@ -13,6 +13,7 @@ namespace MultiGame {
 		[Header("Essential Settings")]
 		[RequiredFieldAttribute("A reference to the spline component")]
 		public BezierSpline spline;
+		[ReorderableAttribute]
 		[Tooltip("A list of decorations we want to distribute along the spline")]
 		public GameObject[] decorations;
 

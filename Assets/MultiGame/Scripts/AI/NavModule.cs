@@ -152,7 +152,7 @@ namespace MultiGame {
 	//		if (!agent.isOnNavMesh)
 	//			return;
 			agent.SetDestination(targetPosition);
-			agent.Resume();
+			agent.isStopped = false;//.Resume();
 		}
 
 		public void SetTarget (GameObject _target) {

@@ -10,6 +10,7 @@ namespace MultiGame
 	public class ResourceManager : MultiModule
 	{
 		[Header("Important - Must be populated")]
+		[ReorderableAttribute]
 		public List<GameResource> startingResources = new List<GameResource>();
 		[Header("IMGUI Settings")]
 		[Tooltip("Should we show the resources using a legacy GUI? Not suitable for mobile.")]

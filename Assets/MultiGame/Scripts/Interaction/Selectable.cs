@@ -22,6 +22,7 @@ namespace MultiGame {
 		//[System.NonSerialized]
 		public bool selected = false;
 
+		[ReorderableAttribute]
 		[Tooltip("A list of messages which can be sent depending on whether or not the object is selected by the player")]
 		public List<MessageManager.ManagedMessage> messages = new List<MessageManager.ManagedMessage>();
 

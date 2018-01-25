@@ -25,12 +25,14 @@ namespace MultiGame {
 		[RequiredFieldAttribute("The default name for new characters.", RequiredFieldAttribute.RequirementLevels.Recommended)]
 		public string characterName = "Player";
 
+		[ReorderableAttribute]
 		[Header("Object Settings")]
 		[Tooltip("Prefabs that can be used as a base model. Must match the prefab name exactly. The prefab must be directly inside a 'Resources' folder.")]
 		public List<string> baseModels = new List<string>();
 		private int currentBaseModel = 0;
 		[HideInInspector]
 		public GameObject character;
+		[ReorderableAttribute]
 		public List<AttachableSlot> attachableSlots = new List<AttachableSlot>();
 //		[HideInInspector]
 //		public List<GameObject> attachedObjects = new List<GameObject>();

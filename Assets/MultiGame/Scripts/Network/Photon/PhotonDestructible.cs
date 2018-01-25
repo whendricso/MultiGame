@@ -8,6 +8,7 @@ namespace MultiGame {
 
 		[Tooltip("An array of prefabs (by name) which will be spawned when we are destroyed. The names must match exactly, and the prefab must be directly inside a 'Resources' folder, " +
 			"otherwise Photon will throw an error and fail to spawn your prefab.")]
+		[ReorderableAttribute]
 		public string[] deathPrefabNames;
 
 

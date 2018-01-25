@@ -12,6 +12,7 @@ namespace MultiGame {
 		public float radius = 30.0f;
 		public bool spawnOnce = false;
 		public GameObject unit;
+		[ReorderableAttribute]
 		public GameObject[] spawnPoints;
 		public float spawnDelay = 30.0f;
 		public bool usePrefabTagAndLayer = true;

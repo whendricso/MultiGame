@@ -2,28 +2,24 @@
 using System.Collections.Generic;
 using MultiGame;
 using UnityEngine;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
 
 namespace MultiGame {
 	[RequireComponent(typeof(MeshFilter))]
 	[RequireComponent(typeof(MeshRenderer))]
-	public class ProcPlane : MultiModule {
+	public class ProcPlane : MultiMesh {
 
+		#if UNITY_EDITOR
 		public float length = 1f;
 		public float width = 1f;
 		[Range(2,100)]
 		public int resolution = 2;
 		[Range(0.1f,10f)]
 		public float uvScale = 1;
-		public bool debug = false;
-
-		[BoolButton]
-		public bool refreshMesh = false;
-		[BoolButton]
-		public bool addCollider = false;
-
-		private MeshFilter filter;
-		private Mesh mesh;
-		private MeshRenderer rend;
+		public Vector2 uvOffset = Vector2.zero;
 
 		public HelpInfo help = new HelpInfo("ProcPlane allows you to create procedural plane primitives in your scene, and adjust their resolution and UV settings to fit your needs. To use, simply add this to an empty " +
 			"object, adjust it's placement ");
@@ -31,12 +27,20 @@ namespace MultiGame {
 
 		void OnValidate () {
 			refreshMesh = false;
-			BuildPlane ();
-
 			if (addCollider) {
 				SetupCollider ();
 			}
 
+		}
+
+		protected override IEnumerator AddColl () {//Coroutine allows sending of Unity internal messages, preventing an error
+
+			yield return new WaitForSeconds (.001f);
+		#if UNITY_EDITOR
+			BoxCollider coll = GetComponent<BoxCollider> ();
+			if (coll == null)
+				Undo.AddComponent<BoxCollider>(gameObject);
+		#endif
 		}
 
 		void Reset () {
@@ -49,52 +53,29 @@ namespace MultiGame {
 			BuildPlane ();
 		}
 
-		void SetupCollider () {
-			BoxCollider coll = GetComponent<BoxCollider> ();
-			if (coll == null)
-				StartCoroutine (AddColl ());
-			addCollider = false;
-		}
+		void Update () {
+			if (Application.isPlaying)
+				return;
+			if (!Selection.Contains (gameObject))
+				return;
+			rebuildMesh = false;
+			AcquireMesh ();
+			BuildPlane ();
 
-		void AcquireMesh () {
-			if (filter == null)
-				filter = GetComponent<MeshFilter> ();
-			mesh = filter.sharedMesh;
-			if (mesh == null) {
-				mesh = new Mesh ();
-				filter.sharedMesh = mesh;
+			if (addCollider) {
+				SetupCollider ();
 			}
-			if (rend == null)
-				rend = GetComponent<MeshRenderer> ();
-			if (rend.sharedMaterial == null)
-				rend.sharedMaterial = Resources.Load<Material>("Gray");
-		}
-
-		IEnumerator AddColl () {//Coroutine allows sending of Unity internal messages, preventing an error
-			yield return new WaitForSeconds (.001f);
-			gameObject.AddComponent<BoxCollider> ();
-		}
-
-		void OnDrawGizmosSelected () {
-//			if (mesh == null) {
-//				print ("Mesh is null!");
-//				return;
-//			}
-//			for (int i = 0; i < mesh.vertices.Length; i++) {
-//				Gizmos.DrawCube (mesh.vertices[i], Vector3.one * 0.1f);
-//			}
-			if (debug)
-				Gizmos.DrawWireMesh (mesh,transform.position,transform.rotation);
+			BoxCollider coll = GetComponent<BoxCollider> ();
+			if (coll != null) {
+				coll.size = new Vector3 (width, 0, length);
+			}
 		}
 
 		public void BuildPlane () {
-			if (Application.isPlaying)
-				return;
 			if (mesh == null)
 				AcquireMesh ();
 			if (mesh == null)
 				Debug.LogError ("Mesh is null!");
-			
 
 			#region Vertices		
 			Vector3[] vertices = new Vector3[ resolution * resolution ];
@@ -123,7 +104,7 @@ namespace MultiGame {
 			{
 				for(int u = 0; u < resolution; u++)
 				{
-					uvs[ u + v * resolution ] = new Vector2( ((float)u / (resolution - 1))*uvScale*width, -((float)v / (resolution - 1))*uvScale*length );
+					uvs[ u + v * resolution ] = new Vector2( ((float)u / (resolution - 1))*uvScale*width + uvOffset.x, -((float)v / (resolution - 1))*uvScale*length + uvOffset.y);
 				}
 			}
 			#endregion
@@ -157,5 +138,6 @@ namespace MultiGame {
 			mesh.RecalculateBounds();
 			;
 		}
+		#endif
 	}
 }

@@ -37,14 +37,17 @@ namespace MultiGame {
 		public bool allowExtraCategories = true;
 
 		public string category1Name = "";
+		[ReorderableAttribute]
 		[Tooltip("List of all songs, in order, in the category")]
 		public AudioClip[] category1;
 		private int current1 = 0;
 		public string category2Name = "";
+		[ReorderableAttribute]
 		[Tooltip("List of all songs, in order, in the category")]
 		public AudioClip[] category2;
 		private int current2 = 0;
 		public string category3Name = "";
+		[ReorderableAttribute]
 		[Tooltip("List of all songs, in order, in the category")]
 		public AudioClip[] category3;
 		private int current3 = 0;

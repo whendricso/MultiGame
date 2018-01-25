@@ -17,6 +17,7 @@ namespace MultiGame {
 		public bool playerOnly = false;
 		[Header("Important - Must be populated")]
 		[Tooltip("A list of tags that trigger this message sender")]
+		[ReorderableAttribute]
 		public List<string> activeTags = new List<string>();
 		[Header("Output Settings")]
 		[Tooltip("When checking tags, do we check the collision object or it's root transform?")]

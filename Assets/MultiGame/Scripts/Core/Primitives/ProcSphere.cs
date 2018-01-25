@@ -2,38 +2,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 using MultiGame;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 namespace MultiGame {
 	[ExecuteInEditMode]
 	[RequireComponent(typeof(MeshFilter))]
 	[RequireComponent(typeof(MeshRenderer))]
-	public class ProcSphere : MultiModule {
+	public class ProcSphere : MultiMesh {
 
+		#if UNITY_EDITOR
 		public float radius = 1f;
 		// Longitude |||
 		[Range(3,100)]
-		public int longitudinalSections = 24;
+		public int longitudinalSections = 16;
 		// Latitude ---
 		[Range(1,100)]
 		public int latitudinalSections = 16;
-
-		[BoolButton]
-		public bool addCollider = false;
-		[BoolButton]
-		public bool refreshMesh = false;
-		private bool rebuildMesh = false;//internal command to refresh during Update()
-
-		private Mesh mesh;
-		private MeshFilter filter;
-		private MeshRenderer rend;
-		private MeshCollider coll;
-
-		public bool debug = false;
-
-		void OnDrawGizmosSelected () {
-			if (debug)
-				Gizmos.DrawWireMesh (mesh, transform.position, transform.rotation);
-		}
 
 		void OnValidate () {
 			if (Application.isPlaying)
@@ -48,20 +34,18 @@ namespace MultiGame {
 		void Update () {
 			if (Application.isPlaying)
 				return;
+			if (!Selection.Contains (gameObject))
+				return;
 			rebuildMesh = false;
 			AcquireMesh ();
 			BuilSphere ();
 
-//			if (debug) {
-//				for (int i = 0; i < mesh.normals.Length; i++) {
-//					Debug.DrawRay (mesh.vertices[i],mesh.normals[i]);
-//				}
-//			}
-
-
 			if (addCollider) {
 				SetupCollider ();
 			}
+			SphereCollider coll = GetComponent<SphereCollider> ();
+			if (coll != null)
+				coll.radius = radius;
 		}
 		void Reset () {
 			AcquireMesh ();
@@ -73,41 +57,20 @@ namespace MultiGame {
 			BuilSphere ();
 		}
 
-		void SetupCollider () {
-			coll = GetComponent<MeshCollider> ();
-			if (coll == null)
-				StartCoroutine (AddColl ());
-			addCollider = false;
-		}
-
-		IEnumerator AddColl () {//Coroutine allows sending of Unity internal messages, preventing an error
-
+		protected override IEnumerator AddColl () {//Coroutine allows sending of Unity internal messages, preventing an error
 			yield return new WaitForSeconds (.001f);
-			coll = gameObject.AddComponent<MeshCollider> ();
-			coll.convex = true;
-		}
-
-		void AcquireMesh () {
-			if (filter == null)
-				filter = GetComponent<MeshFilter> ();
-			mesh = new Mesh ();
-			filter.sharedMesh = mesh;
-			if (rend == null)
-				rend = GetComponent<MeshRenderer> ();
-			if (rend.sharedMaterial == null)
-				rend.sharedMaterial = Resources.Load<Material>("Gray");
+		#if UNITY_EDITOR
+			SphereCollider coll = GetComponent<SphereCollider> ();
 			if (coll == null)
-				coll = GetComponent<MeshCollider> ();
+				Undo.AddComponent<SphereCollider>(gameObject);
+		#endif
 		}
 
 		public void BuilSphere (){
-			
 			mesh.Clear();
-			print ("Build sphere");
-
 			 
 			#region Vertices
-			Vector3[] vertices = new Vector3[(longitudinalSections+1) * latitudinalSections + 2];
+			vertices = new Vector3[(longitudinalSections+1) * latitudinalSections + 2];
 			float _pi = Mathf.PI;
 			float _2pi = _pi * 2f;
 			 
@@ -130,14 +93,14 @@ namespace MultiGame {
 			vertices[vertices.Length-1] = Vector3.up * -radius;
 			#endregion
 			 
-			#region Normales		
-			Vector3[] normales = new Vector3[vertices.Length];
+			#region normals		
+			normals = new Vector3[vertices.Length];
 			for( int n = 0; n < vertices.Length; n++ )
-				normales[n] = vertices[n].normalized;
+				normals[n] = vertices[n].normalized;
 			#endregion
 			 
 			#region UVs
-			Vector2[] uvs = new Vector2[vertices.Length];
+			uvs = new Vector2[vertices.Length];
 			uvs[0] = Vector2.up;
 			uvs[uvs.Length-1] = Vector2.zero;
 			for( int lat = 0; lat < latitudinalSections; lat++ )
@@ -188,17 +151,21 @@ namespace MultiGame {
 			#endregion
 			 
 			mesh.vertices = vertices;
-			mesh.normals = normales;
+			mesh.normals = normals;
 			mesh.uv = uvs;
 			mesh.triangles = triangles;
 			if (coll != null) {
-				if (longitudinalSections > 15 || latitudinalSections > 15) {
+				if (longitudinalSections > 15 || latitudinalSections > 15)
 					coll.inflateMesh = true;
-				}
+				if (longitudinalSections <= 15 && latitudinalSections <= 15)
+					coll.inflateMesh = false;
+
+
 				coll.sharedMesh = mesh;
 			}
 			mesh.RecalculateBounds();
-			;
+
 		}
+		#endif
 	}
 }

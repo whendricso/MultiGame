@@ -7,6 +7,7 @@ namespace MultiGame {
 	[AddComponentMenu("MultiGame/Interaction/Output/MessageDestructor")]
 	public class MessageDestructor : MultiModule {
 
+		[ReorderableAttribute]
 		[Tooltip("Objects to spawn when we destroy this object")]
 		public GameObject[] deathPrefabs;
 

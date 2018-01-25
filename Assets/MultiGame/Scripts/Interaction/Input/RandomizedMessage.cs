@@ -9,6 +9,7 @@ namespace MultiGame {
 	public class RandomizedMessage : MultiModule {
 
 
+		[ReorderableAttribute]
 		public List<RandomMessage> randomizedMessages = new List<RandomMessage> ();
 //		[Tooltip("Messages to send randomly")]
 //		public List<MessageManager.ManagedMessage> messages = new List<MessageManager.ManagedMessage>();

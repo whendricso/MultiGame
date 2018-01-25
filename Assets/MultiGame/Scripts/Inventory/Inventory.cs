@@ -10,7 +10,7 @@ namespace MultiGame {
 	[AddComponentMenu("MultiGame/Inventory/Inventory")]
 	public class Inventory : MultiModule {
 		
-
+		//TODO:Inventory system needs a major update
 		[Header("Heirarchy Settings")]
 		[RequiredFieldAttribute("Right hand transform, should be an empty object parented to the hand and rotated to match the rotation of any items you wish the character to hold")]
 		public GameObject rWeaponMount;

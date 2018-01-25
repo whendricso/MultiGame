@@ -26,6 +26,10 @@ namespace MultiGame {
 			if (targetComponent == null)
 				return;
 			FieldInfo field = targetComponent.GetType().GetField("target");
+			if (field == null) {
+				Debug.LogError ("Field 'target' not found!");
+				return;
+			}
 			field.SetValue(field, GameObject.FindGameObjectWithTag(targetTag));
 		}
 	}

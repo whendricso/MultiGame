@@ -10,6 +10,7 @@ namespace MultiGame {
 
 		[Header("Important - Must be Populated")]
 		[Tooltip("List of messages we will send")]
+		[ReorderableAttribute]
 		public List<MessageManager.ManagedMessage> messages = new List<MessageManager.ManagedMessage>();
 		[Header("Sender Settings")]
 		[RequiredFieldAttribute("Tag associated with objects we want to talk to")]

@@ -9,8 +9,10 @@ namespace MultiGame {
 	public class MouseOverToggle : MultiModule {
 		
 		[Tooltip("Scripts we will toggle")]
+		[ReorderableAttribute]
 		public MonoBehaviour[] scripts;
 		[Tooltip("Objects we will toggle")]
+		[ReorderableAttribute]
 		public GameObject[] objects;
 		[Tooltip("Should on/off be reversed?")]
 		public bool reverse;

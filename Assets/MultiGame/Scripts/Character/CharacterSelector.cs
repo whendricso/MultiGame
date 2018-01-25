@@ -25,6 +25,7 @@ namespace MultiGame {
 		[Header("Spawn Settings")]
 		[RequiredFieldAttribute("Where do we spawn the new player object?", RequiredFieldAttribute.RequirementLevels.Optional)]
 		public GameObject spawnPoint;
+		[ReorderableAttribute]
 		[Tooltip("What characters can we select from?")]
 		public List<GameObject> characters;
 

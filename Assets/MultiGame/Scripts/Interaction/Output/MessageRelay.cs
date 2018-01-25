@@ -8,6 +8,7 @@ namespace MultiGame {
 	[AddComponentMenu("MultiGame/Interaction/Output/MessageRelay")]
 	public class MessageRelay : MultiModule {
 
+		[ReorderableAttribute]
 		[Header("Important - Must be Populated")]
 		[Tooltip("List of messages we will send")]
 		public List<MessageManager.ManagedMessage> messages = new List<MessageManager.ManagedMessage>();

@@ -9,6 +9,7 @@ namespace MultiGame {
 	[RequireComponent (typeof(Animator))]
 	public class PhotonMecanimRelay : PhotonModule {
 
+		[ReorderableAttribute]
 		public AnimatedState[] animatedStates;
 
 		public MultiModule.HelpInfo help = new MultiModule.HelpInfo("Allows for a Mecanim Trigger to be activated across the Photon network. You can set a list of triggers with " +

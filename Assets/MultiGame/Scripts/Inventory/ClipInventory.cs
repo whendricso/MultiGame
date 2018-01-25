@@ -9,8 +9,10 @@ namespace MultiGame {
 
 		[Header("Important - Must be populated")]
 		[Tooltip("Number of currently held clips for a given clip type index")]
+		[ReorderableAttribute]
 		public int[] numClips;
 		[Tooltip("Maximum number of clips for a given clip type index")]
+		[ReorderableAttribute]
 		public int[] maxClips;
 		[Header("GUI Settings")]
 		[Tooltip("Should we show a legacy Unity GUI for this information?")]

@@ -9,8 +9,10 @@ namespace MultiGame {
 
 		[Header("Toggle Targets")]
 		[Tooltip("Game Objects we will toggle")]
+		[ReorderableAttribute]
 		public GameObject[] gameObjectTargets;//a list of targets to toggle
 		[Tooltip("Scripts we will toggle")]
+		[ReorderableAttribute]
 		public MonoBehaviour[] scriptTargets;
 		[Tooltip("Collider we will toggle")]
 		public Collider colliderTarget;

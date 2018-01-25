@@ -9,6 +9,7 @@ namespace MultiGame {
 	[RequireComponent(typeof (Rigidbody))]
 	public class Graviton : MultiModule {
 
+		[ReorderableAttribute]
 		static List<Graviton> gravitons = new List<Graviton>();
 
 //		public bool autoAlignUp = false;

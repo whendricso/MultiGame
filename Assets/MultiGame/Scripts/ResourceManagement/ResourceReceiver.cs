@@ -10,6 +10,7 @@ namespace MultiGame {
 	public class ResourceReceiver : MultiModule {
 
 		[Tooltip("What resources should this object add to the game? Once added, they remain permanently.")]
+		[ReorderableAttribute]
 		public List<ResourceManager.GameResource> resources = new List<ResourceManager.GameResource>();
 		[Tooltip("Which zero-indexed resource are we receiving or spending?")]
 		public int resourceIndex = 0;
