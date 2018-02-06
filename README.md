@@ -18,7 +18,7 @@ No longer will mundane tasks limit your progress. Clean, well-documented compone
 The most common components to any game project can be found inside! I'm so confident that you'll like MultiGame, I'm making half of it open source so that you can feel confident including it in your own projects.
 
 ### Powerful!
-MultiGame has been developed and tested on multiple projects since January 2013. It's flexible ManagedMessage system provides a powerful framework
+MultiGame has been developed and tested on multiple projects since January 2013. It's flexible ManagedMessage system provides a powerful event framework that works automatically with *any* script, even those not included in MultiGame.
 
 ## I WANT MORE!
 ### Click this: https://gumroad.com/l/fSEKz
