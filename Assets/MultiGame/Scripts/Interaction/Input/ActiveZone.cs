@@ -92,7 +92,7 @@ namespace MultiGame {
 				return;
 
 			if (!string.IsNullOrEmpty(messageToEnteringEntity.message)) {
-				other.gameObject.SendMessage(messageToEnteringEntity.message, SendMessageOptions.DontRequireReceiver);//MessageManager.SendTo(messageToEnteringEntity,other.gameObject);
+				/*other.gameObject.SendMessage(messageToEnteringEntity.message, SendMessageOptions.DontRequireReceiver);*/MessageManager.SendTo(messageToEnteringEntity,other.gameObject);
 			}
 
 			if (animator != null && CheckStringExists(mecanimTrigger))

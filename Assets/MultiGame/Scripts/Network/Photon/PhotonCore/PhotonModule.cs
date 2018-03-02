@@ -5,7 +5,7 @@ using MultiGame;
 
 namespace MultiGame {
 
-	public class PhotonModule : Photon.MonoBehaviour {
+	public class PhotonModule : Photon.PunBehaviour {
 
 		protected PhotonView GetView () {
 			return transform.root.gameObject.GetComponentInChildren<PhotonView>() as PhotonView;

@@ -1,10 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 using MultiGame;
 
 namespace MultiGame {
 
+	#if UNITY_EDITOR
+	[ExecuteInEditMode]
+	#endif
 //	[AddComponentMenu("MultiGame/General/Line Guide")]
 	[RequireComponent(typeof(LineRenderer))]
 	public class LineGuide : MultiModule {

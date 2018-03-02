@@ -21,6 +21,9 @@ namespace MultiGame {
 		[HideInInspector]
 		public bool invert = false;
 
+		[Tooltip("Should we ignore relay calls when this object or component is disabled? If false, we will relay even when disabled!")]
+		public bool ignoreWhenDisabled = true;
+
 		private bool previousVal;
 
 		public HelpInfo help = new HelpInfo("This component toggles scripts and game objects based on messages. The 'Toggle' message takes a boolean value, 'SwapToggle' will alternate the " +
@@ -64,8 +67,12 @@ namespace MultiGame {
 
 		public MessageHelp toggleHelp = new MessageHelp("Toggle","Allows you to set the state of all 'Game Object Targets' and 'Script Targets' explicitly",1,"The new state for the targets");
 		public void Toggle(bool val) {
+			if (ignoreWhenDisabled) {
+				if (enabled == false || gameObject.activeSelf == false)
+					return;
+			}
 			if (debug)
-				Debug.Log("Toggle " + val);
+				Debug.Log("Message Toggle " + gameObject.name + " is toggling " + val);
 			previousVal = !val;
 			if (lightTarget != null)
 				lightTarget.enabled = val;

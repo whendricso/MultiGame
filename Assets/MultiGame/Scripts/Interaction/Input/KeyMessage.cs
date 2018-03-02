@@ -40,6 +40,10 @@ namespace MultiGame {
 		}
 
 		void Update () {
+			if (!enabled)
+				return;
+			if (!gameObject.activeSelf)
+				return;
 			if ((Input.GetKeyDown(key) || ButtonDownCheck(button)) && keyDownMessage.message != "") {
 				if (debug)
 					Debug.Log ("Key down");

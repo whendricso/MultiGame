@@ -14,6 +14,10 @@ namespace MultiGame {
 		public Vector3 objectivePosition;
 		[System.NonSerialized]
 		public Vector3 persistentMoveTarget;
+		[RequiredFieldAttribute("Tag of the object we want to guard", RequiredFieldAttribute.RequirementLevels.Optional)]
+		public string guardObjectiveTag;
+		[Tooltip("How often do we search for our objective by tag? (Only occurs if a Guard Objective Tag is defined)")]
+		public float objectiveSearchTime = 2f;
 
 		[Tooltip("Who you wan' me kill? (Assigns a target that already exists in the scene, good for scripted events)")]
 		public GameObject killTarget;
@@ -57,13 +61,28 @@ namespace MultiGame {
 
 		void Start () {
 			persistentMoveTarget = transform.position;
+			if (!string.IsNullOrEmpty (guardObjectiveTag)) {
+				StartCoroutine (SearchForObjective ());
+			}
+
+		}
+
+		public IEnumerator SearchForObjective () {
+			yield return new WaitForSeconds (objectiveSearchTime);
+			if (debug)
+				Debug.Log ("Guard Module" + gameObject.name + " is searching for a guard objective. Objective: " + objective);
+			if (!string.IsNullOrEmpty (guardObjectiveTag)) {
+
+				if (objective == null)
+					objective = GameObject.FindGameObjectWithTag (guardObjectiveTag);
+			}
+			StartCoroutine (SearchForObjective());
+
 		}
 
 		void Update () {
 			if (killTarget == null && Vector3.Distance(transform.position, objectivePosition) > guardRange)
 				StartCoroutine(StopWandering(0));
-
-
 
 			//Debug.Log(Vector3.Distance(transform.position, objectivePosition));
 			if (objective != null) {

@@ -5,7 +5,7 @@ using MultiGame;
 namespace MultiGame {
 	public class PhotonSceneTransition : PhotonModule {
 
-		public string mission;
+//		public string mission;
 		public bool changeOnStart = false;
 		public string targetScene = "";
 

@@ -56,6 +56,7 @@ namespace MultiGame {
 				if (splashPrefab != null)
 					Instantiate(splashPrefab, transform.position, transform.rotation);
 				other.transform.root.position = teleTarget.transform.position;
+				other.transform.root.rotation = teleTarget.transform.rotation;
 				if (splashPrefab != null)
 					Instantiate(splashPrefab, transform.position, transform.rotation);
 			}
@@ -67,7 +68,9 @@ namespace MultiGame {
 				if (_teles.Count > 0) {
 					if (splashPrefab != null)
 						Instantiate(splashPrefab, other.transform.position, other.transform.rotation);
-					other.transform.position = _teles[Random.Range(0, _teles.Count)].transform.position;
+					int selector = Random.Range (0, _teles.Count);
+					other.transform.position = _teles[selector].transform.position;
+					other.transform.rotation = _teles[selector].transform.rotation;
 					MessageManager.Send(teleportMessage);
 					if (splashPrefab != null)
 						Instantiate(splashPrefab, other.transform.position, other.transform.rotation);
@@ -85,6 +88,7 @@ namespace MultiGame {
 			if (splashPrefab != null)
 				Instantiate(splashPrefab, transform.position, transform.rotation);
 			transform.position = teleTarget.transform.position;
+			transform.rotation = teleTarget.transform.rotation;
 			if (splashPrefab != null)
 				Instantiate(splashPrefab, transform.position, transform.rotation);
 			MessageManager.Send (teleportMessage);
@@ -100,7 +104,9 @@ namespace MultiGame {
 				if (_teles.Count > 0) {
 					if (splashPrefab != null)
 						Instantiate(splashPrefab, transform.position, transform.rotation);
-					transform.position = _teles[Random.Range(0, _teles.Count)].transform.position;
+					int selector = Random.Range (0, _teles.Count);
+					transform.position = _teles[selector].transform.position;
+					transform.rotation = _teles [selector].transform.rotation;
 					MessageManager.Send(teleportMessage);
 					if (splashPrefab != null)
 						Instantiate(splashPrefab, transform.position, transform.rotation);

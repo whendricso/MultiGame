@@ -35,7 +35,9 @@ namespace MultiGame
 			_msgStrings = new List<string> ();
 			_msgStrings.Add ("--none--");
 			for (int i = 0; i < property.FindPropertyRelative ("possibleMessages").arraySize; i++) {
-				_msgStrings.Add (property.FindPropertyRelative ("possibleMessages").GetArrayElementAtIndex (i).stringValue);
+				string val = property.FindPropertyRelative ("possibleMessages").GetArrayElementAtIndex (i).stringValue;
+				if (!val.Contains("_"))
+					_msgStrings.Add (val);
 			}
 			possibleMessages = _msgStrings.ToArray ();
 			if (property.FindPropertyRelative("target").objectReferenceValue == null)

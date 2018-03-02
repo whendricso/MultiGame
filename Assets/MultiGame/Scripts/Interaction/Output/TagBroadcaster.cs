@@ -54,10 +54,14 @@ namespace MultiGame {
 
 		public MessageHelp broadcastHelp = new MessageHelp("Broadcast","Send the 'Messages' to all objects in the scene with 'Target Tag'");
 		public void Broadcast () {
+			if (!enabled)
+				return;
 			if (debug)
-				Debug.Log ("Broadcasting to tag " + targetTag);
+				Debug.Log (gameObject.name + " broadcasting to tag " + targetTag);
 			GameObject[] _targets = GameObject.FindGameObjectsWithTag (targetTag);
 			foreach (MessageManager.ManagedMessage message in messages) {
+				if (debug)
+					Debug.Log ("Message: " + message.message + " sent from " + gameObject.name);
 				foreach (GameObject obj in _targets)
 					MessageManager.SendTo (message, obj);
 			}

@@ -83,6 +83,8 @@ namespace MultiGame {
 		}
 
 		void OnGUI () {
+			if (view == null || !view.isMine)
+				return;
 			if (hp == maxHP && autoHide)
 				return;
 			if (showHealthBarGUI) {

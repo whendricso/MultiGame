@@ -17,6 +17,8 @@ namespace MultiGame {
 		[Tooltip("If true, we will attempt to determine the team of this object, and send it to the spawned object by using 'SetTeam' with an integer representing that team's index.")]
 		public bool inheritTeam = true;
 
+		public bool debug = false;
+
 		private GameObject spawnedEntity;
 
 		public MultiModule.HelpInfo help = new MultiModule.HelpInfo("Photon Instantiator takes the 'Spawn' message, with a string parameter representing the name of the prefab you want to " +
@@ -28,14 +30,19 @@ namespace MultiGame {
 		}
 
 		public void Spawn (string prefabResourceName) {
-			if (PhotonNetwork.room == null)
+			if (PhotonNetwork.room == null) {
+				Debug.LogError ("Room is null");
 				return;
+			}
 			if (!asSceneObject)
 				spawnedEntity = PhotonNetwork.Instantiate(prefabResourceName, transform.position + spawnOffset, transform.rotation, 0);
 			else
 				spawnedEntity = PhotonNetwork.InstantiateSceneObject(prefabResourceName, transform.position + spawnOffset, transform.rotation, 0, null);
 
 			spawnedEntity.SendMessage("SetOwner", transform.root.gameObject, SendMessageOptions.DontRequireReceiver);//set the owner in case we're spawning a 'Bullet' projectile
+
+			if (debug)
+				Debug.Log ("PhotonInstantiator " + gameObject.name + " spawned " + spawnedEntity.name);
 
 			if (inheritVelocity) {
 				Rigidbody _myRigid = GetComponent<Rigidbody>() as Rigidbody;

@@ -11,11 +11,18 @@ namespace MultiGame {
 		[ReorderableAttribute]
 		public string[] deathPrefabNames;
 
+		public bool debug = false;
 
 		public MultiModule.HelpInfo help = new MultiModule.HelpInfo("Photon Destructible ensures that this object is destroyed correctly over the network. The 'Destruct' message " +
 			"will destroy this object on all clients. Or, you can simply destroy this object on the client that owns it. This component is client-side authoritative when used this way.");
 
 		public void Destruct () {
+			if (debug)
+				Debug.Log ("Photon Destructible " + gameObject.name + " received the Destruct message!");
+			if (GetView () == null) {
+				Debug.LogError ("PhotonDestructible " + gameObject.name + " does not have a Photon View on it or any child of it's transform root!");
+				return;
+			}
 			if (GetView().isMine) {
 				PhotonNetwork.Destroy(gameObject);
 				foreach (string _pFab in deathPrefabNames)
