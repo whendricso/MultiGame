@@ -21,7 +21,7 @@ The most common components to any game project can be found inside! I'm so confi
 MultiGame has been developed and tested on multiple projects since January 2013. It's flexible ManagedMessage system provides a powerful event framework that works automatically with *any* script, even those not included in MultiGame.
 
 ## I WANT MORE!
-### Click this: https://gumroad.com/l/fSEKz
+### Click this: https://www.techdrone.com/product-page/multigame-professional
 It takes a lot of work to build a comprehensive toolset like MultiGame. If you enjoy using this free version, please consider buying more features. In the paid version you will find everything you need to make even more advanced games, and by purchasing the professional version, you can help support full-time development of MultiGame.
 
 Thank you to everyone who has contributed along the way.
@@ -45,4 +45,4 @@ You will find several editor tools:
 You can find many additional components in the Add Component -> MultiGame menu found at the top of the screen, or on the Inspector.
 ![alt text](https://preview.ibb.co/egTUVG/Multi_Game_Add_Component.png "Add Component MultiGame")
 
-## Looking for the Professional Edition? https://gumroad.com/l/fSEKz
+## Looking for the Professional Edition? https://www.techdrone.com/product-page/multigame-professional
