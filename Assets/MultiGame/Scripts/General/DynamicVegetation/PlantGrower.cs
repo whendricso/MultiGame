@@ -124,9 +124,10 @@ namespace MultiGame {
 
 			if (CheckCanSeed() && seedPrefab != null) {
 				seeded = true;
-				GameObject _newSeed;
+				//GameObject _newSeed;
 				foreach (GameObject _origin in flowerPositions) {
-					_newSeed = Instantiate(seedPrefab, _origin.transform.position, _origin.transform.rotation) as GameObject;
+					/*_newSeed =*/
+					Instantiate(seedPrefab, _origin.transform.position, _origin.transform.rotation);// as GameObject;
 				}
 			}
 
@@ -173,7 +174,7 @@ namespace MultiGame {
 			if (debug)
 				Debug.Log ("Wilting flowers");
 
-			GameObject _bloom;
+			//GameObject _bloom;
 			for (int i = 0; i < flowerPositions.Count; i++) {
 				yield return new WaitForSeconds(Random.Range(0f, blossomWiltingVariance));
 				if (flowerPositions[i].transform.childCount > 0) {

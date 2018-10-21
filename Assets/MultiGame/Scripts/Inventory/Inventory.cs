@@ -82,9 +82,9 @@ namespace MultiGame {
 			if (Input.GetKeyUp(inventoryKey)) {
 				showInventoryGUI = !showInventoryGUI;
 				if (showInventoryGUI)
-					Screen.lockCursor = false;
+					CursorLock.SetLock(false);
 				else
-					Screen.lockCursor = true;
+					CursorLock.SetLock(true);
 			}
 			if (Input.GetKeyDown(nextWeapon) || Input.GetAxis("Mouse ScrollWheel") > weaponSwapSensitivity)
 				NextWeapon(false);

@@ -5,9 +5,9 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 439802}
+  - component: {fileID: 439802}
   m_Layer: 0
   m_Name: L
   m_TagString: Untagged
@@ -20,9 +20,9 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 417416}
+  - component: {fileID: 417416}
   m_Layer: 0
   m_Name: R
   m_TagString: Untagged
@@ -35,11 +35,11 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 419254}
-  - 114: {fileID: 11412818}
-  - 114: {fileID: 11444540}
+  - component: {fileID: 419254}
+  - component: {fileID: 11412818}
+  - component: {fileID: 11444540}
   m_Layer: 0
   m_Name: AvoidanceRig
   m_TagString: Untagged
@@ -56,10 +56,10 @@ Transform:
   m_LocalRotation: {x: 0, y: 0.2588187, z: 0, w: 0.96592593}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 419254}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &419254
 Transform:
   m_ObjectHideFlags: 1
@@ -69,12 +69,12 @@ Transform:
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0.00000035762787}
   m_LocalPosition: {x: -37.48, y: 1.3395178, z: 36.411476}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 417416}
   - {fileID: 439802}
   m_Father: {fileID: 0}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &439802
 Transform:
   m_ObjectHideFlags: 1
@@ -84,10 +84,10 @@ Transform:
   m_LocalRotation: {x: 0, y: -0.25881913, z: 0, w: 0.9659258}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 419254}
   m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &11412818
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -102,7 +102,9 @@ MonoBehaviour:
   left: {fileID: 128942}
   right: {fileID: 152198}
   center: {fileID: 189156}
-  avoidRayMask: {}
+  avoidRayMask:
+    serializedVersion: 2
+    m_Bits: 1
   sideRayLength: 4.5
   centerRayLength: 3
   debug: 0

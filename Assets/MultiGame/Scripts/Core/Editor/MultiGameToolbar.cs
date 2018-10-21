@@ -106,7 +106,7 @@ namespace MultiGame {
 		private static Texture2D saveSceneIcon;
 		private static Texture2D lodIcon;
 		private static Texture2D helpIcon;
-		private static Texture2D messageHelpIcon;
+		//private static Texture2D messageHelpIcon;
 		private static Texture2D uvPlaneIcon;
 		private static Texture2D uvScalarIcon;
 		private static Texture2D uvCubeIcon;
@@ -132,7 +132,7 @@ namespace MultiGame {
 		private Material camZoneMat;
 		
 
-		[MenuItem ("MultiGame/Rapid Dev Tool")]
+		[MenuItem ("MultiGame/Toolbar (Legacy)")]
 		public static void  ShowWindow () {
 			EditorWindow window = EditorWindow.GetWindow(typeof(MultiGameToolbar));
 			window.minSize = new Vector2 (116f, 640f );
@@ -140,106 +140,106 @@ namespace MultiGame {
 		}
 
 		void LoadIcons () {
-			basicTab = Resources.Load("BasicTab", typeof(Texture2D)) as Texture2D;
-			objectTab = Resources.Load("ObjectTab", typeof(Texture2D)) as Texture2D;
-			logicTab = Resources.Load("LogicTab", typeof(Texture2D)) as Texture2D;
-			combatTab = Resources.Load("CombatTab", typeof(Texture2D)) as Texture2D;
-			playerTab = Resources.Load("PlayerTab", typeof(Texture2D)) as Texture2D;
-			aiTab = Resources.Load("AiTab", typeof(Texture2D)) as Texture2D;
-			utilityTab = Resources.Load("UtilityTab", typeof(Texture2D)) as Texture2D;
-			helpTab = Resources.Load("HelpTab", typeof(Texture2D)) as Texture2D;
+			basicTab = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/BasicTab.png", typeof(Texture2D)) as Texture2D;
+			objectTab = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/ObjectTab.png", typeof(Texture2D)) as Texture2D;
+			logicTab = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/LogicTab.png", typeof(Texture2D)) as Texture2D;
+			combatTab = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/CombatTab.png", typeof(Texture2D)) as Texture2D;
+			playerTab = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/PlayerTab.png", typeof(Texture2D)) as Texture2D;
+			aiTab = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/AiTab.png", typeof(Texture2D)) as Texture2D;
+			utilityTab = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/UtilityTab.png", typeof(Texture2D)) as Texture2D;
+			helpTab = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/HelpTab.png", typeof(Texture2D)) as Texture2D;
 
-			splineIcon = Resources.Load("Spline", typeof(Texture2D)) as Texture2D;
-			layerMaskIcon = Resources.Load("LayerMask", typeof(Texture2D)) as Texture2D;
-			snapIcon = Resources.Load("Snap", typeof(Texture2D)) as Texture2D;
-			activeCollIcon = Resources.Load("ActiveCollider", typeof(Texture2D)) as Texture2D;
-			activeCollSphereIcon = Resources.Load("ActiveColliderSphere", typeof(Texture2D)) as Texture2D;
-			activeZoneIcon = Resources.Load("ActiveZone", typeof(Texture2D)) as Texture2D;
-			activeZoneSphereIcon = Resources.Load("ActiveSphere", typeof(Texture2D)) as Texture2D;
-			camSphereIcon = Resources.Load("CamSphereButton", typeof(Texture2D)) as Texture2D;
-			camZoneIcon = Resources.Load("CamZoneButton", typeof(Texture2D)) as Texture2D;
-			backupCamIcon = Resources.Load("BackupCamButton", typeof(Texture2D)) as Texture2D;
-			animationIcon = Resources.Load("AnimationButton", typeof(Texture2D)) as Texture2D;
-			cameraIcon = Resources.Load("Camera", typeof(Texture2D)) as Texture2D;
-			RTSIcon = Resources.Load("RTSButton", typeof(Texture2D)) as Texture2D;
-			cursorLockIcon = Resources.Load("CursorLockButton", typeof(Texture2D)) as Texture2D;
-			mouseAimIcon = Resources.Load("MouseAimButton", typeof(Texture2D)) as Texture2D;
-			gunIcon = Resources.Load("Gun", typeof(Texture2D)) as Texture2D;
-			healthIcon = Resources.Load("Health", typeof(Texture2D)) as Texture2D;
-			shelfIcon = Resources.Load("PrefabShelf", typeof(Texture2D)) as Texture2D;
-			moveIcon = Resources.Load("MotionButton", typeof(Texture2D)) as Texture2D;
-			moveRigidbodyIcon = Resources.Load("RigidbodyMotionButton", typeof(Texture2D)) as Texture2D;
-			inventoryIcon = Resources.Load("Inventory", typeof(Texture2D)) as Texture2D;
-			itemIcon = Resources.Load("Item", typeof(Texture2D)) as Texture2D;
-//			itemSpawnIcon = Resources.Load("ItemSpawn", typeof(Texture2D)) as Texture2D;
-//			meleeInputIcon = Resources.Load("MeleeInput", typeof(Texture2D)) as Texture2D;
-			fighterInputIcon = Resources.Load("FighterInput", typeof(Texture2D)) as Texture2D;
-//			minionSpawnIcon = Resources.Load("MinionSpawn", typeof(Texture2D)) as Texture2D;
-			turretIcon = Resources.Load("Turret", typeof(Texture2D)) as Texture2D;
-//			meleeBotIcon = Resources.Load("MeleeAI", typeof(Texture2D)) as Texture2D;
-			rangedBotIcon = Resources.Load("HitscanAI", typeof(Texture2D)) as Texture2D;
-//			unitSpawnIcon = Resources.Load("UnitSpawnButton", typeof(Texture2D)) as Texture2D;
-			addColliderIcon = Resources.Load("AddCollider", typeof(Texture2D)) as Texture2D;
-			addRigidbodyIcon = Resources.Load("RigidbodyButton", typeof(Texture2D)) as Texture2D;
-			particlesIcon = Resources.Load("Particles", typeof(Texture2D)) as Texture2D;
-			clickableIcon = Resources.Load("Clickable", typeof(Texture2D)) as Texture2D;
-			mouseMessageIcon = Resources.Load("MouseMessage", typeof(Texture2D)) as Texture2D;
-			sounderIcon = Resources.Load("Sounder", typeof(Texture2D)) as Texture2D;
-			musicIcon = Resources.Load("MusicButton", typeof(Texture2D)) as Texture2D;
-			UGUIIcon = Resources.Load("UGUIButton", typeof(Texture2D)) as Texture2D;
-			multiMenuIcon = Resources.Load("MultiMenuButton", typeof(Texture2D)) as Texture2D;
-			keyMessageIcon = Resources.Load("KeyMessage", typeof(Texture2D)) as Texture2D;
-			startMessageIcon = Resources.Load("StartMessage", typeof(Texture2D)) as Texture2D;
-			destructibleIcon = Resources.Load("Destructible", typeof(Texture2D)) as Texture2D;
-			explosionIcon = Resources.Load("ExplosionIcon", typeof(Texture2D)) as Texture2D;
-			spawnIcon = Resources.Load("SpawnButton", typeof(Texture2D)) as Texture2D;
-			lightIcon = Resources.Load("Light", typeof(Texture2D)) as Texture2D;
-			doorIcon = Resources.Load("Door", typeof(Texture2D)) as Texture2D;
-			collLogicIcon = Resources.Load("ColliderLogicButton", typeof(Texture2D)) as Texture2D;
-			relayIcon = Resources.Load("Relay", typeof(Texture2D)) as Texture2D;
-			tagRelayIcon = Resources.Load("TagRelay", typeof(Texture2D)) as Texture2D;
-			timedIcon = Resources.Load("TimedMessage", typeof(Texture2D)) as Texture2D;
-			randomIcon = Resources.Load("Random", typeof(Texture2D)) as Texture2D;
-			destructMessageIcon = Resources.Load("DestructMessage", typeof(Texture2D)) as Texture2D;
-			missileIcon = Resources.Load("Missile", typeof(Texture2D)) as Texture2D;
-//			mineIcon = Resources.Load("MineButton", typeof(Texture2D)) as Texture2D;
-			sceneChangeIcon = Resources.Load("SceneChange", typeof(Texture2D)) as Texture2D;
-			bulletIcon = Resources.Load("Bullet", typeof(Texture2D)) as Texture2D;
-			clipIcon = Resources.Load("Clip", typeof(Texture2D)) as Texture2D;
-			clipInvIcon = Resources.Load("ClipInventory", typeof(Texture2D)) as Texture2D;
-//			meleeWeaponIcon = Resources.Load("MeleeWeapon", typeof(Texture2D)) as Texture2D;
-//			fpsIcon = Resources.Load("FPSButton", typeof(Texture2D)) as Texture2D;
-			sixAxisIcon = Resources.Load("SixAxisButton", typeof(Texture2D)) as Texture2D;
-			inputAnimatorIcon = Resources.Load("InputAnimatorButton", typeof(Texture2D)) as Texture2D;
-			characterCreatorIcon = Resources.Load("CharacterCreator", typeof(Texture2D)) as Texture2D;
-			collectibleIcon = Resources.Load("CollectibleButton", typeof(Texture2D)) as Texture2D;
-			billboardIcon = Resources.Load("BillboardButton", typeof(Texture2D)) as Texture2D;
-			targetingSensorIcon = Resources.Load("TargetingSensorButton", typeof(Texture2D)) as Texture2D;
-			messageToggleIcon = Resources.Load("MessageToggleButton", typeof(Texture2D)) as Texture2D;
-			savePrefsIcon = Resources.Load("PreferenceButton", typeof(Texture2D)) as Texture2D;
-			saveToDiskIcon = Resources.Load("SaveDiskButton", typeof(Texture2D)) as Texture2D;
-			saveSceneIcon = Resources.Load("SaveSceneButton", typeof(Texture2D)) as Texture2D;
-			lodIcon = Resources.Load("LODGroup", typeof(Texture2D)) as Texture2D;
-			messageHelpIcon = Resources.Load("MessageHelp", typeof(Texture2D)) as Texture2D;
-			helpIcon = Resources.Load("Help", typeof(Texture2D)) as Texture2D;
-			uvScalarIcon = Resources.Load("UVScalar", typeof(Texture2D)) as Texture2D;
-			uvCubeIcon = Resources.Load("UVCube", typeof(Texture2D)) as Texture2D;
-			uvSphereIcon = Resources.Load("UVSphere", typeof(Texture2D)) as Texture2D;
-			uvPlaneIcon = Resources.Load("UVPlane", typeof(Texture2D)) as Texture2D;
-			uvConeIcon = Resources.Load("UVCone", typeof(Texture2D)) as Texture2D;
-//			photonIcon = Resources.Load("PhotonButton", typeof(Texture2D)) as Texture2D;
-//			photonCharacterIcon = Resources.Load("PhotonCharacterButton", typeof(Texture2D)) as Texture2D;
-//			photonDestructibleIcon = Resources.Load("PhotonDestructibleButton", typeof(Texture2D)) as Texture2D;
-//			photonHealthIcon = Resources.Load("PhotonHealthButton", typeof(Texture2D)) as Texture2D;
-//			photonInventoryIcon = Resources.Load("PhotonInventoryButton", typeof(Texture2D)) as Texture2D;
-//			photonItemIcon = Resources.Load("PhotonItemButton", typeof(Texture2D)) as Texture2D;
-//			photonPositionIcon = Resources.Load("PhotonPositionButton", typeof(Texture2D)) as Texture2D;
-//			photonRelayIcon = Resources.Load("PhotonRelayButton", typeof(Texture2D)) as Texture2D;
-//			photonRigidbodyIcon = Resources.Load("PhotonRigidbodyButton", typeof(Texture2D)) as Texture2D;
-//			photonSpawnerIcon = Resources.Load("PhotonSpawnButton", typeof(Texture2D)) as Texture2D;
-//			photonAvatarIcon = Resources.Load("PhotonAvatarButton", typeof(Texture2D)) as Texture2D;
-//			photonSceneIcon = Resources.Load("PhotonSceneButton", typeof(Texture2D)) as Texture2D;
-//			photonChannelIcon = Resources.Load("PhotonChannelButton", typeof(Texture2D)) as Texture2D;
+			splineIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/Spline.png", typeof(Texture2D)) as Texture2D;
+			layerMaskIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/LayerMask.png", typeof(Texture2D)) as Texture2D;
+			snapIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/Snap.png", typeof(Texture2D)) as Texture2D;
+			activeCollIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/ActiveCollider.png", typeof(Texture2D)) as Texture2D;
+			activeCollSphereIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/ActiveColliderSphere.png", typeof(Texture2D)) as Texture2D;
+			activeZoneIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/ActiveZone.png", typeof(Texture2D)) as Texture2D;
+			activeZoneSphereIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/ActiveSphere.png", typeof(Texture2D)) as Texture2D;
+			camSphereIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/CamSphereButton.png", typeof(Texture2D)) as Texture2D;
+			camZoneIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/CamZoneButton.png", typeof(Texture2D)) as Texture2D;
+			backupCamIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/BackupCamButton.png", typeof(Texture2D)) as Texture2D;
+			animationIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/AnimationButton.png", typeof(Texture2D)) as Texture2D;
+			cameraIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/Camera.png", typeof(Texture2D)) as Texture2D;
+			RTSIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/RTSButton.png", typeof(Texture2D)) as Texture2D;
+			cursorLockIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/CursorLockButton.png", typeof(Texture2D)) as Texture2D;
+			mouseAimIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/MouseAimButton.png", typeof(Texture2D)) as Texture2D;
+			gunIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/Gun.png", typeof(Texture2D)) as Texture2D;
+			healthIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/Health.png", typeof(Texture2D)) as Texture2D;
+			shelfIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/PrefabShelf.png", typeof(Texture2D)) as Texture2D;
+			moveIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/MotionButton.png", typeof(Texture2D)) as Texture2D;
+			moveRigidbodyIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/RigidbodyMotionButton.png", typeof(Texture2D)) as Texture2D;
+			inventoryIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/Inventory.png", typeof(Texture2D)) as Texture2D;
+			itemIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/Item.png", typeof(Texture2D)) as Texture2D;
+//			itemSpawnIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/ItemSpawn", typeof(Texture2D)) as Texture2D;
+//			meleeInputIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/MeleeInput", typeof(Texture2D)) as Texture2D;
+			fighterInputIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/FighterInput.png", typeof(Texture2D)) as Texture2D;
+			//			minionSpawnIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/MinionSpawn", typeof(Texture2D)) as Texture2D;
+			turretIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/Turret.png", typeof(Texture2D)) as Texture2D;
+//			meleeBotIcon = AssetDatabase.LoadAssetAtPath("MeleeAI", typeof(Texture2D)) as Texture2D;
+			rangedBotIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/HitscanAI.png", typeof(Texture2D)) as Texture2D;
+//			unitSpawnIcon = AssetDatabase.LoadAssetAtPath("UnitSpawnButton", typeof(Texture2D)) as Texture2D;
+			addColliderIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/AddCollider.png", typeof(Texture2D)) as Texture2D;
+			addRigidbodyIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/RigidbodyButton.png", typeof(Texture2D)) as Texture2D;
+			particlesIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/Particles.png", typeof(Texture2D)) as Texture2D;
+			clickableIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/Clickable.png", typeof(Texture2D)) as Texture2D;
+			mouseMessageIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/MouseMessage.png", typeof(Texture2D)) as Texture2D;
+			sounderIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/Sounder.png", typeof(Texture2D)) as Texture2D;
+			musicIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/MusicButton.png", typeof(Texture2D)) as Texture2D;
+			UGUIIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/UGUIButton.png", typeof(Texture2D)) as Texture2D;
+			multiMenuIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/MultiMenuButton.png", typeof(Texture2D)) as Texture2D;
+			keyMessageIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/KeyMessage.png", typeof(Texture2D)) as Texture2D;
+			startMessageIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/StartMessage.png", typeof(Texture2D)) as Texture2D;
+			destructibleIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/Destructible.png", typeof(Texture2D)) as Texture2D;
+			explosionIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/ExplosionIcon.png", typeof(Texture2D)) as Texture2D;
+			spawnIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/SpawnButton.png", typeof(Texture2D)) as Texture2D;
+			lightIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/Light.png", typeof(Texture2D)) as Texture2D;
+			doorIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/Door.png", typeof(Texture2D)) as Texture2D;
+			collLogicIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/ColliderLogicButton.png", typeof(Texture2D)) as Texture2D;
+			relayIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/Relay.png", typeof(Texture2D)) as Texture2D;
+			tagRelayIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/TagRelay.png", typeof(Texture2D)) as Texture2D;
+			timedIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/TimedMessage.png", typeof(Texture2D)) as Texture2D;
+			randomIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/Random.png", typeof(Texture2D)) as Texture2D;
+			destructMessageIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/DestructMessage.png", typeof(Texture2D)) as Texture2D;
+			missileIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/Missile.png", typeof(Texture2D)) as Texture2D;
+//			mineIcon = AssetDatabase.LoadAssetAtPath("MineButton", typeof(Texture2D)) as Texture2D;
+			sceneChangeIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/SceneChange.png", typeof(Texture2D)) as Texture2D;
+			bulletIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/Bullet.png", typeof(Texture2D)) as Texture2D;
+			clipIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/Clip.png", typeof(Texture2D)) as Texture2D;
+			clipInvIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/ClipInventory.png", typeof(Texture2D)) as Texture2D;
+//			meleeWeaponIcon = AssetDatabase.LoadAssetAtPath("MeleeWeapon", typeof(Texture2D)) as Texture2D;
+//			fpsIcon = AssetDatabase.LoadAssetAtPath("FPSButton", typeof(Texture2D)) as Texture2D;
+			sixAxisIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/SixAxisButton.png", typeof(Texture2D)) as Texture2D;
+			inputAnimatorIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/InputAnimatorButton.png", typeof(Texture2D)) as Texture2D;
+			characterCreatorIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/CharacterCreator.png", typeof(Texture2D)) as Texture2D;
+			collectibleIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/CollectibleButton.png", typeof(Texture2D)) as Texture2D;
+			billboardIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/BillboardButton.png", typeof(Texture2D)) as Texture2D;
+			targetingSensorIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/TargetingSensorButton.png", typeof(Texture2D)) as Texture2D;
+			messageToggleIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/MessageToggleButton.png", typeof(Texture2D)) as Texture2D;
+			savePrefsIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/PreferenceButton.png", typeof(Texture2D)) as Texture2D;
+			saveToDiskIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/SaveDiskButton.png", typeof(Texture2D)) as Texture2D;
+			saveSceneIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/SaveSceneButton.png", typeof(Texture2D)) as Texture2D;
+			lodIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/LODGroup.png", typeof(Texture2D)) as Texture2D;
+			//messageHelpIcon = AssetDatabase.LoadAssetAtPath("MessageHelp", typeof(Texture2D)) as Texture2D;
+			helpIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/Help.png", typeof(Texture2D)) as Texture2D;
+			uvScalarIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/UVScalar.png", typeof(Texture2D)) as Texture2D;
+			uvCubeIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/UVCube.png", typeof(Texture2D)) as Texture2D;
+			uvSphereIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/UVSphere.png", typeof(Texture2D)) as Texture2D;
+			uvPlaneIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/UVPlane.png", typeof(Texture2D)) as Texture2D;
+			uvConeIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/UVCone.png", typeof(Texture2D)) as Texture2D;
+//			photonIcon = AssetDatabase.LoadAssetAtPath("PhotonButton", typeof(Texture2D)) as Texture2D;
+//			photonCharacterIcon = AssetDatabase.LoadAssetAtPath("PhotonCharacterButton", typeof(Texture2D)) as Texture2D;
+//			photonDestructibleIcon = AssetDatabase.LoadAssetAtPath("PhotonDestructibleButton", typeof(Texture2D)) as Texture2D;
+//			photonHealthIcon = AssetDatabase.LoadAssetAtPath("PhotonHealthButton", typeof(Texture2D)) as Texture2D;
+//			photonInventoryIcon = AssetDatabase.LoadAssetAtPath("PhotonInventoryButton", typeof(Texture2D)) as Texture2D;
+//			photonItemIcon = AssetDatabase.LoadAssetAtPath("PhotonItemButton", typeof(Texture2D)) as Texture2D;
+//			photonPositionIcon = AssetDatabase.LoadAssetAtPath("PhotonPositionButton", typeof(Texture2D)) as Texture2D;
+//			photonRelayIcon = AssetDatabase.LoadAssetAtPath("PhotonRelayButton", typeof(Texture2D)) as Texture2D;
+//			photonRigidbodyIcon = AssetDatabase.LoadAssetAtPath("PhotonRigidbodyButton", typeof(Texture2D)) as Texture2D;
+//			photonSpawnerIcon = AssetDatabase.LoadAssetAtPath("PhotonSpawnButton", typeof(Texture2D)) as Texture2D;
+//			photonAvatarIcon = AssetDatabase.LoadAssetAtPath("PhotonAvatarButton", typeof(Texture2D)) as Texture2D;
+//			photonSceneIcon = AssetDatabase.LoadAssetAtPath("PhotonSceneButton", typeof(Texture2D)) as Texture2D;
+//			photonChannelIcon = AssetDatabase.LoadAssetAtPath("PhotonChannelButton", typeof(Texture2D)) as Texture2D;
 
 
 			
@@ -385,7 +385,7 @@ namespace MultiGame {
 			GUI.color = Color.white;
 			EditorGUILayout.EndHorizontal();
 			EditorGUILayout.EndVertical();
-			GUI.Label (new Rect(122f,48f,256f,64f),"Hey! If you see this text,\nsquish the toolbar sideways >>><<<\nand dock it next to the Inpsector!","box");
+			GUI.Label (new Rect(122f,48f,256f,64f),"Hey! If you see this text,\nsquish the toolbar sideways >>><<<\nand dock it next to the Inspector!","box");
 
 		}
 
@@ -1329,7 +1329,11 @@ namespace MultiGame {
 			
 			EditorGUILayout.BeginVertical("box"/*, GUILayout.Width(112f)*/);
 
-			if (MGButton (helpIcon, "Start\nHere")) {
+
+			if (MGButton (helpIcon, "Online\nDoc")) {
+				Application.OpenURL("https://www.techdrone.com/multigamedocumentation");
+			}
+			if (MGButton (helpIcon, "Prefab\nPainter")) {
 				Application.OpenURL ("https://youtu.be/8ptbRaj_qK8");
 			}
 			if (MGButton (helpIcon, "Splines")) {
@@ -1785,6 +1789,7 @@ namespace MultiGame {
 					MultiMesh[] multiMeshes = target.GetComponentsInChildren<MultiMesh> ();
 					if (multiMeshes.Length > 0) {
 						foreach (MultiMesh multiMesh in multiMeshes) {
+							Debug.Log("Adding collider to " + multiMesh.gameObject.name);
 							if (multiMesh.gameObject.GetComponent<ProcSphere> () != null) {
 								Undo.AddComponent<SphereCollider> (multiMesh.gameObject);
 							} else if (multiMesh.gameObject.GetComponent<ProcPlane> () != null) {

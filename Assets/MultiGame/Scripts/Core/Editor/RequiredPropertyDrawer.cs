@@ -29,36 +29,36 @@ namespace MultiGame {
 
 			if (property.propertyType == SerializedPropertyType.Float) {
 				if (required.requirementLevel == RequiredFieldAttribute.RequirementLevels.Optional) {
-					GUI.color = Color.cyan;
+					GUI.color = MGEditor.validColor;
 					if (showHelp)
 						EditorGUI.DropShadowLabel(levelLabelPosition, "Optional");
 					if (property.floatValue == 0f) {
-						GUI.color = Color.cyan;
+						GUI.color = MGEditor.validColor;
 					}
 					else {
 						GUI.color = Color.white;
 					}
 				}
 				if (required.requirementLevel == RequiredFieldAttribute.RequirementLevels.Recommended) {
-					GUI.color = Color.yellow;
+					GUI.color = MGEditor.warningColor;
 					if (showHelp)
 						EditorGUI.DropShadowLabel(levelLabelPosition, "Recommended");
 					if (property.floatValue == 0f) {
-						GUI.color = Color.yellow;
+						GUI.color = MGEditor.warningColor;
 					}
 					else {
 						GUI.color = Color.white;
 					}
 				}
 				if (required.requirementLevel == RequiredFieldAttribute.RequirementLevels.Required) {
-					GUI.color = Color.red;
+					GUI.color = MGEditor.errorColor;
 					if (showHelp)
 						EditorGUI.DropShadowLabel(levelLabelPosition, "Required");
 					if (property.floatValue == 0f) {
-						GUI.color = Color.red;
+						GUI.color = MGEditor.errorColor;
 					}
 					else {
-						GUI.color = Color.green;
+						GUI.color = MGEditor.affirmationColor;
 					}
 				}
 
@@ -66,35 +66,35 @@ namespace MultiGame {
 			}
 			if (property.propertyType == SerializedPropertyType.Integer) {
 				if (required.requirementLevel == RequiredFieldAttribute.RequirementLevels.Optional) {
-					GUI.color = Color.cyan;
+					GUI.color = MGEditor.validColor;
 					if (showHelp)
 						EditorGUI.DropShadowLabel(levelLabelPosition, "Optional");
 					if (property.intValue == 0) {
-						GUI.color = Color.cyan;
+						GUI.color = MGEditor.validColor;
 					}
 					else {
 						GUI.color = Color.white;
 					}
 				}
 				if (required.requirementLevel == RequiredFieldAttribute.RequirementLevels.Recommended) {
-					GUI.color = Color.yellow;
+					GUI.color = MGEditor.warningColor;
 					if (showHelp)
 						EditorGUI.DropShadowLabel(levelLabelPosition, "Recommended");
 					if (property.intValue == 0) {
-						GUI.color = Color.yellow;
+						GUI.color = MGEditor.warningColor;
 					}
 					else {
 						GUI.color = Color.white;
 					}
 				}if (required.requirementLevel == RequiredFieldAttribute.RequirementLevels.Required) {
-					GUI.color = Color.red;
+					GUI.color = MGEditor.errorColor;
 					if (showHelp)
 						EditorGUI.DropShadowLabel(levelLabelPosition, "Required");
 					if (property.intValue == 0) {
-						GUI.color = Color.red;
+						GUI.color = MGEditor.errorColor;
 					}
 					else {
-						GUI.color = Color.green;
+						GUI.color = MGEditor.affirmationColor;
 					}
 				}
 					
@@ -102,71 +102,71 @@ namespace MultiGame {
 			}
 			if (property.propertyType == SerializedPropertyType.String) {
 				if (required.requirementLevel == RequiredFieldAttribute.RequirementLevels.Optional) {
-					GUI.color = Color.cyan;
+					GUI.color = MGEditor.validColor;
 					if (showHelp)
 						EditorGUI.DropShadowLabel(levelLabelPosition, "Optional");
 					if (string.IsNullOrEmpty( property.stringValue)) {
-						GUI.color = Color.cyan;
+						GUI.color = MGEditor.validColor;
 					}
 					else {
 						GUI.color = Color.white;
 					}
 				} 
 				if (required.requirementLevel == RequiredFieldAttribute.RequirementLevels.Recommended) {
-					GUI.color = Color.yellow;
+					GUI.color = MGEditor.warningColor;
 					if (showHelp)
 						EditorGUI.DropShadowLabel(levelLabelPosition, "Recommended");
 					if (string.IsNullOrEmpty( property.stringValue)) {
-						GUI.color = Color.yellow;
+						GUI.color = MGEditor.warningColor;
 					}
 					else {
 						GUI.color = Color.white;
 					}
 				}
 				if (required.requirementLevel == RequiredFieldAttribute.RequirementLevels.Required) {
-					GUI.color = Color.red;
+					GUI.color = MGEditor.errorColor;
 					if (showHelp)
 						EditorGUI.DropShadowLabel(levelLabelPosition, "Required");
 					if (string.IsNullOrEmpty( property.stringValue)) {
-						GUI.color = Color.red;
+						GUI.color = MGEditor.errorColor;
 					}
 					else {
-						GUI.color = Color.green;
+						GUI.color = MGEditor.affirmationColor;
 					}
 				}
 				property.stringValue = EditorGUI.TextField(fieldPosition, property.displayName, property.stringValue);
 			}
 			if (property.propertyType == SerializedPropertyType.ObjectReference) {
 				if (required.requirementLevel == RequiredFieldAttribute.RequirementLevels.Optional) {
-					GUI.color = Color.cyan;
+					GUI.color = MGEditor.validColor;
 					if (showHelp)
 						EditorGUI.DropShadowLabel(levelLabelPosition, "Optional");
 					if (property.objectReferenceValue == null) {
-						GUI.color = Color.cyan;
+						GUI.color = MGEditor.validColor;
 					}
 					else {
 						GUI.color = Color.white;
 					}
 				}
 				if (required.requirementLevel == RequiredFieldAttribute.RequirementLevels.Recommended) {
-					GUI.color = Color.yellow;
+					GUI.color = MGEditor.warningColor;
 					if (showHelp)
 						EditorGUI.DropShadowLabel(levelLabelPosition, "Recommended");
 					if (property.objectReferenceValue == null) {
-						GUI.color = Color.yellow;
+						GUI.color = MGEditor.warningColor;
 					}
 					else {
 						GUI.color = Color.white;
 					}
 				}if (required.requirementLevel == RequiredFieldAttribute.RequirementLevels.Required) {
-					GUI.color = Color.red;
+					GUI.color = MGEditor.errorColor;
 					if (showHelp)
 						EditorGUI.DropShadowLabel(levelLabelPosition, "Required");
 					if (property.objectReferenceValue == null) {
-						GUI.color = Color.red;
+						GUI.color = MGEditor.errorColor;
 					}
 					else {
-						GUI.color = Color.green;
+						GUI.color = MGEditor.affirmationColor;
 					}
 				}
 
@@ -174,35 +174,35 @@ namespace MultiGame {
 			}
 //			if (property.isArray) {//TODO: Does not work!
 //				if (required.requirementLevel == RequiredFieldAttribute.RequirementLevels.Optional) {
-//					GUI.color = Color.cyan;
+//					GUI.color = MGEditor.validColor;
 //					if (showHelp)
 //						EditorGUI.DropShadowLabel(levelLabelPosition, "Optional");
 //					if (property.objectReferenceValue == null) {
-//						GUI.color = Color.cyan;
+//						GUI.color = MGEditor.validColor;
 //					}
 //					else {
-//						GUI.color = Color.green;
+//						GUI.color = MGEditor.affirmationColor;
 //					}
 //				}
 //				if (required.requirementLevel == RequiredFieldAttribute.RequirementLevels.Recommended) {
-//					GUI.color = Color.yellow;
+//					GUI.color = MGEditor.warningColor;
 //					if (showHelp)
 //						EditorGUI.DropShadowLabel(levelLabelPosition, "Recommended");
 //					if (property.objectReferenceValue == null) {
-//						GUI.color = Color.yellow;
+//						GUI.color = MGEditor.warningColor;
 //					}
 //					else {
-//						GUI.color = Color.green;
+//						GUI.color = MGEditor.affirmationColor;
 //					}
 //				}if (required.requirementLevel == RequiredFieldAttribute.RequirementLevels.Required) {
-//					GUI.color = Color.red;
+//					GUI.color = MGEditor.errorColor;
 //					if (showHelp)
 //						EditorGUI.DropShadowLabel(levelLabelPosition, "Required");
 //					if (property.objectReferenceValue == null) {
-//						GUI.color = Color.red;
+//						GUI.color = MGEditor.errorColor;
 //					}
 //					else {
-//						GUI.color = Color.green;
+//						GUI.color = MGEditor.affirmationColor;
 //					}
 //				}
 //

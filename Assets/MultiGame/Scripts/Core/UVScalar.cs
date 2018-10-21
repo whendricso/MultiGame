@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
+using System.IO;
 #endif
 using System.Collections;
 using System.Collections.Generic;
@@ -33,9 +34,12 @@ namespace MultiGame {
 		public bool preInitialized = false;
 		[HideInInspector]
 		public List<Vector2> initialUVs;
+
+		private bool assetGenerated = false;
 //		private Material mat;
 //		private List<Vector3> verts = new List<Vector3>();
 
+#if UNITY_EDITOR
 		void OnValidate () {
 			if (updateMaterial) {
 				updateMaterial = false;
@@ -46,12 +50,17 @@ namespace MultiGame {
 		}
 
 		void Reset () {
-			
-
 			AcquireMesh ();
-//			InitializeRenderer();
+			if (!assetGenerated) {
+				assetGenerated = true;
+				if (!Directory.Exists(Application.dataPath + "/Generated/"))
+					Directory.CreateDirectory(Application.dataPath + "/Generated/");
+				AssetDatabase.CreateAsset(mesh, "Assets/Generated/" + gameObject.name + Mathf.RoundToInt(Random.Range(0, 100000)) + ".mesh");
+				AssetDatabase.SaveAssets();
+			}
+			//			InitializeRenderer();
 		}
-
+#endif
 		void Update () {
 			if (mesh == null) 
 				AcquireMesh ();

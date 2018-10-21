@@ -76,16 +76,23 @@ namespace MultiGame
 		public string walkAnim = "Walk";
 		public string runAnim = "Run";
 		public string attackAnim = "Attack";
-	
+
+        private Animator anim;
+        private Animation legacy;
 		private Vector3 moveDir = Vector3.forward;
 
 		public HelpInfo help = new HelpInfo("A high-efficiency hitscan AI. This system does not use navigation, but instead raycasts into the scene to decide where it can go. Will wander off ledges, it's pretty " +
 			"stupid overall but useful for junk enemies. This is a legacy AI system, and uses the legacy Animation component and is not Mecanim compatible.");
 
-		#endregion
+        #endregion
 
-		void Start ()
-		{
+        void Start()
+        {
+            if (image != null) {
+                legacy = image.GetComponent<Animation>();
+                anim = image.GetComponent<Animator>();
+            }
+        
 			rayCounter = rayInterval;
 //		characterMotor = GetComponent<CharacterMotor>();
 			characterController = GetComponent<CharacterController> ();
@@ -105,7 +112,12 @@ namespace MultiGame
 			if (target == null) {//seeking behavior
 				if (wander) {
 					if (image != null)
-						image.GetComponent<Animation> ().Play (walkAnim);
+					{
+						if (legacy != null)
+							legacy.Play(walkAnim);
+						if (anim != null)
+							anim.SetTrigger(walkAnim);
+					}
 					if (leader == null) {
 //					if (characterMotor == null)
 						characterController.SimpleMove (transform.TransformDirection (moveDir.normalized));//characterMotor.inputMoveDirection = transform.TransformDirection( moveDir.normalized);
@@ -114,7 +126,12 @@ namespace MultiGame
 					}
 				} else {
 					if (image != null)
-						image.GetComponent<Animation> ().Play (idleAnim);
+					{
+						if (legacy != null)
+							legacy.Play(idleAnim);
+						if (anim != null)
+							anim.SetTrigger(idleAnim);
+					}
 				}
 			
 				if (leader != null) {
@@ -143,13 +160,22 @@ namespace MultiGame
 				float dist = Vector3.Distance (transform.position, target.transform.position);
 				if (canAttack && (dist < (attackDistance))) {//attacking behavior
 					if (image != null)
-						image.GetComponent<Animation> ().Play (attackAnim);
+					{
+						if (legacy != null)
+							legacy.Play(attackAnim);
+						if (anim != null)
+							anim.SetTrigger(attackAnim);
+					}
 					StartCoroutine (Attack (attackTime));
 					canAttack = false;
 				}
 				if (dist > minimumAttackDistance) {//chase!
-					if (image != null)
-						image.GetComponent<Animation> ().Play (runAnim);
+					if (image != null) {
+						if (legacy != null)
+							legacy.Play(runAnim);
+						if (anim != null)
+							anim.SetTrigger(runAnim);
+					}
 					transform.LookAt (target.transform, Vector3.up);
 //				if (characterMotor == null)
 					characterController.SimpleMove (transform.TransformDirection (moveDir.normalized) * runSpeedMultiplier);//characterMotor.inputMoveDirection = transform.TransformDirection(moveDir.normalized) * runSpeedMultiplier;

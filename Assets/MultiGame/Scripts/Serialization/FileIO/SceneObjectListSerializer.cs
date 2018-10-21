@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.Serialization.Formatters.Binary;
@@ -26,6 +27,7 @@ namespace MultiGame
         private string user;
 
         private NodeSessionManager nodeMan;
+		private Scene activeScene;
 
         public HelpInfo help = new HelpInfo("Scene Object List Serializer allows the player to save the contents of a scene. It saves position, rotation, scale, and material list. " +
             "The objects you are loading, and their materials, must be directly inside a folder called 'Resources' anywhere in your project, or Unity will not have access to the data. " +
@@ -117,8 +119,9 @@ namespace MultiGame
 
         public void Save()
         {
-            BinaryFormatter formatter = new BinaryFormatter();
-            FileStream stream = File.Open(Application.persistentDataPath + "/" + Application.loadedLevelName + optionalUniqueSceneIdentifier, FileMode.Create);
+			activeScene = SceneManager.GetActiveScene();
+			BinaryFormatter formatter = new BinaryFormatter();
+            FileStream stream = File.Open(Application.persistentDataPath + "/" + activeScene.name + optionalUniqueSceneIdentifier, FileMode.Create);
             formatter.Serialize(stream, objects);
             stream.Close();
         }
@@ -138,9 +141,10 @@ namespace MultiGame
 
         public void Load()
         {
-            if (!File.Exists(Application.persistentDataPath + "/" + Application.loadedLevelName + optionalUniqueSceneIdentifier))
+			activeScene = SceneManager.GetActiveScene();
+            if (!File.Exists(Application.persistentDataPath + "/" + activeScene.name + optionalUniqueSceneIdentifier))
             {
-                Debug.LogError("Scene Object List Serializer " + gameObject.name + " could not find file " + Application.persistentDataPath + "/" + Application.loadedLevelName + optionalUniqueSceneIdentifier);
+                Debug.LogError("Scene Object List Serializer " + gameObject.name + " could not find file " + Application.persistentDataPath + "/" + activeScene.name + optionalUniqueSceneIdentifier);
                 return;
             }
             else {
@@ -149,7 +153,7 @@ namespace MultiGame
 
                 try
                 {
-                    stream = File.Open(Application.persistentDataPath + "/" + Application.loadedLevelName + optionalUniqueSceneIdentifier, FileMode.Open);
+                    stream = File.Open(Application.persistentDataPath + "/" + activeScene.name + optionalUniqueSceneIdentifier, FileMode.Open);
                 }
                 catch (System.Exception ex)
                 {
@@ -216,7 +220,8 @@ namespace MultiGame
 
         private IEnumerator SaveUrl(string url)
         {
-            if (string.IsNullOrEmpty(user))
+			activeScene = SceneManager.GetActiveScene();
+			if (string.IsNullOrEmpty(user))
             {
                 Debug.LogError("Scene Object List Serializer must have a user name assigned by calling 'SetUsername' first");
                 yield return new WaitForEndOfFrame();
@@ -242,7 +247,7 @@ namespace MultiGame
                 //				headers.Add("map_name",Application.loadedLevelName + optionalUniqueSceneIdentifier);
                 form.AddField("my_cookie", nodeMan.sesh.session);
                 form.AddBinaryData("binary", stream.ToArray());
-                WWW www = new WWW(url + "?map_name=" + (Application.loadedLevelName + optionalUniqueSceneIdentifier), form);
+                WWW www = new WWW(url + "?map_name=" + (activeScene.name + optionalUniqueSceneIdentifier), form);
 
                 yield return www;
 

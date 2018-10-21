@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 using System.Collections.Generic;
 using MultiGame;
@@ -106,7 +107,7 @@ namespace MultiGame {
 			}
 
 			if (CheckStringExists(targetLevel))
-				Application.LoadLevel(targetLevel);
+				SceneManager.LoadScene(targetLevel);
 		}
 
 		void OnTriggerExit (Collider other) {

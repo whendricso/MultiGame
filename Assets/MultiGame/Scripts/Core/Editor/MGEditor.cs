@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
-#endif
 using UnityEditorInternal;
+#endif
 using System.Collections;
+using System.Collections.Generic;
 using MultiGame;
 
 namespace MultiGame {
@@ -12,10 +13,21 @@ namespace MultiGame {
 		#if UNITY_EDITOR
 
 		protected Transform sceneTransform;
+		/// <summary>
+		/// The current target of operaions. Usually, this is the currrent selection. See 'ResolveOrCreateTarget' for a reliable way to always ensure that there is a target to operate on
+		/// </summary>
 		public GameObject target;
-//		private GameObject template;
 
+		public static Color errorColor = XKCDColors.LightRed;
+		public static Color warningColor = XKCDColors.LightOrange;
+		public static Color validColor = XKCDColors.BabyBlue;
+		public static Color affirmationColor = XKCDColors.LightGreen;
+		public static int mgButtonSize = -1;
+		public static int mgPipSize = 16;
+		//		private GameObject template;
 
+			//The last object that was the "active" while creating a group
+		private static GameObject lastGroupActive;
 
 		/// <summary>
 		/// Adds a child object cleanly and returns it, with undo registry.
@@ -43,7 +55,7 @@ namespace MultiGame {
 				return false;
 
 			bool _ret = false;
-			_ret = GUILayout.Button(_icon, GUILayout.Width(_icon.width), GUILayout.Height (_icon.height));
+			_ret = GUILayout.Button(_icon, GUILayout.Width( mgButtonSize > 0 ? mgButtonSize : _icon.width), GUILayout.Height (mgButtonSize > 0 ? mgButtonSize : _icon.height));
 			if (!string.IsNullOrEmpty( _caption))
 				GUILayout.Label(_caption);
 			GUILayout.Space(8f);
@@ -58,7 +70,7 @@ namespace MultiGame {
 		public static bool MGPip (Texture2D _icon) {
 			bool _ret = false;
 			
-			_ret = GUILayout.Button(_icon, GUIStyle.none, GUILayout.Width(16), GUILayout.Height(16));
+			_ret = GUILayout.Button(_icon, GUIStyle.none, GUILayout.Width(mgPipSize), GUILayout.Height(mgPipSize));
 
 			return _ret;
 		}
@@ -103,6 +115,9 @@ namespace MultiGame {
 			return AssetDatabase.GetAssetPath(_asset);
 		}
 
+		/// <summary>
+		/// Returns a reference to the current selection target, or creates a new GameObject and asssigns it as the selection and target. 
+		/// </summary>
 		protected void ResolveOrCreateTarget () {
 			try {
 				sceneTransform = SceneView.lastActiveSceneView.camera.transform;
@@ -131,6 +146,10 @@ namespace MultiGame {
 			}
 		}
 
+		/// <summary>
+		/// Renames the target only if it's called "New MultiGame Object" - meaning we created it but didn't rename it yet
+		/// </summary>
+		/// <param name="_newName"></param>
 		protected void SmartRenameTarget (string _newName) {
 			if (target.name == "New MultiGame Object")
 				target.name = _newName;
@@ -139,6 +158,45 @@ namespace MultiGame {
 		protected void RenameTarget(string _newName) {
 			target.name = _newName;
 		}
-		#endif
+
+		[MenuItem("GameObject/Group",false,31)]
+		public static void GroupSelection() {
+			if (Selection.activeGameObject == lastGroupActive)
+				return;
+			GameObject groupRoot = new GameObject(Selection.activeGameObject.name + "Group");
+			//Undo.RegisterCreatedObjectUndo(groupRoot,"Create New Object");
+			foreach (GameObject gobj in Selection.gameObjects) {
+				if (gobj.transform.root == gobj.transform) {
+					gobj.transform.SetParent(groupRoot.transform);
+				}
+			}
+			lastGroupActive = Selection.activeGameObject;
+		}
+
+		/// <summary>
+		/// Save a color to EditorPrefs
+		/// </summary>
+		/// <param name="color">The color data we wish to save</param>
+		/// <param name="prefKey">A unique string to help us keep track of the color</param>
+		protected static void SaveColor(Color color, string prefKey) {
+			EditorPrefs.SetString(prefKey, "" + color.r + " " + color.g + " " + color.b + " " + color.a);
+		}
+
+		/// <summary>
+		/// Load color from EditorPrefs
+		/// </summary>
+		/// <param name="prefKey">A unique string to help us keep track of the color</param>
+		/// <returns>Returns an RGBA Color data with values between 0 and 1</returns>
+		protected static Color LoadColor(string prefKey) {
+			if (!EditorPrefs.HasKey(prefKey))
+				return new Color(1, 0, 1, 1);
+			else {
+				string colorString = EditorPrefs.GetString(prefKey);
+				List<string> elements = new List<string>(colorString.Split(' '));
+				return new Color(System.Convert.ToSingle(elements[0]), System.Convert.ToSingle(elements[1]), System.Convert.ToSingle(elements[2]), System.Convert.ToSingle(elements[3]));
+
+			}
+		}
+#endif
 	}
 }

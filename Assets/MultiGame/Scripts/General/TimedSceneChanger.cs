@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 using MultiGame;
 
@@ -20,7 +21,7 @@ namespace MultiGame {
 		
 		IEnumerator ChangeTheScene (float delay) {
 			yield return new WaitForSeconds(delay);
-			Application.LoadLevel(targetScene);
+			SceneManager.LoadScene(targetScene);
 		}
 	}
 }

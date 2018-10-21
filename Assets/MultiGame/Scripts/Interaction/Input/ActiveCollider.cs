@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using MultiGame;
+using UnityEngine.SceneManagement;
 
 namespace MultiGame {
 
@@ -97,7 +98,7 @@ namespace MultiGame {
 				MessageManager.Send(message);
 			}
 			if (CheckStringExists(targetLevel))
-				Application.LoadLevel(targetLevel);
+				SceneManager.LoadScene(targetLevel);
 		}
 
 		void OnCollisionEnter (Collision collision) {
@@ -134,7 +135,7 @@ namespace MultiGame {
 
 			}
 			if (CheckStringExists(targetLevel))
-				Application.LoadLevel(targetLevel);
+				SceneManager.LoadScene(targetLevel);
 		}
 		void OnCollisionExit (Collision collision) {
 

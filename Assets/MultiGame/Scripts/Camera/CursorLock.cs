@@ -54,5 +54,19 @@ namespace MultiGame {
 			Cursor.lockState = CursorLockMode.None;
 			Cursor.visible = true;
 		}
+
+		/// <summary>
+		/// Toggle cursor lock by passing a boolean
+		/// </summary>
+		/// <param name="lck">True = locked and hidden while false = unlocked and visible</param>
+		public static void SetLock(bool lck) {
+			if (lck) {
+				Cursor.lockState = CursorLockMode.Locked;
+				Cursor.visible = false;
+			} else {
+				Cursor.lockState = CursorLockMode.None;
+				Cursor.visible = true;
+			}
+		}
 	}
 }

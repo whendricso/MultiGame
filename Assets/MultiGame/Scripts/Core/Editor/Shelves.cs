@@ -16,7 +16,7 @@ namespace MultiGame {
 
 		public static int selection = 0;
 		public static bool painting = false;
-
+		
 		public static bool randomRotation = true;
 		public static bool autoParent = true;
 		public static float minimumDistance = 1f;
@@ -29,7 +29,7 @@ namespace MultiGame {
 		public static Ray mouseRay;
 		public static RaycastHit hinfo;
 		public static bool didHit = false;
-		public static GameObject target;
+		public new static GameObject target;
 
 		public static GameObject targetCandidate;
 
@@ -75,8 +75,8 @@ namespace MultiGame {
 				InitializeShelves();
 			if (Camera.current == null)
 				return;
-			
-			GUI.backgroundColor = Color.cyan;
+
+			GUI.backgroundColor = Color.white;//Color.cyan;
 
 			adjustedHeight = baseHeight;
 			if (randomScale)
@@ -97,7 +97,7 @@ namespace MultiGame {
 			GUILayout.BeginHorizontal();
 			for (int i = 0; i < objects.Count; i++) {
 				if (painting && (selection == i || (paintAll && objects[i] != null)))
-					GUI.color = Color.green;
+					GUI.color = MGEditor.affirmationColor;
 				else
 					GUI.color = Color.white;
 				objects[i] = EditorGUI.ObjectField(new Rect(1f, 20f + (18f * i), 110, 16f), objects[i], typeof(GameObject),false) as GameObject;
@@ -214,16 +214,21 @@ namespace MultiGame {
 						lastPlacement = hinfo.point;
 					}
 				}
-
 			}
 		}
 
 		public static void LoadIcons () {
 			iconsLoaded = true;
+			cancelIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/Cancel.png", typeof (Texture2D)) as Texture2D;
+			paintIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/Paintbrush.png", typeof (Texture2D)) as Texture2D;
+			plusIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/Plus.png", typeof (Texture2D)) as Texture2D;
+			minusIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/Minus.png", typeof (Texture2D)) as Texture2D;
+			/*
 			cancelIcon = Resources.Load<Texture2D>("Cancel");
 			paintIcon = Resources.Load<Texture2D>("Paintbrush");
 			plusIcon = Resources.Load<Texture2D>("Plus");
 			minusIcon = Resources.Load<Texture2D>("Minus");
+			*/
 		}
 
 		public static void InitializeShelves () {

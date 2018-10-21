@@ -13,9 +13,6 @@ namespace MultiGame {
 		[Tooltip("List of messages we will send")]
 		public List<MessageManager.ManagedMessage> messages = new List<MessageManager.ManagedMessage>();
 
-		[Tooltip("Should we ignore relay calls when this object or component is disabled? If false, we will relay even when disabled!")]
-		public bool ignoreWhenDisabled = true;
-
 		public HelpInfo help = new HelpInfo("This component sends a list of messages when receiving the 'Relay' message. You can attach this to a child object (appropriately named)" +
 			" and use it as a logic gate, or just expand the reach of other message senders based on context." +
 			"\n\n" +
@@ -51,15 +48,12 @@ namespace MultiGame {
 
 		public MessageHelp relayHelp = new MessageHelp("Relay","Activates this Message Relay, sending all 'Messages'");
 		public void Relay () {
-			if (ignoreWhenDisabled) {
-				if (enabled == false || gameObject.activeSelf == false)
-					return;
-			}
-			if (debug)
-				Debug.Log ("Message Relay " + gameObject.name + " activated, sending " + messages.Count + " messages.");
+			if (enabled == false)
+				return;
+
 			foreach(MessageManager.ManagedMessage msg in messages) {
 				if (debug)
-					Debug.Log ("Message relay " + gameObject.name + " is sending " + msg.message + " to target " + msg.target);
+					Debug.Log ("Message relay " + gameObject.name + " is sending " + msg.message);
 				MessageManager.Send(msg);
 			}
 		}

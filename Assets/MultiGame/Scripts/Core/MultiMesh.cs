@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using MultiGame;
 #if UNITY_EDITOR
 using UnityEditor;
@@ -55,7 +56,13 @@ namespace MultiGame {
 		protected void AcquireMesh () {
 			if (filter == null)
 				filter = GetComponent<MeshFilter> ();
-			mesh = new Mesh ();
+			if (mesh == null) {
+				mesh = new Mesh();
+				if (!Directory.Exists(Application.dataPath + "/Generated/"))
+					Directory.CreateDirectory(Application.dataPath + "/Generated/");
+				AssetDatabase.CreateAsset(mesh, "Assets/Generated/" + gameObject.name + Mathf.RoundToInt(Random.Range(0, 100000))+ ".mesh");
+				AssetDatabase.SaveAssets();
+			}
 			filter.sharedMesh = mesh;
 			if (rend == null)
 				rend = GetComponent<MeshRenderer> ();

@@ -17,23 +17,9 @@ namespace MultiGame {
 
 		public Vector3 uvScale = Vector3.one;
 		public Vector3 uvOffset = Vector3.zero;
-		public VertexOffsetGroup vertexOffsets;
 
 		public HelpInfo help = new HelpInfo ("ProcCube is a powerful tool for object and level design. It allows you to make boxes of any given proportion, and properly changes the UV coordinates so that your " +
 			"textures don't stretch like they do with a normal Unity cube. To use, simply add this to an empty transform (or create it with a Rapid Dev Toolbar button)");
-
-
-		[System.Serializable]
-		public class VertexOffsetGroup {
-			public Vector3 topFrontLeft = Vector3.zero;
-			public Vector3 topBackLeft = Vector3.zero;
-			public Vector3 topFrontRight = Vector3.zero;
-			public Vector3 topBackRight = Vector3.zero;
-			public Vector3 bottomFrontLeft = Vector3.zero;
-			public Vector3 bottomBackLeft = Vector3.zero;
-			public Vector3 bottomFrontRight = Vector3.zero;
-			public Vector3 bottomBackRight = Vector3.zero;
-		}
 
 		void OnValidate () {
 			if (Application.isPlaying)
@@ -78,25 +64,15 @@ namespace MultiGame {
 			mesh.Clear ();
 
 			#region Vertices
-//			Vector3 p0 = new Vector3 (-width * .5f,	-height * .5f, length * .5f);
-//			Vector3 p1 = new Vector3 (width * .5f, -height * .5f, length * .5f);
-//			Vector3 p2 = new Vector3 (width * .5f, -height * .5f, -length * .5f);
-//			Vector3 p3 = new Vector3 (-width * .5f,	-height * .5f, -length * .5f);	
-//
-//			Vector3 p4 = new Vector3 (-width * .5f,	height * .5f, length * .5f);
-//			Vector3 p5 = new Vector3 (width * .5f, height * .5f, length * .5f);
-//			Vector3 p6 = new Vector3 (width * .5f, height * .5f, -length * .5f);
-//			Vector3 p7 = new Vector3 (-width * .5f,	height * .5f, -length * .5f);
+			Vector3 p0 = new Vector3 (-width * .5f,	-height * .5f, length * .5f);
+			Vector3 p1 = new Vector3 (width * .5f, -height * .5f, length * .5f);
+			Vector3 p2 = new Vector3 (width * .5f, -height * .5f, -length * .5f);
+			Vector3 p3 = new Vector3 (-width * .5f,	-height * .5f, -length * .5f);	
 
-			Vector3 p0 = new Vector3 (-width * .5f + vertexOffsets.bottomBackLeft.x,	-height * .5f + vertexOffsets.bottomBackLeft.y, length * .5f + vertexOffsets.bottomBackLeft.z);
-			Vector3 p1 = new Vector3 (width * .5f + vertexOffsets.bottomBackRight.x, -height * .5f + vertexOffsets.bottomBackRight.y, length * .5f + vertexOffsets.bottomBackRight.z);
-			Vector3 p2 = new Vector3 (width * .5f + vertexOffsets.bottomFrontRight.x, -height * .5f + vertexOffsets.bottomFrontRight.y, -length * .5f + vertexOffsets.bottomFrontRight.z);
-			Vector3 p3 = new Vector3 (-width * .5f + vertexOffsets.bottomFrontLeft.x,	-height * .5f + vertexOffsets.bottomFrontLeft.y, -length * .5f + vertexOffsets.bottomFrontLeft.z);	
-
-			Vector3 p4 = new Vector3 (-width * .5f + vertexOffsets.topBackLeft.x,	height * .5f + vertexOffsets.topBackLeft.y, length * .5f + vertexOffsets.topBackLeft.z);
-			Vector3 p5 = new Vector3 (width * .5f + vertexOffsets.topBackRight.x, height * .5f + vertexOffsets.topBackRight.y, length * .5f + vertexOffsets.topBackRight.z);
-			Vector3 p6 = new Vector3 (width * .5f + vertexOffsets.topFrontRight.x, height * .5f + vertexOffsets.topFrontRight.y, -length * .5f + vertexOffsets.topFrontRight.z);
-			Vector3 p7 = new Vector3 (-width * .5f + vertexOffsets.topFrontLeft.x,	height * .5f + vertexOffsets.topFrontLeft.y, -length * .5f + vertexOffsets.topFrontLeft.z);
+			Vector3 p4 = new Vector3 (-width * .5f,	height * .5f, length * .5f);
+			Vector3 p5 = new Vector3 (width * .5f, height * .5f, length * .5f);
+			Vector3 p6 = new Vector3 (width * .5f, height * .5f, -length * .5f);
+			Vector3 p7 = new Vector3 (-width * .5f,	height * .5f, -length * .5f);
 
 			Vector3[] vertices = new Vector3[] {
 				// Bottom
@@ -161,7 +137,6 @@ namespace MultiGame {
 			float uvWidth = width * uvScale.x;
 			float uvHeight = height * uvScale.y;
 
-			//TODO: Add vertex offsets to UV offsets
 			Vector2[] uvs = new Vector2[] {
 				// Bottom
 				//_11, _01, _00, _10,
@@ -187,33 +162,7 @@ namespace MultiGame {
 				//_11, _01, _00, _10,
 				new Vector2(-uvWidth - uvOffset.x,uvLength + uvOffset.z), new Vector2(0 - uvOffset.x,uvLength + uvOffset.z), new Vector2(0 - uvOffset.x,0 + uvOffset.z), new Vector2(-uvWidth - uvOffset.x,0 + uvOffset.z),
 			};
-//			Vector2[] uvs = new Vector2[] {
-//				// Bottom
-//				//_11, _01, _00, _10,
-//				new Vector2(uvWidth + uvOffset.x,uvLength - uvOffset.z), new Vector2(0 + uvOffset.x,uvLength - uvOffset.z), new Vector2(0 + uvOffset.x,0 - uvOffset.z), new Vector2(uvWidth + uvOffset.x,0 - uvOffset.z),
-//
-//				// Left
-//				//_11 , _01, _00, _10,
-//				new Vector2(uvLength + uvOffset.z,uvHeight - uvOffset.y), new Vector2(0 + uvOffset.z,uvHeight - uvOffset.y), new Vector2(0 + uvOffset.z,0 - uvOffset.y), new Vector2(uvLength + uvOffset.z,0 - uvOffset.y),
-//
-//				// Front
-//				//_11, _01, _00, _10,
-//				new Vector2(-uvWidth - uvOffset.x,uvHeight - uvOffset.y), new Vector2(0 - uvOffset.x,uvHeight - uvOffset.y), new Vector2(0 - uvOffset.x,0 - uvOffset.y), new Vector2(-uvWidth - uvOffset.x,0 - uvOffset.y),
-//
-//				// Back
-//				//_11, _01, _00, _10,
-//				new Vector2(uvWidth - uvOffset.x,-uvHeight + uvOffset.y), new Vector2(0 - uvOffset.x,-uvHeight + uvOffset.y), new Vector2(0 - uvOffset.x,0 + uvOffset.y), new Vector2(uvWidth - uvOffset.x,0 + uvOffset.y),
-//
-//				// Right
-//				//_11, _01, _00, _10,
-//				new Vector2(uvLength - uvOffset.z,uvHeight - uvOffset.y), new Vector2(0 - uvOffset.z,uvHeight - uvOffset.y), new Vector2(0 - uvOffset.z,0 - uvOffset.y), new Vector2(uvLength - uvOffset.z,0 - uvOffset.y),
-//
-//				// Top
-//				//_11, _01, _00, _10,
-//				new Vector2(-uvWidth - uvOffset.x,uvLength + uvOffset.z), new Vector2(0 - uvOffset.x,uvLength + uvOffset.z), new Vector2(0 - uvOffset.x,0 + uvOffset.z), new Vector2(-uvWidth - uvOffset.x,0 + uvOffset.z),
-//			};
 			#endregion
-
 
 			#region Triangles
 			int[] triangles = new int[] {

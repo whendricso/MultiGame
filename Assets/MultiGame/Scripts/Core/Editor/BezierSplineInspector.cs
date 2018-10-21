@@ -1,4 +1,5 @@
-﻿using UnityEditor;
+﻿#pragma warning disable 0618
+using UnityEditor;
 using UnityEngine;
 using MultiGame;
 

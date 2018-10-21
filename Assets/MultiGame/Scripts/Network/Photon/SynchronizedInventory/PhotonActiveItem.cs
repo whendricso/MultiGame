@@ -41,7 +41,7 @@ namespace MultiGame {
 
 		[PunRPC]
 		public void NetDestruct () {
-			if(PhotonNetwork.player.isMasterClient || GetView().isMine)
+			if(PhotonNetwork.player.IsMasterClient || GetView().isMine)
 				PhotonNetwork.Destroy(gameObject);
 			else
 				GetView().RPC( "NetDestruct", PhotonTargets.MasterClient);

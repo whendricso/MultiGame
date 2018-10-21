@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 using MultiGame;
 
@@ -9,7 +10,7 @@ namespace MultiGame {
 		public bool changeOnStart = false;
 		public string targetScene = "";
 
-		private bool loadingAsync = false;
+		//private bool loadingAsync = false;
 
 		public bool debug = false;
 
@@ -35,9 +36,9 @@ namespace MultiGame {
 			yield return null;
 			if (debug)
 				Debug.Log("Continued " + PhotonNetwork.room);
-			
-			AsyncOperation asyncLoad = Application.LoadLevelAsync(_targetScene);
-			loadingAsync = true;
+
+			AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(_targetScene);//Application.LoadLevelAsync(_targetScene);
+			//loadingAsync = true;
 			if (debug)
 				Debug.Log("Loading... " + PhotonNetwork.room);
 			yield return asyncLoad;
@@ -45,7 +46,7 @@ namespace MultiGame {
 
 			if (debug)
 				Debug.Log("Loaded scene. " + PhotonNetwork.room);
-			loadingAsync = false;
+			//loadingAsync = false;
 		}
 		
 		void Activate () {

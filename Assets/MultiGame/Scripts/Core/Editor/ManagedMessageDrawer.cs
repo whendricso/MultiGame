@@ -41,7 +41,7 @@ namespace MultiGame
 			}
 			possibleMessages = _msgStrings.ToArray ();
 			if (property.FindPropertyRelative("target").objectReferenceValue == null)
-				GUI.color = Color.cyan;
+				GUI.color = MGEditor.validColor;
 			else
 				GUI.color = Color.white;
 			EditorGUI.PropertyField (targetRect, property.FindPropertyRelative ("target"),GUIContent.none/*, new GUIContent ("Target")*/);
@@ -49,13 +49,13 @@ namespace MultiGame
 			//display as a string if the override is enabled, this also locks the message in so it won't change if the list is rebuilt
 			if (property.FindPropertyRelative ("msgOverride").boolValue) {
 				if (_msgStrings.Contains (property.FindPropertyRelative ("message").stringValue)) {
-					if (string.Equals( property.FindPropertyRelative("message").stringValue, "--none--"))
+					if (string.Equals(property.FindPropertyRelative("message").stringValue, "--none--"))
 						GUI.color = Color.white;
 					else
-						GUI.color = Color.green;
+						GUI.color = MGEditor.affirmationColor;
 				}
 				else
-					GUI.color = Color.cyan;
+					GUI.color = MGEditor.validColor;
 				EditorGUI.PropertyField (messageRect, property.FindPropertyRelative ("message"), GUIContent.none);
 				GUI.color = Color.white;
 			} else {
@@ -65,7 +65,7 @@ namespace MultiGame
 					if (string.Equals( property.FindPropertyRelative("message").stringValue, "--none--"))
 						GUI.color = Color.white;
 					else
-						GUI.color = Color.yellow;
+						GUI.color = MGEditor.warningColor;
 					property.FindPropertyRelative ("messageIndex").intValue = EditorGUI.Popup (messageRect, property.FindPropertyRelative ("messageIndex").intValue, possibleMessages);
 					GUI.color = Color.white;
 					property.FindPropertyRelative ("message").stringValue = possibleMessages [property.FindPropertyRelative ("messageIndex").intValue];
@@ -77,12 +77,12 @@ namespace MultiGame
 				}
 			}
 			if (property.FindPropertyRelative ("msgOverride").boolValue)
-				GUI.color = Color.cyan;
+				GUI.color = MGEditor.validColor;
 			else {
 				if (string.Equals( property.FindPropertyRelative("message").stringValue, "--none--"))
 					GUI.color = Color.white;
 				else
-					GUI.color = Color.yellow;
+					GUI.color = MGEditor.warningColor;
 			}
 			if (!property.FindPropertyRelative("msgOverride").boolValue)
 				EditorGUI.LabelField (new Rect (/*messageRect.width - messageRect.x * */30, messageRect.y, messageRect.width * .2f, messageRect.height),"Lck");

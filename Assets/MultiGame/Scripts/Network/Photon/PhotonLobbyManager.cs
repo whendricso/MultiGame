@@ -33,7 +33,7 @@ namespace MultiGame {
 			for (int i = 0; i < rooms.Count; i++) {
 				if (GUILayout.Button(rooms[i].Name + " : ( " + rooms[i].PlayerCount + "/" + rooms[i].MaxPlayers + " )", GUILayout.ExpandWidth(true)) && (rooms[i].PlayerCount < rooms[i].MaxPlayers)) {
 					SceneManager.LoadScene(onlineScene);
-					ConnectAfterLoading(rooms[i].name);
+					ConnectAfterLoading(rooms[i].Name);
 				}
 			}
 

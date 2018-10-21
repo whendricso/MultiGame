@@ -51,13 +51,11 @@ namespace MultiGame {
 			else {
 				if (Input.GetMouseButtonDown (1)) {
 					rotateOn = true;
-					Cursor.visible = false;
-					Screen.lockCursor = true;
+					CursorLock.SetLock(true);
 				}
 				else if (lastLockCursor || Input.GetMouseButtonUp (1)) {
 					rotateOn = false;
-					Cursor.visible = true;
-					Screen.lockCursor = false;
+					CursorLock.SetLock(false);
 				}
 			}
 			
