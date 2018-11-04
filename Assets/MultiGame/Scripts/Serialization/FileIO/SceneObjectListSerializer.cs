@@ -275,8 +275,8 @@ namespace MultiGame
 
         private IEnumerator LoadUrl(string url)
         {
-            if (string.IsNullOrEmpty(user))
-            {
+			activeScene = SceneManager.GetActiveScene();
+            if (string.IsNullOrEmpty(user)) {
                 Debug.LogError("Scene Object List Serializer must have a user name assigned by calling 'SetUsername' first");
                 yield return new WaitForEndOfFrame();
             }
@@ -287,7 +287,7 @@ namespace MultiGame
                 FindNodeManager();
                 //				dict.Add("type","GET");
                 dict.Add("Content-Type", "application/x-form-urlencoded");
-                dict.Add("map_name", /*Application.loadedLevelName + */optionalUniqueSceneIdentifier);
+                dict.Add("map_name", activeScene.name + optionalUniqueSceneIdentifier);
                 dict.Add("my_cookie", nodeMan.sesh.session);
 
                 WWW www = new WWW(url, null, dict);

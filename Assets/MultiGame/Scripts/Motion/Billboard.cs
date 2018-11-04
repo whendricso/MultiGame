@@ -11,7 +11,7 @@ namespace MultiGame {
 		[Tooltip("Should this snap directly to the target?")]
 		public bool instant = true;
 		[Tooltip("If enabled, the billboard will force itself to obey the global Y orientation and will only rotate around the Y axis.")]
-		public bool forceYUp = false;
+		public bool forceYUp = true;
 		[RequiredFieldAttribute("What object are we targeting? If none is set, the Main Camera will be targeted instead",RequiredFieldAttribute.RequirementLevels.Optional)]
 		public Transform target;
 		[Tooltip("If not instant, what is our turning speed?")]

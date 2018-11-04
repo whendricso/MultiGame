@@ -55,6 +55,11 @@ namespace MultiGame {
 			AcquireMesh ();
 			BuildCone ();
 
+			if (generateLightmapUVs) {
+				StartCoroutine(GenerateLightmapUVs());
+				generateLightmapUVs = false;
+			}
+
 			if (addCollider) {
 				SetupCollider ();
 			}
@@ -241,6 +246,7 @@ namespace MultiGame {
 			mesh.vertices = vertices;
 			mesh.normals = normals;
 			mesh.uv = uvs;
+			//Unwrapping.GenerateSecondaryUVSet(mesh);
 			mesh.triangles = triangles;
 			mesh.RecalculateTangents ();
 			mesh.RecalculateBounds();

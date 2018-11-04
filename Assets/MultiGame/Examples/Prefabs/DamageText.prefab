@@ -1,0 +1,324 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1612936129608712}
+  m_IsPrefabAsset: 1
+--- !u!1 &1326235006378484
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 224941764103986912}
+  - component: {fileID: 223336439580727242}
+  - component: {fileID: 114391186843415232}
+  - component: {fileID: 114126830952738882}
+  - component: {fileID: 114191864369978312}
+  m_Layer: 5
+  m_Name: HitText
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1612936129608712
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4660604755410814}
+  - component: {fileID: 114825959638410020}
+  - component: {fileID: 114621156639844986}
+  m_Layer: 0
+  m_Name: DamageText
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1985377208051404
+GameObject:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 224718603363433334}
+  - component: {fileID: 222657463035575130}
+  - component: {fileID: 114056888848840470}
+  m_Layer: 5
+  m_Name: Text
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4660604755410814
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1612936129608712}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3.5599997, y: 6.3899994, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 224941764103986912}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114056888848840470
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1985377208051404}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.5471698, g: 0.023228897, b: 0.023228897, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 20
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 0
+    m_MaxSize: 122
+    m_Alignment: 4
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: -HP
+--- !u!114 &114126830952738882
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1326235006378484}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1301386320, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreReversedGraphics: 1
+  m_BlockingObjects: 0
+  m_BlockingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+--- !u!114 &114191864369978312
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1326235006378484}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e69eca48c280aa74bb3e09dc512d801e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  impetus: {x: 0, y: 3, z: 0}
+  localImpetus: {x: 0, y: 0, z: 0}
+  help:
+    showInfo: 0
+    helpText: This component is similar to the ConstantForce component, except it
+      works on non-rigidbodies instead. To use, add to any object that you would like
+      to move and input the global or local motion you would like. For example, you
+      could add this and a 'Billboard' component to an enemy, and set the Local Impetus'
+      Z value to the speed you wish the enemy to move. The enemy will then fly through
+      the air towards the camera automatically, ignoring collisions and moving through
+      all objects.
+  setImpetusXHelp:
+    showInfo: 0
+    messageName: SetImpetusX
+    helpText: Sets the speed at which this object should move on the global X axis
+    argumentType: 3
+    argumentText: The new value for X-axis movement
+  setImpetusYHelp:
+    showInfo: 0
+    messageName: SetImpetusY
+    helpText: Sets the speed at which this object should move on the global Y axis
+    argumentType: 3
+    argumentText: The new value for Y-axis movement
+  setImpetusZHelp:
+    showInfo: 0
+    messageName: SetImpetusZ
+    helpText: Sets the speed at which this object should move on the global Z axis
+    argumentType: 3
+    argumentText: The new value for Z-axis movement
+  setLocalImpetusXHelp:
+    showInfo: 0
+    messageName: SetLocalImpetusX
+    helpText: Sets the speed at which this object should move on the local X axis
+    argumentType: 3
+    argumentText: The new value for X-axis movement
+  setLocalImpetusYHelp:
+    showInfo: 0
+    messageName: SetLocalImpetusY
+    helpText: Sets the speed at which this object should move on the local Y axis
+    argumentType: 3
+    argumentText: The new value for Y-axis movement
+  setLocalImpetusZHelp:
+    showInfo: 0
+    messageName: SetLocalImpetusZ
+    helpText: Sets the speed at which this object should move on the local Z axis
+    argumentType: 3
+    argumentText: The new value for Z-axis movement
+--- !u!114 &114391186843415232
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1326235006378484}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1980459831, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_UiScaleMode: 0
+  m_ReferencePixelsPerUnit: 100
+  m_ScaleFactor: 1
+  m_ReferenceResolution: {x: 800, y: 600}
+  m_ScreenMatchMode: 0
+  m_MatchWidthOrHeight: 0
+  m_PhysicalUnit: 3
+  m_FallbackScreenDPI: 96
+  m_DefaultSpriteDPI: 96
+  m_DynamicPixelsPerUnit: 1
+--- !u!114 &114621156639844986
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1612936129608712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b782b4ce5ab4174b97e80878ad227a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  liveTime: 2
+  deathPrefab: {fileID: 0}
+  prefabOffset: {x: 0, y: 0, z: 0}
+  help:
+    showInfo: 0
+    helpText: This simple component allows things to die after a given time. Great
+      for grenades or the like.
+  cancelDestructionHelp:
+    showInfo: 0
+    messageName: CancelDestruction
+    helpText: If received in time, stops this object from self-destructing.
+    argumentType: 0
+    argumentText: 
+--- !u!114 &114825959638410020
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1612936129608712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 886063b731dff774a8c50505979672f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  instant: 1
+  forceYUp: 1
+  target: {fileID: 0}
+  speed: 6
+  spritesFaceRight: 1
+  spriteFlip: 0
+  invert: 0
+  help:
+    showInfo: 0
+    helpText: 'This component causes an object to turn to face another object automatically.
+      If no Target is provided, the object will look at the  MainCamera instead. If
+      ''Instant'' is false, it will turn over time. Can be used with ''TargetingComputer''
+      (useful for laser beams, billboard sprites, creepy eyes etc)
+
+
+      Targeting Sensor causes this object to target what ever the sensor sees. Set
+      this as a Message Receiver on the Targeting Sensor component '
+--- !u!222 &222657463035575130
+CanvasRenderer:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1985377208051404}
+  m_CullTransparentMesh: 0
+--- !u!223 &223336439580727242
+Canvas:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1326235006378484}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 2
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 0
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_AdditionalShaderChannelsFlag: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_TargetDisplay: 0
+--- !u!224 &224718603363433334
+RectTransform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1985377208051404}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.0592956, y: 0.0592956, z: 0.0592956}
+  m_Children: []
+  m_Father: {fileID: 224941764103986912}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 150, y: 25}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!224 &224941764103986912
+RectTransform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1326235006378484}
+  m_LocalRotation: {x: -0, y: -1, z: -0, w: 0.000029832121}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 224718603363433334}
+  m_Father: {fileID: 4660604755410814}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: -179.99701, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 10, y: 5}
+  m_Pivot: {x: 0.5, y: 0.5}

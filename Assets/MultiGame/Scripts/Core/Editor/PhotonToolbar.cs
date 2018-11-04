@@ -36,16 +36,16 @@ namespace MultiGame {
 
 		void LoadIcons () {
 			photonIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/PhotonButton.png", typeof(Texture2D)) as Texture2D;
-			photonCharacterIcon = Resources.Load("Assets/MultiGame/Editor/Icons/PhotonCharacterButton.png", typeof(Texture2D)) as Texture2D;
-			photonDestructibleIcon = Resources.Load("Assets/MultiGame/Editor/Icons/PhotonDestructibleButton.png", typeof(Texture2D)) as Texture2D;
-			photonHealthIcon = Resources.Load("Assets/MultiGame/Editor/Icons/HealthButton.png", typeof(Texture2D)) as Texture2D;
+			photonCharacterIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/PhotonCharacterButton.png", typeof(Texture2D)) as Texture2D;
+			photonDestructibleIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/PhotonDestructibleButton.png", typeof(Texture2D)) as Texture2D;
+			photonHealthIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/HealthButton.png", typeof(Texture2D)) as Texture2D;
 			//			photonInventoryIcon = Resources.Load("Assets/MultiGame/Editor/Icons/PhotonInventoryButton.png", typeof(Texture2D)) as Texture2D;
 			//			photonItemIcon = Resources.Load("Assets/MultiGame/Editor/Icons/PhotonItemButton.png", typeof(Texture2D)) as Texture2D;
-			photonPositionIcon = Resources.Load("Assets/MultiGame/Editor/Icons/PhotonPositionButton.png", typeof(Texture2D)) as Texture2D;
-			photonRelayIcon = Resources.Load("Assets/MultiGame/Editor/Icons/PhotonRelayButton.png", typeof(Texture2D)) as Texture2D;
-			photonRigidbodyIcon = Resources.Load("Assets/MultiGame/Editor/Icons/PhotonRigidbodyButton.png", typeof(Texture2D)) as Texture2D;
-			photonSpawnerIcon = Resources.Load("Assets/MultiGame/Editor/Icons/PhotonSpawnButton.png", typeof(Texture2D)) as Texture2D;
-			photonAvatarIcon = Resources.Load("Assets/MultiGame/Editor/Icons/PhotonAvatarButton.png", typeof(Texture2D)) as Texture2D;
+			photonPositionIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/PhotonPositionButton.png", typeof(Texture2D)) as Texture2D;
+			photonRelayIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/PhotonRelayButton.png", typeof(Texture2D)) as Texture2D;
+			photonRigidbodyIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/PhotonRigidbodyButton.png", typeof(Texture2D)) as Texture2D;
+			photonSpawnerIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/PhotonSpawnButton.png", typeof(Texture2D)) as Texture2D;
+			photonAvatarIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/PhotonAvatarButton.png", typeof(Texture2D)) as Texture2D;
 			//			photonSceneIcon = Resources.Load("PhotonSceneButton", typeof(Texture2D)) as Texture2D;
 			//			photonChannelIcon = Resources.Load("PhotonChannelButton", typeof(Texture2D)) as Texture2D;
 		}
@@ -59,7 +59,7 @@ namespace MultiGame {
 						LoadIcons();
 					}
 
-					if (photonIcon == null) {
+					if (photonCharacterIcon == null) {
 						iconsLoaded = false;
 						LoadIcons();
 						return;

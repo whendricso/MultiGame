@@ -62,6 +62,11 @@ namespace MultiGame {
 			AcquireMesh ();
 			BuildPlane ();
 
+			if (generateLightmapUVs) {
+				StartCoroutine(GenerateLightmapUVs());
+				generateLightmapUVs = false;
+			}
+
 			if (addCollider) {
 				SetupCollider ();
 			}
@@ -134,9 +139,9 @@ namespace MultiGame {
 			mesh.uv = uvs;
 			mesh.RecalculateTangents ();
 			mesh.triangles = triangles;
-
+			//Unwrapping.GenerateSecondaryUVSet(mesh);
 			mesh.RecalculateBounds();
-			;
+			
 		}
 		#endif
 	}

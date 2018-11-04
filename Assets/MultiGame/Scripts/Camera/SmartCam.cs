@@ -20,6 +20,7 @@ namespace MultiGame
 		[Tooltip("How long should we wait before trying to retarget?")]
 		public float autoRetargetTime = .6f;
 		private float autoRetargetCounter;
+		
 
 		[Header("Input Settings")]
 		[Tooltip("The key used to break the view for camera orbit using the mouse")]
@@ -40,6 +41,12 @@ namespace MultiGame
 		public float rotationSpeed = 1f;
 		[RequiredField("How long do we wait after breaking rotation to start rotating automatically again?", RequiredFieldAttribute.RequirementLevels.Recommended)]
 		public float refollowTime = 1.2f;
+		[Tooltip("An offset vector relative to the facing of the target object.")]
+		public Vector3 relativeOffset = new Vector3(0, 3, -3);
+		[Tooltip("An offset vector that ignores the orientation of the target.")]
+		public Vector3 globalOffset = Vector3.zero;
+		[Tooltip("How much should we offset our look target, if at all? (useful for over-the-shoulder games or sidescrollers)")]
+		public Vector3 lookOffset = Vector3.up;
 		private float refollowCounter = 0;
 
 		private GameObject lookAtTarget;
@@ -49,7 +56,7 @@ namespace MultiGame
 		public UpdateModes updateMode = UpdateModes.Late;
 
 
-
+		private Vector3 finalOffset;//the final offset value calculated by combining the relative and global offsets
 
 		private MouseAim mAim;
 		private Vector3 newPos;
@@ -86,7 +93,8 @@ namespace MultiGame
 
 		void FollowTarget () {
 			if (target) {
-				newPos = target.position;
+				finalOffset = target.transform.TransformDirection(relativeOffset) + globalOffset;
+				newPos = target.position + finalOffset;
 				transform.position = Vector3.Lerp (transform.position, newPos, followSpeed * Time.deltaTime);
 				RotateToTarget();
 			}
@@ -99,7 +107,7 @@ namespace MultiGame
 
 			if (refollowCounter <= 0f) {
 				if (lookAtTarget != null) {
-					transform.LookAt (lookAtTarget.transform, Vector3.up);
+					transform.LookAt (lookAtTarget.transform.position + lookOffset, Vector3.up);
 				} else {
 					mAim.enabled = false;
 					transform.rotation = Quaternion.Slerp (transform.rotation, target.rotation, Time.deltaTime * rotationSpeed);

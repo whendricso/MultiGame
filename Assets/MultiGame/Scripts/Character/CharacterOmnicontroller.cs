@@ -16,9 +16,14 @@ namespace MultiGame {
 		[Tooltip("What physics layers can the player walk on?")]
 		public LayerMask walkRayMask;
 
+
 		[Header("Input")]
+		[Tooltip("Should we raycast towards the camera to see if anything is in the way and hide it if it is?")]
+		public bool checkForObstructions = false;
+		[Tooltip("What physics layers can obstruct the camera? (We will set them invisible when the player passes behind them)")]
+		public LayerMask obstructionMask;
 		[RequiredFieldAttribute("How close do we stop when chasing the pointer?")]
-		public float deadzone = .24f;
+		public float deadzone = 1.24f;
 		[Tooltip("Should this component rotate the character to face the mouse pointer using a raycast into the scene?")]
 		public bool rotateToPointer = false;
 		[RequiredFieldAttribute("How fast is our jump?")]
@@ -98,7 +103,8 @@ namespace MultiGame {
 
 		private bool jumping = false;
 		private float jumpTimer;
-//		private bool moveLocked = false;
+		private GameObject hiddenObject;
+		//		private bool moveLocked = false;
 
 		[System.Serializable]
 		public class CustomAction {
@@ -129,6 +135,8 @@ namespace MultiGame {
 //		private Vector3 previousPlatformPosition = Vector3.zero;
 		private Rigidbody rigid;
 		private RaycastHit hinfo;
+		private Vector3 mouseHitPos = Vector3.zero;
+		private bool mouseDidHit = false;
 //		private bool didHit = false;
 		private CharacterController controller;
 		private Animator anim;
@@ -219,8 +227,6 @@ namespace MultiGame {
 						}
 					}
 				}
-
-
 			}
 
 			if (Input.GetButtonUp("Jump"))
@@ -259,7 +265,9 @@ namespace MultiGame {
 			}
 
 			if (autoTurn && rotateToPointer) {
-				/*didHit = */Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hinfo, 1000f, walkRayMask);
+				mouseDidHit = Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hinfo, 1000f, walkRayMask);
+				if (mouseDidHit)
+					mouseHitPos = hinfo.point;
 			}
 				
 			if (Input.GetAxis("Vertical") > 0f) {
@@ -294,9 +302,9 @@ namespace MultiGame {
 					}
 				}
 				else {
-					if (Vector3.Distance(transform.position, hinfo.point) > deadzone) {
+					if (Vector3.Distance(transform.position, mouseHitPos) > deadzone) {
 						if (controller.isGrounded)
-							controller.transform.LookAt(new Vector3( hinfo.point.x, transform.position.y, hinfo.point.z));
+							controller.transform.LookAt(new Vector3(mouseHitPos.x, transform.position.y, mouseHitPos.z));
 						if (!jumping)
 							controller.SimpleMove(/*Time.deltaTime */ transform.TransformVector( new Vector3( Input.GetAxis("Horizontal") * strafeSpeed, 0f, adjustedVertical)));
 						else {
@@ -315,9 +323,26 @@ namespace MultiGame {
 				lastGroundVel = transform.InverseTransformVector( controller.velocity);
 		}
 
+
 		void LateUpdate () {
 			//constrain the character to always stand up, in case our platform rotates in a weird way
 			transform.eulerAngles = new Vector3(0f, transform.eulerAngles.y, 0f);
+
+			//hide or un-hide things that get in the way
+			if (checkForObstructions) {
+				RaycastHit _hinfo;
+				bool didHit = Physics.Linecast(transform.position, Camera.main.transform.position, out _hinfo, obstructionMask, QueryTriggerInteraction.Ignore);
+				if (didHit) {
+					if (hiddenObject != null && _hinfo.collider.gameObject != hiddenObject)
+						hiddenObject.GetComponentInChildren<Renderer>().enabled = true;
+					hiddenObject = _hinfo.collider.gameObject;
+					hiddenObject.GetComponentInChildren<Renderer>().enabled = false;
+				}
+				else {
+					if (hiddenObject != null)
+						hiddenObject.GetComponentInChildren<Renderer>().enabled = true;
+				}
+			}
 		}
 
 		void OnControllerColliderHit ( ControllerColliderHit _hit) {

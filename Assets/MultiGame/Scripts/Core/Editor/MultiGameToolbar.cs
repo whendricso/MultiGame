@@ -14,6 +14,9 @@ using MultiGame;
 //3. Create variations
 
 namespace MultiGame {
+#if UNITY_EDITOR
+	[ExecuteInEditMode]
+#endif
 	public class MultiGameToolbar : MGEditor {
 		#if UNITY_EDITOR
 		public enum Modes {Basic, UI, Logic, Combat, Player, AI, Utility, Help};
@@ -112,19 +115,20 @@ namespace MultiGame {
 		private static Texture2D uvCubeIcon;
 		private static Texture2D uvSphereIcon;
 		private static Texture2D uvConeIcon;
-//		private static Texture2D photonIcon;
-//		private static Texture2D photonCharacterIcon;
-//		private static Texture2D photonDestructibleIcon;
-//		private static Texture2D photonHealthIcon;
-//		private static Texture2D photonInventoryIcon;
-//		private static Texture2D photonItemIcon;
-//		private static Texture2D photonPositionIcon;
-//		private static Texture2D photonRelayIcon;
-//		private static Texture2D photonRigidbodyIcon;
-//		private static Texture2D photonSpawnerIcon;
-//		private static Texture2D photonAvatarIcon;
-//		private static Texture2D photonSceneIcon;
-//		private static Texture2D photonChannelIcon;
+		//		private static Texture2D newSphereIcon;
+		//		private static Texture2D photonIcon;
+		//		private static Texture2D photonCharacterIcon;
+		//		private static Texture2D photonDestructibleIcon;
+		//		private static Texture2D photonHealthIcon;
+		//		private static Texture2D photonInventoryIcon;
+		//		private static Texture2D photonItemIcon;
+		//		private static Texture2D photonPositionIcon;
+		//		private static Texture2D photonRelayIcon;
+		//		private static Texture2D photonRigidbodyIcon;
+		//		private static Texture2D photonSpawnerIcon;
+		//		private static Texture2D photonAvatarIcon;
+		//		private static Texture2D photonSceneIcon;
+		//		private static Texture2D photonChannelIcon;
 
 
 		private Material triggerMat;
@@ -227,22 +231,23 @@ namespace MultiGame {
 			uvSphereIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/UVSphere.png", typeof(Texture2D)) as Texture2D;
 			uvPlaneIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/UVPlane.png", typeof(Texture2D)) as Texture2D;
 			uvConeIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/UVCone.png", typeof(Texture2D)) as Texture2D;
-//			photonIcon = AssetDatabase.LoadAssetAtPath("PhotonButton", typeof(Texture2D)) as Texture2D;
-//			photonCharacterIcon = AssetDatabase.LoadAssetAtPath("PhotonCharacterButton", typeof(Texture2D)) as Texture2D;
-//			photonDestructibleIcon = AssetDatabase.LoadAssetAtPath("PhotonDestructibleButton", typeof(Texture2D)) as Texture2D;
-//			photonHealthIcon = AssetDatabase.LoadAssetAtPath("PhotonHealthButton", typeof(Texture2D)) as Texture2D;
-//			photonInventoryIcon = AssetDatabase.LoadAssetAtPath("PhotonInventoryButton", typeof(Texture2D)) as Texture2D;
-//			photonItemIcon = AssetDatabase.LoadAssetAtPath("PhotonItemButton", typeof(Texture2D)) as Texture2D;
-//			photonPositionIcon = AssetDatabase.LoadAssetAtPath("PhotonPositionButton", typeof(Texture2D)) as Texture2D;
-//			photonRelayIcon = AssetDatabase.LoadAssetAtPath("PhotonRelayButton", typeof(Texture2D)) as Texture2D;
-//			photonRigidbodyIcon = AssetDatabase.LoadAssetAtPath("PhotonRigidbodyButton", typeof(Texture2D)) as Texture2D;
-//			photonSpawnerIcon = AssetDatabase.LoadAssetAtPath("PhotonSpawnButton", typeof(Texture2D)) as Texture2D;
-//			photonAvatarIcon = AssetDatabase.LoadAssetAtPath("PhotonAvatarButton", typeof(Texture2D)) as Texture2D;
-//			photonSceneIcon = AssetDatabase.LoadAssetAtPath("PhotonSceneButton", typeof(Texture2D)) as Texture2D;
-//			photonChannelIcon = AssetDatabase.LoadAssetAtPath("PhotonChannelButton", typeof(Texture2D)) as Texture2D;
+			//			newSphereIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/NewSphere.png", typeof(Texture2D)) as Texture2D;
+			//			photonIcon = AssetDatabase.LoadAssetAtPath("PhotonButton", typeof(Texture2D)) as Texture2D;
+			//			photonCharacterIcon = AssetDatabase.LoadAssetAtPath("PhotonCharacterButton", typeof(Texture2D)) as Texture2D;
+			//			photonDestructibleIcon = AssetDatabase.LoadAssetAtPath("PhotonDestructibleButton", typeof(Texture2D)) as Texture2D;
+			//			photonHealthIcon = AssetDatabase.LoadAssetAtPath("PhotonHealthButton", typeof(Texture2D)) as Texture2D;
+			//			photonInventoryIcon = AssetDatabase.LoadAssetAtPath("PhotonInventoryButton", typeof(Texture2D)) as Texture2D;
+			//			photonItemIcon = AssetDatabase.LoadAssetAtPath("PhotonItemButton", typeof(Texture2D)) as Texture2D;
+			//			photonPositionIcon = AssetDatabase.LoadAssetAtPath("PhotonPositionButton", typeof(Texture2D)) as Texture2D;
+			//			photonRelayIcon = AssetDatabase.LoadAssetAtPath("PhotonRelayButton", typeof(Texture2D)) as Texture2D;
+			//			photonRigidbodyIcon = AssetDatabase.LoadAssetAtPath("PhotonRigidbodyButton", typeof(Texture2D)) as Texture2D;
+			//			photonSpawnerIcon = AssetDatabase.LoadAssetAtPath("PhotonSpawnButton", typeof(Texture2D)) as Texture2D;
+			//			photonAvatarIcon = AssetDatabase.LoadAssetAtPath("PhotonAvatarButton", typeof(Texture2D)) as Texture2D;
+			//			photonSceneIcon = AssetDatabase.LoadAssetAtPath("PhotonSceneButton", typeof(Texture2D)) as Texture2D;
+			//			photonChannelIcon = AssetDatabase.LoadAssetAtPath("PhotonChannelButton", typeof(Texture2D)) as Texture2D;
 
 
-			
+
 			triggerMat = Resources.Load("MGTrigger", typeof(Material)) as Material;
 			collMat = Resources.Load("MGActiveCollider", typeof(Material)) as Material;
 			camZoneMat = Resources.Load("MGCamZone", typeof(Material)) as Material;
@@ -360,6 +365,7 @@ namespace MultiGame {
 				EditorGUILayout.LabelField("2012 - 2018 " );
 				EditorGUILayout.LabelField("William H" );
 				EditorGUILayout.LabelField("Hendrickson ");
+				EditorGUILayout.LabelField("& Tech Drone");
 				EditorGUILayout.LabelField("all rights ");
 				EditorGUILayout.LabelField("reserved.");
 				GUI.color = Color.white;
@@ -709,6 +715,7 @@ namespace MultiGame {
 				SmartRenameTarget ("Procedural Model");
 				Undo.AddComponent<ProcSphere> (_child);
 			}
+			
 			if (MGButton(snapIcon, "Snap\nWindow"))
 				GetWindow<SnapWindow>();
 			if (MGButton (uvScalarIcon, "UV Scalar")) {
@@ -1148,12 +1155,22 @@ namespace MultiGame {
 					_sensorObj.GetComponent<MeshRenderer>().sharedMaterial = triggerMat;
 					_sensorObj.name = "Targeting Sensor";
 				}
+				HitscanModule hitscan = target.GetComponent<HitscanModule>();
+
 				if (target.GetComponent<GuardModule>() == null)
 					Undo.AddComponent<GuardModule>(target);
 				if (target.GetComponent<NavModule>() == null)
 					Undo.AddComponent<NavModule>(target);
-				if (target.GetComponent<HitscanModule>() == null)
-					Undo.AddComponent<HitscanModule>(target);
+				if (hitscan == null)
+					hitscan = Undo.AddComponent<HitscanModule>(target);
+
+				if (hitscan.damageRayOrigin == null) {
+					GameObject damageRayOrigin = new GameObject("DamageRayOrigin");
+					damageRayOrigin.transform.SetParent(target.transform);
+					damageRayOrigin.transform.localPosition = Vector3.up;
+					damageRayOrigin.transform.localRotation = Quaternion.identity;
+					hitscan.damageRayOrigin = damageRayOrigin;
+				}
 
 				SmartRenameTarget("Hitscan Agent");
 			}
@@ -1631,8 +1648,10 @@ namespace MultiGame {
 			target.transform.rotation = Quaternion.identity;
 			target.name = "Trigger";
 			Undo.RegisterCreatedObjectUndo(target,"Create Trigger Box");
+			Debug.Log("Creating Trigger");
 			target.GetComponent<MeshRenderer>().sharedMaterial = triggerMat;
 			target.GetComponent<Collider>().isTrigger = true;
+			target.GetComponent<Rigidbody>().isKinematic = true;
 			Undo.AddComponent<ActiveZone>(target);
 			Undo.AddComponent<VanishOnStart>(target);
 			Selection.activeGameObject = target;
@@ -1643,6 +1662,7 @@ namespace MultiGame {
 		}
 
 		public void SetupTriggerSphere () {
+			Debug.Log("Creating Trigger");
 			target = GameObject.CreatePrimitive(PrimitiveType.Sphere);
 			if (Selection.activeGameObject != null)
 				target.transform.SetParent(Selection.activeGameObject.transform);
@@ -1652,6 +1672,7 @@ namespace MultiGame {
 			Undo.RegisterCreatedObjectUndo(target,"Create Trigger Box");
 			target.GetComponent<MeshRenderer>().sharedMaterial = triggerMat;
 			target.GetComponent<Collider>().isTrigger = true;
+			target.GetComponent<Rigidbody>().isKinematic = true;
 			Undo.AddComponent<ActiveZone>(target);
 			Undo.AddComponent<VanishOnStart>(target);
 			Selection.activeGameObject = target;
@@ -1667,6 +1688,7 @@ namespace MultiGame {
 			Undo.RegisterCreatedObjectUndo(target,"Create Trigger Box");
 			target.GetComponent<MeshRenderer>().sharedMaterial = collMat;
 			target.GetComponent<Collider>().isTrigger = false;
+			target.GetComponent<Rigidbody>().isKinematic = true;
 			Undo.AddComponent<ActiveCollider>(target);
 			Undo.AddComponent<VanishOnStart>(target);
 			Selection.activeGameObject = target;
@@ -1682,6 +1704,7 @@ namespace MultiGame {
 			Undo.RegisterCreatedObjectUndo(target,"Create Trigger Box");
 			target.GetComponent<MeshRenderer>().sharedMaterial = collMat;
 			target.GetComponent<Collider>().isTrigger = false;
+			target.GetComponent<Rigidbody>().isKinematic = true;
 			Undo.AddComponent<ActiveCollider>(target);
 			Undo.AddComponent<VanishOnStart>(target);
 			Selection.activeGameObject = target;

@@ -167,7 +167,7 @@ namespace MultiGame {
 			//Undo.RegisterCreatedObjectUndo(groupRoot,"Create New Object");
 			foreach (GameObject gobj in Selection.gameObjects) {
 				if (gobj.transform.root == gobj.transform) {
-					gobj.transform.SetParent(groupRoot.transform);
+					Undo.SetTransformParent(gobj.transform,groupRoot.transform,"Group");//gobj.transform.SetParent(groupRoot.transform);
 				}
 			}
 			lastGroupActive = Selection.activeGameObject;

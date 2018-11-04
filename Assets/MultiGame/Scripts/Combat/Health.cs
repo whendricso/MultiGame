@@ -23,9 +23,14 @@ namespace MultiGame {
 		public string autoSaveKey = "";
 
 		[Header("GUI Settings")]
-		[Tooltip("If using the Unity UI, create a scroll bar for the health and drop a reference to it here. The handle of the scrollbar is resized to show the health amount. This can be used to create " +
-			"either a health bar near the object in the scene, or displayed as a HUD. See the Unity GUI documentation/tutorials for more information.")]
-		public Scrollbar uIhealthBar;
+		[Tooltip("If using the Unity UI, create a slider for the health and drop a reference to it here. The slider value show the health amount. This can be used to create " +
+			"either a health bar near the object in the scene, or displayed as a HUD. See the Unity GUI documentation/tutorials for more information. You can disable or reskin the handle so that " +
+			"it doesn't look draggable.")]
+		public Slider uIHealthBar;
+		[Tooltip("A prefab with a Text component in it's heirarchy which will be used to display damage values. We recommend adding a Billboard component as well to ensure that it always faces the camera.")]
+		public GameObject hitTextPrefab;
+		[Tooltip("A spawn point where you want the hit text to appear (perhaps above the object?)")]
+		public GameObject hitTextSpawnPoint;
 
 		[Header("Immediate Mode (Legacy) GUI settings")]
 		[RequiredFieldAttribute("What skin should we use for the Legacy GUI",RequiredFieldAttribute.RequirementLevels.Optional)]
@@ -71,9 +76,11 @@ namespace MultiGame {
 		void Update () {
 			if (hp > maxHP)
 				hp = maxHP;
-
-			if (uIhealthBar != null)
-				uIhealthBar.size = hp / maxHP;
+			if (uIHealthBar != null) {
+				uIHealthBar.maxValue = maxHP;
+				uIHealthBar.minValue = 0;
+				uIHealthBar.value = hp;
+			}
 		}
 		
 		void OnGUI () {
@@ -109,6 +116,19 @@ namespace MultiGame {
 		public void ModifyHealth (float val) {
 			if (debug)
 				Debug.Log("Modifying health for " + gameObject.name + " by " + val);
+			if (hitTextPrefab != null) {
+				GameObject textObject;
+				if (hitTextSpawnPoint != null)
+					textObject = Instantiate(hitTextPrefab, hitTextSpawnPoint.transform.position, hitTextSpawnPoint.transform.rotation);
+				else
+					textObject = Instantiate(hitTextPrefab,transform.position,transform.rotation);
+
+				Text hitText = textObject.GetComponentInChildren<Text>();
+				if (hitText != null) {
+					hitText.text = ""+val;
+				}
+			}
+
 			MessageManager.Send(hitMessage);
 			hp += val;
 			if (hp <= 0.0f) {

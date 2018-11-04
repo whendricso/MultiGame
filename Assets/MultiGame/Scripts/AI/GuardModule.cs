@@ -44,10 +44,13 @@ namespace MultiGame {
 		private bool wandering = false;
 		private bool returning = false;
 
+#if UNITY_EDITOR
+
 		public HelpInfo help = new HelpInfo("Add to an object representing an AI guard. This should be an empty object with a 3D model of a guard parented to it." +
 			"\nBy \"Guard\" we mean an AI that should stay in a given area or near a given object, and attack enemies that provoke it. To use this effectively, we recommend" +
 			" also adding a NavModule or similar, since this guard will probably need to get around. Also, add some sort of combat component, or attach a turret so it can do harm.");
 
+#endif
 		[Tooltip("Should I output information to the console?")]
 		public bool debug = false;
 
@@ -64,7 +67,6 @@ namespace MultiGame {
 			if (!string.IsNullOrEmpty (guardObjectiveTag)) {
 				StartCoroutine (SearchForObjective ());
 			}
-
 		}
 
 		public IEnumerator SearchForObjective () {
@@ -77,7 +79,6 @@ namespace MultiGame {
 					objective = GameObject.FindGameObjectWithTag (guardObjectiveTag);
 			}
 			StartCoroutine (SearchForObjective());
-
 		}
 
 		void Update () {
@@ -117,7 +118,6 @@ namespace MultiGame {
 			}
 			if (wandering && !returning)
 				gameObject.SendMessage("SteerForward", true, SendMessageOptions.DontRequireReceiver);
-				
 		}
 
 		IEnumerator StopWandering (float _delay) {

@@ -10,15 +10,15 @@ using MultiGame;
 namespace MultiGame {
 
 
-	#if UNITY_EDITOR
+#if UNITY_EDITOR
 	[ExecuteInEditMode]
-	#endif
 	[RequireComponent(typeof(MeshRenderer))]
 	[RequireComponent(typeof(MeshFilter))]
+#endif
 	public class UVScalar : MonoBehaviour {
 
-//		public Vector2 textureOffset = Vector2.zero;
-//		public Vector2 textureScale = Vector2.one;
+		//		public Vector2 textureOffset = Vector2.zero;
+		//		public Vector2 textureScale = Vector2.one;
 		public Vector2 uvOffset = Vector2.zero;
 		public Vector2 uvScale = Vector2.one;
 		[Tooltip("Should we multiply the Texture Scale by the object's local scale?")]
@@ -39,7 +39,6 @@ namespace MultiGame {
 //		private Material mat;
 //		private List<Vector3> verts = new List<Vector3>();
 
-#if UNITY_EDITOR
 		void OnValidate () {
 			if (updateMaterial) {
 				updateMaterial = false;
@@ -51,6 +50,7 @@ namespace MultiGame {
 
 		void Reset () {
 			AcquireMesh ();
+#if UNITY_EDITOR
 			if (!assetGenerated) {
 				assetGenerated = true;
 				if (!Directory.Exists(Application.dataPath + "/Generated/"))
@@ -59,8 +59,8 @@ namespace MultiGame {
 				AssetDatabase.SaveAssets();
 			}
 			//			InitializeRenderer();
-		}
 #endif
+		}
 		void Update () {
 			if (mesh == null) 
 				AcquireMesh ();
@@ -142,19 +142,18 @@ namespace MultiGame {
 //			}
 		}
 
-//		void DrawUVOffsetHandle () {
-//			verts.Clear();
-//			verts.AddRange( filt.mesh.vertices);
-//			Vector3 _avg = Vector3.zero;
-//
-//			for (int v = 0; v < 3; v++) {
-//				_avg += verts[v];
-//				Debug.Log(v);
-//			}
-//			_avg *= .25f;
-//
-//			UVOffset = (Handles.PositionHandle(_avg, transform.rotation) - transform.position);
-//		}
-
+		//		void DrawUVOffsetHandle () {
+		//			verts.Clear();
+		//			verts.AddRange( filt.mesh.vertices);
+		//			Vector3 _avg = Vector3.zero;
+		//
+		//			for (int v = 0; v < 3; v++) {
+		//				_avg += verts[v];
+		//				Debug.Log(v);
+		//			}
+		//			_avg *= .25f;
+		//
+		//			UVOffset = (Handles.PositionHandle(_avg, transform.rotation) - transform.position);
+		//		}
 	}
 }

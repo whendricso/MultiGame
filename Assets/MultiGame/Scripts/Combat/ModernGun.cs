@@ -46,13 +46,13 @@ namespace MultiGame {
 		[RequiredFieldAttribute("How long, in seconds, between each bullet?")]
 		public float refireTime = 0.4f;
 		[RequiredFieldAttribute("Minimum variation of a bullet from center")]
-		public float muzzleSpreadMin = 2.0f;
+		public float muzzleSpreadMin = .2f;
 		[RequiredFieldAttribute("Maximum variation of a bullet from center")]
-		public float muzzleSpreadMax = 10.0f;
+		public float muzzleSpreadMax = 2.0f;
 		[RequiredFieldAttribute("How much the spread increases each time a projectile is discharged")]
-		public float roundSpreadCost = 1.4f;
+		public float roundSpreadCost = .14f;
 		[RequiredFieldAttribute("How fast the spread decreases")]
-		public float refocusRate = 1.2f;
+		public float refocusRate = .16f;
 
 		[Header("Audio Settings")]
 		[RequiredFieldAttribute("'BANG!'", RequiredFieldAttribute.RequirementLevels.Recommended)]
@@ -95,10 +95,9 @@ namespace MultiGame {
 		private float currentSpread;
 		private float refireCounter;
 		private Vector3 muzzleOrientation;
-
-
-		
 		private bool saved = false;
+
+		public bool debug = false;
 
 		public HelpInfo help = new HelpInfo("Althoug originally developed for AK-47s and the like, this can be used for anything from a crossbow to a plasma rifle. It's a " +
 			"multipurpose solution to get some decent FPS action going on. You will need to also set up a projectile prefab and some ammo handling using the included 'ClipInventory'" +
@@ -120,9 +119,11 @@ namespace MultiGame {
 			}
 			currentSpread = (muzzleSpreadMin + muzzleSpreadMax)/2;
 			refireCounter = refireTime;
-			if (muzzleTransform == null)
-				Debug.LogError("ModernGun requires a muzzle transform!");
-			muzzleOrientation = muzzleTransform.transform.localEulerAngles;
+			if (muzzleTransform == null) {
+				Debug.LogError("ModernGun requires a muzzle transform! Please assign one in the inspector, it's an empty Game Object at the end of the barrel where the bullets come out!");
+				muzzleTransform = gameObject;
+			}
+				muzzleOrientation = muzzleTransform.transform.localEulerAngles;
 		}
 
 		void OnValidate () {
@@ -156,7 +157,10 @@ namespace MultiGame {
 			refireCounter -= Time.deltaTime;
 			if (Cursor.lockState == CursorLockMode.Locked) {
 				if (useFireButton && Input.GetButton(fireButton))
-					Fire ();
+					Fire();
+			}
+			else if (debug) {
+				Debug.Log("Modern Gun " + gameObject.name + " cannot fire because the cursor is not locked. Try adding a CursorLock component to the game!");
 			}
 		}
 
@@ -269,11 +273,13 @@ namespace MultiGame {
 				player = gameObject.transform.root.gameObject;
 			ClipInventory clipInv = player.GetComponent<ClipInventory>();
 			if (clipInv == null) {
-				Debug.LogError("Clip Inventory component not found on the player! Please add one, and set up some ammo clip types.");
+				Debug.LogError("Clip Inventory component not found on the player! Please add one to the object tagged 'Player', and set up some ammo clip types.");
 				enabled = false;
 				return;
 			}
 			if (clipInv.numClips[magazineType] > 0) {
+				if (debug)
+					Debug.Log("Clip found for weapon, reloading...");
 				clipInv.numClips[magazineType]--;
 				if (image != null && !string.IsNullOrEmpty(mecanimReloadTrigger))
 					image.GetComponent<Animator>().SetTrigger(mecanimReloadTrigger);
@@ -281,6 +287,10 @@ namespace MultiGame {
 					MessageManager.Send(reloadingMessage);
 				reloading = true;
 				StartCoroutine(FinishReload(reloadTime));
+			}
+			else {
+				if (debug)
+					Debug.Log("Not enough clips left for this weapon type");
 			}
 			
 		}

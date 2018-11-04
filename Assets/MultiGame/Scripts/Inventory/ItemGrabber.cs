@@ -11,7 +11,7 @@ namespace MultiGame {
 			" It should be attached directly to the player object if you want to use it.");
 
 		void OnControllerColliderHit (ControllerColliderHit hit) {
-			hit.gameObject.SendMessage("Pick", SendMessageOptions.DontRequireReceiver);
+			hit.gameObject.BroadcastMessage("Pick", SendMessageOptions.DontRequireReceiver);
 		}
 	}
 }

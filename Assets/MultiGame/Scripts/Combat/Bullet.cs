@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using MultiGame;
 
 namespace MultiGame {
@@ -13,6 +14,8 @@ namespace MultiGame {
 		public LayerMask rayMask;
 
 		[Header("Projectile Settings")]
+		[Tooltip("Should we send the damage message to the root object? If false, it will be sent to the object with the collider instead.")]
+		public bool damageRoot = true;
 		[RequiredFieldAttribute("How fast does this projectile travel when it leaves the muzzle?")]
 		public float muzzleVelocity = 1500.0f;
 		[RequiredFieldAttribute("How much hurt?",RequiredFieldAttribute.RequirementLevels.Recommended)]
@@ -24,8 +27,9 @@ namespace MultiGame {
 		private bool fired = false;
 		private Vector3 lastPosition;
 
-		[Tooltip("Message to be sent to the object we hit")]
-		public MessageManager.ManagedMessage message;
+		[ReorderableAttribute]
+		[Tooltip("Messages to be sent to the object we hit")]
+		public List<MessageManager.ManagedMessage> messages = new List<MessageManager.ManagedMessage>();
 
 		[System.NonSerialized]
 		public GameObject owner;
@@ -44,13 +48,19 @@ namespace MultiGame {
 		public bool debug = false;
 		
 		void Start () {
-			if (message.target == null)
-				message.target = gameObject;
+			foreach (MessageManager.ManagedMessage message in messages) {
+				if (message.target == null)
+					message.target = gameObject;
+			}
 			lastPosition = transform.position;
 		}
 
 		void OnValidate () {
-			MessageManager.UpdateMessageGUI(ref message, gameObject);
+			MessageManager.ManagedMessage message;
+			for (int i = 0; i < messages.Count; i++) {
+				message = messages[i];
+				MessageManager.UpdateMessageGUI(ref message, gameObject);
+			}
 		}
 
 		void FixedUpdate () {
@@ -62,7 +72,7 @@ namespace MultiGame {
 				activationDelay -= Time.deltaTime;
 				return;
 			}
-			if(Physics.Linecast(lastPosition, transform.position, out hinfo, rayMask)) {
+			if(Physics.Linecast(lastPosition, transform.position, out hinfo, rayMask, QueryTriggerInteraction.Ignore)) {
 				if (debug)
 					Debug.Log("Bullet " + gameObject.name + " hit " + hinfo.collider.gameObject);
 				if (owner == null) {
@@ -78,9 +88,23 @@ namespace MultiGame {
 		}
 		
 		public void RegisterDamage(RaycastHit rayhit) {
-			rayhit.collider.gameObject.SendMessage("ModifyHealth", -damageValue, SendMessageOptions.DontRequireReceiver);
-			rayhit.collider.gameObject.SendMessage("AttackedBy", owner, SendMessageOptions.DontRequireReceiver);
-			MessageManager.SendTo(message, rayhit.collider.gameObject);
+			if (debug)
+				Debug.Log("Bullet " + gameObject.name + " is applying damage to " + (damageRoot ? rayhit.transform.root.gameObject.name : rayhit.transform.gameObject.name));
+			
+			if (damageRoot) {
+				foreach (MessageManager.ManagedMessage message in messages) {
+					MessageManager.SendTo(message, rayhit.transform.root.gameObject);
+				}
+					rayhit.collider.transform.root.gameObject.SendMessage("ModifyHealth", -damageValue, SendMessageOptions.DontRequireReceiver);
+				rayhit.collider.transform.root.gameObject.SendMessage("AttackedBy", owner, SendMessageOptions.DontRequireReceiver);
+			}
+			else {
+				foreach (MessageManager.ManagedMessage message in messages) {
+					MessageManager.SendTo(message, rayhit.transform.gameObject);
+				}
+					rayhit.collider.gameObject.SendMessage("ModifyHealth", -damageValue, SendMessageOptions.DontRequireReceiver);
+				rayhit.collider.gameObject.SendMessage("AttackedBy", owner, SendMessageOptions.DontRequireReceiver);
+			}
 			if (bulletSplash != null) {
 				Instantiate(bulletSplash, rayhit.point, transform.rotation);
 			}

@@ -14,14 +14,18 @@ namespace MultiGame {
 	[RequireComponent(typeof(MeshRenderer))]
 	public class MultiMesh : MultiModule {
 
-		#if UNITY_EDITOR
-		public bool debug = false;
+#if UNITY_EDITOR
 
 		[BoolButton]
+		public bool generateLightmapUVs = false;
+		[BoolButton]
 		public bool addCollider = false;
+		public bool debug = false;
+
+		
 
 		protected bool rebuildMesh = false;//internal command to refresh during Update()
-		[HideInInspector]
+		//[HideInInspector]
 		public Mesh mesh;
 		protected Vector3[] vertices;
 		protected Vector3[] normals;
@@ -37,10 +41,10 @@ namespace MultiGame {
 				Gizmos.DrawWireMesh (mesh, transform.position, transform.rotation);
 		}
 
-		protected virtual void SetupCollider () {
-			coll = GetComponent<MeshCollider> ();
+		protected virtual void SetupCollider() {
+			coll = GetComponent<MeshCollider>();
 			if (coll == null)
-				StartCoroutine (AddColl ());
+				StartCoroutine(AddColl());
 			addCollider = false;
 		}
 
@@ -51,6 +55,14 @@ namespace MultiGame {
 			coll = Undo.AddComponent<MeshCollider>(gameObject);
 			coll.convex = true;
 		#endif
+		}
+
+		protected virtual IEnumerator GenerateLightmapUVs() {
+			yield return new WaitForSeconds(.001f);
+#if UNITY_EDITOR
+			if (mesh != null)
+				Unwrapping.GenerateSecondaryUVSet(mesh);
+#endif
 		}
 
 		protected void AcquireMesh () {

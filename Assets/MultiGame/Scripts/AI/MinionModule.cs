@@ -31,9 +31,10 @@ namespace MultiGame {
 		[Tooltip("List of objects to disable when we're selected")]
 		public List<MonoBehaviour> disabledWhileSelected = new List<MonoBehaviour>();
 
+#if UNITY_EDITOR
 		public HelpInfo help = new HelpInfo("This component allows the player to select/deselect an AI and give it direct move orders with the mouse. To use it effectively," +
-			" we recommend pairing it with a NavModule and attaching some sort of combat AI system to it such as a 'Melee Module'");
-
+			" we recommend pairing it with a NavModule and attaching some sort of combat AI system to it such as a 'Hitscan Module'");
+#endif
 		public bool debug = false;
 
 		[System.NonSerialized]

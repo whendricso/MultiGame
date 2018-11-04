@@ -52,6 +52,11 @@ namespace MultiGame {
 			AcquireMesh ();
 			BuildCube ();
 
+			if (generateLightmapUVs) {
+				StartCoroutine(GenerateLightmapUVs());
+				generateLightmapUVs = false;
+			}
+
 			if (addCollider) {
 				SetupCollider ();
 			}
@@ -197,6 +202,8 @@ namespace MultiGame {
 			mesh.normals = normals;
 			mesh.uv = uvs;
 			mesh.triangles = triangles;
+
+			//Unwrapping.GenerateSecondaryUVSet(mesh);
 
 			if (coll != null)
 				coll.sharedMesh = mesh;

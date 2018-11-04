@@ -40,6 +40,11 @@ namespace MultiGame {
 			AcquireMesh ();
 			BuilSphere ();
 
+			if (generateLightmapUVs) {
+				StartCoroutine(GenerateLightmapUVs());
+				generateLightmapUVs = false;
+			}
+
 			if (addCollider) {
 				SetupCollider ();
 			}
@@ -154,6 +159,7 @@ namespace MultiGame {
 			mesh.normals = normals;
 			mesh.uv = uvs;
 			mesh.triangles = triangles;
+			//Unwrapping.GenerateSecondaryUVSet(mesh);
 			if (coll != null) {
 				if (longitudinalSections > 15 || latitudinalSections > 15)
 					coll.inflateMesh = true;
@@ -163,6 +169,7 @@ namespace MultiGame {
 
 				coll.sharedMesh = mesh;
 			}
+			mesh.RecalculateTangents();
 			mesh.RecalculateBounds();
 
 		}

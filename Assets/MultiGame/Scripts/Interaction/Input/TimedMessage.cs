@@ -51,6 +51,8 @@ namespace MultiGame {
 		public MessageHelp startTimerHelp = new MessageHelp("StartTimer", "Starts this timer, useful if it doesn't start automatically.");
 
 		public void StartTimer () {
+			if (debug)
+				Debug.Log("Timed Message " + gameObject.name + " started the timer");
 			if (oneAtATime)
 				Abort();
 			StartCoroutine(DelayedMessage(timeDelay + Random.Range(-variance, variance)));
@@ -63,6 +65,8 @@ namespace MultiGame {
 
 		IEnumerator DelayedMessage (float delay) {
 			yield return new WaitForSeconds(delay);
+			if (debug)
+				Debug.Log("Timed Message " + gameObject.name + " activated the timer");
 			if (this.enabled) {
 				if (debug)
 					Debug.Log("Timed Message " + gameObject.name + " sent " + managedMessage.message);

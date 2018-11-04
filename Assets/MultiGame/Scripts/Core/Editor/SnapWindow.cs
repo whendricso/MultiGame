@@ -9,12 +9,11 @@ namespace MultiGame {
 	public class SnapWindow : MGEditor {
 
 		public Vector3 gridSetting = Vector3.one;
+		public Vector3 rotationSetting = new Vector3(15,15,15);
 		public bool autoSnap = false;
-//		public enum SnapSpaces { Global, Local };
-//		public SnapSpaces snapSpace = SnapSpaces.Global;
-		private Texture2D snapIcon;
-
-
+		public bool autoSnapRotation = false;
+		[System.NonSerialized]
+		private Texture2D snappingIcon;
 
 		[MenuItem ("MultiGame/Snap Window")]
 		public static void ShowWindow () {
@@ -22,23 +21,34 @@ namespace MultiGame {
 		}
 
 		void OnGUI () {
-			if (snapIcon == null)
-				LoadIcons ();
+			if (snappingIcon == null)
+				LoadIcons();
 			gridSetting = EditorGUILayout.Vector3Field ("Grid Size", gridSetting);
-//			snapSpace = (SnapSpaces)EditorGUILayout.EnumPopup ("Snap Space",snapSpace);
-			autoSnap = EditorGUILayout.Toggle ("Snap Automatically",autoSnap);
-			if (MGButton (snapIcon, "Snap\nSelected")) {
+			rotationSetting = EditorGUILayout.Vector3Field ("Rotation Snap", rotationSetting);
+			EditorGUILayout.BeginHorizontal();
+			autoSnap = EditorGUILayout.Toggle ("Snap To Grid",autoSnap);
+			autoSnapRotation = EditorGUILayout.Toggle ("Snap Rotation",autoSnapRotation);
+			EditorGUILayout.EndHorizontal();
+			EditorGUILayout.BeginHorizontal();
+			if (MGButton (snappingIcon, "Snap\nPosition")) {
 				SnapSelection ();
 			}
+			if (MGButton(snappingIcon, "Snap\nRotation")) {
+				SnapRotation();
+			}
+			EditorGUILayout.EndHorizontal();
 		}
 
 		void Update () {
 			if (autoSnap)
 				SnapSelection ();
+			if (autoSnapRotation)
+				SnapRotation();
 		}
 
 		void LoadIcons () {
-			snapIcon = Resources.Load<Texture2D> ("Snap");
+			Debug.Log("Loading icon");
+			snappingIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/Snap.png", typeof(Texture2D)) as Texture2D;
 		}
 
 		void SnapSelection() {
@@ -50,25 +60,39 @@ namespace MultiGame {
 			}
 		}
 
+		void SnapRotation() {
+			if (Selection.gameObjects.Length > 0) {
+				Undo.RecordObjects(Selection.gameObjects, "Snap");
+				foreach (GameObject gobj in Selection.gameObjects) {
+					SnapTargetToRotation(gobj, rotationSetting);
+				}
+			}
+		}
+
 		public void SnapTargetToGrid (GameObject _target, Vector3 _gridSpace) {
 			if (float.IsNaN (_gridSpace.x) || float.IsNaN (_gridSpace.y) || float.IsNaN (_gridSpace.z))
-				return;
-			if (_gridSpace.x == 0 || _gridSpace.y == 0 || _gridSpace.z == 0)
 				return;
 			float newX;
 			float newY;
 			float newZ;
 
-//			if (snapSpace == SnapSpaces.Local) {
-//				newX = Mathf.Round (_target.transform.localPosition.x / _gridSpace.x) * _gridSpace.x;
-//				newY = Mathf.Round (_target.transform.localPosition.y / _gridSpace.y) * _gridSpace.y;
-//				newZ = Mathf.Round (_target.transform.localPosition.z / _gridSpace.z) * _gridSpace.z;
-//			} else {
-				newX = Mathf.Round (_target.transform.position.x / _gridSpace.x) * _gridSpace.x;
-				newY = Mathf.Round (_target.transform.position.y / _gridSpace.y) * _gridSpace.y;
-				newZ = Mathf.Round (_target.transform.position.z / _gridSpace.z) * _gridSpace.z;
-//			}
+			newX = Mathf.Round (_target.transform.position.x / _gridSpace.x) * _gridSpace.x;
+			newY = Mathf.Round (_target.transform.position.y / _gridSpace.y) * _gridSpace.y;
+			newZ = Mathf.Round (_target.transform.position.z / _gridSpace.z) * _gridSpace.z;
 			_target.transform.position = new Vector3(newX, newY, newZ);
+		}
+
+		public void SnapTargetToRotation(GameObject _target, Vector3 _rotationSetting) {
+			if (float.IsNaN(_rotationSetting.x) || float.IsNaN(_rotationSetting.y) || float.IsNaN(_rotationSetting.z))
+				return;
+			float newX;
+			float newY;
+			float newZ;
+
+			newX = Mathf.Round(_target.transform.eulerAngles.x / _rotationSetting.x) * _rotationSetting.x;
+			newY = Mathf.Round(_target.transform.eulerAngles.y / _rotationSetting.y) * _rotationSetting.y;
+			newZ = Mathf.Round(_target.transform.eulerAngles.z / _rotationSetting.z) * _rotationSetting.z;
+			_target.transform.eulerAngles = new Vector3(newX, newY, newZ);
 		}
 
 	}
