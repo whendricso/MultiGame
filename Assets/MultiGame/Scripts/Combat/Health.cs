@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.UI;
 using MultiGame;
 
@@ -16,11 +17,25 @@ namespace MultiGame {
 		[Header("Destruction Settings")]
 		[Tooltip("Do we destroy the object when health runs out?")]
 		public bool autodestruct = true;
+		[RequiredFieldAttribute("Specify a key to save the health in Player Prefs. Will load when any instance of this object is instantiated. If you don't want to save, just leave this blank.",RequiredFieldAttribute.RequirementLevels.Optional)]
+		public string autoSaveKey = "";
+
+		[Header("Game Feel")]
+		[Tooltip("A prefab we spawn when we get hit. Perhaps a particle effect?")]
+		public GameObject hitPrefab;
+		[Tooltip("A spawn point where you want the hit prefab to appear (perhaps near the center?)")]
+		public GameObject hitPrefabSpawnPoint;
+		public AudioSource hitAudioSource;
+		[Tooltip("A sound you wish to play when we get hit")]
+		public AudioClip hitSound;
+		[Tooltip("If greater than 0, pause the game momentarily when we get hit. This adds a lot of weight to impacts!")]
+		public float hitPauseTime = 0;
+		[Tooltip("How much do you want to vary the pitch of the hit sound?")]
+		[Range(0, 1)]
+		public float hitSoundVariance = .1f;
 		[ReorderableAttribute]
 		[Tooltip("What should we spawn when we die from HP loss?")]
 		public GameObject[] deathPrefabs;
-		[RequiredFieldAttribute("Specify a key to save the health in Player Prefs. Will load when any instance of this object is instantiated. If you don't want to save, just leave this blank.",RequiredFieldAttribute.RequirementLevels.Optional)]
-		public string autoSaveKey = "";
 
 		[Header("GUI Settings")]
 		[Tooltip("If using the Unity UI, create a slider for the health and drop a reference to it here. The slider value show the health amount. This can be used to create " +
@@ -32,7 +47,7 @@ namespace MultiGame {
 		[Tooltip("A spawn point where you want the hit text to appear (perhaps above the object?)")]
 		public GameObject hitTextSpawnPoint;
 
-		[Header("Immediate Mode (Legacy) GUI settings")]
+		[Header("Immediate Mode GUI settings")]
 		[RequiredFieldAttribute("What skin should we use for the Legacy GUI",RequiredFieldAttribute.RequirementLevels.Optional)]
 		public GUISkin guiSkin;
 		[Tooltip("Should we show a legacy Unity GUI? NOTE: Not suitable for mobile devices.")]
@@ -49,6 +64,11 @@ namespace MultiGame {
 		[Tooltip("When we are hit, what message should we send?")]
 		public MessageManager.ManagedMessage hitMessage;
 
+		List<Armor> armors = new List<Armor>();
+		float armorValue = 0;
+		float hitStartingPitch = 1;
+		float pauseTimer = 0;
+
 		public HelpInfo help = new HelpInfo("This flexible Health implementation is fully compatible with all MultiGame systems and forms the basis for combat and death in your " +
 			"game worlds. It receives the 'ModifyHealth' message with a floating point value. Positive numbers heal it, negative numbers damage it. Make anything killable! Fill out message senders above to " +
 			"send messages to other MultiGame components.");
@@ -57,13 +77,30 @@ namespace MultiGame {
 
 		
 		void Start () {
+			if (hitAudioSource == null)
+				hitAudioSource = GetComponent<AudioSource>();
+			if (hitAudioSource == null)
+				hitAudioSource = GetComponentInChildren<AudioSource>();
+			if (hitAudioSource != null)
+				hitStartingPitch = hitAudioSource.pitch;
 			if (PlayerPrefs.HasKey ("Health" + autoSaveKey))
-				hp = PlayerPrefs.GetFloat ("Health" + autoSaveKey);
+					hp = PlayerPrefs.GetFloat ("Health" + autoSaveKey);
 			if (healthGoneMessage.target == null)
 				healthGoneMessage.target = gameObject;
+			UpdateArmor();
+		}
+
+		void UpdateArmor() {
+			armors.Clear();
+			armors.AddRange(transform.root.GetComponentsInChildren<Armor>());
+			armorValue = 0;
+			foreach (Armor armor in armors)
+				armorValue += armor.armorProtectionValue;
 		}
 
 		void OnDestroy () {
+			if (hitPauseTime > 0)
+				Time.timeScale = 1f;
 			if (!string.IsNullOrEmpty (autoSaveKey))
 				PlayerPrefs.SetFloat ("Health" + autoSaveKey, hp);
 		}
@@ -96,10 +133,15 @@ namespace MultiGame {
 		}
 
 		[Header("Available Messages")]
+		public MessageHelp hitStunHelp = new MessageHelp("HitStun","Stuns MultiGame AI and CharacterOmnicontroller components attached to this object",3,"How long should the stun last in seconds?");
+		public void HitStun(float duration) {
+			gameObject.SendMessage("Stun", duration);
+		}
+
 		public MessageHelp dieHelp = new MessageHelp("Die","Kill this object immediately!");
 		public void Die() {
 			if (debug)
-				Debug.Log("Health component " + gameObject.name + " has died!");
+				Debug.Log("Health component " + gameObject.name + " has died! " + Time.timeScale);
 			MessageManager.Send( healthGoneMessage);
 
 			
@@ -114,8 +156,9 @@ namespace MultiGame {
 
 		public MessageHelp modifyHealthHelp = new MessageHelp("ModifyHealth","Change the health this object has", 3, "Amount to change the health by. Positive to increase, negative to decrease.");
 		public void ModifyHealth (float val) {
-			if (debug)
-				Debug.Log("Modifying health for " + gameObject.name + " by " + val);
+
+
+			
 			if (hitTextPrefab != null) {
 				GameObject textObject;
 				if (hitTextSpawnPoint != null)
@@ -129,13 +172,50 @@ namespace MultiGame {
 				}
 			}
 
+			if (hitPrefab != null) {
+				if (hitPrefabSpawnPoint != null)
+					Instantiate(hitPrefab, hitPrefabSpawnPoint.transform.position, hitPrefabSpawnPoint.transform.rotation);
+				else
+					Instantiate(hitPrefab, transform.position, transform.rotation);
+			}
+
+			if (hitAudioSource != null && hitSound != null) {
+				hitAudioSource.pitch = hitStartingPitch + Random.Range(-hitSoundVariance, hitSoundVariance);
+				hitAudioSource.PlayOneShot(hitSound);
+			}
+
 			MessageManager.Send(hitMessage);
-			hp += val;
+			if (val < 0) {
+				float dmg = val;//-60
+				dmg += armorValue;
+				if (dmg < 0) {
+					hp += dmg;
+					if (debug)
+						Debug.Log("Damaging " + gameObject.name + " by " + dmg);
+				}
+			}
+			else {
+				hp += val;
+				if (debug)
+					Debug.Log("Healing " + gameObject.name + " by " + val);
+			}
 			if (hp <= 0.0f) {
 				Die ();
 				if (!autodestruct)
 					return;
 			}
+
+			if (hitPauseTime > 0)
+				StartCoroutine(HitPause());
+
+		}
+
+		IEnumerator HitPause() {
+			pauseTimer = Time.realtimeSinceStartup + hitPauseTime;
+			Time.timeScale = 0;
+			while (Time.realtimeSinceStartup < pauseTimer)
+				yield return 0;
+			Time.timeScale = 1;
 		}
 
 		public MessageHelp modifyMaxHealthHelp = new MessageHelp("ModifyMaxHealth","Change the maximum health this object can have", 3, "Amount to change the max health by. Positive to increase, negative to decrease.");

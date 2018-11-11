@@ -23,13 +23,15 @@ namespace MultiGame {
 		public float damageDelay = .5f;
 		[Tooltip("Damage per hit")]
 		public float attackDamage = 10.0f;
+		[Tooltip("If greater than 0, will stun it's target for this duration in seconds")]
+		public float stunTime = 0;
 		[RequiredFieldAttribute("An object representing a raycast where the damage starts. Should be an empty transform slightly in front of the character. Raycasts from this point to prevent damage through walls etc.", RequiredFieldAttribute.RequirementLevels.Required)]
 		public GameObject damageRayOrigin;
 		[Tooltip("Range of the attack")]
 		public float hitscanRange = 2.3f;
 		[Tooltip("What collision layers can block our attacks?")]
 		public LayerMask damageObstructionMask;
-		private float lastTriggerTime;
+		//private float lastTriggerTime;
 		[Header("Message Senders")]
 		[ReorderableAttribute]
 		[Tooltip("Messages to send when damage is dealt")]
@@ -56,6 +58,7 @@ namespace MultiGame {
 		[System.NonSerialized]
 		public Animator anim;
 		private float attackCounter;
+		private float stunDuration = 0;
 #if UNITY_EDITOR
 
 		public HelpInfo help =  new HelpInfo("This component should be placed on an empty object representing an AI. The object should have a 3D model of a unit parented to it." +
@@ -75,6 +78,10 @@ namespace MultiGame {
 				enabled = false;
 				return;
 			}
+		}
+
+		void Stun(float duration) {
+			stunDuration = duration;
 		}
 
 		void OnValidate () {
@@ -101,6 +108,13 @@ namespace MultiGame {
 		}
 
 		void FixedUpdate () {
+			stunDuration -= Time.deltaTime;
+			if (stunDuration > 0) {
+				anim.speed = 0;
+				return;
+			}
+			else
+				anim.speed = 1;
 			if (target != null) {
 				Vector3 tgtPos = new Vector3(target.transform.position.x, target.transform.position.y + tgtYOffset, target.transform.position.z);
 				Vector3 toOther = tgtPos - transform.position;
@@ -159,6 +173,8 @@ namespace MultiGame {
 						MessageManager.Send(myMsg);
 					}
 					target.gameObject.SendMessage("ModifyHealth", -attackDamage, SendMessageOptions.DontRequireReceiver);
+					if (stunTime > 0)
+						target.gameObject.SendMessage("HitStun",stunTime);
 					if (source != null && hitSounds.Count > 0)
 						source.PlayOneShot(hitSounds[Mathf.FloorToInt(Random.Range(0, hitSounds.Count))]);
 				}

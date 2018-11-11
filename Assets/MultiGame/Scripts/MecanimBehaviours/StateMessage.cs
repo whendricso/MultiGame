@@ -6,6 +6,8 @@ namespace MultiGame {
 
 	public class StateMessage : StateMachineBehaviour {
 
+		public bool targetRoot = false;
+
 		[Tooltip("Message to send when we enter this Mecanim state")]
 		public MessageManager.ManagedMessage enterMessage;
 
@@ -13,8 +15,13 @@ namespace MultiGame {
 			"state machines to function as branching behavior state machines");
 
 		public override void OnStateEnter (Animator _animator, AnimatorStateInfo _stateInfo, int _layerIndex) {
-			if (enterMessage.target == null)
+			if (enterMessage.target == null) {
+				if (targetRoot)
+					enterMessage.target = _animator.gameObject.transform.root.gameObject;
+				else
+					enterMessage.target = _animator.gameObject;
 				enterMessage.target = _animator.gameObject;
+			}
 			if (!string.IsNullOrEmpty( enterMessage.message))
 				MessageManager.Send(enterMessage);
 		}

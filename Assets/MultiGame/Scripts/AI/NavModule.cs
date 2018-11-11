@@ -29,6 +29,7 @@ namespace MultiGame {
 		public UnityEngine.AI.NavMeshAgent agent;
 		private AudioSource source;
 		private float moveRate;
+		private float stunDuration = 0;
 
 #if UNITY_EDITOR
 		public HelpInfo help = new HelpInfo("This component implements Unity's NavMesh directly, allowing AI to pathfind around easily. You need to bake a navigation mesh for" +
@@ -55,17 +56,26 @@ namespace MultiGame {
 
 		void Start () {
 			lastFramePosition = transform.position;
+			agent.updateRotation = false;
 		}
 
 		void Update () {
-
+			stunDuration -= Time.deltaTime;
+			if (stunDuration > 0) {
+				agent.isStopped = true;
+				return;
+			}
 			if (lastTouchTime > .5f)
 				touchingTarget = false;
 			if (touchingTarget) {
-				transform.rotation = Quaternion.LookRotation(Vector3.RotateTowards(transform.forward, navTarget.transform.position - transform.position, agent.angularSpeed * Time.deltaTime,0f));
+				transform.rotation = Quaternion.LookRotation(Vector3.RotateTowards(transform.forward, navTarget.transform.position - transform.position, agent.angularSpeed * Time.deltaTime,0f),Vector3.up);
 			}
-			if(navTarget != null)
+			if (navTarget != null) {
 				targetPosition = navTarget.transform.position;
+				Quaternion targetRot = Quaternion.LookRotation(Vector3.RotateTowards(transform.forward, navTarget.transform.position - transform.position, agent.angularSpeed * Time.deltaTime, 0f));
+				transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRot, agent.angularSpeed * Time.deltaTime);
+				transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, transform.eulerAngles.z);
+			}
 
 			moveRate = ((Vector3.Distance(transform.position, lastFramePosition) / Time.deltaTime) / (agent.speed));
 
@@ -104,6 +114,12 @@ namespace MultiGame {
 				touchingTarget = false;
 		}
 
+		void Stun(float duration) {
+			stunDuration = duration;
+			if (debug)
+				Debug.Log("NavModule " + gameObject.name + " is being stunned for " + duration + " seconds");
+		}
+
 		void SteerForward () {//Used by Guard Module
 			agent.isStopped = true;
 			if(debug)
@@ -140,7 +156,7 @@ namespace MultiGame {
 		public void StopMoving () {
 			if(debug)
 				Debug.Log ("Nav Module " + gameObject.name + " is stopping");
-			navTarget = null;
+			//navTarget = null;
 			targetPosition = transform.position;
 		}
 

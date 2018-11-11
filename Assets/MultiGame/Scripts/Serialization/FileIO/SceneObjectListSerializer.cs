@@ -204,7 +204,7 @@ namespace MultiGame
         {
             optionalUniqueSceneIdentifier = _identifier;
         }
-
+		/*
         public MessageHelp saveToUrlHelp = new MessageHelp("SaveToUrl", "Saves the current object list to a web server. You will need some server-side code to handle this (Node.js recommended)", 4, "The URL for the POST request.");
 
         public void SaveToUrl(string url)
@@ -234,7 +234,7 @@ namespace MultiGame
 
                 BinaryFormatter formatter = new BinaryFormatter();
                 MemoryStream stream = new MemoryStream();
-                FindNodeManager();
+                //FindNodeManager();
                 formatter.Serialize(stream, objects);
 
                 if (debug)
@@ -337,5 +337,6 @@ namespace MultiGame
             else
                 return true;
         }
+		*/
     }
 }

@@ -26,7 +26,6 @@ namespace MultiGame {
 					tScale += Mathf.Abs(recoveryRate * Time.deltaTime);
 				}
 			}
-
 		}
 
 		[Header("Available Messages")]

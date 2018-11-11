@@ -6,7 +6,7 @@ using MultiGame;
 namespace MultiGame {
 
 	public class NodeSceneListDisplay : MonoBehaviour {
-
+		/*
 		public Rect guiArea = new Rect(.01f,.01f,.98f,.98f);
 		public bool showGui = false;
 		public string mapListUrl = "";
@@ -111,5 +111,6 @@ namespace MultiGame {
 		public void DisableSceneListGui () {
 			showGui = false;
 		}
+		*/
 	}
 }

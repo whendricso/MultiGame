@@ -67,6 +67,40 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1642833560358664
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4013970224275868}
+  - component: {fileID: 33997453210692008}
+  - component: {fileID: 135274428857831214}
+  - component: {fileID: 23470119156323370}
+  - component: {fileID: 54116664635569688}
+  - component: {fileID: 114442280100023596}
+  - component: {fileID: 114827569875758426}
+  m_Layer: 0
+  m_Name: Trigger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4013970224275868
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1642833560358664}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4291664626451850}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4030340158694960
 Transform:
   m_ObjectHideFlags: 1
@@ -92,6 +126,7 @@ Transform:
   m_Children:
   - {fileID: 4030340158694960}
   - {fileID: 4330800960369250}
+  - {fileID: 4013970224275868}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -33.24, y: -12.473001, z: -84.57201}
@@ -132,6 +167,41 @@ MeshRenderer:
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
   m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!23 &23470119156323370
+MeshRenderer:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1642833560358664}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
+  m_Materials:
+  - {fileID: 2100000, guid: ba55f57f42f0a7740a93db121fc1c0dd, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 1
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
   m_StitchLightmapSeams: 0
@@ -192,6 +262,28 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1170732211839950}
   m_Mesh: {fileID: 4300000, guid: 522a078585400714cb6646e89f4f1245, type: 2}
+--- !u!33 &33997453210692008
+MeshFilter:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1642833560358664}
+  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!54 &54116664635569688
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1642833560358664}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!54 &54864851644143310
 Rigidbody:
   m_ObjectHideFlags: 1
@@ -314,6 +406,83 @@ MonoBehaviour:
       so that your textures don't stretch like they do with a normal Unity cube. To
       use, simply add this to an empty transform (or create it with a Rapid Dev Toolbar
       button)
+--- !u!114 &114442280100023596
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1642833560358664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2d2af905e4082e4087d99af523ed15e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  playerOnly: 0
+  activeTags:
+  - Player
+  checkRoot: 0
+  animEnter: 
+  animExit: 
+  mecanimTrigger: 
+  animator: {fileID: 0}
+  message:
+    target: {fileID: 1042123680910056}
+    message: Pick
+    msgOverride: 1
+    messageIndex: 1
+    possibleMessages:
+    - Pick
+    isDirty: 0
+    sendMessageType: 0
+    parameter: 
+    parameterMode: 0
+  messageToEnteringEntity:
+    target: {fileID: 0}
+    message: --none--
+    msgOverride: 1
+    messageIndex: 0
+    possibleMessages: []
+    isDirty: 0
+    sendMessageType: 0
+    parameter: 
+    parameterMode: 0
+  messageOnExit: 0
+  exitMessage:
+    target: {fileID: 0}
+    message: --none--
+    msgOverride: 0
+    messageIndex: 0
+    possibleMessages: []
+    isDirty: 0
+    sendMessageType: 0
+    parameter: 
+    parameterMode: 0
+  targetLevel: 
+  help:
+    showInfo: 0
+    helpText: This component sends messages when an object enters, exits, or stays
+      in a given trigger area. Must be attached to a collider marked 'isTrigger'.
+      To use, ensure that this object's collision layer collides only with objects
+      you wish to activate it. Then, define some Messages to be sent by drag & dropping
+      a target onto 'Message Target' then selecting a message from the list you want
+      to send. You can also use tags to further cull the results.
+  debug: 0
+--- !u!114 &114827569875758426
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1642833560358664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 101348b43ce257347b8092b87e9d3d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  help:
+    showInfo: 0
+    helpText: This component causes the object to become invisible as soon as it's
+      created. Useful for editor-only objects.
 --- !u!114 &114849776140697328
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -345,3 +514,15 @@ MonoBehaviour:
     helpText: Causes this item to enter the Player's inventory
     argumentType: 0
     argumentText: 
+--- !u!135 &135274428857831214
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1642833560358664}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}

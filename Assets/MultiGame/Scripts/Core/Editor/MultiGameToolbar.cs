@@ -136,7 +136,7 @@ namespace MultiGame {
 		private Material camZoneMat;
 		
 
-		[MenuItem ("MultiGame/Toolbar (Legacy)")]
+		[MenuItem ("MultiGame/Toolbar")]
 		public static void  ShowWindow () {
 			EditorWindow window = EditorWindow.GetWindow(typeof(MultiGameToolbar));
 			window.minSize = new Vector2 (116f, 640f );
@@ -1648,9 +1648,9 @@ namespace MultiGame {
 			target.transform.rotation = Quaternion.identity;
 			target.name = "Trigger";
 			Undo.RegisterCreatedObjectUndo(target,"Create Trigger Box");
-			Debug.Log("Creating Trigger");
 			target.GetComponent<MeshRenderer>().sharedMaterial = triggerMat;
 			target.GetComponent<Collider>().isTrigger = true;
+			Undo.AddComponent<Rigidbody>(target);
 			target.GetComponent<Rigidbody>().isKinematic = true;
 			Undo.AddComponent<ActiveZone>(target);
 			Undo.AddComponent<VanishOnStart>(target);
@@ -1672,6 +1672,7 @@ namespace MultiGame {
 			Undo.RegisterCreatedObjectUndo(target,"Create Trigger Box");
 			target.GetComponent<MeshRenderer>().sharedMaterial = triggerMat;
 			target.GetComponent<Collider>().isTrigger = true;
+			Undo.AddComponent<Rigidbody>(target);
 			target.GetComponent<Rigidbody>().isKinematic = true;
 			Undo.AddComponent<ActiveZone>(target);
 			Undo.AddComponent<VanishOnStart>(target);
@@ -1688,6 +1689,7 @@ namespace MultiGame {
 			Undo.RegisterCreatedObjectUndo(target,"Create Trigger Box");
 			target.GetComponent<MeshRenderer>().sharedMaterial = collMat;
 			target.GetComponent<Collider>().isTrigger = false;
+			Undo.AddComponent<Rigidbody>(target);
 			target.GetComponent<Rigidbody>().isKinematic = true;
 			Undo.AddComponent<ActiveCollider>(target);
 			Undo.AddComponent<VanishOnStart>(target);
@@ -1704,6 +1706,7 @@ namespace MultiGame {
 			Undo.RegisterCreatedObjectUndo(target,"Create Trigger Box");
 			target.GetComponent<MeshRenderer>().sharedMaterial = collMat;
 			target.GetComponent<Collider>().isTrigger = false;
+			Undo.AddComponent<Rigidbody>(target);
 			target.GetComponent<Rigidbody>().isKinematic = true;
 			Undo.AddComponent<ActiveCollider>(target);
 			Undo.AddComponent<VanishOnStart>(target);
