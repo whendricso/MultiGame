@@ -10,9 +10,9 @@ namespace MultiGame {
 	public class DamageBox : MultiModule {
 
 		[Header("Damage Settings")]
-		[RequiredFieldAttribute("How much damage does this thing do?")]
+		[RequiredField("How much damage does this thing do?")]
 		public float damage = 10.0f;
-		[RequiredFieldAttribute("How often?")]
+		[RequiredField("How often?")]
 		public float damageInterval = 2.0f;
 		[System.NonSerialized]
 		private List<GameObject> targets = new List<GameObject>();
@@ -25,7 +25,7 @@ namespace MultiGame {
 			StartCoroutine (SendDamage ());
 		}
 
-		void OnEnabled () {
+		void OnEnable () {
 			StopAllCoroutines ();
 			StartCoroutine (SendDamage ());
 		}
@@ -59,6 +59,8 @@ namespace MultiGame {
 		[Header("Available Messages")]
 		public MessageHelp enableDamageHelp = new MessageHelp ("EnableDamage","Start dealing damage if we aren't already doing so");
 		public void EnableDamage () {
+			if (!gameObject.activeInHierarchy)
+				return;
 			enabled = true;
 		}
 

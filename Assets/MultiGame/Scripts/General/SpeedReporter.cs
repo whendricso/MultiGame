@@ -25,7 +25,7 @@ namespace MultiGame {
 		public HelpInfo help = new HelpInfo("This component gives you the current speed of an object. If using the legacy GUI setting, not suitable for mobile. Debug mode is slow," +
 			" so on mobile we recommend using Unity's new UI system to display the output instead.");
 
-		void Start () {
+		void OnEnable () {
 			body = GetComponent<Rigidbody>(); 
 			lastPosition = transform.position;
 		}

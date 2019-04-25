@@ -44,7 +44,7 @@ namespace MultiGame {
 			GetComponent<Rigidbody> ().useGravity = false;
 		}
 
-		void Start () {
+		void OnEnable () {
 			if (body == null)
 				body = GetComponent<Rigidbody>();
 			if (body == null) {

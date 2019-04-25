@@ -48,6 +48,8 @@ namespace MultiGame {
 		}
 
 		public void PlayASound (AudioClip clip) {
+			if (!gameObject.activeInHierarchy)
+				return;
 			if (!canSound) return;
 			Sound( clip);
 			InitiateCooldown();
@@ -56,6 +58,8 @@ namespace MultiGame {
 		[Header("Available Messages")]
 		public MessageHelp playSoundHelp = new MessageHelp("PlaySound","Plays the sound currently assigned to the Audio Source attached to this object");
 		public void PlaySound () {
+			if (!gameObject.activeInHierarchy)
+				return;
 			if (!canSound) return;
 			if (source.clip != null)
 				Sound (source.clip);
@@ -72,6 +76,8 @@ namespace MultiGame {
 
 		public MessageHelp playRandomSoundHelpo = new MessageHelp("PlayRandomSound","Plays one from a random selection of sounds in the list of 'Clips'");
 		public void PlayRandomSound () {
+			if (!gameObject.activeInHierarchy)
+				return;
 			if (!canSound) return;
 			PlaySelectedSound(Random.Range(0, clips.Length));
 			InitiateCooldown();
@@ -79,7 +85,8 @@ namespace MultiGame {
 
 		public MessageHelp playSelectedSoundHelp = new MessageHelp("PlaySelectedSound","Plays a specific sound from the list of 'Clips'",2,"What is the index of the sound we want to play? Remember, the first element starts at 0");
 		public void PlaySelectedSound (int selector) {
-
+			if (!gameObject.activeInHierarchy)
+				return;
 			if (!canSound) return;
 			if (debug)
 				Debug.Log("Sounder " + gameObject.name + " is playing sound with selector " + selector);
@@ -95,6 +102,7 @@ namespace MultiGame {
 			source.Stop();
 		}
 
+		public MessageHelp setVolumeHelp = new MessageHelp("SetVolume","Changes the volume for this Audio Source only",3,"A floating point number between 0 and 1 indicating the new volume level.");
 		public void SetVolume (float newVolume) {
 			source.volume = newVolume;
 		}
@@ -110,6 +118,8 @@ namespace MultiGame {
 		}
 
 		void Sound(AudioClip clip) {
+			if (!gameObject.activeInHierarchy)
+				return;
 			if (debug)
 				Debug.Log("Sounder " + gameObject.name + " is playing sound " + clip.name);
 			if (pitchVariance > 0) {

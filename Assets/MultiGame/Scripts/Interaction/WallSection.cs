@@ -40,7 +40,7 @@ namespace MultiGame {
 		public HelpInfo help = new HelpInfo("This component swaps out a prefab based on neighboring rules. It also rotates the object so you don't need a prefab for each direction." +
 			" Great for dungeon crawlers, or user-created walls. It assumes it's instantiated in the correct position for the prefab edges to line up correctly.");
 		
-		void Start () {
+		void OnEnable () {
 			Debug.Log("" + pN);
 			if (rayLength < 0) {
 				rayLength = Mathf.Infinity;

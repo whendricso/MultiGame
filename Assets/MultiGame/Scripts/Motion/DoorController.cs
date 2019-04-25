@@ -29,7 +29,7 @@ namespace MultiGame {
 			"Move the parented door so that this object is at the hinge point of the door (for example, a revolving door should be centered on this object while a swinging door should be off to one side). Then, send messages to this " +
 			"component from any Message sender, such as ClickMessage or ActiveZone when you want the door to open/close. The simplest message to send is 'ToggleDoor' but more can be found below.");
 
-		void Start () {
+		void OnEnable () {
 			if (doorState == DoorStates.Opening)
 				doorState = DoorStates.Open;
 			if (doorState == DoorStates.Closing)
@@ -80,6 +80,8 @@ namespace MultiGame {
 		[Header("Available Messages")]
 		public MessageHelp openDoorHelp = new MessageHelp("OpenDoor","Opens this door based on your settings");
 		public void OpenDoor () {
+			if (!gameObject.activeInHierarchy)
+				return;
 			if (doorState != DoorStates.Closed)
 				return;
 			startTime = Time.time;
@@ -88,6 +90,8 @@ namespace MultiGame {
 
 		public MessageHelp closeDoorHelp = new MessageHelp("CloseDoor","Closes this door based on your settings");
 		public void CloseDoor () {
+			if (!gameObject.activeInHierarchy)
+				return;
 			if (doorState != DoorStates.Open)
 				return;
 			startTime = Time.time;
@@ -96,6 +100,8 @@ namespace MultiGame {
 
 		public MessageHelp toggleDoorHelp = new MessageHelp("ToggleDoor","Opens or closes this door based on your settings");
 		public void ToggleDoor () {
+			if (!gameObject.activeInHierarchy)
+				return;
 			if (doorState == DoorStates.Open) {
 				startTime = Time.time;
 				doorState = DoorStates.Closing;

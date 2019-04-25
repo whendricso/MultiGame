@@ -7,8 +7,9 @@ namespace MultiGame {
 	[AddComponentMenu("MultiGame/Interaction/Output/MessageDestructor")]
 	public class MessageDestructor : MultiModule {
 
-		[ReorderableAttribute]
-		[Tooltip("Objects to spawn when we destroy this object")]
+		public bool pool = false;
+		[Reorderable]
+		[Tooltip("Objects to spawn when we destroy this object. These aren't used in object pooling, so spawn with caution on mobile devices.")]
 		public GameObject[] deathPrefabs;
 
 		public HelpInfo help = new HelpInfo("This component allows things to be destroyed by receiving the 'Destruct' message. Very handy." +
@@ -24,7 +25,11 @@ namespace MultiGame {
 				Debug.Log("Destruct called on " + gameObject.name);
 			foreach (GameObject deathPrefab in deathPrefabs)
 				Instantiate(deathPrefab, transform.position, transform.rotation);
-			Destroy(gameObject);
+
+			if (!pool)
+				Destroy(gameObject);
+			else
+				gameObject.SetActive(false);
 		}
 
 	}

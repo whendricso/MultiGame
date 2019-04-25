@@ -8,18 +8,18 @@ namespace MultiGame {
 	[AddComponentMenu("MultiGame/Motion/Teleporter")]
 	public class Teleporter : MultiModule {
 
-		[RequiredFieldAttribute("Optional target destination. Send the 'TeleportToTarget' message to teleport to this object if it exists", RequiredFieldAttribute.RequirementLevels.Optional)]
+		[RequiredField("Optional target destination. Send the 'TeleportToTarget' message to teleport to this object if it exists", RequiredFieldAttribute.RequirementLevels.Optional)]
 		public GameObject teleTarget;
 		[Tooltip("A list of tags representing objects that can be teleported automatically")]
-		[ReorderableAttribute]
+		[Reorderable]
 		public List<string> teleportableTags = new List<string>();
 		[Tooltip("A list of tags we can teleport to using the message 'TeleportToSelected' which takes an integer representing the index of the tag you wish to use from the list and " +
 			"will teleport this object to an object with that tag.")]
-		[ReorderableAttribute]
+		[Reorderable]
 		public List<string> teleTargetTags = new List<string>();
 		[Tooltip("If true, we will try to teleport any object that enters our trigger and has a matching tag")]
 		public bool automatic = true;
-		[Tooltip("If supplied, we will spawn this at the entrance and exit position when teleporting")]
+		[Tooltip("If supplied, we will spawn this at the entrance and exit position when teleporting. Does not use object pooling, so a new one is created each time this is used.")]
 		public GameObject splashPrefab;
 		[Tooltip("Message sent when we activate the teleporter successfully")]
 		public MessageManager.ManagedMessage teleportMessage;
@@ -85,6 +85,8 @@ namespace MultiGame {
 		[Header("Available Messages")]
 		public MessageHelp teleportToTargetHelp = new MessageHelp("TeleportToTarget","Teleports this object to the supplied 'Tele Target' scene object, if any.");
 		public void TeleportToTarget () {
+			if (!gameObject.activeInHierarchy)
+				return;
 			if (splashPrefab != null)
 				Instantiate(splashPrefab, transform.position, transform.rotation);
 			transform.position = teleTarget.transform.position;
@@ -96,6 +98,8 @@ namespace MultiGame {
 
 		public MessageHelp teleportToTagHelp = new MessageHelp("TeleportToTag","Teleports this object to an object with a tag in the list of 'Tele Target Tags'");
 		public void TeleportToTag () {
+			if (!gameObject.activeInHierarchy)
+				return;
 			if (teleTargetTags.Count > 0) {
 				List<GameObject> _teles = new List<GameObject>();
 				foreach(string _teletag in teleTargetTags) {

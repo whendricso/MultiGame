@@ -13,9 +13,9 @@ namespace MultiGame {
 		
 		[HideInInspector]//[Tooltip("Message target override")]
 		public GameObject target;
-		[HideInInspector]
+		//[HideInInspector]
 		//[Tooltip("Ignore all objects other than the player?")]
-		public bool playerOnly = false;
+		//public bool playerOnly = false;
 		[Header("Important - Must be populated")]
 		[Tooltip("A list of tags that trigger this message sender")]
 		[ReorderableAttribute]
@@ -35,6 +35,7 @@ namespace MultiGame {
 		public MessageManager.ManagedMessage message;
 		[Tooltip("Message to send to the object that entered the trigger")]
 		public MessageManager.ManagedMessage messageToEnteringEntity;
+		public bool targetRoot = false;
 		[Tooltip("Should we send a message when the object leaves?")]
 		public bool messageOnExit = false;
 		[Tooltip("Message to send when the object leaves, if enabled")]
@@ -49,7 +50,7 @@ namespace MultiGame {
 
 		public bool debug = false;
 		
-		void Start () {
+		void OnEnable () {
 			Rigidbody _body = GetComponent<Rigidbody>();
 			if (!_body.isKinematic)
 				_body.isKinematic = true;
@@ -64,8 +65,8 @@ namespace MultiGame {
 
 			if (message.target == null)
 				message.target = target;
-	//		if (messageToEnteringEntity.target == null)
-	//			messageToEnteringEntity.target = target;
+			if (messageToEnteringEntity.target == null)
+				messageToEnteringEntity.target = target;
 			if (exitMessage.target == null)
 				exitMessage.target = target;
 
@@ -85,15 +86,22 @@ namespace MultiGame {
 		void OnTriggerEnter (Collider other) {
 			if (debug)
 				Debug.Log("Enter " + target.name);
-			if (playerOnly && other.gameObject.tag != "Player")
-				return;
+			//if (playerOnly && other.gameObject.tag != "Player")
+			//	return;
+			
 			if (!checkRoot && !activeTags.Contains( other.gameObject.tag))
 				return;
 			if (checkRoot && !activeTags.Contains( other.transform.root.gameObject.tag))
 				return;
+				
+			Debug.Log(messageToEnteringEntity.message);
 
 			if (!string.IsNullOrEmpty(messageToEnteringEntity.message)) {
-				/*other.gameObject.SendMessage(messageToEnteringEntity.message, SendMessageOptions.DontRequireReceiver);*/MessageManager.SendTo(messageToEnteringEntity,other.gameObject);
+				Debug.Log(other.name);
+				if (!targetRoot)
+					MessageManager.SendTo(messageToEnteringEntity, other.gameObject);
+				else
+					MessageManager.SendTo(messageToEnteringEntity, other.transform.root.gameObject);
 			}
 
 			if (animator != null && CheckStringExists(mecanimTrigger))
@@ -113,8 +121,8 @@ namespace MultiGame {
 		void OnTriggerExit (Collider other) {
 			if (debug)
 				Debug.Log("Exit " + target.name);
-			if (playerOnly && other.gameObject.tag != "Player")
-				return;
+			//if (playerOnly && other.gameObject.tag != "Player")
+			//	return;
 			if (target.GetComponent<Animation>() != null) {
 				if (CheckStringExists(animExit))
 					target.GetComponent<Animation>().Play(animExit);

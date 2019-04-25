@@ -13,39 +13,33 @@ namespace MultiGame {
 		public Vector3 thrust;
 		[Tooltip("If we are using an input axis, which one?")]
 		public string axis = "Vertical";
-		[Tooltip("How should the force be applied?")]
+		[Tooltip("Should the force be applied in global or local coordinates?")]
 		public Space space = Space.Self;
+		[Tooltip("If true, the thruster will always apply force to the center of the rigidbody. Otherwise, it will apply force at it's position")]
+		public bool ignoreThrusterPosition = true;
 		[Tooltip("Optional target to transfer force to")]
 		public GameObject target;
 
-		[Tooltip("Should we use an input axis to control the thrust level?")]
+		[Tooltip("Should we use an input axis to control the thrust level? X and Y input axes correspond to X and Z thrust.")]
 		public bool useInputAxis = false;
 		[Tooltip("How sensitive is that axis?")]
 		public float inputSensitivity = 0.2f;
 
 		private Rigidbody rigid;
-		private bool useTargetRigidbody = false;
+		//private bool useTargetRigidbody = false;
 
 		public HelpInfo help = new HelpInfo("This component adds thrust to a given Rigidbody. It also works with the 'InputVector' component (optionally) allthoug it can be used" +
 			" either by itself or with any message sender/toggle component. To use, add this to an object with a Rigidbody component that you'd like to push around. Then, input some 'Thrust' settings above to tell the Thruster " +
 			"how strong it is in which directions. Negative values may be used. Finally, either set it's 'Thrusting' setting to true, or send messages to it to control it's thrust state.");
 
-		void Start () {
-			if (GetComponent<Rigidbody>() == null && target == null) {
-				Debug.LogError("Thruster " + gameObject.name + "must have attached rigidbody or a target with a rigidbody to work!");
-				enabled = false;
-				return;
-			}
+		void OnEnable () {
 			if (target == null)
 				target = gameObject;
-			if (target != null && target.GetComponent<Rigidbody>() == null) {
+			rigid = target.GetComponent<Rigidbody>();
+			if (rigid == null) {
 				Debug.LogError("Thruster " + gameObject.name + "must have attached rigidbody or a target with a rigidbody to work!");
 				enabled = false;
 				return;
-			}
-			if (target != null) {
-				useTargetRigidbody = true;
-				rigid = target.GetComponent<Rigidbody>();
 			}
 		}
 
@@ -53,18 +47,16 @@ namespace MultiGame {
 			if (!useInputAxis) {
 				if (thrusting) {
 					if (space == Space.Self) {
-						if (!useTargetRigidbody)
-							GetComponent<Rigidbody>().AddRelativeForce(thrust, ForceMode.Force);
-						else
+						if (ignoreThrusterPosition)
 							rigid.AddRelativeForce(thrust, ForceMode.Force);
-							
-
+						else
+							rigid.AddForceAtPosition(transform.TransformVector(thrust), transform.position, ForceMode.Force);
 					}
 					else {
-						if (!useTargetRigidbody)
-							GetComponent<Rigidbody>().AddForce(thrust, ForceMode.Force);
-						else
+						if (ignoreThrusterPosition)
 							rigid.AddForce(thrust, ForceMode.Force);
+						else
+							rigid.AddForceAtPosition(thrust, transform.position, ForceMode.Force);
 							
 					}
 				}
@@ -72,18 +64,18 @@ namespace MultiGame {
 			else {//use input axis
 				if ( Mathf.Abs(Input.GetAxis(axis)) > inputSensitivity) {
 					if (space == Space.Self) {
-						if (!useTargetRigidbody)
-							GetComponent<Rigidbody>().AddRelativeForce(thrust * Input.GetAxis(axis), ForceMode.Force);
-						else
+						if (ignoreThrusterPosition)
 							rigid.AddRelativeForce(thrust * Input.GetAxis(axis), ForceMode.Force);
-							
+						else
+							rigid.AddForceAtPosition(transform.TransformVector(thrust) * Input.GetAxis(axis), transform.position, ForceMode.Force);
+
 					}
 					else {
-						if (!useTargetRigidbody)
-							GetComponent<Rigidbody>().AddForce(thrust * Input.GetAxis(axis), ForceMode.Force);
-						else
+						if (ignoreThrusterPosition)
 							rigid.AddForce(thrust * Input.GetAxis(axis), ForceMode.Force);
-							
+						else
+							rigid.AddForceAtPosition(thrust * Input.GetAxis(axis), transform.position, ForceMode.Force);
+
 					}
 				}
 			}
@@ -102,19 +94,37 @@ namespace MultiGame {
 
 		public MessageHelp thrustAmountHelp = new MessageHelp("ThrustAmount","Thrust a specific amount this frame",3,"The scalar of thrust we want to send (multiplied by the 'Thrust' you indicated above)");
 		public void ThrustAmount (float scalar) {
+			if (!gameObject.activeInHierarchy)
+				return;
 			if (scalar != 0.0f) {
-				if (space == Space.Self)
-					rigid.AddRelativeForce(thrust * scalar);
-				else
-					rigid.AddForce(thrust * scalar, ForceMode.Force);
+				if (space == Space.Self) {
+					if (ignoreThrusterPosition)
+						rigid.AddRelativeForce(thrust * scalar, ForceMode.Force);
+					else
+						rigid.AddForceAtPosition(transform.TransformVector(thrust) * scalar,transform.position, ForceMode.Force);
+				} else {
+					if (ignoreThrusterPosition)
+						rigid.AddForce(thrust * scalar, ForceMode.Force);
+					else
+						rigid.AddForceAtPosition(thrust * scalar, transform.position, ForceMode.Force);
+				}
 			}
 		}
 
 		public void ThrustVector (Vector3 input) {
-			if (space == Space.Self)
-				rigid.AddRelativeForce(new Vector3( input.x * thrust.x, input.y * thrust.y, input.z * thrust.z));
-			else
-				rigid.AddForce(new Vector3( input.x * thrust.x, input.y * thrust.y, input.z * thrust.z));
+			if (!gameObject.activeInHierarchy)
+				return;
+			if (space == Space.Self) {
+				if (ignoreThrusterPosition)
+					rigid.AddRelativeForce(new Vector3(input.x * thrust.x, input.y * thrust.y, input.z * thrust.z),ForceMode.Force);
+				else
+					rigid.AddForceAtPosition(transform.TransformVector( new Vector3(input.x * thrust.x, input.y * thrust.y, input.z * thrust.z)),transform.position, ForceMode.Force);
+			} else {
+				if (ignoreThrusterPosition)
+					rigid.AddForce(new Vector3(input.x * thrust.x, input.y * thrust.y, input.z * thrust.z), ForceMode.Force);
+				else
+					rigid.AddForceAtPosition(new Vector3(input.x * thrust.x, input.y * thrust.y, input.z * thrust.z),transform.position, ForceMode.Force);
+			}
 		}
 	}
 }

@@ -15,7 +15,7 @@ namespace MultiGame {
 
 		public HelpInfo help = new HelpInfo("This component changes the scene after a given period of time.");
 		
-		void Start () {
+		void OnEnable () {
 			StartCoroutine (ChangeTheScene(timeRemaining));
 		}
 		

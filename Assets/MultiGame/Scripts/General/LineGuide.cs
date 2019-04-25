@@ -26,7 +26,7 @@ namespace MultiGame {
 
 		public HelpInfo help = new HelpInfo("This component allows you to use the LineRenderer component in interesting ways, creating a line between a list of transforms you provide.");
 
-		void Start () {
+		void OnEnable () {
 			line = GetComponent<LineRenderer>();
 			if (anchors.Count < 1 || line == null) {
 				Debug.LogError("Line Guide " + gameObject.name + " needs a list of anchors to draw lines between and a line renderer attached.");

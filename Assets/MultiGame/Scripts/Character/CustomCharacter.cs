@@ -190,7 +190,9 @@ namespace MultiGame {
 		[Header("Available Messages")]
 		public MessageHelp disableControlsHelp = new MessageHelp("DisableControls","Disables control of the character without affecting the menu.");
 		public void DisableControls() {
-			if(character == null) {
+			if (!gameObject.activeInHierarchy)
+				return;
+			if (character == null) {
 				Debug.LogError("Character object must be instantiated before controls can be disabled.");
 				return;
 			}
@@ -215,7 +217,9 @@ namespace MultiGame {
 
 		public MessageHelp enableControlsHelp = new MessageHelp("EnableControls","Enables control of the character without affecting the menu.");
 		public void EnableControls() {
-			if(character == null) {
+			if (!gameObject.activeInHierarchy)
+				return;
+			if (character == null) {
 				Debug.LogError("Character object must be instantiated before controls can be enabled.");
 				return;
 			}

@@ -7,18 +7,20 @@ namespace MultiGame {
 	[AddComponentMenu("MultiGame/Interaction/Input/Collectible")]
 	public class Collectible : MultiModule {
 
+		public bool pool = false;
+
 		[RequiredFieldAttribute("Optional reference to the collection manager, which must exist in the scene for Collectible to work. If none is supplied, MultiGame will try to find one automatically.", RequiredFieldAttribute.RequirementLevels.Optional)]
 		public CollectionManager collectionManager;
 		[RequiredFieldAttribute("If defined, collection will occur on collision with the object tagged. Otherwise you must send 'Collect' to this object.", RequiredFieldAttribute.RequirementLevels.Optional)]
 		public string playerTag;
-		[Tooltip("Object to spawn when we are collected")]
+		[Tooltip("Object to spawn when we are collected. Does not work with object pooling, and will instantiate a new one each time this object is re-used.")]
 		public GameObject deathPrefab;
 
 		public HelpInfo help = new HelpInfo("This component implements a collectible object. This requires that a CollectionManager be present somewhere in the scene (only one" +
 			" manager should be present, each collectible needs one of these components however). To use, place on an object you would like the player to collect. Either this object, " +
 			"or the player needs a Rigidbody component. ");
 
-		void Start () {
+		void OnEnable () {
 			if (collectionManager == null)
 				collectionManager = FindObjectOfType<CollectionManager>();
 			if (collectionManager == null) {
@@ -34,7 +36,10 @@ namespace MultiGame {
 			collectionManager.gameObject.SendMessage("Collect", SendMessageOptions.DontRequireReceiver);
 			if (deathPrefab != null)
 				Instantiate(deathPrefab, transform.position, transform.rotation);
-			Destroy(gameObject);
+			if (pool)
+				gameObject.SetActive(false);
+			else
+				Destroy(gameObject);
 		}
 
 		void OnCollisionEnter (Collision collision) {
@@ -43,7 +48,10 @@ namespace MultiGame {
 			collectionManager.gameObject.SendMessage("Collect", SendMessageOptions.DontRequireReceiver);
 			if (deathPrefab != null)
 				Instantiate(deathPrefab, transform.position, transform.rotation);
-			Destroy(gameObject);
+			if (pool)
+				gameObject.SetActive(false);
+			else
+				Destroy(gameObject);
 		}
 
 		public MessageHelp collectHelp = new MessageHelp("Collect","Causes this object to be collected");
@@ -51,7 +59,10 @@ namespace MultiGame {
 			collectionManager.gameObject.SendMessage("Collect", SendMessageOptions.DontRequireReceiver);
 			if (deathPrefab != null)
 				Instantiate(deathPrefab, transform.position, transform.rotation);
-			Destroy(gameObject);
+			if (pool)
+				gameObject.SetActive(false);
+			else
+				Destroy(gameObject);
 		}
 	}
 }

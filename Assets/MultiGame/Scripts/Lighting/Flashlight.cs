@@ -13,7 +13,7 @@ namespace MultiGame {
 
 		public HelpInfo help = new HelpInfo("This component allows a light to be toggled with a keypress. Useful for flashlights!");
 		
-		void Start () {
+		void OnEnable () {
 			GetComponent<Light>().enabled = false;
 		}
 		

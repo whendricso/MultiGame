@@ -17,7 +17,7 @@ namespace MultiGame {
 		private static Color affirmation;
 		
 
-		[MenuItem("MultiGame/MultiGame Settings")]
+		[MenuItem("MultiGame/Experimental/MultiGame Settings")]
 		public static void ShowWindow() {
 			EditorWindow.GetWindow(typeof(MultiGameSettingsWindow));
 		}
@@ -53,14 +53,14 @@ namespace MultiGame {
 
 		private static void LoadSettings() {
 
-			if (EditorPrefs.HasKey("errorColor")) {
-				err = LoadColor("errorColor");
+			if (EditorPrefs.HasKey("MGerrorColor")) {
+				err = LoadColor("MGerrorColor");
 				errorColor = err;
-				warning = LoadColor("warningColor");
+				warning = LoadColor("MGwarningColor");
 				warningColor = warning;
-				valid = LoadColor("validColor");
+				valid = LoadColor("MGvalidColor");
 				validColor = valid;
-				affirmation = LoadColor("affirmationColor");
+				affirmation = LoadColor("MGaffirmationColor");
 				affirmationColor = affirmation;
 			}
 
@@ -68,10 +68,10 @@ namespace MultiGame {
 		}
 
 		private static void SaveSettings() {
-			SaveColor(err,"errorColor");
-			SaveColor(warning,"warningColor");
-			SaveColor(valid,"validColor");
-			SaveColor(affirmation,"affirmationColor");
+			SaveColor(err, "MGerrorColor");
+			SaveColor(warning, "MGwarningColor");
+			SaveColor(valid, "MGvalidColor");
+			SaveColor(affirmation, "MGaffirmationColor");
 		}
 		
 	}

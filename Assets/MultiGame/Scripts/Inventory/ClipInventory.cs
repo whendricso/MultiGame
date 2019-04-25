@@ -31,7 +31,7 @@ namespace MultiGame {
 			"are the first ammo type, then NumClips[0] represents the number of machine gun clips we currently have, and MaxClips[0] represents the maximum number of machine gun clips we can have. A clip is an " +
 			"object that contains many bullets. So this gives a 'realistic' reloading system where partial clips are discarded (clips are tracked instead of individual rounds).");
 		
-		void Start () {
+		void OnEnable () {
 			if (maxClips.Length != numClips.Length) {
 				Debug.LogError("Clip Inventory must have an equal number of Num Clips and Max Clips assigned in the inspector.");
 				enabled = false;

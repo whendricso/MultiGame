@@ -85,6 +85,8 @@ namespace MultiGame {
 		}
 		
 		public void SetTarget (GameObject tgt) {
+			if (!gameObject.activeInHierarchy)
+				return;
 			target = tgt;
 			StopAllCoroutines();
 	//		rotating = false;
@@ -106,12 +108,16 @@ namespace MultiGame {
 
 		public MessageHelp beginFiringHelp = new MessageHelp("BeginFiring","Causes the turret to begin firing in a loop, even when it's set not to require targets.");
 		public void BeginFiring () {
+			if (!gameObject.activeInHierarchy)
+				return;
 			StopAllCoroutines();
 			StartCoroutine(FireWithDelay());
 		}
 
 		public MessageHelp fireHelp = new MessageHelp("Fire","Fires this turret immediately.");
 		public void Fire () {
+			if (!gameObject.activeInHierarchy)
+				return;
 			Animator _anim = GetComponentInChildren<Animator>();
 			if (_anim != null && !string.IsNullOrEmpty(mecanimFireTrigger)) {
 				_anim.SetTrigger(mecanimFireTrigger);
@@ -129,6 +135,10 @@ namespace MultiGame {
 				if (flashDuration > 0.0f)
 					Destroy(flash, flashDuration);
 			}
+		}
+
+		void ReturnFromPool() {
+			ClearTarget();
 		}
 	}
 }

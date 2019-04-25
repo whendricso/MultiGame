@@ -18,7 +18,7 @@ namespace MultiGame {
 		public HelpInfo help = new HelpInfo("This component, similar to ConstantForce component, adds a constant spin or torque instead. Rigidbody use is optional. To use, add to any object that you would like to spin, and " +
 			"either set the rotation speed/force above in the 'Impetus' setting, or send messages to set the spin at runtime.");
 
-		void Awake () {
+		void Start () {
 			rigid = GetComponent<Rigidbody> ();
 		}
 

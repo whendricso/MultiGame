@@ -23,7 +23,7 @@ namespace MultiGame {
 			" that into 'Float Value' If it appears in the inspector as 'My Float Value' then it's proper name is 'myFloatValue' capitalization must match! Finally, click the " +
 			"Float Over Time to open the curve editor. Zoom in for smaller values and zoom out for larger ones. Hold ctrl, shift, or cmd to change the axis of zoom.");
 
-		void Start() {
+		void OnEnable() {
 			//TODO: Sometimes fails!
 			if (targetComponent.GetType().GetField(floatValue) == null || targetComponent.GetType().GetField(floatValue).GetType() != typeof(float)) {
 				Debug.LogError("Curve Controlled Value " + gameObject.name + " could not find a field named " + floatValue + " or it is not a floating point number!" +

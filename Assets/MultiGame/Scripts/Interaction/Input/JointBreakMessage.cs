@@ -16,7 +16,7 @@ namespace MultiGame {
 		public HelpInfo help = new HelpInfo("This component sends a message when the attached joint breaks.");
 
 		// Use this for initialization
-		void Start () {
+		void OnEnable () {
 			joint = GetComponent<Joint>();
 			if (joint == null) {
 				Debug.LogError("Joint Break Message " + gameObject.name + " needs a Joint attached to itself!");

@@ -8,14 +8,14 @@ namespace MultiGame {
 	[RequireComponent (typeof(Rigidbody))]
 	public class ImpactDamage : MultiModule {
 
-		[RequiredFieldAttribute("How much hurt?")]
+		[RequiredField("How much hurt?")]
 		public float damage = 10.0f;
 		public enum TargetingMode {Self, Other, Both};
 		[Tooltip("In a collision, which object should receive damage?")]
 		public TargetingMode targetingMode = TargetingMode.Both;
-		[RequiredFieldAttribute("How fast is the minimum speed we need to do damage? If 0, this will be ignored.",RequiredFieldAttribute.RequirementLevels.Optional)]
+		[RequiredField("How fast is the minimum speed we need to do damage? If 0, this will be ignored.",RequiredFieldAttribute.RequirementLevels.Optional)]
 		public float speedThreshold = 20.0f;
-		[RequiredFieldAttribute("The health component receiving the damage, if none then we will use the component on this object", RequiredFieldAttribute.RequirementLevels.Recommended)]
+		[RequiredField("The health component receiving the damage, if none then we will use the component on this object", RequiredFieldAttribute.RequirementLevels.Recommended)]
 		public Health health;
 		public HelpInfo help = new HelpInfo("This component sends 'ModifyHealth' to objects involved in collisions. Crash your car at high speed? This component decides how much " +
 			"damage is dealt. Recommend reviewing the Rigidbody settings on this object.");

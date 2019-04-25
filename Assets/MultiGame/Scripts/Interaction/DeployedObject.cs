@@ -13,7 +13,8 @@ namespace MultiGame {
 		public GameObject deathPrefab;
 
 		public HelpInfo help = new HelpInfo("This component must be added to objects being deployed using the 'Deployer' system. See accompanying documentation (found in this folder" +
-			") for more information on using the awesome 'Deployer' functionality.");
+			") for more information on using the awesome 'Deployer' functionality. Does not work with object pooling, and will destroy itself when undeployed so don't allow the player to deploy " +
+			"and undeploy every frame on mobile devices!");
 		
 		public void OnSelect (string param) {
 			if (param == "Undeploy")

@@ -35,12 +35,12 @@ namespace MultiGame
 		*/
 
 		[Header("Auto move settings")]
-		[RequiredField("Max speed to catch up")]
-		public float followSpeed = 5f;
+		[RequiredField("Time it takes to reach the smooth follow position")]
+		public float followTime = .15f;
 		[RequiredField("Whe automatically orienting towards the player's Y rotation, how fast can we turn?", RequiredFieldAttribute.RequirementLevels.Optional)]
-		public float rotationSpeed = 1f;
-		[RequiredField("How long do we wait after breaking rotation to start rotating automatically again?", RequiredFieldAttribute.RequirementLevels.Recommended)]
-		public float refollowTime = 1.2f;
+		public float rotationSpeed = 14f;
+		//[RequiredField("How long do we wait after breaking rotation to start rotating automatically again?", RequiredFieldAttribute.RequirementLevels.Recommended)]
+		//public float refollowTime = 1.2f;
 		[Tooltip("An offset vector relative to the facing of the target object.")]
 		public Vector3 relativeOffset = new Vector3(0, 3, -3);
 		[Tooltip("An offset vector that ignores the orientation of the target.")]
@@ -53,7 +53,7 @@ namespace MultiGame
 
 		public enum UpdateModes {Late, Fixed};
 		[Tooltip("Change this if you experience jitter")]
-		public UpdateModes updateMode = UpdateModes.Late;
+		public UpdateModes updateMode = UpdateModes.Fixed;
 
 		[Header("Shake Settings")]
 		public bool shake = true;
@@ -72,17 +72,26 @@ namespace MultiGame
 		private Vector3 finalOffset;//the final offset value calculated by combining the relative and global offsets
 
 		private Vector3 newPos;
+		private Vector3 mvVel = Vector3.zero;
 		private Transform aimTrans;
 
 		public HelpInfo help = new HelpInfo("Smart Cam automatically follows an object. If there is no object to follow, it will attempt to find the Player object by tag.");
 
-		void Awake () {
-			cam = GetComponent<Camera>();
-			if (cam == null)
-				cam = GetComponentInChildren<Camera>();
-			startingFov = cam.fieldOfView;
+		private void Awake() {
 			aimTrans = new GameObject("aimTrans").transform;
 			aimTrans.parent = transform;
+		}
+
+		void OnEnable () {
+			if (cam == null)
+				cam = GetComponent<Camera>();
+			if (cam == null)
+				cam = GetComponentInChildren<Camera>();
+			shakeStartTime = 0;
+			shakeMagnitude = 0;
+			currentShake = 0;
+
+			startingFov = cam.fieldOfView;
 			autoRetargetCounter = autoRetargetTime;
 			if (target == null)
 				target = GameObject.FindGameObjectWithTag(targetTag).transform;
@@ -142,13 +151,14 @@ namespace MultiGame
 			if (target) {
 				finalOffset = target.transform.TransformDirection(relativeOffset) + globalOffset;
 				newPos = target.position + finalOffset;
-				transform.position = Vector3.Lerp(transform.position, newPos, followSpeed * Time.deltaTime);
+				transform.position = Vector3.SmoothDamp(transform.position, newPos,ref mvVel, followTime);//Vector3.Lerp(transform.position, newPos, followSpeed * Time.deltaTime);
 			}
 		}
 
+		//Vector3 rotvel = Vector3.zero;
 		void RotateToTarget() {
 			aimTrans.LookAt(target.transform.position + lookOffset, Vector3.up);
-			transform.rotation = Quaternion.Slerp(transform.rotation, aimTrans.rotation, Time.deltaTime * rotationSpeed);
+			transform.rotation = Quaternion.SlerpUnclamped(transform.rotation, aimTrans.rotation, Time.deltaTime * rotationSpeed);
 			transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, 0);
 		}
 
@@ -161,6 +171,9 @@ namespace MultiGame
 			shakeStartTime = Time.time;
 		}
 
+		void ReturnFromPool() {
+			target = null;
+		}
 		/*
 		[Header("Available Messages")]
 		public MessageHelp setXSensitivityHelp = new MessageHelp("SetXSensitivity","Sets the up/down sensitivity which controls rotation of the camera on the X axis",3,"The new sensitivity level. Default is 2.");

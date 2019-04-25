@@ -38,8 +38,9 @@ namespace MultiGame {
 
 		public Rigidbody body;
 
-		void Start () {
-			body = GetComponent<Rigidbody>();
+		void OnEnable () {
+			if (body == null)
+				body = GetComponent<Rigidbody>();
 		}
 
 		void FixedUpdate () {

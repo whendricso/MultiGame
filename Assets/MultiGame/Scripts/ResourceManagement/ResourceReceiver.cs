@@ -9,9 +9,9 @@ namespace MultiGame {
 	[AddComponentMenu("MultiGame/Resource Management/Resource Receiver")]
 	public class ResourceReceiver : MultiModule {
 
-		[Tooltip("What resources should this object add to the game? Once added, they remain permanently.")]
-		[ReorderableAttribute]
-		public List<ResourceManager.GameResource> resources = new List<ResourceManager.GameResource>();
+		//[Tooltip("What resources should this object add to the game? Once added, they remain permanently.")]
+		//[ReorderableAttribute]
+		//public List<ResourceManager.GameResource> resources = new List<ResourceManager.GameResource>();
 		[Tooltip("Which zero-indexed resource are we receiving or spending?")]
 		public int resourceIndex = 0;
 		[Tooltip("How much? Values less than zero are expenditures, the player must have enough or no resources will be used and no messages sent.")]
@@ -30,21 +30,20 @@ namespace MultiGame {
 			"'Collect' takes no parameter, and will send all 'Messages' in the list when 'Resource Value' is positive, or we have enough to cover the cost if negative.\n" +
 			"'CollectSpecific' takes a Floating Point parameter, indicating the gain (or cost, if negative) and otherwise executing 'Collect' normally.");
 
-		void Awake () {
-			if (GameObject.FindObjectOfType<ResourceManager>() == null) {
-				Debug.LogError("Resource manager does not exist! Disabling resource receiver. Please make sure there is exactly one Resource Manager in the game");
-			}
-			ResourceManager.resources.AddRange(resources);
-		}
-
-		void Start () {
+		void OnEnable () {
 			foreach (MessageManager.ManagedMessage msg in messages) {
 				if (msg.target == null)
 					msg.target = gameObject;
 			}
-
+			if (GameObject.FindObjectOfType<ResourceManager>() == null) {
+				Debug.LogError("Resource manager does not exist! Disabling resource receiver. Please make sure there is exactly one Resource Manager in the game");
+			}
 			if (periodicResourceTimer > 0)
 				StartCoroutine(PeriodicResourceCollection(periodicResourceTimer));
+		}
+
+		private void OnDisable() {
+			StopAllCoroutines();
 		}
 
 		void OnValidate () {
@@ -53,7 +52,8 @@ namespace MultiGame {
 				MessageManager.UpdateMessageGUI(ref _msg, gameObject);
 			}
 		}
-
+		[Header("Available Messages")]
+		public MessageHelp collectHelp = new MessageHelp("Collect","Collects the 'Resource Value' of this Resource Receiver");
 		public void Collect () {
 			if (!enabled)
 				return;

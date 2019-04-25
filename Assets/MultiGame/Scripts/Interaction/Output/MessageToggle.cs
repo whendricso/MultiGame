@@ -9,10 +9,10 @@ namespace MultiGame {
 
 		[Header("Important - Must be Populated")]
 		[Tooltip("Game Objects we will toggle")]
-		[ReorderableAttribute]
+		[Reorderable]
 		public GameObject[] gameObjectTargets;
 		[Tooltip("Scripts we will toggle")]
-		[ReorderableAttribute]
+		[Reorderable]
 		public MonoBehaviour[] scriptTargets;
 		[Header("Other Settings")]
 		[Tooltip("Light we wish to toggle")]
@@ -33,7 +33,7 @@ namespace MultiGame {
 		public bool debug = false;
 
 		// Use this for initialization
-		void Start () {
+		void OnEnable () {
 			if (invert)
 				ToggleOff();
 			if (gameObjectTargets.Length > 0)
@@ -49,21 +49,29 @@ namespace MultiGame {
 		[Header("Available Messages")]
 		public MessageHelp toggleOnHelp = new MessageHelp("ToggleOn","Enables all 'Game Object Targets' and 'Script Targets'");
 		public void ToggleOn () {
+			if (!gameObject.activeInHierarchy || !enabled)
+				return;
 			Toggle(true);
 		}
 
 		public MessageHelp toggleOffHelp = new MessageHelp("ToggleOff","Disables all 'Game Object Targets' and 'Script Targets'");
 		public void ToggleOff () {
+			if (!gameObject.activeInHierarchy || !enabled)
+				return;
 			Toggle(false);
 		}
 
 		public MessageHelp swapToggleHelp = new MessageHelp("SwapToggle","Reverses the state of all targets");
 		public void SwapToggle () {
+			if (!gameObject.activeInHierarchy || !enabled)
+				return;
 			Toggle(previousVal);
 		}
 
 		public MessageHelp toggleHelp = new MessageHelp("Toggle","Allows you to set the state of all 'Game Object Targets' and 'Script Targets' explicitly",1,"The new state for the targets");
 		public void Toggle(bool val) {
+			if (!gameObject.activeInHierarchy)
+				return;
 			if (debug)
 				Debug.Log("Toggle " + val);
 			previousVal = !val;

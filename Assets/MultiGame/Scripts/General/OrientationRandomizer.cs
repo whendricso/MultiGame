@@ -11,7 +11,7 @@ namespace MultiGame {
 			"'clone' look when spawning a lot of identicle objects.");
 		
 
-		void Start () {
+		void OnEnable () {
 			transform.RotateAround(transform.position, Vector3.up, Random.Range(0,360));
 		}
 	}

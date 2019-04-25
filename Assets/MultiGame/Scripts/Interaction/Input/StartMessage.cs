@@ -7,15 +7,29 @@ namespace MultiGame {
 	[AddComponentMenu("MultiGame/Interaction/Input/StartMessage")]
 public class StartMessage : MultiModule {
 
+		[Tooltip("Is this object being added to a pool when it dies?")]
+		public bool pool = false;
+
 		[Tooltip("When this object is created, what message should we send?")]
-		[ReorderableAttribute]
+		[Reorderable]
 		public MessageManager.ManagedMessage[] messages;
 
 		public bool debug = false;
 
 		public HelpInfo help = new HelpInfo("This component sends messages as soon as the object is created.");
 
-		void Start () {
+		private void Start() {
+			if (!pool)
+				StartCoroutine(SendMessages());
+		}
+
+		void OnEnable () {
+			if (pool)
+				StartCoroutine(SendMessages());
+		}
+
+		IEnumerator SendMessages() {
+			yield return new WaitForEndOfFrame();
 			foreach (MessageManager.ManagedMessage _message in messages) {
 				if (debug)
 					Debug.Log("Start Message " + gameObject.name + " sent " + _message.message);

@@ -80,6 +80,13 @@ namespace MultiGame {
 			}
 		}
 
+		private void OnDisable() {
+			attackCounter = 0;
+			stunDuration = 0;
+			target = null;
+			touchingObjects.Clear();
+		}
+
 		void Stun(float duration) {
 			stunDuration = duration;
 		}
@@ -110,11 +117,14 @@ namespace MultiGame {
 		void FixedUpdate () {
 			stunDuration -= Time.deltaTime;
 			if (stunDuration > 0) {
-				anim.speed = 0;
+				if (anim != null)
+					anim.speed = 0;
 				return;
 			}
-			else
-				anim.speed = 1;
+			else {
+				if (anim != null)
+					anim.speed = 1;
+			}
 			if (target != null) {
 				Vector3 tgtPos = new Vector3(target.transform.position.x, target.transform.position.y + tgtYOffset, target.transform.position.z);
 				Vector3 toOther = tgtPos - transform.position;
@@ -139,6 +149,8 @@ namespace MultiGame {
 		}
 
 		void ActivateAttack (float headingToTarget) {
+			if (!gameObject.activeInHierarchy)
+				return;
 			attackCounter = cooldownDuration;
 			Vector3 targetPosition = target.transform.position;
 
@@ -148,7 +160,8 @@ namespace MultiGame {
 				if (headingToTarget > headingConeRadius && Vector3.Distance(damageRayOrigin.transform.position, targetPosition) <= hitscanRange) {//target is within damage cone and in-range!
 					if (anim != null && !string.IsNullOrEmpty(attackAnimationTrigger)) if (debug)
 							Debug.Log("Melee Module " + gameObject.name + " is in range and looking towards the target " + target.name);
-					anim.SetTrigger(attackAnimationTrigger);
+					if (anim != null)
+						anim.SetTrigger(attackAnimationTrigger);
 					if (source != null && attackSounds.Count > 0)
 						source.PlayOneShot(attackSounds[Mathf.FloorToInt(Random.Range(0, attackSounds.Count))]);
 					StartCoroutine(DamageOther());
@@ -158,33 +171,35 @@ namespace MultiGame {
 
 		IEnumerator DamageOther() {
 			yield return new WaitForSeconds(damageDelay);
-			Vector3 targetPosition = target.transform.position;
-			RaycastHit _hinfo;
-			if (target != null) {
-				
-				if (!Physics.Linecast(damageRayOrigin.transform.position, targetPosition, out _hinfo, damageObstructionMask, QueryTriggerInteraction.Ignore) && Vector3.Distance(damageRayOrigin.transform.position, targetPosition) <= hitscanRange && Vector3.Dot(transform.TransformDirection(Vector3.forward), targetPosition - transform.position) > headingConeRadius) {
-					if (debug)
-						Debug.Log("Melee Module " + gameObject.name + " is applying damage to " + target.name + " at a range of " + Vector3.Distance(damageRayOrigin.transform.position, targetPosition));
+			if (stunDuration < 0) {
+				Vector3 targetPosition = target.transform.position;
+				RaycastHit _hinfo;
+				if (target != null) {
 
-					foreach (MessageManager.ManagedMessage otherMsg in messagesToVictim) {
-						MessageManager.SendTo(otherMsg, target);
+					if (!Physics.Linecast(damageRayOrigin.transform.position, targetPosition, out _hinfo, damageObstructionMask, QueryTriggerInteraction.Ignore) && Vector3.Distance(damageRayOrigin.transform.position, targetPosition) <= hitscanRange && Vector3.Dot(transform.TransformDirection(Vector3.forward), targetPosition - transform.position) > headingConeRadius) {
+						if (debug)
+							Debug.Log("Melee Module " + gameObject.name + " is applying damage to " + target.name + " at a range of " + Vector3.Distance(damageRayOrigin.transform.position, targetPosition));
+
+						foreach (MessageManager.ManagedMessage otherMsg in messagesToVictim) {
+							MessageManager.SendTo(otherMsg, target);
+						}
+						foreach (MessageManager.ManagedMessage myMsg in attackMessages) {
+							MessageManager.Send(myMsg);
+						}
+						target.gameObject.SendMessage("ModifyHealth", -attackDamage, SendMessageOptions.DontRequireReceiver);
+						if (stunTime > 0)
+							target.gameObject.SendMessage("HitStun", stunTime);
+						if (source != null && hitSounds.Count > 0)
+							source.PlayOneShot(hitSounds[Mathf.FloorToInt(Random.Range(0, hitSounds.Count))]);
 					}
-					foreach (MessageManager.ManagedMessage myMsg in attackMessages) {
-						MessageManager.Send(myMsg);
-					}
-					target.gameObject.SendMessage("ModifyHealth", -attackDamage, SendMessageOptions.DontRequireReceiver);
-					if (stunTime > 0)
-						target.gameObject.SendMessage("HitStun",stunTime);
-					if (source != null && hitSounds.Count > 0)
-						source.PlayOneShot(hitSounds[Mathf.FloorToInt(Random.Range(0, hitSounds.Count))]);
-				}
-				else {
-					if (debug)
-						Debug.Log("Melee Module " + gameObject.name + " missed target " + target.name);
-					if (source != null && missSounds.Count > 0)
-						source.PlayOneShot(missSounds[Mathf.FloorToInt(Random.Range(0, missSounds.Count))]);
-					foreach (MessageManager.ManagedMessage missMsg in missMessages) {
-						MessageManager.Send(missMsg);
+					else {
+						if (debug)
+							Debug.Log("Melee Module " + gameObject.name + " missed target " + target.name);
+						if (source != null && missSounds.Count > 0)
+							source.PlayOneShot(missSounds[Mathf.FloorToInt(Random.Range(0, missSounds.Count))]);
+						foreach (MessageManager.ManagedMessage missMsg in missMessages) {
+							MessageManager.Send(missMsg);
+						}
 					}
 				}
 			}
@@ -192,11 +207,19 @@ namespace MultiGame {
 		}
 
 		void SetTarget(GameObject newTarget) {
+			if (debug)
+				Debug.Log("HitscanModule " + gameObject.name + " received the target " + newTarget.name);
+			if (!gameObject.activeInHierarchy)
+				return;
 			target = newTarget;
 		}
 
 		void ClearTarget() {
 			target = null;
+		}
+
+		void ReturnFromPool() {
+			ClearTarget();
 		}
 	}
 }

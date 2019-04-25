@@ -45,14 +45,18 @@ namespace MultiGame {
 				FlipSprite();
 
 			if (target != null) {
-				if (instant)
-					transform.LookAt(target.transform, Vector3.up);
+				if (instant) {
+					if (invert)
+						transform.rotation = Quaternion.LookRotation(transform.position - target.position, Vector3.up);
+					else
+						transform.LookAt(target.transform, Vector3.up);
+				}
 				else {
-					if (forceYUp) {
-						transform.rotation = Quaternion.LookRotation(Vector3.RotateTowards(transform.forward, target.position - transform.position, speed * Time.deltaTime,0f),Vector3.up);
 
+					if (forceYUp) {
+						transform.rotation = Quaternion.LookRotation(Vector3.RotateTowards(transform.forward, invert ? transform.position - target.position : target.position - transform.position, speed * Time.deltaTime, 0f), Vector3.up);
 					} else {
-						transform.rotation = Quaternion.LookRotation(Vector3.RotateTowards(transform.forward, target.position - transform.position, speed * Time.deltaTime,0f),transform.up);
+						transform.rotation = Quaternion.LookRotation(Vector3.RotateTowards(transform.forward, invert ? transform.position - target.position : target.position - transform.position, speed * Time.deltaTime, 0f), transform.up);
 					}
 				}
 			}

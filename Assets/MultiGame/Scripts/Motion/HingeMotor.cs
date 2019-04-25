@@ -18,8 +18,9 @@ namespace MultiGame {
 
 		public HelpInfo help = new HelpInfo("This component allows a hinge joint to be used as a motor. It takes input from the player and applies torque to the hinge.");
 
-		void Start () {
-			joint = GetComponent<HingeJoint>();
+		void OnEnable () {
+			if (joint == null)
+				joint = GetComponent<HingeJoint>();
 		}
 		
 		void FixedUpdate () {

@@ -20,7 +20,7 @@ namespace MultiGame {
 		public HelpInfo help = new HelpInfo("This component sends Animator triggers when it receives the 'TriggerAnimation' message. This allows any message sender to cause Animator state transitions for " +
 			"controlling logic or animation. It can also send a trigger that's not included here by receiving the 'TriggerSpecificAnimation' message which takes the name of the trigger as an argument.");
 
-		void Start () {
+		void OnEnable () {
 			animator = GetComponentInChildren<Animator>();
 			if (animator == null) {
 				Debug.LogError("MessageAnimator " + gameObject.name + " must have an Animator on itself or one of it's children.");
@@ -36,6 +36,8 @@ namespace MultiGame {
 		public MessageHelp triggerAnimationHelp = new MessageHelp("TriggerAnimation","Sends the 'Trigger' defined above to the Animator. Sends the 'Return Trigger' the second time it's called.");
 		public void TriggerAnimation () {
 			if (!enabled)
+				return;
+			if (!gameObject.activeInHierarchy)
 				return;
 			if (string.IsNullOrEmpty(trigger))
 				Debug.LogError("Message Animator " + gameObject.name + " needs a trigger assigned in the inspector");
@@ -63,6 +65,8 @@ namespace MultiGame {
 			4,"The Mecanim trigger you would like to invoke");
 		public void TriggerSpecificAnimation (string _trigger) {
 			if (!enabled)
+				return;
+			if (!gameObject.activeInHierarchy)
 				return;
 			animator.SetTrigger(_trigger);
 		}

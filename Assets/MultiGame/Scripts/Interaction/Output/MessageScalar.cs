@@ -12,11 +12,15 @@ namespace MultiGame {
 
 		public MessageHelp changeScaleHelp = new MessageHelp("ChangeScale","Allows you to set the new scale directly",3,"The new uniform scale for this object");
 		public void ChangeScale (float _newScale) {
+			if (!gameObject.activeInHierarchy)
+				return;
 			transform.localScale = Vector3.one * _newScale;
 		}
 
 		public MessageHelp offsetScaleHelp = new MessageHelp("OffsetScale","Allows you to adjust the scale based on it's current value",3,"The amount of change we would like to add to the object's uniform scale");
 		public void OffsetScale (float _offset) {
+			if (!gameObject.activeInHierarchy)
+				return;
 			transform.localScale = new Vector3(transform.localScale.x + _offset, transform.localScale.y + _offset, transform.localScale.z + _offset );
 		}
 	}

@@ -98,6 +98,8 @@ namespace MultiGame {
 		[Header("Available Messages")]
 		public MessageHelp selectHelp = new MessageHelp("Select","Causes this Minion Module to become selected, ready to receive orders from mouse events.");
 		public void Select () {
+			if (!gameObject.activeInHierarchy)
+				return;
 			if (debug)
 				Debug.Log ("Minion Module " + gameObject.name + " is selected");
 			selected = true;
@@ -117,11 +119,17 @@ namespace MultiGame {
 		}
 
 		private void ToggleScripts (bool _val) {
+			if (!gameObject.activeInHierarchy)
+				return;
 			if (debug)
 				Debug.Log ("Minion Module " + gameObject.name + " is toggling scripts to " + _val);
 			foreach (MonoBehaviour behaviour in disabledWhileSelected) {
 				behaviour.enabled = _val;
 			}
+		}
+
+		void ReturnFromPool() {
+			Deselect();
 		}
 	}
 }

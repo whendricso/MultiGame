@@ -7,11 +7,11 @@ namespace MultiGame {
 	[AddComponentMenu("MultiGame/Camera/Cursor Lock")]
 	public class CursorLock : MultiModule {
 
-		[ReorderableAttribute]
+		[Reorderable]
 		[Header("Key Settings")]
 		[Tooltip("List of keys that unlock the mouse")]
 		public KeyCode[] unLockKeys = new KeyCode[] {KeyCode.Escape, KeyCode.LeftControl};
-		[ReorderableAttribute]
+		[Reorderable]
 		[Tooltip("List of keys that lock the mouse")]
 		public KeyCode[] lockKeys = new KeyCode[] {KeyCode.W, KeyCode.A, KeyCode.S, KeyCode.D};
 		[System.NonSerialized]
@@ -45,12 +45,16 @@ namespace MultiGame {
 		[Header("Available Messages")]
 		public MessageHelp lockMouseHelp = new MessageHelp("LockMouse","Locks and hides the cursor when receiving a message from a message sender.");
 		public void LockMouse () {
+			if (!gameObject.activeInHierarchy)
+				return;
 			Cursor.lockState = CursorLockMode.Locked;
 			Cursor.visible = false;
 		}
 
 		public MessageHelp unLockMouseHelp = new MessageHelp("UnLockMouse","Unlocks and reveals the cursor when receiving a message from a message sender.");
 		public void UnlockMouse () {
+			if (!gameObject.activeInHierarchy)
+				return;
 			Cursor.lockState = CursorLockMode.None;
 			Cursor.visible = true;
 		}

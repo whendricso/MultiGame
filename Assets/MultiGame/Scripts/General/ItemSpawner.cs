@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using MultiGame;
 
 namespace MultiGame {
@@ -7,14 +8,21 @@ namespace MultiGame {
 //	[AddComponentMenu("MultiGame/General/Item Spawner")]
 	public class ItemSpawner : MultiModule {
 
-		[ReorderableAttribute]
+		[Tooltip("Should objects be added to a list and respawned from the pool? Objects are available to pool if they are disabled in the Heirarchy when a 'SpawnItem' event occurs.")]
+		public bool poolObjects = false;
+		[Reorderable]
 		[Tooltip("List of things we can spawn")]
 		public GameObject[] items;
-		[ReorderableAttribute]
+		[Reorderable]
 		[Tooltip("How many of each are available?")]
 		public int[] itemCounts;
 		[Tooltip("Should we spawn some as soon as we begin?")]
 		public bool spawnOnStart = true;
+
+		private GameObject spawnedEntity;
+		private GameObject spawnable;
+		private List<GameObject> objectPool = new List<GameObject>();
+
 
 		public HelpInfo help = new HelpInfo("This component spawns objects, but with a limited quantity. To use, supply a list of items, for each item supplying a corresponding count. So, item #3 would have 6 available" +
 			"if itemCounts #3 == 6. Each list must have exactly the same size");
@@ -61,10 +69,48 @@ namespace MultiGame {
 				return;
 			if (items[selector] != null) {
 				if (CheckItemAvailable(selector)) {
-					Instantiate(items[selector], transform.position, transform.rotation);
+					if (!poolObjects)
+						Instantiate(items[selector], transform.position, transform.rotation);
+					else {
+						spawnable = FindPooledObject();
+						if (spawnable == null) {
+							spawnedEntity = Instantiate(items[selector], transform.position, transform.rotation) as GameObject;
+							if (spawnedEntity.GetComponent<CloneFlagRemover>() == null)
+								spawnedEntity.AddComponent<CloneFlagRemover>();
+							objectPool.Add(spawnedEntity);
+						}
+						else {
+							SpawnFromPool(spawnable);
+							spawnedEntity = spawnable;
+						}
+					}
 					itemCounts[selector]--;
 				}
 			}
+		}
+
+		/// <summary>
+		/// Searches the heirarchy for a pooled (disabled) object
+		/// </summary>
+		/// <returns></returns>
+		private GameObject FindPooledObject() {
+			GameObject ret = null;
+
+			foreach (GameObject obj in objectPool) {
+				if (!obj.activeInHierarchy) {
+					ret = obj;
+					break;
+				}
+			}
+
+			return ret;
+		}
+
+		private void SpawnFromPool(GameObject obj) {
+			obj.transform.position = transform.position;
+			obj.transform.rotation = transform.rotation;
+			obj.SetActive(true);
+			obj.BroadcastMessage("ReturnFromPool", SendMessageOptions.DontRequireReceiver);
 		}
 
 	}

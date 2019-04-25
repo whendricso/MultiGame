@@ -9,7 +9,11 @@ namespace MultiGame {
 	[AddComponentMenu("MultiGame/Combat/Health")]
 	public class Health : MultiModule {
 
+		[Tooltip("Should this object be disabled instead of destroyed so that it can be pooled for later use?")]
+		public bool pool = false;
+
 		[Header("Basic Settings")]
+		public bool invulnerable = false;
 		[RequiredFieldAttribute("How much health do we start with?")]
 		public float hp = 100.0f;
 		[RequiredFieldAttribute("How much health can we have?")]
@@ -76,7 +80,8 @@ namespace MultiGame {
 		public bool debug = false;
 
 		
-		void Start () {
+		void OnEnable () {
+			hp = maxHP;
 			if (hitAudioSource == null)
 				hitAudioSource = GetComponent<AudioSource>();
 			if (hitAudioSource == null)
@@ -98,7 +103,7 @@ namespace MultiGame {
 				armorValue += armor.armorProtectionValue;
 		}
 
-		void OnDestroy () {
+		void OnDisable () {
 			if (hitPauseTime > 0)
 				Time.timeScale = 1f;
 			if (!string.IsNullOrEmpty (autoSaveKey))
@@ -132,33 +137,42 @@ namespace MultiGame {
 			}
 		}
 
+		void ReturnFromPool() {
+			hp = maxHP;
+		}
+
 		[Header("Available Messages")]
 		public MessageHelp hitStunHelp = new MessageHelp("HitStun","Stuns MultiGame AI and CharacterOmnicontroller components attached to this object",3,"How long should the stun last in seconds?");
 		public void HitStun(float duration) {
+			if (!gameObject.activeInHierarchy)
+				return;
 			gameObject.SendMessage("Stun", duration);
 		}
 
-		public MessageHelp dieHelp = new MessageHelp("Die","Kill this object immediately!");
+		public MessageHelp dieHelp = new MessageHelp("Die","Kill this object immediately! Works even if the object is invulnerable");
 		public void Die() {
 			if (debug)
 				Debug.Log("Health component " + gameObject.name + " has died! " + Time.timeScale);
 			MessageManager.Send( healthGoneMessage);
 
-			
-			if (deathPrefabs.Length > 0)
-			for (int i = 0; i < deathPrefabs.Length; i++) {
-				/*GameObject dFab = */Instantiate(deathPrefabs[i], transform.position, transform.rotation)/* as GameObject*/;
+			if (deathPrefabs.Length > 0) {
+				for (int i = 0; i < deathPrefabs.Length; i++) {
+					/*GameObject dFab = */
+					Instantiate(deathPrefabs[i], transform.position, transform.rotation)/* as GameObject*/;
+				}
 			}
 			if (!autodestruct)
 				return;
-			Destroy(gameObject);
+			if (pool)
+				gameObject.SetActive(false);
+			else
+				Destroy(gameObject);
 		}
 
 		public MessageHelp modifyHealthHelp = new MessageHelp("ModifyHealth","Change the health this object has", 3, "Amount to change the health by. Positive to increase, negative to decrease.");
 		public void ModifyHealth (float val) {
-
-
-			
+			if (!gameObject.activeInHierarchy)
+				return;
 			if (hitTextPrefab != null) {
 				GameObject textObject;
 				if (hitTextSpawnPoint != null)
@@ -199,7 +213,7 @@ namespace MultiGame {
 				if (debug)
 					Debug.Log("Healing " + gameObject.name + " by " + val);
 			}
-			if (hp <= 0.0f) {
+			if (hp <= 0.0f && !invulnerable) {
 				Die ();
 				if (!autodestruct)
 					return;
@@ -223,6 +237,27 @@ namespace MultiGame {
 			if (debug)
 				Debug.Log("Modifying health for " + gameObject.name + " by " + val);
 			maxHP += val;
+		}
+
+		public MessageHelp makeVulnerableHelp = new MessageHelp("MakeVulnerable","Disables invulnerability on this object, allowing it do die if hp is less than or equal to 0");
+		public void MakeVulnerable() {
+			invulnerable = false;
+		}
+
+		public MessageHelp makeInvulnerableHelp = new MessageHelp("MakeInvulnerable","Prevents this object from dying even if it's health goes below 0. It can still be killed with the 'Die' message");
+		public void MakeInvulnerable() {
+			invulnerable = true;
+		}
+
+		public MessageHelp tempInvulnerabilityHelp = new MessageHelp("TempInvulnerability","Prevents this object from dying even if it's health goes below 0 for a limited duration. It can still be killed with the 'Die' message",3,"How long (in seconds) should the object be invulnerable?");
+		public void TempInvulnerability(float duration) {
+			invulnerable = true;
+			StartCoroutine(ReMortalize(duration));
+		}
+
+		IEnumerator ReMortalize(float duration) {
+			yield return new WaitForSeconds(duration);
+			invulnerable = false;
 		}
 	}
 }

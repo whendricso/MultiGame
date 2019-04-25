@@ -7,6 +7,9 @@ namespace MultiGame {
 	[AddComponentMenu("MultiGame/Interaction/Collision Destructor")]
 	public class CollisionDestructor : MultiModule {
 
+		[Tooltip("Should the objects be pooled instead of destroyed?")]
+		public bool pool = false;
+
 		public bool destroySelf = false;
 		public bool destroyOther = true;
 
@@ -14,10 +17,18 @@ namespace MultiGame {
 			" what collides with what.");
 
 		void OnCollisionEnter (Collision _collision) {
-			if (destroyOther)
-				Destroy(_collision.gameObject);
-			if (destroySelf)
-				Destroy(gameObject);
+			if (destroyOther) {
+				if (pool)
+					_collision.gameObject.SetActive(false);
+				else
+					Destroy(_collision.gameObject);
+			}
+			if (destroySelf) {
+				if (pool)
+					gameObject.SetActive(false);
+				else
+					Destroy(gameObject);
+			}
 		}
 
 	}

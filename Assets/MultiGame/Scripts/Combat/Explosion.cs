@@ -9,6 +9,8 @@ namespace MultiGame
 	[AddComponentMenu ("MultiGame/Combat/Explosion")]
 	public class Explosion : MultiModule
 	{
+		[Tooltip("Should this object be returned to a pool to be spawned later? If pooling, remember to add a 'PooledObject' component so that the particles will reset correctly (if used).")]
+		public bool pool = false;
 
 		[Header("Important - Must populate")]
 		[Tooltip ("What layers should be checked against a ray at explosion time? Add the layers of the targets as well as occluders.")]
@@ -61,7 +63,7 @@ namespace MultiGame
 			MessageManager.UpdateMessageGUI (ref hitMessage, gameObject);
 		}
 
-		void Awake ()
+		void OnEnable ()
 		{
 			switch (rotationMode) {
 			case RotationModes.RandomStart:
@@ -101,8 +103,12 @@ namespace MultiGame
 						Debug.DrawLine (transform.position, hinfo.point, Color.red);
 				}
 			}
-			if (autodestruct)
-				Destroy (gameObject);
+			if (autodestruct) {
+				if (pool)
+					gameObject.SetActive(false);
+				else
+					Destroy(gameObject);
+			}
 		}
 
 		void ApplyExplosion (GameObject _target, RaycastHit _hinfo)

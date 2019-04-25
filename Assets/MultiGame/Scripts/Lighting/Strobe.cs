@@ -25,7 +25,7 @@ namespace MultiGame {
 			"it should blink and when to start. By combining multiple strobes in sequence you can create dancing light effects, wing beacons for aircraft, police lights or pulsing muzzle flashes. Be creative!");
 		
 		// Use this for initialization
-		void Start () {
+		void OnEnable () {
 			dayNightManager = FindObjectOfType<DayNightManager>();
 			if (dayNightManager != null) {
 				if (dayNightManager.isDaytime)

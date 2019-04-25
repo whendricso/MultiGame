@@ -16,16 +16,18 @@ namespace MultiGame {
 
 		public HelpInfo help = new HelpInfo("This component randomly spins the object at runtime on all axes");
 
-		void Start() {
+		void OnEnable() {
 			if (randomizeStartRotation) {
 				transform.rotation = Random.rotation;
 			}
-		}
 
+			if (_rigid == null)
+				_rigid = GetComponent<Rigidbody>();
+		}
+		Rigidbody _rigid;
 		// Update is called once per frame
 		void FixedUpdate () {
 
-			Rigidbody _rigid = GetComponent<Rigidbody>();
 
 			if (_rigid == null || _rigid.isKinematic ) {
 				if (oneShot && didStart) 

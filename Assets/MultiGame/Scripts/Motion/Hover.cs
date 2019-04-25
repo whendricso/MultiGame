@@ -27,12 +27,13 @@ namespace MultiGame {
 
 		public bool debug = false;
 
-		void Start () {
-			rigid = GetComponent<Rigidbody>();
+		void OnEnable () {
+			if (rigid == null)
+				rigid = GetComponent<Rigidbody>();
 		}
 
+		RaycastHit hinfo;
 		void FixedUpdate () {
-			RaycastHit hinfo;
 			bool didHit = Physics.Raycast(transform.position + rayOffset, -Vector3.up, out hinfo, rayDistance, hoverRayMask);
 			if (didHit)
 				rigid.AddForce(Vector3.up * hoverForce, ForceMode.Force);

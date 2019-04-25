@@ -20,7 +20,7 @@ namespace MultiGame {
 			"To use this component, first you need a scene you want to change to saved and added to File -> Build Settings -> Add Current (to add a new scene, you must" +
 			" change to it first). Next, type it's exact name into 'Target Scene' and you're all set. This component receives the 'ChangeScene' message to activate it.");
 
-		void Start () {
+		void OnEnable () {
 			if (changeOnStart)
 				ChangeScene();
 		}

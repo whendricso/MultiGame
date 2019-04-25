@@ -22,7 +22,7 @@ namespace MultiGame {
 
 		private Rigidbody rigid;
 
-		void Start() {
+		void Awake() {
 			rigid = GetComponent<Rigidbody> ();
 		}
 

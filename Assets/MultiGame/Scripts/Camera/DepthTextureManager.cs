@@ -14,8 +14,9 @@ namespace MultiGame {
 		public HelpInfo help = new HelpInfo("Depth Texture Manager allows control over the depth texture status of a camera via the editor and/or messages. If you don't know what these are, " +
 			"you probably don't need them.");
 
-		void Awake () {
-			cam = GetComponentInChildren<Camera>();
+		void OnEnable () {
+			if (cam == null)
+				cam = GetComponentInChildren<Camera>();
 			if (cam != null) {
 				cam.depthTextureMode = depthMode;
 			} else {

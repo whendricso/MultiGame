@@ -31,7 +31,7 @@ namespace MultiGame {
 		public float iconSizeY = 32.0f;
 	//	public float weight = 1.0f;
 
-		public HelpInfo help = new HelpInfo("This component represents an inventory item that is currently in-use. Generally, this is something attached to the player like a " +
+		public HelpInfo help = new HelpInfo("Inventory does not use object pooling directly. This component represents an inventory item that is currently in-use. Generally, this is something attached to the player like a " +
 			"+5 Helmet of the Dunce or a machine gun. It must have a 'Pickable' prefab associated with it that has a 'Pickable' component on it and both must be inside a " +
 			"'Resources' folder, otherwise you will get an error. Add an audio clip for stow/drop to the object and it will play automatically (Audio Source component).");
 

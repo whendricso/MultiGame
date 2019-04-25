@@ -23,7 +23,7 @@ namespace MultiGame {
 			"triangle) and click 'Copy Component' and you can then paste it as a new component or paste it's values into another Grid Snap. This component works both during edit and runtime, so it can be used to make a grid-based game " +
 			"or just to help out while snapping prefabs in the Editor.");
 
-		void Start () {
+		void OnEnable () {
 			if (!snapOnStart)
 				return;
 			SnapToGrid();
@@ -54,7 +54,9 @@ namespace MultiGame {
 		}
 
 		public MessageHelp snapToGridHelp = new MessageHelp("SnapToGrid","Immediately snaps this object to the grid. Grid snap occurs in global coordinates.");
-		public void SnapToGrid () { 
+		public void SnapToGrid () {
+			if (!gameObject.activeInHierarchy)
+				return;
 			SnapToSpecificGrid(gridSetting);
 		}
 		

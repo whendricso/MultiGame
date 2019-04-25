@@ -9,10 +9,10 @@ namespace MultiGame {
 
 		[Header("Toggle Targets")]
 		[Tooltip("Game Objects we will toggle")]
-		[ReorderableAttribute]
+		[Reorderable]
 		public GameObject[] gameObjectTargets;//a list of targets to toggle
 		[Tooltip("Scripts we will toggle")]
-		[ReorderableAttribute]
+		[Reorderable]
 		public MonoBehaviour[] scriptTargets;
 		[Tooltip("Collider we will toggle")]
 		public Collider colliderTarget;
@@ -34,7 +34,7 @@ namespace MultiGame {
 			" This prevents key collisions when using the same key for both. If you want these objects and components to start in a 'Toggled off' state, set 'Toggle' to false, otherwise they will be enabled " +
 			"automatically when the game starts. It may be more convenient to use this component than using a Message Toggle and Key Message in some situations.");
 		
-		void Start () {
+		void OnEnable () {
 			if (reverse) {
 				foreach (GameObject gobj in gameObjectTargets) {
 					gobj.SetActive(false);

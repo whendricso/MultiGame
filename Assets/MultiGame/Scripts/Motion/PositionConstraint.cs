@@ -17,7 +17,7 @@ namespace MultiGame {
 		public float maxZ = 0;
 		public float minZ = 0;
 
-		public HelpInfo help = new HelpInfo("This component forces a non-rigidbody into certain position constraints. Useful for 2.5D games.");
+		public HelpInfo help = new HelpInfo("This component forces a non-rigidbody into certain position constraints in the LateUpdate loop after other processing has completed. Useful for 2.5D games.");
 
 		void LateUpdate () {
 			float _x = transform.position.x;

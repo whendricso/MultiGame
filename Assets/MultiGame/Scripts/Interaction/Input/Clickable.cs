@@ -18,7 +18,7 @@ namespace MultiGame {
 		public HelpInfo help = new HelpInfo("This component allows a message to be sent when this object's collider is clicked. If you don't see the message you want, click " +
 			"'Rescan For Messages' and MultiGame will build a new list.");
 		
-		void Start () {
+		void OnEnable () {
 			if (message.target == null) {
 				message.target = gameObject;
 			}

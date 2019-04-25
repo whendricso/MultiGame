@@ -12,15 +12,15 @@ namespace MultiGame {
 		[Tooltip("What tags are we looking for while targeting? Any Game Object with one of these tags that is found will be passed as a target to the 'Message Receiver' defined below.")]
 		public string[] targetTags;
 		[Header("Target Settings")]
-		[RequiredFieldAttribute("What object has a targeting computer, or other MultiGame AI component attached that needs a target?", RequiredFieldAttribute.RequirementLevels.Required)]
+		[RequiredField("What object has a targeting computer, or other MultiGame AI component attached that needs a target?", RequiredFieldAttribute.RequirementLevels.Required)]
 		public GameObject messageReceiver;
-		private GameObject lastTarget;
-		[RequiredFieldAttribute("How often, in seconds, can we change targets?",RequiredFieldAttribute.RequirementLevels.Required)]
+		[RequiredField("How often, in seconds, can we change targets?",RequiredFieldAttribute.RequirementLevels.Required)]
 		public float retargetTime = 0.75f;
-		private bool canRetarget = true;
-		[RequiredFieldAttribute("How far away does our target need to get before we look for another?", RequiredFieldAttribute.RequirementLevels.Required)]
+		[RequiredField("How far away does our target need to get before we look for another?", RequiredFieldAttribute.RequirementLevels.Required)]
 		public float maxDistance = 25.0f;
 
+		private bool canRetarget = true;
+		private GameObject lastTarget;
 
 		public HelpInfo help = new HelpInfo("This component should be attached to a trigger that is parented to an AI. It provides target information to other AI components." +
 			" To use most effectively, we recommend creating 4 collision layers (at least), one each for friendlies and enemies, and one each for friendly and enemy sensors." +
@@ -31,7 +31,7 @@ namespace MultiGame {
 		[Tooltip("WARNING! SLOW OPERATION! Should we output useful information to the console?")]
 		public bool debug = false;
 		
-		void Start () {
+		void OnEnable () {
 			if (messageReceiver == null) {
 				Debug.LogError("Targeting Sensor " + gameObject.name + " requires a Message Receiver to assign a target!");
 				enabled = false;
@@ -39,7 +39,12 @@ namespace MultiGame {
 			}
 			GetComponent<Collider>().isTrigger = true;
 		}
-		
+
+		private void OnDisable() {
+			lastTarget = null;
+			canRetarget = true;
+		}
+
 		void Update () {
 			if (lastTarget == null)
 				return;

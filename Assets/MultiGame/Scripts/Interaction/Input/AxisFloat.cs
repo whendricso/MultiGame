@@ -18,7 +18,7 @@ namespace MultiGame {
 
 		public HelpInfo help = new HelpInfo("This component sends the given message with an automatically set floating-point parameter between -1 and 1 representing the input axis.");
 
-		void Start () {
+		void OnEnable () {
 			if (target == null)
 				target = gameObject;
 			if(message == "" || axis == "") {

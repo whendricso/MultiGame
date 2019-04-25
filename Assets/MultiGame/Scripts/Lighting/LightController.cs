@@ -28,7 +28,7 @@ namespace MultiGame {
 			myLight = GetComponent<Light>();
 		}
 
-		void Start () {
+		void OnEnable () {
 			if (intensityOverTime.keys.Length < 1 ) {
 				intensityOverTime.AddKey(0f,myLight.intensity);
 				intensityOverTime.AddKey(1f,myLight.intensity);

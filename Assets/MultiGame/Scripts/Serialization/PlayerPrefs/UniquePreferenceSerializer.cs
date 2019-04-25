@@ -5,11 +5,12 @@ using MultiGame;
 namespace MultiGame {
 
 	[AddComponentMenu("MultiGame/Serialization/Unique Preference Serializer")]
+	[RequireComponent(typeof(CloneFlagRemover))]
 	public class UniquePreferenceSerializer : MultiModule {
 
-		[RequiredFieldAttribute("Which component has a field we want to save/load?", RequiredFieldAttribute.RequirementLevels.Required)]
+		[RequiredField("Which component has a field we want to save/load?", RequiredFieldAttribute.RequirementLevels.Required)]
 		public MonoBehaviour targetComponent;
-		[RequiredFieldAttribute("What is the data name of the field. This is the name in program code, which you can usually determine by looking at the Inspector. Unity capitalizes the first letter " +
+		[RequiredField("What is the data name of the field. This is the name in program code, which you can usually determine by looking at the Inspector. Unity capitalizes the first letter " +
 			"and adds a space before each capital letter in the Inspector. So a field with name 'Monster Health' is called 'monsterHealth' in code and that is how you must write it here. For " +
 			"some script packages, you might need to look at the code by viewing the script in the Inspector first if possible.", RequiredFieldAttribute.RequirementLevels.Required)]
 		public string targetField = "";
@@ -32,6 +33,8 @@ namespace MultiGame {
 		[Header("Available Messages")]
 		public MessageHelp saveHelp = new MessageHelp("Save","Saves the field to PlayerPrefs with the Unique Identifier, which is used internally to identify the field data between sessions");
 		public void Save () {
+			if (!gameObject.activeInHierarchy)
+				return;
 			if (!ValidateSetup()) {
 				Debug.LogError("Unique Preference Serializer " + gameObject.name + " is not configured correctly!");
 				return;
@@ -67,6 +70,8 @@ namespace MultiGame {
 
 		public MessageHelp loadHelp = new MessageHelp("Load","Loads the field from PlayerPrefs and populates it's value with the one previously saved");
 		public void Load () {
+			if (!gameObject.activeInHierarchy)
+				return;
 			if (!ValidateSetup()) {
 				Debug.LogError("Unique Preference Serializer " + gameObject.name + " is not configured correctly!");
 				return;

@@ -22,7 +22,7 @@ namespace MultiGame {
 		public HelpInfo help = new HelpInfo("This component sends a named message with either a Vector2 or Vector3 argument representing the horizontal and vertical axes.");
 
 		// Use this for initialization
-		void Start () {
+		void OnEnable () {
 			if(target == null)
 				target = gameObject;
 

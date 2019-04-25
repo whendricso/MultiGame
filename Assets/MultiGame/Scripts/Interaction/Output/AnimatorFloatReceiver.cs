@@ -18,7 +18,7 @@ namespace MultiGame {
 			"Finally, send the 'Animate' message using any message sender, with a floating point parameter that indicates the new value desired for the Float in the Animator.");
 		public bool debug = false;
 
-		void Awake () {
+		void OnEnable () {
 			animator = GetComponentInChildren<Animator>();
 			if (animator == null) {
 				Debug.LogError("Animator Float Receiver must be attached to a Mecanim character!");
@@ -30,6 +30,8 @@ namespace MultiGame {
 		public MessageHelp animateHelp = new MessageHelp("Animate","Set a new value for a float in the attached Animator",3,"The new value desired for the Animator Float");
 		public void Animate (float _val) {
 			if (enabled == false)
+				return;
+			if (!gameObject.activeInHierarchy)
 				return;
 			if (debug)
 				Debug.Log ("Animator Float Receiver " + gameObject.name + " is setting the float to" + _val);

@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using MultiGame;
 
 namespace MultiGame {
@@ -10,7 +11,7 @@ namespace MultiGame {
 
 		public enum AimCorrectionTypes {None, Raycast, DistantPoint};
 
-		[Header("Legacy IMGUI Settings")]
+		[Header("IMGUI Settings")]
 		[Tooltip("Show how much ammo we currently have with a legacy Unity GUI? Not suitable for mobile devices.")]
 		public bool showAmmoGUI = true;
 		[Tooltip("Normalized viewport rectangle representing the area used by the legacy GUI, values between 0 and 1")]
@@ -33,6 +34,8 @@ namespace MultiGame {
 		public AimCorrectionTypes aimCorrection = AimCorrectionTypes.None;
 		[RequiredFieldAttribute("What do we spawn from the muzzle of the gun?")]
 		public GameObject projectile;
+		[Tooltip("Should the projectiles be added to a pool the first time they're spawned so that they can be re-used from the pool later?")]
+		public bool poolProjectiles = false;
 		[Tooltip("Multiplied by the velocity before it's transferred to the projectile")]
 		public float inheritVelocityScale = 1f;
 		[RequiredFieldAttribute("How many shots per mag?")]
@@ -96,28 +99,41 @@ namespace MultiGame {
 		private float refireCounter;
 		private Vector3 muzzleOrientation;
 		private bool saved = false;
-
+		GameObject distantPoint;
+		GameObject pointCaster;
 		public bool debug = false;
+		GameObject bullet;
+		private List<GameObject> objectPool = new List<GameObject>();
 
 		public HelpInfo help = new HelpInfo("Althoug originally developed for AK-47s and the like, this can be used for anything from a crossbow to a plasma rifle. It's a " +
 			"multipurpose solution to get some decent FPS action going on. You will need to also set up a projectile prefab and some ammo handling using the included 'ClipInventory'" +
-			" and related functionality. Clips are discarded on reload.");
+			" and related functionality. Clips are discarded on reload. \n\n" +
+			"" +
+			"Pooling should only be used on mobile, to increase the stability of the game. It does this by delaying invocation of the garbage collector to clean up destroyed objects " +
+			"until the scene is unloaded.");
 		
 		void Start () {
+			//set up aim correction
+			distantPoint = new GameObject("DistantPoint");
+			pointCaster = new GameObject("PointCaster");
+			pointCaster.transform.parent = Camera.main.transform;
+			pointCaster.transform.localPosition = Vector3.zero;
+			pointCaster.transform.localRotation = Quaternion.identity;
+			distantPoint.transform.parent = pointCaster.transform;
+			distantPoint.transform.localPosition = new Vector3(0.0f, 0.0f, 1500.0f);
+
 			if (image == null) {
 				Animator _anim = GetComponentInChildren<Animator>();
 				if (_anim != null)
 					image = _anim.gameObject;
 			}
-			//PlayerPrefs.DeleteAll();
-	//		GameObject player = GameObject.FindGameObjectWithTag("Player");
-			//ClipInventory clipInv = player.GetComponent<ClipInventory>();
+
 			if (PlayerPrefs.HasKey(gameObject.name + "magazineCount")) {
 				magazineCount = PlayerPrefs.GetInt(gameObject.name + "magazineCount");
 				Debug.Log("Loaded " + magazineCount);
 				
 			}
-			currentSpread = (muzzleSpreadMin + muzzleSpreadMax)/2;
+			currentSpread = (muzzleSpreadMin + muzzleSpreadMax)*.5f;
 			refireCounter = refireTime;
 			if (muzzleTransform == null) {
 				Debug.LogError("ModernGun requires a muzzle transform! Please assign one in the inspector, it's an empty Game Object at the end of the barrel where the bullets come out!");
@@ -133,18 +149,17 @@ namespace MultiGame {
 		}
 		
 		void OnGUI () {
+			if (showAmmoGUI) {
+				GUILayout.Window( 10000, new Rect(guiArea.x * Screen.width, guiArea.y * Screen.height, guiArea.width * Screen.width, guiArea.height * Screen.height), AmmoWindow, "");
+			}
+
 			if (crosshairs == null)
 				return;
 			float adjustedWidth = crosshairs.width * crossSpreadScalar;
 			float adjustedHeight = crosshairs.height * crossSpreadScalar;
-			GUI.DrawTexture(new Rect(((Screen.width/2) - ((currentSpread * adjustedWidth)/2)), (Screen.height/2) - ((currentSpread * adjustedHeight)/2), (adjustedWidth * currentSpread), (adjustedHeight * currentSpread) ),crosshairs,ScaleMode.ScaleToFit);
-			
-			if (showAmmoGUI) {
-				GUILayout.Window( 10000, new Rect(guiArea.x * Screen.width, guiArea.y * Screen.height, guiArea.width * Screen.width, guiArea.height * Screen.height), AmmoWindow, "");
-			}
-			
+			GUI.DrawTexture(new Rect(((Screen.width * .5f) - ((currentSpread * adjustedWidth) * .5f)), (Screen.height * .5f) - ((currentSpread * adjustedHeight) * .5f), (adjustedWidth * currentSpread), (adjustedHeight * currentSpread)), crosshairs, ScaleMode.ScaleToFit);
 		}
-		
+
 		void AmmoWindow (int id) {
 			GUILayout.Label(magazineCount + " : " + magazineMax);
 		}
@@ -167,37 +182,24 @@ namespace MultiGame {
 		[Header("Available Messages")]
 		public MessageHelp fireHelp = new MessageHelp("Fire", "Causes the ranged weapon to emit a projectile, respecting all firing rules.");
 		public void Fire() {
+			if (!gameObject.activeInHierarchy)
+				return;
 			if (refireCounter > 0)
 				return;
 			RaycastHit hinfo;
 			if (aimCorrection == AimCorrectionTypes.Raycast) {
-				Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width/2,Screen.height/2,0.0f));
-				bool didHit = Physics.Raycast(ray, out hinfo);//Physics.(muzzleTransform.transform.position, Vector3.forward, out hinfo);
+				Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width*.5f,Screen.height*.5f,0.0f));
+				bool didHit = Physics.Raycast(ray, out hinfo);
 				if (didHit) {
 					muzzleTransform.transform.LookAt(hinfo.point);
 				}
 				if (!didHit) {
-					GameObject distantPoint = new GameObject("DistantPoint");
-					GameObject pointCaster = new GameObject("PointCaster");
-					pointCaster.transform.parent = Camera.main.transform;
-					pointCaster.transform.localPosition = Vector3.zero;
-					pointCaster.transform.localRotation = Quaternion.identity;
-					distantPoint.transform.parent = pointCaster.transform;
-					distantPoint.transform.localPosition = new Vector3(0.0f, 0.0f, 1500.0f);
 					muzzleTransform.transform.LookAt(distantPoint.transform.position);
-					Destroy(pointCaster);
 				}
 			}
+			
 			if (aimCorrection == AimCorrectionTypes.DistantPoint) {
-				GameObject distantPoint = new GameObject("DistantPoint");
-				GameObject pointCaster = new GameObject("PointCaster");
-				pointCaster.transform.parent = Camera.main.transform;
-				pointCaster.transform.localPosition = Vector3.zero;
-				pointCaster.transform.localRotation = Quaternion.identity;
-				distantPoint.transform.parent = pointCaster.transform;
-				distantPoint.transform.localPosition = new Vector3(0.0f, 0.0f, 1500.0f);
 				muzzleTransform.transform.LookAt(distantPoint.transform.position);
-				Destroy(pointCaster);
 			}
 			
 			if (magazineCount <= 0 && !reloading) {
@@ -214,6 +216,7 @@ namespace MultiGame {
 					Reload();
 				return;
 			}
+
 			if (magazineCount > 0 && !reloading) {
 
 				if (image != null && !string.IsNullOrEmpty(mecanimFireTrigger))
@@ -229,9 +232,8 @@ namespace MultiGame {
 					muzzleTransform.transform.localEulerAngles = new Vector3(muzzleTransform.transform.localEulerAngles.x + Random.Range(-(currentSpread + muzzleSpreadMin), currentSpread + muzzleSpreadMin), muzzleTransform.transform.localEulerAngles.y + Random.Range(-(currentSpread + muzzleSpreadMin), currentSpread + muzzleSpreadMin), muzzleTransform.transform.localEulerAngles.z);
 				refireCounter = refireTime;
 
-				GameObject bullet;
 				if (projectile != null) {
-					bullet = Instantiate(projectile, muzzleTransform.transform.position, muzzleTransform.transform.rotation) as GameObject;
+					bullet = SpawnBullet();//Instantiate(projectile, muzzleTransform.transform.position, muzzleTransform.transform.rotation) as GameObject;
 					Rigidbody _rigid = bullet.GetComponent<Rigidbody>();
 					Rigidbody _myRigid = transform.root.GetComponentInChildren<Rigidbody>();
 					if (_rigid != null && _myRigid)
@@ -266,33 +268,80 @@ namespace MultiGame {
 			}
 		}
 
+		private GameObject SpawnBullet() {
+			GameObject _bullet = null;
+
+			if (!poolProjectiles)
+				_bullet = Instantiate(projectile, muzzleTransform.transform.position, muzzleTransform.transform.rotation) as GameObject;
+			else {
+				_bullet = FindPooledObject();
+				if (_bullet == null) {
+					_bullet = Instantiate(projectile, muzzleTransform.transform.position, muzzleTransform.transform.rotation) as GameObject;
+					if (_bullet.GetComponent<CloneFlagRemover>() == null)
+						_bullet.AddComponent<CloneFlagRemover>();
+					objectPool.Add(_bullet);
+				}
+				else {
+					SpawnFromPool(_bullet);
+				}
+			}
+
+			return _bullet;
+		}
+
+		private void SpawnFromPool(GameObject obj) {
+			obj.transform.position = muzzleTransform.transform.position;
+			obj.transform.rotation = muzzleTransform.transform.rotation;
+			obj.SetActive(true);
+			obj.BroadcastMessage("ReturnFromPool", SendMessageOptions.DontRequireReceiver);
+		}
+
+		/// <summary>
+		/// Searches the heirarchy for a pooled (disabled) object
+		/// </summary>
+		/// <returns></returns>
+		private GameObject FindPooledObject() {
+			GameObject ret = null;
+
+			foreach (GameObject obj in objectPool) {
+				if (!obj.activeInHierarchy) {
+					ret = obj;
+					break;
+				}
+			}
+
+			return ret;
+		}
+
 		public MessageHelp reloadHelp = new MessageHelp("Reload","Initiates a reloading sequence for the weapon.");
 		public void Reload () {
+			if (!gameObject.activeInHierarchy)
+				return;
 			GameObject player = GameObject.FindGameObjectWithTag("Player");
 			if (player == null)
 				player = gameObject.transform.root.gameObject;
-			ClipInventory clipInv = player.GetComponent<ClipInventory>();
+			ClipInventory clipInv = player.GetComponentInChildren<ClipInventory>();
 			if (clipInv == null) {
-				Debug.LogError("Clip Inventory component not found on the player! Please add one to the object tagged 'Player', and set up some ammo clip types.");
+				/*Debug.LogError("Clip Inventory component not found on the player! Please add one to the object tagged 'Player', and set up some ammo clip types.");
 				enabled = false;
-				return;
-			}
-			if (clipInv.numClips[magazineType] > 0) {
-				if (debug)
-					Debug.Log("Clip found for weapon, reloading...");
-				clipInv.numClips[magazineType]--;
-				if (image != null && !string.IsNullOrEmpty(mecanimReloadTrigger))
-					image.GetComponent<Animator>().SetTrigger(mecanimReloadTrigger);
-				if (!string.IsNullOrEmpty(reloadingMessage.message))
-					MessageManager.Send(reloadingMessage);
-				reloading = true;
+				return;*/
 				StartCoroutine(FinishReload(reloadTime));
+			} else {
+				if (clipInv.numClips[magazineType] > 0) {
+					if (debug)
+						Debug.Log("Clip found for weapon, reloading...");
+					clipInv.numClips[magazineType]--;
+					if (image != null && !string.IsNullOrEmpty(mecanimReloadTrigger))
+						image.GetComponent<Animator>().SetTrigger(mecanimReloadTrigger);
+					if (!string.IsNullOrEmpty(reloadingMessage.message))
+						MessageManager.Send(reloadingMessage);
+					reloading = true;
+					StartCoroutine(FinishReload(reloadTime));
+				}  else {
+					if (debug)
+						Debug.Log("Not enough clips left for this weapon type");
+				}
 			}
-			else {
-				if (debug)
-					Debug.Log("Not enough clips left for this weapon type");
-			}
-			
 		}
 		
 		public IEnumerator FinishReload (float delay) {

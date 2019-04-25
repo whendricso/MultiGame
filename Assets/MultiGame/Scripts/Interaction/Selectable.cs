@@ -22,7 +22,7 @@ namespace MultiGame {
 		//[System.NonSerialized]
 		public bool selected = false;
 
-		[ReorderableAttribute]
+		[Reorderable]
 		[Tooltip("A list of messages which can be sent depending on whether or not the object is selected by the player")]
 		public List<MessageManager.ManagedMessage> messages = new List<MessageManager.ManagedMessage>();
 
@@ -38,7 +38,7 @@ namespace MultiGame {
 			}
 		}
 
-		void Start () {
+		void OnEnable () {
 			if (selectionIndicator != null)
 				selectionIndicator.SetActive(selected);
 			SetToggles();
@@ -58,6 +58,8 @@ namespace MultiGame {
 		[Header("Available Messages")]
 		public MessageHelp selectHelp = new MessageHelp("Select","Selects this object, activating/deactivating the appropriate scripts and objects, listed above");
 		public void Select () {
+			if (!gameObject.activeInHierarchy)
+				return;
 			selected = true;
 			if (selectionIndicator != null)
 				selectionIndicator.SetActive(selected);
@@ -74,6 +76,8 @@ namespace MultiGame {
 
 		public MessageHelp toggleSelectionHelp = new MessageHelp("ToggleSelection","Swaps the selection state of this object, activating/deactivating the appropriate scripts and objects, listed above");
 		public void ToggleSelection () {
+			if (!gameObject.activeInHierarchy)
+				return;
 			selected = !selected;
 			if (selectionIndicator != null)
 				selectionIndicator.SetActive(selected);
@@ -82,6 +86,8 @@ namespace MultiGame {
 
 		public MessageHelp relayIfSelectedHelp = new MessageHelp("RelayIfSelected","Sends all 'Messages', but only if this object is currently selected");
 		public void RelayIfSelected () {
+			if (!gameObject.activeInHierarchy)
+				return;
 			if (selected) {
 				foreach (MessageManager.ManagedMessage message in messages) {
 					MessageManager.Send(message);

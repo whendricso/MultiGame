@@ -25,7 +25,7 @@ namespace MultiGame {
 		public HelpInfo help = new HelpInfo("This component allows objects to snap to colliders in your scene automatically. This is great for construction sims or other games where" +
 			" things are being created that need to \"stick\" to static geometry.");
 
-		void Start () {
+		void OnEnable () {
 			if (snapMode == SnapModes.Start)
 				Snap();
 		}

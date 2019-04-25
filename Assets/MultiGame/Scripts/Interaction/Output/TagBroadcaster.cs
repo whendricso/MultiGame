@@ -33,7 +33,7 @@ namespace MultiGame {
 
 		public bool debug = false;
 
-		void Start () {
+		void OnEnable () {
 			if (onStart) {
 				Broadcast();
 			}

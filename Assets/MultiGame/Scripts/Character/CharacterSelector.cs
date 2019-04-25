@@ -73,16 +73,22 @@ namespace MultiGame {
 		[Header("Available Messages")]
 		public MessageHelp toggleOnHelp = new MessageHelp("ToggleOn","Enables the character selection GUI");
 		public void ToggleOn() {
+			if (!gameObject.activeInHierarchy)
+				return;
 			Toggle(true);
 		}
 		
 		public MessageHelp toggleOffHelp = new MessageHelp("ToggleOff","Disables the character selection GUI");
 		public void ToggleOff() {
+			if (!gameObject.activeInHierarchy)
+				return;
 			Toggle(false);
 		}
 		
 		public MessageHelp toggleHelp = new MessageHelp("Toggle","Toggles the character selection GUI based on a supplied value", 1, "Should the character selection GUI be shown?");
 		void Toggle (bool val) {
+			if (!gameObject.activeInHierarchy)
+				return;
 			if (toggleCursor) {
 				if (val) {
 					Cursor.lockState = CursorLockMode.Locked;//Screen.lockCursor = !val;

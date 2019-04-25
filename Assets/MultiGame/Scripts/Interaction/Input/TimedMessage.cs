@@ -30,7 +30,7 @@ namespace MultiGame {
 		public HelpInfo help = new HelpInfo("This component sends messages based on a timer. Accepts the 'StartTimer' and 'Abort' messages.");
 
 		// Use this for initialization
-		void Start () {
+		void OnEnable () {
 			if (message != "" && string.IsNullOrEmpty(managedMessage.message))
 				managedMessage.message = message;
 //			if (target == null)

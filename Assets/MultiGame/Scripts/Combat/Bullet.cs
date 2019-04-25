@@ -4,11 +4,12 @@ using System.Collections.Generic;
 using MultiGame;
 
 namespace MultiGame {
-
 	[AddComponentMenu("MultiGame/Combat/Bullet")]
 	[RequireComponent (typeof(Rigidbody))]
 	public class Bullet : MultiModule {
-		
+		[Tooltip("Should this object be pooled instead of destroyed when it hits something or reaches the end of it's life so it can be reused later?")]
+		public bool pool = false;
+
 		[Header("Important - Must be populated")]
 		[Tooltip("What layers can this projectile collide with?")]
 		public LayerMask rayMask;
@@ -16,18 +17,18 @@ namespace MultiGame {
 		[Header("Projectile Settings")]
 		[Tooltip("Should we send the damage message to the root object? If false, it will be sent to the object with the collider instead.")]
 		public bool damageRoot = true;
-		[RequiredFieldAttribute("How fast does this projectile travel when it leaves the muzzle?")]
+		[RequiredField("How fast does this projectile travel when it leaves the muzzle?")]
 		public float muzzleVelocity = 1500.0f;
-		[RequiredFieldAttribute("How much hurt?",RequiredFieldAttribute.RequirementLevels.Recommended)]
+		[RequiredField("How much hurt?",RequiredFieldAttribute.RequirementLevels.Recommended)]
 		public float damageValue = 25.0f;
-		[RequiredFieldAttribute("How long, if at all, should we wait (in seconds) before checking for collisions?",RequiredFieldAttribute.RequirementLevels.Recommended)]
+		[RequiredField("How long, if at all, should we wait (in seconds) before checking for collisions?",RequiredFieldAttribute.RequirementLevels.Recommended)]
 		public float activationDelay = 0f;
-		[RequiredFieldAttribute("What, if anything, should we spawn at the hit position? (useful for explosions, decals, particles etc)",RequiredFieldAttribute.RequirementLevels.Recommended)]
+		[RequiredField("What, if anything, should we spawn at the hit position? (useful for explosions, decals, particles etc)",RequiredFieldAttribute.RequirementLevels.Recommended)]
 		public GameObject bulletSplash;
 		private bool fired = false;
 		private Vector3 lastPosition;
 
-		[ReorderableAttribute]
+		[Reorderable]
 		[Tooltip("Messages to be sent to the object we hit")]
 		public List<MessageManager.ManagedMessage> messages = new List<MessageManager.ManagedMessage>();
 
@@ -36,6 +37,9 @@ namespace MultiGame {
 		
 		[HideInInspector]
 		public RaycastHit hinfo;
+
+		TrailRenderer trail;
+		Rigidbody rigid;
 
 		public HelpInfo help = new HelpInfo("This component allows for physics-based projectiles to be used (as long as they deal damage on contact - not for bouncy grenades!)" +
 			"\nSends the 'ModifyHealth' message with -damage to the object that is hit" +
@@ -46,13 +50,26 @@ namespace MultiGame {
 			" explosive projectiles, bullet hole decals, etc.");
 
 		public bool debug = false;
-		
-		void Start () {
+
+		private void Start() {
+			rigid = GetComponent<Rigidbody>();
+			if (trail == null)
+				trail = GetComponentInChildren<TrailRenderer>();
+		}
+
+		void OnEnable () {
 			foreach (MessageManager.ManagedMessage message in messages) {
 				if (message.target == null)
 					message.target = gameObject;
 			}
+			fired = false;
+			if (rigid == null)
+				rigid = GetComponent<Rigidbody>();
+			rigid.velocity = Vector3.zero;
 			lastPosition = transform.position;
+			
+			if (trail != null)
+				trail.Clear();
 		}
 
 		void OnValidate () {
@@ -66,7 +83,7 @@ namespace MultiGame {
 		void FixedUpdate () {
 			if (!fired) {
 				fired = true;
-				GetComponent<Rigidbody>().AddRelativeForce(0.0f,0.0f,muzzleVelocity,ForceMode.VelocityChange);
+				rigid.AddRelativeForce(0.0f,0.0f,muzzleVelocity,ForceMode.VelocityChange);
 			}
 			if (activationDelay > 0) {
 				activationDelay -= Time.deltaTime;
@@ -113,12 +130,19 @@ namespace MultiGame {
 				if (myTrail != null)
 					myTrail.transform.parent = null;
 			}
-			Destroy(gameObject);
+			if (pool)
+				gameObject.SetActive(false);
+			else
+				Destroy(gameObject);
 		}
 		
 		private void SetOwner (GameObject newOwner) {
 			owner = newOwner;
 		}
+
+		void ReturnFromPool() {
+			owner = null;
+		}
 	}
 }
-//Copyright 2014 William Hendrickson all rights reserved.
+//Copyright 2012-2019 William Hendrickson all rights reserved.

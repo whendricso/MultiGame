@@ -6,11 +6,12 @@ namespace MultiGame {
 
 	[AddComponentMenu("MultiGame/General/Autodestruct")]
 	public class Autodestruct : MultiModule {
-		
+
 		[Header("Destruction Settings")]
-		[RequiredFieldAttribute("How long until destruction?")]
+		public bool pool = false;
+		[RequiredField("How long until destruction?")]
 		public float liveTime = 2.0f;
-		[RequiredFieldAttribute("What should we create on death?",RequiredFieldAttribute.RequirementLevels.Recommended)]
+		[RequiredField("What should we create on death?",RequiredFieldAttribute.RequirementLevels.Recommended)]
 		public GameObject deathPrefab;
 		[Tooltip("Where should it be positioned relative to our origin?")]
 		public Vector3 prefabOffset = Vector3.zero;
@@ -18,7 +19,7 @@ namespace MultiGame {
 		public HelpInfo help = new HelpInfo("This simple component allows things to die after a given time. Great for grenades or the like.");
 		
 		// Use this for initialization
-		void Start () {
+		void OnEnable () {
 			StartCoroutine(Destruct());
 		}
 		
@@ -26,7 +27,10 @@ namespace MultiGame {
 			yield return new WaitForSeconds(liveTime);
 			if (deathPrefab != null)
 				Instantiate(deathPrefab, transform.position + prefabOffset, transform.rotation);
-			Destroy(gameObject);
+			if (!pool)
+				Destroy(gameObject);
+			else
+				gameObject.SetActive(false);
 		}
 
 		[Header("Available Messages")]

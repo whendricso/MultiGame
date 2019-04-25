@@ -32,6 +32,8 @@ namespace MultiGame {
 		public MessageHelp saveHelp = new MessageHelp("Save","Saves the 'Target Field' from 'Target Component' into 'File Name'");
 
 		public void Save () {
+			if (!gameObject.activeInHierarchy)
+				return;
 			if (debug)
 				Debug.Log("Unique Object Serializer " + gameObject.name + " is saving " + targetField + " to " + Application.persistentDataPath + "/" + fileName);
 			if (!ValidateSetup()) {
@@ -47,6 +49,8 @@ namespace MultiGame {
 		public MessageHelp loadHelp = new MessageHelp("Load","Loads 'Target Field' from 'File Name' and reassigns it's value from disk.");
 
 		public void Load () {
+			if (!gameObject.activeInHierarchy)
+				return;
 			if (!ValidateSetup()) {
 				Debug.LogError("Unique Object Serializer " + gameObject.name + " is not configured correctly!");
 				return;

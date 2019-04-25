@@ -40,10 +40,10 @@ namespace MultiGame {
 
 		public HelpInfo help = new HelpInfo("Object Seeker moves smoothly towards a target. If there is no object to follow, it will attempt to find the Player object by tag.");
 
-		void Awake () {
+		//void Awake () {
 //			mAim = GetComponent<MouseAim>();
 //			autoRetargetCounter = autoRetargetTime;
-		}
+		//}
 
 		void FixedUpdate ()
 		{

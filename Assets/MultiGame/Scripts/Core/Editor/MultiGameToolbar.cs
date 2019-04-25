@@ -95,8 +95,9 @@ namespace MultiGame {
 		private static Texture2D bulletIcon;
 		private static Texture2D clipIcon;
 		private static Texture2D clipInvIcon;
-//		private static Texture2D meleeWeaponIcon;
-//		private static Texture2D fpsIcon;
+		private static Texture2D meleeWeaponIcon;
+		private static Texture2D armorIcon;
+		//		private static Texture2D fpsIcon;
 		private static Texture2D sixAxisIcon;
 		private static Texture2D inputAnimatorIcon;
 		private static Texture2D characterCreatorIcon;
@@ -211,8 +212,9 @@ namespace MultiGame {
 			bulletIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/Bullet.png", typeof(Texture2D)) as Texture2D;
 			clipIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/Clip.png", typeof(Texture2D)) as Texture2D;
 			clipInvIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/ClipInventory.png", typeof(Texture2D)) as Texture2D;
-//			meleeWeaponIcon = AssetDatabase.LoadAssetAtPath("MeleeWeapon", typeof(Texture2D)) as Texture2D;
-//			fpsIcon = AssetDatabase.LoadAssetAtPath("FPSButton", typeof(Texture2D)) as Texture2D;
+			meleeWeaponIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/MeleeWeapon.png", typeof(Texture2D)) as Texture2D;
+			armorIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/Armor.png", typeof(Texture2D)) as Texture2D;
+			//			fpsIcon = AssetDatabase.LoadAssetAtPath("FPSButton", typeof(Texture2D)) as Texture2D;
 			sixAxisIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/SixAxisButton.png", typeof(Texture2D)) as Texture2D;
 			inputAnimatorIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/InputAnimatorButton.png", typeof(Texture2D)) as Texture2D;
 			characterCreatorIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/CharacterCreator.png", typeof(Texture2D)) as Texture2D;
@@ -874,13 +876,20 @@ namespace MultiGame {
 				SetupHealth();
 				SmartRenameTarget("Mortal");
 			}
-//			if (MGButton(meleeWeaponIcon, "Melee\nWeapon")) {
-//				ResolveOrCreateTarget();
-//				if (target.GetComponent<MeleeWeaponAttributes>() != null)
-//					return;
-//				Undo.AddComponent<MeleeWeaponAttributes>(target);
-//				SmartRenameTarget("Melee Weapon");
-//			}
+			if (MGButton(meleeWeaponIcon, "Melee\nWeapon")) {
+				ResolveOrCreateTarget();
+				if (target.GetComponent<MeleeWeapon>() != null)
+					return;
+				Undo.AddComponent<MeleeWeapon>(target);
+				SmartRenameTarget("Melee Weapon");
+			}
+			if (MGButton(armorIcon, "Armor")) {
+				ResolveOrCreateTarget();
+				if (target.GetComponent<Armor>() != null)
+					return;
+				Undo.AddComponent<Armor>(target);
+				SmartRenameTarget("Armor");
+			}
 			if (MGButton(gunIcon, "Gun")) {
 				ResolveOrCreateTarget();
 				if (target.GetComponent<ModernGun>() != null)
@@ -997,12 +1006,22 @@ namespace MultiGame {
 			}
 			if (MGButton(cameraIcon, "Main\nCamera")) {
 				ResolveOrCreateTarget();
-				GameObject _child = AddDirectChild(target);
-				_child.name = "Main Camera";
-				_child.tag = "MainCamera";
-				Undo.AddComponent<Camera>(_child);
-				Undo.AddComponent<AudioListener>(_child);
-				RenameTarget("Camera Pivot");
+				Camera _cam = target.GetComponent<Camera>();
+				if (_cam == null) {
+					GameObject _child = AddDirectChild(target);
+					_child.name = "Main Camera";
+					_child.tag = "MainCamera";
+					_cam = Undo.AddComponent<Camera>(_child);
+					if (_child.GetComponent<AudioListener>() == null)
+						Undo.AddComponent<AudioListener>(_child);
+					RenameTarget("Camera Pivot");
+				} else {
+					target.name = "Main Camera";
+					target.tag = "MainCamera";
+					if (target.GetComponent<AudioListener>() == null)
+						Undo.AddComponent<AudioListener>(target);
+				}
+				Undo.AddComponent<SmartCam>(target);
 			}
 			if (MGButton(cursorLockIcon, "Cursor\nLock")) {
 				ResolveOrCreateTarget();
@@ -1840,7 +1859,7 @@ namespace MultiGame {
 
 		public void SetupPhysics () {
 			SetupColliders();
-			if (target.GetComponent<Rigidbody>() == null)
+			if (target.transform.root.GetComponentInChildren<Rigidbody>() == null)
 				Undo.AddComponent<Rigidbody>( target.transform.root.gameObject);
 			if (target.GetComponent<PhysicsToggle>() == null)
 				Undo.AddComponent<PhysicsToggle>( target.transform.root.gameObject);

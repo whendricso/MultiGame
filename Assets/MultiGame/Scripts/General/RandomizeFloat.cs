@@ -18,7 +18,7 @@ namespace MultiGame {
 		[Tooltip("The maximum possible value the float can reach")]
 		public float maximumValue = 1f;
 		[Tooltip("Randomize the value when the object is first created?")]
-		public bool onAwake = true;
+		public bool autoRandomize = true;
 		[Tooltip("Randomize the value every fixed update?")]
 		public bool everyFrame = false;
 
@@ -30,8 +30,8 @@ namespace MultiGame {
 			"It adds a space after each capital and capitalizes the first letter so 'Floating Point' in the inspector is called 'floatingPoint' in the script.\n" +
 			"To check the name of a value, you can also open the script, these are usually defined at the top.");
 
-		void Awake () {
-			if (onAwake)
+		void OnEnable () {
+			if (autoRandomize)
 				Randomize();
 		}
 		

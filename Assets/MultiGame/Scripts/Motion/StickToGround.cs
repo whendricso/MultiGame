@@ -7,7 +7,7 @@ namespace MultiGame {
 	[AddComponentMenu("MultiGame/Motion/Stick To Ground")]
 	public class StickToGround : MultiModule {
 		
-		[RequiredFieldAttribute("How high up can it work?")]
+		[RequiredField("How high up can it work?")]
 		public float maxDistance = 0.5f;
 		[Tooltip("The offset relative to the point we found we should move to")]
 		public Vector3 offset = Vector3.zero;
@@ -21,7 +21,7 @@ namespace MultiGame {
 		public HelpInfo help = new HelpInfo("This component causes objects (such as buildings) to snap to the object underneath using a raycast. It works by raycasting down from the origin of this object, and snaps that origin to " +
 			"the first collider it hits.");
 		
-		void Start () {
+		void OnEnable () {
 			if (onStart)
 				Adhere();
 		}
@@ -33,6 +33,8 @@ namespace MultiGame {
 
 		public MessageHelp adhereHelp = new MessageHelp ("Adhere","Immediately snaps this object to what ever is below, based on the settings above.");
 		public void Adhere () {
+			if (!gameObject.activeInHierarchy)
+				return;
 			RaycastHit hinfo;
 			bool didHit = Physics.Raycast(transform.position, Vector3.down, out hinfo, maxDistance);
 			if (didHit) {

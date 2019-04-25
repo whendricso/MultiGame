@@ -19,7 +19,7 @@ namespace MultiGame {
 		public HelpInfo help = new HelpInfo("Allows the user to select the level of quality based on Unity's available levels. SetQualityLevel takes an integer");
 		
 
-		void Start () {
+		void OnEnable () {
 			if (autoSave && PlayerPrefs.HasKey("qualitySetting"))
 				QualitySettings.SetQualityLevel(PlayerPrefs.GetInt("qualitySetting"));
 		}

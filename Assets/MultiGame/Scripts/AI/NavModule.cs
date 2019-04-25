@@ -45,18 +45,19 @@ namespace MultiGame {
 		void Awake () {
 			anim = GetComponentInChildren<Animator>();
 			source = GetComponent<AudioSource>();
-			lastTouchTime = Time.time;
-			recalcTimer = pathRecalculationInterval;
 			agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
-			targetPosition = transform.position;
 			if (source != null && movementSound != null) {
 				source.clip = movementSound;
 			}
 		}
 
-		void Start () {
+		void OnEnable () {
+			lastTouchTime = Time.time;
+			targetPosition = transform.position;
+			recalcTimer = pathRecalculationInterval;
 			lastFramePosition = transform.position;
 			agent.updateRotation = false;
+			stunDuration = 0;
 		}
 
 		void Update () {
@@ -77,7 +78,8 @@ namespace MultiGame {
 				transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, transform.eulerAngles.z);
 			}
 
-			moveRate = ((Vector3.Distance(transform.position, lastFramePosition) / Time.deltaTime) / (agent.speed));
+			if (agent != null)
+				moveRate = ((Vector3.Distance(transform.position, lastFramePosition) / Time.deltaTime) / (agent.speed));
 
 			if (anim != null && !string.IsNullOrEmpty(animatorMovementFloat))
 				anim.SetFloat(animatorMovementFloat, moveRate);
@@ -115,12 +117,16 @@ namespace MultiGame {
 		}
 
 		void Stun(float duration) {
+			if (!gameObject.activeInHierarchy)
+				return;
 			stunDuration = duration;
 			if (debug)
 				Debug.Log("NavModule " + gameObject.name + " is being stunned for " + duration + " seconds");
 		}
 
 		void SteerForward () {//Used by Guard Module
+			if (!gameObject.activeInHierarchy)
+				return;
 			agent.isStopped = true;
 			if(debug)
 				Debug.Log ("Nav Module " + gameObject.name + " is steering in direction " + transform.TransformDirection(Vector3.forward) + " up direction: " + transform.up);
@@ -128,6 +134,8 @@ namespace MultiGame {
 		}
 
 		void BeginPathingTowardsTarget () {
+			if (!gameObject.activeInHierarchy)
+				return;
 			recalcTimer = pathRecalculationInterval;
 			if(debug)
 				Debug.Log ("Nav Module " + gameObject.name + " is calculating a path towards a target position " + targetPosition);
@@ -137,6 +145,8 @@ namespace MultiGame {
 		}
 
 		public void SetTarget (GameObject _target) {
+			if (!gameObject.activeInHierarchy)
+				return;
 			if (_target == null)
 				return;
 			if(debug)
@@ -145,6 +155,8 @@ namespace MultiGame {
 		}
 
 		public void MoveTo(Vector3 _destination) {
+			if (!gameObject.activeInHierarchy)
+				return;
 			if (debug)
 				Debug.Log("Nav Module " + gameObject.name + " moving to " + _destination);
 			targetPosition = _destination;
@@ -163,6 +175,11 @@ namespace MultiGame {
 		public MessageHelp stopNavigatingHelp = new MessageHelp("StopNavigating","Tells the Nav Mesh Agent to stop immediately, but does not affect the Nav Module directly.");
 		public void StopNavigating () {
 			agent.isStopped = true;
+		}
+
+		void ReturnFromPool() {
+			navTarget = null;
+			targetPosition = transform.position;
 		}
 	}
 }

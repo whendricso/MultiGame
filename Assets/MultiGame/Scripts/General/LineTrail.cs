@@ -14,7 +14,7 @@ namespace MultiGame {
 
 		public HelpInfo help = new HelpInfo("This component draws a line between the current and start position of the object.");
 
-		void Start () {
+		void OnEnable () {
 			line = GetComponent<LineRenderer>();
 			startPosition = transform.position;
 		}

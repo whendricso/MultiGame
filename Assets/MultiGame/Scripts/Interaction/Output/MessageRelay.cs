@@ -8,7 +8,7 @@ namespace MultiGame {
 	[AddComponentMenu("MultiGame/Interaction/Output/MessageRelay")]
 	public class MessageRelay : MultiModule {
 
-		[ReorderableAttribute]
+		[Reorderable]
 		[Header("Important - Must be Populated")]
 		[Tooltip("List of messages we will send")]
 		public List<MessageManager.ManagedMessage> messages = new List<MessageManager.ManagedMessage>();
@@ -26,7 +26,7 @@ namespace MultiGame {
 
 		public bool debug = false;
 
-		void Start () {
+		void OnEnable () {
 			if (messages.Count < 1) {
 				Debug.LogError("Message Relay " + gameObject.name + " needs a list of messages!");
 				enabled = false;
@@ -50,8 +50,9 @@ namespace MultiGame {
 		public void Relay () {
 			if (enabled == false)
 				return;
-
-			foreach(MessageManager.ManagedMessage msg in messages) {
+			if (!gameObject.activeInHierarchy)
+				return;
+			foreach (MessageManager.ManagedMessage msg in messages) {
 				if (debug)
 					Debug.Log ("Message relay " + gameObject.name + " is sending " + msg.message);
 				MessageManager.Send(msg);

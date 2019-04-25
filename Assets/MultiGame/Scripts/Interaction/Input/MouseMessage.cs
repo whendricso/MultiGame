@@ -54,7 +54,7 @@ namespace MultiGame
 			MessageManager.UpdateMessageGUI (ref mouseExitMessage, gameObject);
 		}
 
-		void Start (){
+		void OnEnable (){
 			mousePos = Input.mousePosition;
 		}
 

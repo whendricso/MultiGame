@@ -28,7 +28,7 @@ namespace MultiGame {
 			GetComponent<Rigidbody> ().useGravity = false;
 		}
 
-		void Awake () {
+		void OnEnable () {
 			gravitons.Add(this);
 		}
 
@@ -66,7 +66,7 @@ namespace MultiGame {
 			}
 		}
 
-		void OnDestroy () {
+		void OnDisable () {
 			gravitons.Remove(this);
 		}
 	}

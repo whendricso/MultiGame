@@ -8,7 +8,7 @@ namespace MultiGame {
 	public class HoloText : MultiModule {
 
 		[Header("Object Settings")]
-		[RequiredFieldAttribute("Reference to the text mesh object we're manipulating", RequiredFieldAttribute.RequirementLevels.Recommended)]
+		[RequiredField("Reference to the text mesh object we're manipulating", RequiredFieldAttribute.RequirementLevels.Recommended)]
 		public TextMesh textMesh;
 		public bool autoSave = true;
 		public bool autoLoad = true;
@@ -21,7 +21,7 @@ namespace MultiGame {
 		[Tooltip("Should we show the legacy Unity GUI?")]
 		private bool showWindow = false;
 
-		[RequiredFieldAttribute("A unique string which identifies this particular custom text object. Used to save/load the text in PlayerPrefs. Must be unique!", RequiredFieldAttribute.RequirementLevels.Recommended)]
+		[RequiredField("A unique string which identifies this particular custom text object. Used to save/load the text in PlayerPrefs. Must be unique!", RequiredFieldAttribute.RequirementLevels.Recommended)]
 		public string uniqueTextKey;
 
 		public HelpInfo help = new HelpInfo("This component allows the user to change the text of a 3D text object. This can be a fun way to add user-defined labels to your game. To use, add to an object with a TextMesh component " +
@@ -32,7 +32,7 @@ namespace MultiGame {
 				uniqueTextKey = Random.value.ToString();
 		}
 
-		void Start () {
+		void OnEnable () {
 			if (textMesh == null)
 				textMesh = GetComponentInChildren<TextMesh>();
 			if (textMesh == null && transform.parent != null)
@@ -44,6 +44,11 @@ namespace MultiGame {
 			}
 			if (autoLoad && PlayerPrefs.HasKey (uniqueTextKey))
 				Load ();
+		}
+
+		private void OnDisable() {
+			if (autoSave)
+				Save();
 		}
 
 		void OnDestroy() {
@@ -76,6 +81,8 @@ namespace MultiGame {
 		[Header("Available Messages")]
 		public MessageHelp changeTextHelp = new MessageHelp("ChangeText", "Changes the text to what ever you like", 4, "The new text you would like to display");
 		public void ChangeText (string _newText) {
+			if (!gameObject.activeInHierarchy)
+				return;
 			textMesh.text = _newText;
 		}
 

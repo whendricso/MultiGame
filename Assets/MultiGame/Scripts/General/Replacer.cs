@@ -5,19 +5,20 @@ using MultiGame;
 
 namespace MultiGame {
 
-	[AddComponentMenu("MultiGame/General/Replacer")]
+	//[AddComponentMenu("MultiGame/General/Replacer")]
 	public class Replacer : MultiModule {
 		[ReorderableAttribute]
 		public List<GameObject> replacements;
 		public MessageManager.ManagedMessage replacementMessage;
 
-		public HelpInfo help = new HelpInfo("When Replace is called, replaces this object with the list of object 'Replacements', then, sends the 'Replacement Message' if any, before destroying itself.");
+		public HelpInfo help = new HelpInfo("When Replace is called, replaces this object with the list of object 'Replacements', then, sends the 'Replacement Message' if any, before destroying itself. " +
+			"Does not work with object pooling.");
 
 		void OnValidate () {
 			MessageManager.UpdateMessageGUI (ref replacementMessage, gameObject);
 		}
 
-		void Start () {
+		void OnEnable () {
 			replacementMessage.target = gameObject;
 		}
 

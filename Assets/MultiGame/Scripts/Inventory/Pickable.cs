@@ -13,16 +13,20 @@ namespace MultiGame {
 	/// </summary>
 	[AddComponentMenu("MultiGame/Inventory/Pickable")]
 	public class Pickable : MultiModule {
-		
-		[RequiredFieldAttribute("How far can we be from the object tagged 'Player' and still be pickable?")]
+
+		[Tooltip("After being picked, should this object be added to a pool instead of destroyed so that it can be reused later?")]
+		public bool pool = false;
+
+		[RequiredField("How far can we be from the object tagged 'Player' and still be pickable?")]
 		public float pickRange = 2.4f;
 		public enum PickModes {Item, Deployable/*, Character*/};
 		[Tooltip("Are we picking up an inventory item, or a Deployable object?")]
 		public PickModes pickMode = PickModes.Item;
-		[RequiredFieldAttribute("A Game Object prefab with an Active Object component, matching this one with Inventory Key")]
+		[RequiredField("A Game Object prefab with an Active Object component, matching this one with Inventory Key")]
 		public GameObject activeObject;//the object to be instantiated when used
-		[RequiredFieldAttribute("A unique key (string) identifying this as a unique type of object. This must match the corresponding field in the corresponding ActiveItem, which is a component attached to the object representing this item while it's in-use.")]
+		[RequiredField("A unique key (string) identifying this as a unique type of object. This must match the corresponding field in the corresponding ActiveItem, which is a component attached to the object representing this item while it's in-use.")]
 		public string inventoryKey;
+		public int maxStack = 100;
 		public bool debug = false;
 		
 		private bool picked  = false;
@@ -31,7 +35,8 @@ namespace MultiGame {
 			" this object. Pickables need a corresponding ActiveObject which represents the item while it's in-use. A 'Pickable' and 'ActiveObject' pair represent one Inventory Item. These objects must both be inside a Resources " +
 			"folder in your Project, or Unity will throw an error when you try to use them in your game.");
 		
-		void Start () {
+		void OnEnable () {
+			picked = false;
 			switch (pickMode) {
 			case PickModes.Item:
 				if (inventoryKey == null) {
@@ -66,6 +71,8 @@ namespace MultiGame {
 
 		public MessageHelp pickHelp = new MessageHelp("Pick","Causes this item to enter the Player's inventory");
 		public void Pick () {
+			if (!gameObject.activeInHierarchy)
+				return;
 			GameObject player = GameObject.FindGameObjectWithTag("Player");
 			if (player == null) {
 				Debug.LogError("Pickable on " + gameObject.name + " could not find a Player object. Try sending message 'Pick' with the optional Inventory reference supplied.");
@@ -78,12 +85,16 @@ namespace MultiGame {
 				Debug.LogError("Pickable on " + gameObject.name + " could not find an Inventory component on the Player. Try sending message 'Pick' with the optional Inventory reference supplied.");
 				return;
 			}
+			if (Inventory.invCount.ContainsKey(inventoryKey) && Inventory.invCount[inventoryKey] >= maxStack)
+				return;
 			Pick(inv);
 			if (debug)
 				Debug.Log("Pick " + gameObject.name + " picked: " + picked);
 		}
 		
 		public void Pick (Inventory inventory) {
+			if (!gameObject.activeInHierarchy)
+				return;
 			if (PlayerPrefs.HasKey(gameObject.name + "magazineCount")) {
 				Debug.Log("Cleared ammo for " + gameObject.name);
 				PlayerPrefs.DeleteKey(gameObject.name + "magazineCount");

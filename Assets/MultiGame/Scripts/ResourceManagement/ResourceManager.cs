@@ -10,8 +10,9 @@ namespace MultiGame
 	public class ResourceManager : MultiModule
 	{
 		[Header("Important - Must be populated")]
-		[ReorderableAttribute]
+		[Reorderable]
 		public List<GameResource> startingResources = new List<GameResource>();
+
 		[Header("IMGUI Settings")]
 		[Tooltip("Should we show the resources using a legacy GUI? Not suitable for mobile.")]
 		public bool showGui = true;
@@ -22,8 +23,8 @@ namespace MultiGame
 
 		private bool resourcesInitiated = false;
 
-		[Tooltip("A list of resources in your game for a given player. Could be minerals, gold, mana, or even experience points. Anything that the player " +
-			"spends, or needs to have a quantity and/or limit of in the game.")]
+		/*[Tooltip("A list of resources in your game for a given player. Could be minerals, gold, mana, or even experience points. Anything that the player " +
+			"spends, or needs to have a quantity and/or limit of in the game.")]*/
 		public static List<GameResource>
 			resources = new List<GameResource> ();
 
@@ -71,6 +72,7 @@ namespace MultiGame
 		}
 
 		void OnGUI () {
+			GUI.skin = guiSkin;
 			GUILayout.BeginArea(new Rect(guiArea.x * Screen.width, guiArea.y * Screen.height, guiArea.width * Screen.width, guiArea.height * Screen.height),"","box");
 			GUILayout.BeginHorizontal();
 

@@ -29,11 +29,14 @@ namespace MultiGame {
 			"\n\n" +
 			"To use, add to a physics object and when appropriate, send messages to this component using any message sender (such as ActiveCollider).");
 
-		void Start () {
+		void OnEnable () {
 	//		originalDrag = GetComponent<Rigidbody>().drag;
 	//		originalAngular = GetComponent<Rigidbody>().angularDrag;
-			_coll = GetComponent<MeshCollider>();
-			rigid = GetComponent<Rigidbody> ();
+	
+			if (_coll == null)
+				_coll = GetComponent<MeshCollider>();
+			if (rigid == null)
+				rigid = GetComponent<Rigidbody> ();
 			if (_coll != null) {
 				if (rigid.isKinematic)
 					_coll.convex = false;
@@ -59,6 +62,8 @@ namespace MultiGame {
 
 		public MessageHelp enablePhysicsHelp = new MessageHelp("EnablePhysics","Disables physics calculations on this object");
 		public void EnablePhysics () {
+			if (!gameObject.activeInHierarchy)
+				return;
 			StartCoroutine( TogglePhysics(true));
 			if (_coll != null)
 				_coll.convex = true;
@@ -79,6 +84,8 @@ namespace MultiGame {
 
 		public MessageHelp swapPhysicsHelp = new MessageHelp("SwapPhysics","Toggles the physics state of this object.");
 		public void SwapPhysics () {
+			if (!gameObject.activeInHierarchy)
+				return;
 			if (!rigid.isKinematic)
 				StartCoroutine( TogglePhysics(false));
 			else

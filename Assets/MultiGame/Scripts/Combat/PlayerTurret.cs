@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using MultiGame;
 using System.Collections;
 
 namespace MultiGame {
@@ -25,13 +26,13 @@ namespace MultiGame {
 
 		[Tooltip("The speed at which the turret rotates toward it's target")]
 		public float turnSpeed = 120f;
-		[RequiredFieldAttribute("A crosshair texture to show where we want to shoot", RequiredFieldAttribute.RequirementLevels.Recommended)]
+		[RequiredField("A crosshair texture to show where we want to shoot", RequiredFieldAttribute.RequirementLevels.Recommended)]
 		public Texture2D crosshairs;
-		[RequiredFieldAttribute("A crosshair to show where we are shooting exactly, this frame (may be different from position we are aiming at)", RequiredFieldAttribute.RequirementLevels.Recommended)]
+		[RequiredField("A crosshair to show where we are shooting exactly, this frame (may be different from position we are aiming at)", RequiredFieldAttribute.RequirementLevels.Recommended)]
 		public Texture2D crosshairCore;
 		[Tooltip("Is this turret currently being controlled by the player?")]
 		public bool inUse = false;
-		[RequiredFieldAttribute("An optional camera to use just while this turret is active. Will take over completely for Main Camera while in use. Otherwise, the main camera is used to aim.", RequiredFieldAttribute.RequirementLevels.Optional)]
+		[RequiredField("An optional camera to use just while this turret is active. Will take over completely for Main Camera while in use. Otherwise, the main camera is used to aim.", RequiredFieldAttribute.RequirementLevels.Optional)]
 		public Camera turretCam;
 
 //		[RequiredFieldAttribute("A projectile to fire from the turret when activated",RequiredFieldAttribute.RequirementLevels.Recommended)]
@@ -131,6 +132,8 @@ namespace MultiGame {
 		}
 
 		private void ToggleCameras (bool _toggle) {
+			if (!gameObject.activeInHierarchy)
+				return;
 			if (turretCam != null) {
 				turretCam.enabled = _toggle;
 				if (mainCam == null)
@@ -180,6 +183,8 @@ namespace MultiGame {
 
 		public MessageHelp activeTurretHelp = new MessageHelp("ActivateTurret","Causes the turret to become active, controlled by the player.");
 		public void ActivateTurret () {
+			if (!gameObject.activeInHierarchy)
+				return;
 			inUse = true;
 			ToggleCameras(true);
 			if (debug)

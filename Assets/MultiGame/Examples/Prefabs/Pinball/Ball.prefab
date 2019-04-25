@@ -1,0 +1,237 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1345806193319708}
+  m_IsPrefabAsset: 1
+--- !u!1 &1345806193319708
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4470321791092126}
+  - component: {fileID: 33459658898265042}
+  - component: {fileID: 23328293992045744}
+  - component: {fileID: 135920576744852058}
+  - component: {fileID: 54264582643399640}
+  - component: {fileID: 114563552643764672}
+  - component: {fileID: 114954477133233232}
+  - component: {fileID: 114277234261317160}
+  m_Layer: 0
+  m_Name: Ball
+  m_TagString: Player
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4470321791092126
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1345806193319708}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.3000001, y: 14.900001, z: -2.3}
+  m_LocalScale: {x: 0.17425, y: 0.17425, z: 0.17425}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!23 &23328293992045744
+MeshRenderer:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1345806193319708}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
+  m_Materials:
+  - {fileID: 2100000, guid: 1a12c4051a4d23c4c9b758b278604636, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!33 &33459658898265042
+MeshFilter:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1345806193319708}
+  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!54 &54264582643399640
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1345806193319708}
+  serializedVersion: 2
+  m_Mass: 0.007
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 2
+--- !u!114 &114277234261317160
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1345806193319708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc626e5bd67de234bb0e0d26dfe48eb9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thrusting: 1
+  thrust: {x: 0, y: -0.16, z: 0}
+  axis: Vertical
+  space: 0
+  ignoreThrusterPosition: 1
+  target: {fileID: 0}
+  useInputAxis: 0
+  inputSensitivity: 0.2
+  help:
+    showInfo: 0
+    helpText: This component adds thrust to a given Rigidbody. It also works with
+      the 'InputVector' component (optionally) allthoug it can be used either by itself
+      or with any message sender/toggle component. To use, add this to an object with
+      a Rigidbody component that you'd like to push around. Then, input some 'Thrust'
+      settings above to tell the Thruster how strong it is in which directions. Negative
+      values may be used. Finally, either set it's 'Thrusting' setting to true, or
+      send messages to it to control it's thrust state.
+  beginThrustHelp:
+    showInfo: 0
+    messageName: BeginThrust
+    helpText: Start to send the predetermined amount of force to the rigidbody each
+      frame until stopped.
+    argumentType: 0
+    argumentText: 
+  endThrustHelp:
+    showInfo: 0
+    messageName: EndThrust
+    helpText: Stop thrusting
+    argumentType: 0
+    argumentText: 
+  thrustAmountHelp:
+    showInfo: 0
+    messageName: ThrustAmount
+    helpText: Thrust a specific amount this frame
+    argumentType: 3
+    argumentText: The scalar of thrust we want to send (multiplied by the 'Thrust'
+      you indicated above)
+--- !u!114 &114563552643764672
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1345806193319708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72575fd4615a3e849a0e1077e3479438, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toggleGravity: 1
+  delay: 0
+  nullifyMotion: 0
+  controlColliderState: 0
+  help:
+    showInfo: 0
+    helpText: "This component allows the physics simulation of a given object to be
+      toggled based on messages. 'EnablePhysics' and 'DisablePhysics' take no parameters.
+      'SwapPhysics' takes no parameter and will reverse the physics state of the object.
+      It also optionally changes the 'convex' state of a collider based on physics
+      state (recommended for advanced users only) \n\nTo use, add to a physics object
+      and when appropriate, send messages to this component using any message sender
+      (such as ActiveCollider)."
+  disablePhysicsHelp:
+    showInfo: 0
+    messageName: DisablePhysics
+    helpText: Disables physics calculations on this object (it will still collide
+      with objects if it has a collider)
+    argumentType: 0
+    argumentText: 
+  enablePhysicsHelp:
+    showInfo: 0
+    messageName: EnablePhysics
+    helpText: Disables physics calculations on this object
+    argumentType: 0
+    argumentText: 
+  swapPhysicsHelp:
+    showInfo: 0
+    messageName: SwapPhysics
+    helpText: Toggles the physics state of this object.
+    argumentType: 0
+    argumentText: 
+--- !u!114 &114954477133233232
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1345806193319708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f33ce65a205b5b34a8ca4909a5557669, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pool: 1
+  deathPrefabs: []
+  help:
+    showInfo: 0
+    helpText: 'This component allows things to be destroyed by receiving the ''Destruct''
+      message. Very handy.
+
+
+      Drag and drop prefabs onto the ''Death Prefabs'' list to make handy things come
+      to life when this one dies.'
+  debug: 0
+  destructHelp:
+    showInfo: 0
+    messageName: Destruct
+    helpText: Deletes this object from the scene, and spawns the supplied list of
+      'Death Prefabs' if any
+    argumentType: 0
+    argumentText: 
+--- !u!135 &135920576744852058
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1345806193319708}
+  m_Material: {fileID: 13400000, guid: 8744de5ded7220c4f8788c6f53a91718, type: 2}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}

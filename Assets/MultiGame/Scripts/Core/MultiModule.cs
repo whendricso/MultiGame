@@ -28,13 +28,13 @@ namespace MultiGame {
 			public int argumentType;// {None, Bool, Int, Float, String};
 			public string argumentText;
 
-			public MessageHelp (string _messageName, string _text) {
+			public MessageHelp(string _messageName, string _text) {
 				showInfo = false;
 				argumentType = 0;
 				messageName = _messageName;
 				helpText = _text;
 			}
-			public MessageHelp (string _messageName, string _text, int _argumentType, string _argumentHelp) {
+			public MessageHelp(string _messageName, string _text, int _argumentType, string _argumentHelp) {
 				showInfo = false;
 				argumentType = _argumentType;
 				messageName = _messageName;

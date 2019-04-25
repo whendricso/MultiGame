@@ -29,7 +29,7 @@ namespace MultiGame {
 		public HelpInfo help = new HelpInfo("This component is a great way to add the fury of nature herself to your game! It's a physics-based tornado that picks up and throws stuff." +
 			" You will need to create your own stormy particle system to render the storm. If an Audio Source with a stormy sound is added, it will be played automatically.");
 		
-		void Start () {
+		void OnEnable () {
 			if (GetComponent<AudioSource>().clip == null)
 				Debug.LogError("Unable to play sound, none provided to the Audio Source " + gameObject.name);
 			if (GetComponent<AudioSource>().clip != null && !GetComponent<AudioSource>().playOnAwake)

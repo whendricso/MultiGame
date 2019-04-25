@@ -13,7 +13,6 @@ namespace MultiGame {
 		[Tooltip("What physics layers can the player walk on?")]
 		public LayerMask walkRayMask;
 
-
 		[Header("Input")]
 		[Tooltip("Should we raycast towards the camera to see if anything is in the way and hide it if it is?")]
 		public bool checkForObstructions = false;
@@ -114,6 +113,7 @@ namespace MultiGame {
 		float meleeArc = 0;
 		float stunTime = 0;
 
+		private Inventory inventory;
 		private bool jumping = false;
 		private float jumpTimer;
 		private GameObject hiddenObject;
@@ -165,7 +165,7 @@ namespace MultiGame {
 		private CharacterController controller;
 		private Animator anim;
 		private AudioSource source;
-		private bool footFall = false;
+		//private bool footFall = false;
 		private float footFallCounter = 0;
 		private GameObject platform;//if non-null, we're standing on something, and should move if it moves
 		private float stunDuration = 0;
@@ -198,12 +198,15 @@ namespace MultiGame {
 			stunDuration = duration;
 		}
 
-		void Start () {
+		void OnEnable () {
+			if (inventory == null)
+				inventory = GetComponentInChildren<Inventory>();
 			if (foleyAudio != null)
 				foleyStartingPitch = foleyAudio.pitch;
 			if (attackMessage.target == null)
 				attackMessage.target = gameObject;
-			rigid = GetComponent<Rigidbody>();
+			if (rigid == null)
+				rigid = GetComponent<Rigidbody>();
 			jumpTimer = extraJumpTime;
 			if (walkRayMask == LayerMask.GetMask("None"))
 				walkRayMask = LayerMask.GetMask("Default");
@@ -212,9 +215,12 @@ namespace MultiGame {
 				rigid.isKinematic = true;
 				rigid.useGravity = false;
 			}
-			controller = GetComponent<CharacterController>();
-			anim = GetComponentInChildren<Animator>();
-			source = GetComponent<AudioSource>();
+			if (controller == null)
+				controller = GetComponent<CharacterController>();
+			if (anim == null)
+				anim = GetComponentInChildren<Animator>();
+			if (source == null)
+				source = GetComponent<AudioSource>();
 
 			if (jumpRolloff.keys.Length < 1) {
 				jumpRolloff.AddKey(0f,0.05f);//if the curve is empty, make a nice default
@@ -234,12 +240,17 @@ namespace MultiGame {
 		void FixedUpdate () {
 			UpdatePlatformParent();
 			stunDuration -= Time.deltaTime;
+
 			if (stunDuration > 0) {
-				anim.speed = 0;
+				if (anim != null)
+					anim.speed = 0;
 				return;
 			}
-			else
-				anim.speed = 1;
+			else {
+				if (anim != null)
+					anim.speed = 1;
+			}
+
 			UpdateAttack();
 			UpdateCustomActions();
 			UpdateJump();
@@ -288,9 +299,8 @@ namespace MultiGame {
 			}
 			if (Input.GetAxis("Vertical") > 0f) {
 				adjustedVertical = Input.GetAxis("Vertical") * runSpeed;
-				if (foleyAudio != null && Input.GetAxis("Vertical") > minRunThreshold) {
-					footFall = true;
 					footFallCounter -= Time.deltaTime;
+				if (foleyAudio != null && Input.GetAxis("Vertical") > minRunThreshold) {
 					if (footFallCounter < 0) {
 						footFallCounter = footstepInterval;
 						foleyAudio.pitch = foleyStartingPitch + Random.Range(-pitchVariance, pitchVariance);
@@ -298,14 +308,11 @@ namespace MultiGame {
 							foleyAudio.PlayOneShot(runSound);
 					}
 				}
-				else {
-					footFall = false;
-				}
 			}
 			else
 				adjustedVertical = Input.GetAxis("Vertical") * backpedalSpeed;
 
-			if (rotateToPointer)
+			if (rotateToPointer || !autoTurn)
 				xSpd = Input.GetAxis("Horizontal") * strafeSpeed;
 			else
 				xSpd = 0;
@@ -354,8 +361,10 @@ namespace MultiGame {
 					inAir = false;//we just landed!
 					if (anim != null && !string.IsNullOrEmpty(animatorJumpReturn))
 						anim.SetTrigger(animatorJumpReturn);
-					foleyAudio.pitch = foleyStartingPitch + (Random.Range(-pitchVariance, pitchVariance));
-					foleyAudio.PlayOneShot(landingSound);
+					if (foleyAudio != null) {
+						foleyAudio.pitch = foleyStartingPitch + (Random.Range(-pitchVariance, pitchVariance));
+						foleyAudio.PlayOneShot(landingSound);
+					}
 				}
 			}
 
@@ -365,8 +374,10 @@ namespace MultiGame {
 					jumping = true;
 					inAir = true;
 					if (jumpSound != null) {
-						foleyAudio.pitch = foleyStartingPitch + (Random.Range(-pitchVariance, pitchVariance));
-						foleyAudio.PlayOneShot(jumpSound);
+						if (foleyAudio != null) {
+							foleyAudio.pitch = foleyStartingPitch + (Random.Range(-pitchVariance, pitchVariance));
+							foleyAudio.PlayOneShot(jumpSound);
+						}
 					}
 					if (anim != null)
 						if (!string.IsNullOrEmpty(animatorJump))
@@ -395,7 +406,10 @@ namespace MultiGame {
 
 		void UpdateAttack() {
 			attackTimer -= Time.fixedDeltaTime;
-			if (useDefaultAttack && attackTimer < 0f) {
+			if (inventory != null && inventory.showInventoryGUI)
+				return;
+
+				if (useDefaultAttack && attackTimer < 0f) {
 				if (Input.GetButtonDown(attackButton) || Input.GetKeyDown(attackKey)) {
 					if (anim != null)
 						if (!string.IsNullOrEmpty(animatorAttack))
@@ -427,17 +441,20 @@ namespace MultiGame {
 				if (Vector3.Distance(possibleTarget.transform.position, transform.position) < reach && Vector3.Dot(transform.forward.normalized, (possibleTarget.transform.position - (transform.position + Vector3.up * characterCenterYOffset)).normalized) > meleeArc) {
 					if (debug)
 						Debug.Log("Sending 'ModifyHealth' and 'Stun' messages to " + possibleTarget.name + " for " + totalDamage + " damage.");
-					possibleTarget.SendMessage("ModifyHealth", totalDamage - bonusDamage);
+					possibleTarget.SendMessage("ModifyHealth", totalDamage - bonusDamage, SendMessageOptions.DontRequireReceiver);
 					bonusDamage = 0;
 					if (stunTime > 0)
-						possibleTarget.SendMessage("Stun", stunTime);
+						possibleTarget.SendMessage("Stun", stunTime,SendMessageOptions.DontRequireReceiver);
 				}
 			}
 		}
 
 		void UpdateCustomActions () {
 			if (anim != null) {
-				foreach (CustomAction action in customActions) {
+				if (inventory != null && inventory.showInventoryGUI)
+					return;
+
+					foreach (CustomAction action in customActions) {
 					if ((!string.IsNullOrEmpty(action.button) &&  Input.GetButtonDown(action.button) )|| Input.GetKeyDown(action.key)) {
 						if (Time.time - action.timeStamp > action.cooldown) {
 							action.timeStamp = Time.time;

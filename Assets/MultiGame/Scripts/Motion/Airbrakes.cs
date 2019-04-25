@@ -22,7 +22,7 @@ namespace MultiGame {
 		public HelpInfo help = new HelpInfo("This component allows a physics object to slow down in midair using drag based on the state of a key, or by receiving Messages.");
 
 		// Use this for initialization
-		void Start () {
+		void OnEnable () {
 			if (myRigidbody == null)
 				myRigidbody = GetComponent<Rigidbody>();
 			if (myRigidbody == null) {
@@ -31,7 +31,6 @@ namespace MultiGame {
 				return;
 			}
 			originalDrag = myRigidbody.drag;
-
 		}
 		
 		// Update is called once per frame
@@ -45,11 +44,15 @@ namespace MultiGame {
 		[Header("Available Messages")]
 		public MessageHelp applyBrakesHelp = new MessageHelp("ApplyBrakes","Causes the drag on this Rigidbody to increase to 'Braking Drag'");
 		public void ApplyBrakes () {
+			if (!gameObject.activeInHierarchy)
+				return;
 			msgBrake = true;
 		}
 
 		public MessageHelp releaseBrakesHelp = new MessageHelp("ReleaseBrakes","Causes the drag on this Rigidbody to return to the value set on the Rigidbody");
 		public void ReleaseBrakes () {
+			if (!gameObject.activeInHierarchy)
+				return;
 			msgBrake = false;
 		}
 	}

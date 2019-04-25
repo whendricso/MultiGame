@@ -13,7 +13,7 @@ namespace MultiGame {
 
 
 
-		[MenuItem("MultiGame/Toolbar (Legacy)")]
+		//[MenuItem("MultiGame/Toolbar (Legacy)")]
 		public static void ShowWindow() {
 			EditorWindow window = EditorWindow.GetWindow(typeof(MultiGameToolbar));
 			window.minSize = new Vector2(116f, 640f);

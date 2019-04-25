@@ -14,7 +14,7 @@ namespace MultiGame {
 		public Vector3 objectivePosition;
 		[System.NonSerialized]
 		public Vector3 persistentMoveTarget;
-		[RequiredFieldAttribute("Tag of the object we want to guard", RequiredFieldAttribute.RequirementLevels.Optional)]
+		[RequiredField("Tag of the object we want to guard", RequiredFieldAttribute.RequirementLevels.Optional)]
 		public string guardObjectiveTag;
 		[Tooltip("How often do we search for our objective by tag? (Only occurs if a Guard Objective Tag is defined)")]
 		public float objectiveSearchTime = 2f;
@@ -54,18 +54,17 @@ namespace MultiGame {
 		[Tooltip("Should I output information to the console?")]
 		public bool debug = false;
 
-		void Awake () {
+		void OnEnable () {
+			wandering = false;
+			returning = false;
 			wanderCounter = wanderInterval;
 			if (objective == null)
 				objectivePosition = transform.position;
 			else
 				objectivePosition = objective.transform.position;
-		}
-
-		void Start () {
 			persistentMoveTarget = transform.position;
-			if (!string.IsNullOrEmpty (guardObjectiveTag)) {
-				StartCoroutine (SearchForObjective ());
+			if (!string.IsNullOrEmpty(guardObjectiveTag)) {
+				StartCoroutine(SearchForObjective());
 			}
 		}
 
@@ -73,7 +72,7 @@ namespace MultiGame {
 			yield return new WaitForSeconds (objectiveSearchTime);
 			if (debug)
 				Debug.Log ("Guard Module" + gameObject.name + " is searching for a guard objective. Objective: " + objective);
-			if (!string.IsNullOrEmpty (guardObjectiveTag)) {
+			if (gameObject.activeInHierarchy && !string.IsNullOrEmpty (guardObjectiveTag)) {
 
 				if (objective == null)
 					objective = GameObject.FindGameObjectWithTag (guardObjectiveTag);
@@ -131,6 +130,8 @@ namespace MultiGame {
 		[Header("Available Messages")]
 		public MessageHelp wanderHelp = new MessageHelp("Wander", "Causes the Guard Module to immediately begin wandering to a new location.");
 		public void Wander () {
+			if (!gameObject.activeInHierarchy)
+				return;
 			if (objective != null)
 				return;
 			StopAllCoroutines();
@@ -142,6 +143,8 @@ namespace MultiGame {
 
 		public MessageHelp changeOrientationHelp = new MessageHelp("ChangeOrientation","Causes the Guard Module to immediately randomize it's orientation based on the parameters supplied on the component.");
 		public void ChangeOrientation () {
+			if (!gameObject.activeInHierarchy)
+				return;
 			float _y = transform.position.y;
 			float _sign = 1.0f;
 			float _variance = rotationVariance;
@@ -156,6 +159,8 @@ namespace MultiGame {
 		}
 
 		public void SetTarget (GameObject _target) {
+			if (!gameObject.activeInHierarchy)
+				return;
 			if (objective != null)
 				return;
 			if (debug)
@@ -175,13 +180,21 @@ namespace MultiGame {
 		}
 
 		public void SetObjective (Vector3 _position) {
+			if (!gameObject.activeInHierarchy)
+				return;
 			objectivePosition = _position;
 		}
 
 		public void MoveTo (Vector3 _position) {
+			if (!gameObject.activeInHierarchy)
+				return;
 			persistentMoveTarget = _position;
 			SetObjective(_position);
 		}
-		
+
+
+		private void ReturnFromPool() {
+			ClearTarget();
+		}
 	}
 }

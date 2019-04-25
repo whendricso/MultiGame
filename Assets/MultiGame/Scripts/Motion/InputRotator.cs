@@ -15,10 +15,10 @@ namespace MultiGame {
 		
 		void FixedUpdate () {
 			if (Mathf.Abs(Input.GetAxis("Horizontal")) > 0.02) {
-				transform.RotateAround(transform.position, Vector3.up,( impetus.y * Input.GetAxis("Horizontal"))*Time.deltaTime);
+				transform.RotateAround(transform.position, transform.up,( impetus.y * Input.GetAxis("Horizontal"))*Time.deltaTime);
 			}
 			if (Mathf.Abs(Input.GetAxis("Vertical")) > 0.02) {
-				transform.RotateAround(transform.position, Vector3.right, ( impetus.x * Input.GetAxis("Vertical"))*Time.deltaTime);
+				transform.RotateAround(transform.position, transform.right, ( impetus.x * Input.GetAxis("Vertical"))*Time.deltaTime);
 			}
 			
 		}

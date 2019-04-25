@@ -70,7 +70,7 @@ namespace MultiGame {
 		public bool debug = false;
 		#endregion
 		
-		void Start () {
+		void OnEnable () {
 			
 			#region errorHandling
 			if (deployables.Length < 1) {

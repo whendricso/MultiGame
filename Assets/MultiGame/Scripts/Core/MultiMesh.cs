@@ -21,9 +21,7 @@ namespace MultiGame {
 		[BoolButton]
 		public bool addCollider = false;
 		public bool debug = false;
-
 		
-
 		protected bool rebuildMesh = false;//internal command to refresh during Update()
 		//[HideInInspector]
 		public Mesh mesh;

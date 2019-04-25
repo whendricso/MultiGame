@@ -28,7 +28,7 @@ namespace MultiGame {
 			"top with layers of objects that represent the world geometry, such as the terrain. Then, this object will always be under the player's cursor while it's alive, as long as the cursor is over one of these object groups. " +
 			"This can be useful for selection painting, object placement, spellcasting, or creating a light around the cursor in dimly-lit game areas.");
 
-		void Awake () {
+		void OnEnable () {
 			originalX = transform.position.x;
 			originalY = transform.position.y;
 			originalZ = transform.position.z;

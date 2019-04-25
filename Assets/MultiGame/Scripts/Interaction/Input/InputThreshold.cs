@@ -25,7 +25,7 @@ namespace MultiGame {
 		public HelpInfo help = new HelpInfo("This component sends messages based on a given input axis passing a certain threshold.");
 
 		// Use this for initialization
-		void Start () {
+		void OnEnable () {
 			if (target == null) {
 				target = gameObject;
 			}

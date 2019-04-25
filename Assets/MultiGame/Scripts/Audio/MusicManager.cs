@@ -69,7 +69,9 @@ namespace MultiGame {
 
 		public HelpInfo help = new HelpInfo("This component allows the user to adjust the volume of music, or (if enabled by you) select from one of 3 musical sets. It " +
 			"provides generic music handling functionality. For global in-game music, add this component to an object and add a 'Persistent' component, to prevent it from being destroyed when the scene changes. " +
-			"Alternatively, add a different one to each scene for varied music from scene-to-scene.");
+			"Alternatively, add a different one to each scene for varied music from scene-to-scene.\n\n" +
+			"" +
+			"To create a speaker playing music, use this component without the 'Persistent' component, and set the 'Spatial Blend' setting on the 'Audio Source' all the way to '3D'.");
 		
 		void Start () {
 			current1 = category1.Length;
@@ -151,46 +153,52 @@ namespace MultiGame {
 		
 		IEnumerator ScheduleNextClip (float delay) {
 			yield return new WaitForSeconds(delay);
-			enableMusic = true;
-			switch (musicCategory) {
-			case MusicCategories.One:
-				if (current1 < category1.Length - 1)
-					current1++;
-				else
-					current1 = 0;
-				source.clip = category1[current1];
-				source.Play();
-				StartCoroutine(ScheduleNextClip(category1[current1].length));
-				break;
-			case MusicCategories.Two:
-				if (current2 < category2.Length - 1)
-					current2++;
-				else
-					current2 = 0;
-				source.clip = category2[current2];
-				source.Play();
-				StartCoroutine(ScheduleNextClip(category2[current2].length));
-				break;
-			case MusicCategories.Three:
-				if (current3 < category3.Length - 1)
-					current3++;
-				else
-					current3 = 0;
-				source.clip = category3[current3];
-				source.Play();
-				StartCoroutine(ScheduleNextClip(category3[current3].length));
-				break;
+			if (gameObject.activeInHierarchy) {
+				enableMusic = true;
+				switch (musicCategory) {
+					case MusicCategories.One:
+						if (current1 < category1.Length - 1)
+							current1++;
+						else
+							current1 = 0;
+						source.clip = category1[current1];
+						source.Play();
+						StartCoroutine(ScheduleNextClip(category1[current1].length));
+						break;
+					case MusicCategories.Two:
+						if (current2 < category2.Length - 1)
+							current2++;
+						else
+							current2 = 0;
+						source.clip = category2[current2];
+						source.Play();
+						StartCoroutine(ScheduleNextClip(category2[current2].length));
+						break;
+					case MusicCategories.Three:
+						if (current3 < category3.Length - 1)
+							current3++;
+						else
+							current3 = 0;
+						source.clip = category3[current3];
+						source.Play();
+						StartCoroutine(ScheduleNextClip(category3[current3].length));
+						break;
+				}
 			}
 		}
 
 		[Header("Available Messages")]
 		public MessageHelp toggleMusicGUIHelp = new MessageHelp("ToggleMusicGUI","Toggles the legacy Unity GUI for music control.");
 		public void ToggleMusicGUI () {
+			if (!gameObject.activeInHierarchy)
+				return;
 			showGui = !showGui;
 		}
 
 		public MessageHelp toggleMusicHelp = new MessageHelp("ToggleMusic","Turns the music on/off");
 		public void ToggleMusic () {
+			if (!gameObject.activeInHierarchy)
+				return;
 			if (source.clip == null && category1.Length > 0)
 				source.clip = category1[0];
 			if (enableMusic)
@@ -202,6 +210,8 @@ namespace MultiGame {
 
 		public MessageHelp setMusicCatagoryHelp = new MessageHelp("SetMusicCategory","Allows you to change the music category directly",2,"The category (1, 2 or 3) of music we wish to select");
 		public void SetMusicCatagory (int _category) {
+			if (!gameObject.activeInHierarchy)
+				return;
 			if (_category == 2) {
 				musicCategory = MusicCategories.Two;
 				StopAllCoroutines();
@@ -219,23 +229,34 @@ namespace MultiGame {
 
 		public MessageHelp openMenuHelp = new MessageHelp("OpenMenu","Enable the legacy GUI");
 		public void OpenMenu () {
+			if (!gameObject.activeInHierarchy)
+				return;
 			showGui = true;
 		}
 		public MessageHelp closeMenuHelp = new MessageHelp("CloseMenu","Disable the legacy GUI");
 		public void CloseMenu () {
+			if (!gameObject.activeInHierarchy)
+				return;
 			showGui = false;
 		}
 		public MessageHelp toggleMenuHelp = new MessageHelp("ToggleMenu","Toggle the legacy GUI");
 		public void ToggleMenu () {
+			if (!gameObject.activeInHierarchy)
+				return;
 			showGui = !showGui;
 		}
 
 		public MessageHelp setMusicVolumeHelp = new MessageHelp("SetMusicVolume","Changes the volume just for the MusicManager");
 		public void SetMusicVolume (float newVolume) {
+			if (!gameObject.activeInHierarchy)
+				return;
 			musicVolume = newVolume;
 		}
 
+		public MessageHelp fadeOutHelp = new MessageHelp("FadeOut","Fades the current song out smoothly");
 		public void FadeOut () {
+			if (!gameObject.activeInHierarchy)
+				return;
 			if (musicFading)
 				return;
 			musicFading = true;
@@ -244,7 +265,10 @@ namespace MultiGame {
 			fadeMode = FadeModes.Out;
 		}
 
+		public MessageHelp fadeInHelp = new MessageHelp("FadeIn","Fades in the current song smoothly");
 		public void FadeIn () {
+			if (!gameObject.activeInHierarchy)
+				return;
 			if (musicFading)
 				return;
 			musicFading = true;
@@ -253,12 +277,18 @@ namespace MultiGame {
 			fadeMode = FadeModes.In;
 		}
 
+		public MessageHelp fadeOutOverTimeHelp = new MessageHelp("FadeOutOverTime","Fades the music out over a specified amount of time by setting the fade duration",3,"The amount of time we want the fade to take");
 		public void FadeOutOverTime (float time) {
+			if (!gameObject.activeInHierarchy)
+				return;
 			fadeDuration = time;
 			FadeOut ();
 		}
 
+		public MessageHelp fadeInOverTimeHelp = new MessageHelp("FadeInOverTime","Fades the music in over a specified amount of time",3,"How long we want the fade to take");
 		public void FadeInOverTime (float time) {
+			if (!gameObject.activeInHierarchy)
+				return;
 			fadeDuration = time;
 			FadeIn ();
 		}

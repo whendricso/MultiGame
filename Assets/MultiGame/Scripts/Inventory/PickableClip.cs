@@ -6,7 +6,9 @@ namespace MultiGame {
 
 	[AddComponentMenu("MultiGame/Inventory/Pickable Clip")]
 	public class PickableClip : MultiModule {
-		
+
+		public bool pool = false;
+
 		[Tooltip("Clip Inventory index this increments")]
 		public int clipType = 0;
 
@@ -24,7 +26,10 @@ namespace MultiGame {
 			ClipInventory clipInv = player.GetComponent<ClipInventory>();
 			if (clipInv.maxClips[clipType] > clipInv.numClips[clipType]) {
 				clipInv.numClips[clipType] += 1;
-				Destroy(gameObject);
+				if (pool)
+					gameObject.SetActive(false);
+				else
+					Destroy(gameObject);
 			}
 		}
 		

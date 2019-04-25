@@ -118,7 +118,7 @@ namespace MultiGame {
 
 				} else {
 					if (CheckIsEnclosed(_tile)) {
-						
+						//TODO: FINISH THIS
 					} else {
 						
 					}

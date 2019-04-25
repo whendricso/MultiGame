@@ -7,12 +7,13 @@ namespace MultiGame {
 
 	[AddComponentMenu("MultiGame/General/Planar Y Destructor")]
 	public class PlanarYDestructor : MultiModule {
-		
-		[RequiredFieldAttribute("The depth at which we must pass under before being automatically destroyed")]
+
+		public bool pool = false;
+		[RequiredField("The depth at which we must pass under before being automatically destroyed")]
 		public float minimumYLevel = -1000;//destroy the object if it falls below this plane
-		[ReorderableAttribute]
-		[Tooltip("Objects we should spawn if killed in this way")]
-		public List<GameObject> deathPrefabs = new List<GameObject>();
+		//[Reorderable]
+		//[Tooltip("Objects we should spawn if killed in this way")]
+		//public List<GameObject> deathPrefabs = new List<GameObject>();
 		[Tooltip("A message we should send if we are killed in this way")]
 		public MessageManager.ManagedMessage message;
 
@@ -29,11 +30,14 @@ namespace MultiGame {
 		}
 
 		public void Destruct () {
-			if (deathPrefabs.Count >= 1) {
-			foreach (GameObject _gobj in deathPrefabs)
-				GameObject.Instantiate(_gobj,transform.position, transform.rotation);
-			}
-			Destroy(gameObject);
+			//if (deathPrefabs.Count >= 1) {
+			//foreach (GameObject _gobj in deathPrefabs)
+			//	Instantiate(_gobj,transform.position, transform.rotation);
+			//}
+			if (pool)
+				gameObject.SetActive(false);
+			else
+				Destroy(gameObject);
 		}
 	}
 }

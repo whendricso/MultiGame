@@ -69,7 +69,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1895725530585876}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.4710665, y: 1.8576727, z: 11.228204}
+  m_LocalPosition: {x: 2.5, y: 1.9, z: 11.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4281588796170888}
@@ -245,6 +245,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b782b4ce5ab4174b97e80878ad227a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pool: 1
   liveTime: 2
   deathPrefab: {fileID: 0}
   prefabOffset: {x: 0, y: 0, z: 0}
@@ -269,6 +270,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b782b4ce5ab4174b97e80878ad227a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pool: 0
   liveTime: 2
   deathPrefab: {fileID: 0}
   prefabOffset: {x: 0, y: 0, z: 0}
@@ -293,14 +295,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7529b4fe9d41f914e89dd46057b9bce5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pool: 1
   rayMask:
     serializedVersion: 2
-    m_Bits: 157184
+    m_Bits: 17920
   damageRoot: 1
   muzzleVelocity: 1500
   damageValue: 25
   activationDelay: 0
-  bulletSplash: {fileID: 0}
+  bulletSplash: {fileID: 1015238975951750, guid: eeae1a42e4bd6e54f83ae11ea1ce6a7e,
+    type: 2}
   messages: []
   help:
     showInfo: 0
@@ -320,7 +324,7 @@ MonoBehaviour:
       passed through something, and if it has, it ''explodes'' at the point of impact.
       By adding a prefab to ''Bullet Splash'' you can create explosive projectiles,
       bullet hole decals, etc.'
-  debug: 0
+  debug: 1
 --- !u!114 &114603292769399042
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -332,6 +336,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b782b4ce5ab4174b97e80878ad227a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pool: 1
   liveTime: 2
   deathPrefab: {fileID: 0}
   prefabOffset: {x: 0, y: 0, z: 0}

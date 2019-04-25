@@ -8,7 +8,7 @@ namespace MultiGame {
 	[AddComponentMenu("MultiGame/Motion/Massive Object")]
 	public class MassiveObject : MultiModule {
 
-		[ReorderableAttribute]
+		//[Reorderable]
 		public static List<MassiveObject> massiveObjects = new List<MassiveObject>();
 
 		public float mass = 500f;
@@ -16,11 +16,11 @@ namespace MultiGame {
 		public HelpInfo help =  new HelpInfo("Massive Object is a non-rigidbody that has enough mass to attract anything with a Graviton component. Use this " +
 			"when you want something unaffected by gravity to attract objects affected by Graviton gravity.");
 
-		void Awake () {
+		void OnEnable () {
 			massiveObjects.Add(this);
 		}
 
-		void OnDestroy () {
+		void OnDisable () {
 			massiveObjects.Remove(this);
 		}
 

@@ -24,8 +24,9 @@ namespace MultiGame {
 		[Tooltip("Should the GUI close itself when we are done?")]
 		public bool closeOnCompletion = false;
 
-		[Tooltip("Should we show a legacy Unity GUI to display the collection score?")]
-		private bool showGUI = true;
+		[Tooltip("Should we show an IMGUI to display the collection score?")]
+		public bool showGUI = true;
+		public GUISkin guiSkin;
 		[System.NonSerialized]
 		public int collected = 0;
 
@@ -37,7 +38,7 @@ namespace MultiGame {
 			"public void MyNewMessage( )\n" +
 			"The message you implement may have 0 arguments, or it may take an integer, float, bool, or string. This will tell MultiGame to add it to the Messages list when you hit 'Refresh Messages'.");
 
-		void Start () {
+		void OnEnable () {
 			if (target == null)
 				target = gameObject;
 			if (collectionMessage.target == null)
@@ -56,11 +57,14 @@ namespace MultiGame {
 		void OnGUI () {
 			if (!showGUI)
 				return;
+			GUI.skin = guiSkin;
 			GUILayout.Window(windowID, new Rect(guiArea.x * Screen.width, guiArea.y * Screen.height, guiArea.width * Screen.width, guiArea.height * Screen.height), CollectionWindow, windowTitle);
 		}
 
 		public MessageHelp collectHelp = new MessageHelp("Collect","Increments the collection count by one, sending messages as appropriate");
 		public void Collect () {
+			if (!gameObject.activeInHierarchy)
+				return;
 			collected ++;
 			if( collectionMessage.message != "" || collectionMessage.message!= "--none--")
 				MessageManager.Send(collectionMessage);

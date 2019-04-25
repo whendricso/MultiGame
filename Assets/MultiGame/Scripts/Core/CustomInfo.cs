@@ -32,7 +32,7 @@ namespace MultiGame {
 
 		public HelpInfo help = new HelpInfo("Cusom Info allows the developer or player to create descriptions or notes, which are saved in PlayerPrefs based on their name if changed by the player.");
 
-		void Start () {
+		void OnEnable () {
 			Load();
 		}
 

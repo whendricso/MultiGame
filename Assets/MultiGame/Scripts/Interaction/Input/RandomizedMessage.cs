@@ -15,7 +15,10 @@ namespace MultiGame {
 //		public List<MessageManager.ManagedMessage> messages = new List<MessageManager.ManagedMessage>();
 
 		public HelpInfo help = new HelpInfo("This component randomly selects a message to be sent from the list, each with a different probability. The probability of any one message being sent is reduced by adding more messages, the " +
-			"'Chance' values do not need to add up to 1");
+			"'Chance' values do not need to add up to 1.\n\n" +
+			"" +
+			"To use, first add some entries to the 'Randomized Messages' list. For example, you could add a Sounder component, and a Destructible component, and add both the " +
+			"'PlaySound' and 'Destruct' messages to the list, and adjust their chance. When you want a message to be randomly selected, send the 'RollRandom' message to this object.");
 
 		public bool debug = false;
 
@@ -27,7 +30,7 @@ namespace MultiGame {
 			public MessageManager.ManagedMessage message;
 		}
 
-		void Start () {
+		void OnEnable () {
 			foreach (RandomMessage msg in randomizedMessages) {
 				if (msg.message.target == null)
 					msg.message.target = gameObject;
@@ -44,6 +47,8 @@ namespace MultiGame {
 
 		public MessageHelp rollRandomHelp = new MessageHelp("RollRandom","Selects a single message from those supplied above. There is a tiny chance that one may be selected even if it has a 0 probability. NOTHING IS IMPOSSIBLE!!!!");
 		public void RollRandom () {
+			if (!gameObject.activeInHierarchy)
+				return;
 			float total = 0;
 			for (int i = 0; i < randomizedMessages.Count; i++) {
 				total += randomizedMessages [i].chance;

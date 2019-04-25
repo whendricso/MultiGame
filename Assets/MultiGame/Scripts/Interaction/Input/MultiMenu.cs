@@ -49,7 +49,7 @@ namespace MultiGame {
 			}
 		}
 
-		void Start () {
+		void OnEnable () {
 			foreach(Button button in buttons) {
 				foreach(MessageManager.ManagedMessage msg in button.messages) {
 					if (msg.target == null)
@@ -94,6 +94,8 @@ namespace MultiGame {
 
 		public MessageHelp openMenuHelp = new MessageHelp("OpenMenu","Opens the IMGUI");
 		public void OpenMenu () {
+			if (!gameObject.activeInHierarchy)
+				return;
 			if (debug)
 				Debug.Log("Open");
 			showGui = true;
@@ -108,6 +110,8 @@ namespace MultiGame {
 
 		public MessageHelp toggleMenuHelp = new MessageHelp("ToggleMenu","Toggles the IMGUI");
 		public void ToggleMenu() {
+			if (!gameObject.activeInHierarchy)
+				return;
 			if (debug)
 				Debug.Log("Toggle");
 			showGui = !showGui;
