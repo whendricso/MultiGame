@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 using MultiGame;
 
 namespace MultiGame {
@@ -12,6 +13,8 @@ namespace MultiGame {
 		public float timeDelay = 0.0f;
 		[Tooltip("How much should that amount vary?")]
 		public float variance = 0.0f;
+		[Tooltip("If assigned, show the remaining time on the indicated UI Text")]
+		public Text timerText;
 		[HideInInspector]
 		public string message = "";
 		[Tooltip("What message should we send?")]
@@ -26,6 +29,9 @@ namespace MultiGame {
 		public bool oneAtATime = true;
 		[Tooltip("Enable debugging to tell MultiGame to give you useful messages in the console when something happens.")]
 		public bool debug = false;
+
+		[System.NonSerialized]
+		public float remaining = -1;
 
 		public HelpInfo help = new HelpInfo("This component sends messages based on a timer. Accepts the 'StartTimer' and 'Abort' messages.");
 
@@ -48,14 +54,20 @@ namespace MultiGame {
 			MessageManager.UpdateMessageGUI(ref managedMessage, gameObject);
 		}
 
-		public MessageHelp startTimerHelp = new MessageHelp("StartTimer", "Starts this timer, useful if it doesn't start automatically.");
+		void Update() {
+			remaining -= Time.deltaTime;
+			if (timerText != null)
+				timerText.text = "" + Mathf.FloorToInt( remaining);
+		}
 
+		public MessageHelp startTimerHelp = new MessageHelp("StartTimer", "Starts this timer, useful if it doesn't start automatically.");
 		public void StartTimer () {
 			if (debug)
 				Debug.Log("Timed Message " + gameObject.name + " started the timer");
 			if (oneAtATime)
 				Abort();
-			StartCoroutine(DelayedMessage(timeDelay + Random.Range(-variance, variance)));
+			remaining = timeDelay + Random.Range(-variance, variance);
+			StartCoroutine(DelayedMessage(remaining));
 		}
 
 		public MessageHelp abortHelp = new MessageHelp("Abort", "Stops execution of the timer immediately.");

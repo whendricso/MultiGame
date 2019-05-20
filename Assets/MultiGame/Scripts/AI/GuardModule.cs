@@ -179,6 +179,23 @@ namespace MultiGame {
 			StartCoroutine(StopWandering(0));
 		}
 
+		public MessageHelp targetNearestHelp = new MessageHelp("TargetNearest","If an object with the given tag is found, target that!",4,"The tag of the object you wish to target.");
+		public void TargetNearest(string _tag) {
+
+			if (!gameObject.activeInHierarchy)
+				return;
+
+			GameObject _nearest = FindClosestByTag(_tag);
+			if (_nearest == null) {
+				if (debug)
+					Debug.Log("Guard Module " + gameObject.name + " could not find any target tagged " + _tag);
+				return;
+			}
+			if (debug)
+				Debug.Log("Guard Module " + gameObject.name + " found a target tagged " + _tag);
+			SetTarget(_nearest);
+		}
+
 		public void SetObjective (Vector3 _position) {
 			if (!gameObject.activeInHierarchy)
 				return;

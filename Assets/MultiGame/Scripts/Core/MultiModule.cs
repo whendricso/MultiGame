@@ -12,10 +12,16 @@ namespace MultiGame {
 		public class HelpInfo {
 			public bool showInfo;
 			public string helpText;
+			public string videoLink;
 
 			public HelpInfo (string _text) {
 				showInfo = false;
 				helpText = _text;
+			}
+			public HelpInfo(string _text, string _videoLink) {
+				showInfo = false;
+				helpText = _text;
+				videoLink = _videoLink;
 			}
 		}
 
@@ -96,6 +102,12 @@ namespace MultiGame {
 
 		}
 
+		/// <summary>
+		/// Similar to Unity's built-in FindChild functionality, but also finds the first child anywhere in the object heirarchy underneath the search target
+		/// </summary>
+		/// <param name="_target">What GameObject are we searching for children with a particular name?</param>
+		/// <param name="_child">The name of the child object we wish to find</param>
+		/// <returns>The child that we found or null if the child does not exist in the sub-heirarchy</returns>
 		public GameObject FindChildRecursive (GameObject _target, string _child) {
 			List<Transform> _children = new List<Transform>();
 			_children.AddRange(_target.GetComponentsInChildren<Transform>());
@@ -104,6 +116,28 @@ namespace MultiGame {
 					return _kid.gameObject;
 			}
 			return null;
+		}
+
+		/// <summary>
+		/// Get the closest object to this one by a given tag
+		/// </summary>
+		/// <param name="_tag">The tag of the object we wish to search for</param>
+		/// <returns>The closest object, or null if none are found</returns>
+		public GameObject FindClosestByTag(string _tag) {
+			GameObject _ret = null;
+			float _distance = Mathf.Infinity;
+			float _distChk = 0;
+			List<GameObject> _objects = new List<GameObject>( GameObject.FindGameObjectsWithTag(_tag));
+			if(_objects.Count > 0) {
+				foreach (GameObject _gobj in _objects) {
+					_distChk = Vector3.Distance(gameObject.transform.position, _gobj.transform.position);
+					if (_distChk < _distance) {
+						_distance = _distChk;
+						_ret = _gobj;
+					}
+				}
+			}
+			return _ret;
 		}
 	}
 }

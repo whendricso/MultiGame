@@ -46,7 +46,7 @@ namespace MultiGame {
 
 		public HelpInfo help = new HelpInfo("This component sends messages when an object enters, exits, or stays in a given trigger area. Must be attached to a collider marked" +
 			" 'isTrigger'. To use, ensure that this object's collision layer collides only with objects you wish to activate it. Then, define some Messages to be sent by drag & dropping " +
-			"a target onto 'Message Target' then selecting a message from the list you want to send. You can also use tags to further cull the results.");
+			"a target onto 'Message Target' then selecting a message from the list you want to send. You can also use tags to further cull the results.", "https://youtu.be/K-7MAukHq-A");
 
 		public bool debug = false;
 		

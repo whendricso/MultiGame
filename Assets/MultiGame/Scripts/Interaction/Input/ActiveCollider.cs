@@ -39,7 +39,7 @@ namespace MultiGame {
 		public string targetLevel;
 
 		public HelpInfo help = new HelpInfo("This component sends messages when an object touches (or stops touching) it. First add a list of Active Tags, these are tagged object groups that you want to activate this trigger.\n" +
-			"Next, add at least one message that you wish to send when the collision occurs.");
+			"Next, add at least one message that you wish to send when the collision occurs.", "https://youtu.be/RllnqtE_g1Y");
 
 		public bool debug = false;
 

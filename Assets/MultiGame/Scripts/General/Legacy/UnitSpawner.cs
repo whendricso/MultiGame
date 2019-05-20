@@ -3,7 +3,6 @@ using System.Collections;
 using MultiGame;
 
 namespace MultiGame {
-
 //	[AddComponentMenu("MultiGame/General/Unit Spawner")]
 	public class UnitSpawner : MultiModule {
 		
@@ -12,7 +11,7 @@ namespace MultiGame {
 		public float radius = 30.0f;
 		public bool spawnOnce = false;
 		public GameObject unit;
-		[ReorderableAttribute]
+		[Reorderable]
 		public GameObject[] spawnPoints;
 		public float spawnDelay = 30.0f;
 		public bool usePrefabTagAndLayer = true;

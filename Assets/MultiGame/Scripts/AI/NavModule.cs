@@ -116,13 +116,7 @@ namespace MultiGame {
 				touchingTarget = false;
 		}
 
-		void Stun(float duration) {
-			if (!gameObject.activeInHierarchy)
-				return;
-			stunDuration = duration;
-			if (debug)
-				Debug.Log("NavModule " + gameObject.name + " is being stunned for " + duration + " seconds");
-		}
+		
 
 		void SteerForward () {//Used by Guard Module
 			if (!gameObject.activeInHierarchy)
@@ -175,6 +169,26 @@ namespace MultiGame {
 		public MessageHelp stopNavigatingHelp = new MessageHelp("StopNavigating","Tells the Nav Mesh Agent to stop immediately, but does not affect the Nav Module directly.");
 		public void StopNavigating () {
 			agent.isStopped = true;
+		}
+
+		public MessageHelp stunHelp = new MessageHelp("Stun","Causes the agent to be unable to move for a set duration",3,"Time in seconds that the agent should be unable to move");
+		void Stun(float duration) {
+			if (!gameObject.activeInHierarchy)
+				return;
+			stunDuration = duration;
+			if (debug)
+				Debug.Log("NavModule " + gameObject.name + " is being stunned for " + duration + " seconds");
+		}
+
+		public MessageHelp navToNearestHelp = new MessageHelp("NavToNearest","Finds the nearest object with a given tag, and if found navigates to it.",4,"The tag of the object we wish to move towards");
+		public void NavToNearest(string _tag) {
+			GameObject _closest = FindClosestByTag(_tag);
+			if (debug)
+				Debug.Log("NavModule " + gameObject.name + " is going to the closest object tagged " + _tag + " and found object " + _closest);
+			if (_closest != null) {
+				SetTarget(_closest);
+				MoveTo(_closest.transform.position);
+			}
 		}
 
 		void ReturnFromPool() {

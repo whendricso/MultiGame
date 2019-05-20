@@ -66,7 +66,9 @@ namespace MultiGame {
 		private static Texture2D turretIcon;
 //		private static Texture2D meleeBotIcon;
 		private static Texture2D rangedBotIcon;
-//		private static Texture2D unitSpawnIcon;
+		private static Texture2D utilityBotIcon;
+		private static Texture2D behaviorSequencerIcon;
+		//		private static Texture2D unitSpawnIcon;
 		private static Texture2D addColliderIcon;
 		private static Texture2D addRigidbodyIcon;
 		private static Texture2D particlesIcon;
@@ -183,7 +185,9 @@ namespace MultiGame {
 			turretIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/Turret.png", typeof(Texture2D)) as Texture2D;
 //			meleeBotIcon = AssetDatabase.LoadAssetAtPath("MeleeAI", typeof(Texture2D)) as Texture2D;
 			rangedBotIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/HitscanAI.png", typeof(Texture2D)) as Texture2D;
-//			unitSpawnIcon = AssetDatabase.LoadAssetAtPath("UnitSpawnButton", typeof(Texture2D)) as Texture2D;
+			utilityBotIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/UtilityAI.png", typeof(Texture2D)) as Texture2D;
+			behaviorSequencerIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/BehaviorSequencer.png", typeof(Texture2D)) as Texture2D;
+			//			unitSpawnIcon = AssetDatabase.LoadAssetAtPath("UnitSpawnButton", typeof(Texture2D)) as Texture2D;
 			addColliderIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/AddCollider.png", typeof(Texture2D)) as Texture2D;
 			addRigidbodyIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/RigidbodyButton.png", typeof(Texture2D)) as Texture2D;
 			particlesIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/Particles.png", typeof(Texture2D)) as Texture2D;
@@ -265,7 +269,6 @@ namespace MultiGame {
 					}
 
 					if (activeCollIcon == null) {
-						iconsLoaded = false;
 							LoadIcons();
 						return;
 					}
@@ -784,6 +787,10 @@ namespace MultiGame {
 				Undo.AddComponent<TimedMessage>(target);
 				SmartRenameTarget("Timer");
 			}
+			if (MGButton(behaviorSequencerIcon, "Behavior\nSequencer")) {
+				SetupBehaviorSequencer();
+				
+			}
 			if (MGButton(clickableIcon, "Click\nLogic")) {
 				ResolveOrCreateTarget();
 				SetupColliders();
@@ -1123,6 +1130,16 @@ namespace MultiGame {
 
 			
 			EditorGUILayout.BeginVertical("box"/*, GUILayout.Width(112f)*/);
+
+			if (MGButton(utilityBotIcon,"Utility AI\nBrain")) {
+				ResolveOrCreateTarget();
+				SmartRenameTarget("Utility AI");
+				Undo.AddComponent<UtilityModule>(target);
+			}
+
+			if (MGButton(behaviorSequencerIcon, "Behavior\nSequencer")) {
+				SetupBehaviorSequencer();
+			}
 
 			if (MGButton(layerMaskIcon, "Layer\nMask"))
 				SetupLayerMask();
@@ -1855,6 +1872,12 @@ namespace MultiGame {
 					}
 				}
 			}
+		}
+
+		public void SetupBehaviorSequencer() {
+			ResolveOrCreateTarget();
+			SmartRenameTarget("Behavior Sequencer");
+			Undo.AddComponent<BehaviorSequencer>(target);
 		}
 
 		public void SetupPhysics () {
