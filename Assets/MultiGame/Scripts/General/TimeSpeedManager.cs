@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using MultiGame;
 
@@ -12,11 +13,14 @@ namespace MultiGame {
 		public float tScale = 1.0f;
 		[RequiredFieldAttribute("how fast does time return to normal?",RequiredFieldAttribute.RequirementLevels.Optional)]
 		public float recoveryRate = 0f;
+		public Slider timeControl;
 
 		public HelpInfo help = new HelpInfo("This component allows the speed of the game to be changed. If 'T Scale' is less than 1, slow things down. If greater than 1, speed up. " +
 			"If less than 0, speed up (Time cannot run backwards). SetRecoveryRate and SetTimeScale both take a floating point value.");
 
 		void Update () {
+			if (timeControl != null)
+				tScale = timeControl.value;
 			Time.timeScale = tScale;
 			if (recoveryRate != 0) {
 				if (tScale > 1) {

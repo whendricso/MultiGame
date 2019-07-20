@@ -301,7 +301,6 @@ namespace MultiGame {
 			}
 		}
 
-		[Header("Available Messages")]
 		public MessageHelp editCharacterHelp = new MessageHelp("EditCharacter","Enables character editing and disables controls for a clean experience.");
 		public void EditCharacter () {
 			OpenMenu();

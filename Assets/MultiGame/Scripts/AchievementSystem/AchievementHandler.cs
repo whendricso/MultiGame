@@ -8,6 +8,7 @@ namespace MultiGame {
 	[RequireComponent(typeof(AudioSource))]
 	public class AchievementHandler : MultiModule {
 
+		[Reorderable]
 		[Tooltip("A list of achievements for this object. It's object-specific, allowing you to create multiple achievement lists if you desire")]
 		public List<Achievement> achievements = new List<Achievement>();
 		[Tooltip("A legacy Unity GUI listing all achievements and their level of completion. Not recommended for mobile.")]

@@ -74,9 +74,9 @@ namespace MultiGame {
 			"To create a speaker playing music, use this component without the 'Persistent' component, and set the 'Spatial Blend' setting on the 'Audio Source' all the way to '3D'.");
 		
 		void Start () {
-			current1 = category1.Length;
-			current2 = category2.Length;
-			current3 = category3.Length;
+			current1 = category1.Length - 1;
+			current2 = category2.Length - 1;
+			current3 = category3.Length - 1;
 			if (PlayerPrefs.HasKey (gameObject.name + "musicVolume"))
 				musicVolume = PlayerPrefs.GetFloat (gameObject.name + "musicVolume");
 			source = GetComponent<AudioSource> ();
@@ -99,6 +99,11 @@ namespace MultiGame {
 		}
 
 		void Update () {
+			AssignCurrentClip();
+			if (enableMusic && !source.isPlaying)
+				source.Play();
+			if (!enableMusic && source.isPlaying)
+				source.Stop();
 			source.volume = musicVolume;
 			if (!musicFading) {
 				if (volumeSlider != null) {
@@ -187,6 +192,26 @@ namespace MultiGame {
 			}
 		}
 
+		private void AssignCurrentClip() {
+			Debug.Log("" + current1 + " " + current2 + " " + current3);
+			if (source.clip == null) {
+				switch (musicCategory) {
+					case MusicCategories.One:
+						if (category1.Length > 0)
+							source.clip = category1[current1];
+						break;
+					case MusicCategories.Two:
+						if (category2.Length > 0)
+							source.clip = category2[current2];
+						break;
+					case MusicCategories.Three:
+						if (category3.Length > 0)
+							source.clip = category3[current3];
+						break;
+				}
+			}
+		}
+
 		[Header("Available Messages")]
 		public MessageHelp toggleMusicGUIHelp = new MessageHelp("ToggleMusicGUI","Toggles the legacy Unity GUI for music control.");
 		public void ToggleMusicGUI () {
@@ -199,12 +224,6 @@ namespace MultiGame {
 		public void ToggleMusic () {
 			if (!gameObject.activeInHierarchy)
 				return;
-			if (source.clip == null && category1.Length > 0)
-				source.clip = category1[0];
-			if (enableMusic)
-				source.Stop();
-			else
-				source.Play();
 			enableMusic = !enableMusic;
 		}
 
@@ -271,6 +290,10 @@ namespace MultiGame {
 				return;
 			if (musicFading)
 				return;
+			AssignCurrentClip();
+			enableMusic = true;
+			if (!source.isPlaying)
+				source.Play();
 			musicFading = true;
 			previousVolumeSetting = musicVolume;
 			fadeStartTime = Time.time;
@@ -291,6 +314,39 @@ namespace MultiGame {
 				return;
 			fadeDuration = time;
 			FadeIn ();
+		}
+
+		public MessageHelp playSongHelp = new MessageHelp("PlaySong","Plays the song you want from the current category.",2,"The index of the song you want to play. Indices start at 0 (not 1) so the first song is index 0, second is index 1 etc.");
+		public void PlaySong(int _song) {
+			StopAllCoroutines();
+			enableMusic = true;
+			source.loop = false;
+			StartCoroutine(PlayOneSong(_song));
+		}
+
+		public MessageHelp playSongLoopingHelp = new MessageHelp("PlaySongLooping", "Plays the song you want from the current category, and loops it continuously.", 2, "The index of the song you want to play. Indices start at 0 (not 1) so the first song is index 0, second is index 1 etc.");
+		public void PlaySongLooping(int _song) {
+			FadeOut();
+			StopAllCoroutines();
+			enableMusic = true;
+			source.loop = true;
+			StartCoroutine(PlayOneSong(_song));
+		}
+
+		IEnumerator PlayOneSong(int _song) {
+			yield return new WaitForSeconds(fadeDuration);
+			switch (musicCategory) {
+				case MusicCategories.One:
+					source.clip = category1[_song];
+					break;
+				case MusicCategories.Two:
+					source.clip = category2[_song];
+					break;
+				case MusicCategories.Three:
+					source.clip = category3[_song];
+					break;
+			}
+			FadeIn();
 		}
 	}
 }

@@ -52,8 +52,13 @@ namespace MultiGame
 		//private GameObject lookAtTarget;
 
 		public enum UpdateModes {Late, Fixed};
+		[Header("General Settings")]
 		[Tooltip("Change this if you experience jitter")]
 		public UpdateModes updateMode = UpdateModes.Fixed;
+		[Tooltip("Should we cast a ray back from the Player object to see if there is anything between it and the camera?")]
+		public bool checkForObstructions = false;
+		[Tooltip("What objects should count as obstructions which will be made invisible if blocking the camera?")]
+		public LayerMask obstructionMask;
 
 		[Header("Shake Settings")]
 		public bool shake = true;
@@ -74,6 +79,7 @@ namespace MultiGame
 		private Vector3 newPos;
 		private Vector3 mvVel = Vector3.zero;
 		private Transform aimTrans;
+		private GameObject hiddenObject = null;
 
 		public HelpInfo help = new HelpInfo("Smart Cam automatically follows an object. If there is no object to follow, it will attempt to find the Player object by tag.");
 
@@ -124,10 +130,31 @@ namespace MultiGame
 		}
 
 		void LateUpdate () {
+			if (checkForObstructions)
+				CheckForObstructions();
 			if (updateMode == UpdateModes.Late) {
 				FollowTarget();
 				if (rotationSpeed > 0)
 					RotateToTarget();
+			}
+		}
+
+		void CheckForObstructions() {
+			if (target == null)
+				return;
+			RaycastHit _hinfo;
+			bool didHit = Physics.Linecast(target.transform.position, Camera.main.transform.position, out _hinfo, obstructionMask, QueryTriggerInteraction.Ignore);
+			if (didHit) {
+				if (hiddenObject != null && _hinfo.collider.gameObject != hiddenObject)
+					hiddenObject.GetComponentInChildren<Renderer>().enabled = true;
+				hiddenObject = _hinfo.collider.gameObject;
+				hiddenObject.GetComponentInChildren<Renderer>().enabled = false;
+			}
+			else {
+				if (hiddenObject != null) {
+					hiddenObject.GetComponentInChildren<Renderer>().enabled = true;
+					hiddenObject = null;
+				}
 			}
 		}
 
@@ -148,7 +175,7 @@ namespace MultiGame
 		}
 
 		void FollowTarget() {
-			if (target) {
+			if (target != null) {
 				finalOffset = target.transform.TransformDirection(relativeOffset) + globalOffset;
 				newPos = target.position + finalOffset;
 				transform.position = Vector3.SmoothDamp(transform.position, newPos,ref mvVel, followTime);//Vector3.Lerp(transform.position, newPos, followSpeed * Time.deltaTime);
@@ -157,6 +184,8 @@ namespace MultiGame
 
 		//Vector3 rotvel = Vector3.zero;
 		void RotateToTarget() {
+			if (target == null)
+				return;
 			aimTrans.LookAt(target.transform.position + lookOffset, Vector3.up);
 			transform.rotation = Quaternion.SlerpUnclamped(transform.rotation, aimTrans.rotation, Time.deltaTime * rotationSpeed);
 			transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, 0);

@@ -139,5 +139,18 @@ namespace MultiGame {
 			}
 			return _ret;
 		}
+
+		public Vector3 FindCenterOfImage(GameObject _target) {
+			Vector3 _ret = Vector3.zero;
+			int i = 0;
+			List<Renderer> renderers = new List<Renderer>(_target.transform.root.GetComponentsInChildren<Renderer>());
+
+			for (i = 0; i < renderers.Count; i++) {
+				_ret += renderers[i].bounds.center;
+			}
+			_ret /= i;
+
+			return _ret;
+		}
 	}
 }

@@ -73,7 +73,7 @@ namespace MultiGame {
 			if (!gameObject.activeInHierarchy)
 				return;
 			if (debug)
-				Debug.Log("Toggle " + val);
+				Debug.Log(gameObject.name + " Toggled " + (int)(gameObjectTargets.Length + scriptTargets.Length) + " targets " + val);
 			previousVal = !val;
 			if (lightTarget != null)
 				lightTarget.enabled = val;

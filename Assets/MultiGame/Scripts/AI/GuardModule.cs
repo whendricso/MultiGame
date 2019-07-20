@@ -46,7 +46,7 @@ namespace MultiGame {
 
 #if UNITY_EDITOR
 
-		public HelpInfo help = new HelpInfo("Add to an object representing an AI guard. This should be an empty object with a 3D model of a guard parented to it." +
+		public HelpInfo help = new HelpInfo("Add to an object representing an AI guard or cannon fodder. This should be an empty object with a 3D model of a guard parented to it." +
 			"\nBy \"Guard\" we mean an AI that should stay in a given area or near a given object, and attack enemies that provoke it. To use this effectively, we recommend" +
 			" also adding a NavModule or similar, since this guard will probably need to get around. Also, add some sort of combat component, or attach a turret so it can do harm.");
 
@@ -75,7 +75,7 @@ namespace MultiGame {
 			if (gameObject.activeInHierarchy && !string.IsNullOrEmpty (guardObjectiveTag)) {
 
 				if (objective == null)
-					objective = GameObject.FindGameObjectWithTag (guardObjectiveTag);
+					objective = FindClosestByTag(guardObjectiveTag);//GameObject.FindGameObjectWithTag (guardObjectiveTag);
 			}
 			StartCoroutine (SearchForObjective());
 		}
@@ -85,15 +85,15 @@ namespace MultiGame {
 				StartCoroutine(StopWandering(0));
 
 			//Debug.Log(Vector3.Distance(transform.position, objectivePosition));
-			if (objective != null) {
+			/*if (objective != null) {
 				objectivePosition = objective.transform.position;
 				gameObject.SendMessage("MoveTo",objectivePosition, SendMessageOptions.DontRequireReceiver);
 			}
-			else
+			else*/
 				objectivePosition = persistentMoveTarget;
 
 			if (!returning) {
-				if (Vector3.Distance(transform.position, objectivePosition) > guardRange && objective == null) {
+				if (Vector3.Distance(transform.position, objectivePosition) > guardRange /*&& objective == null*/) {
 					if (debug)
 						Debug.Log("Guard " + gameObject.name + " has left guard range, returning...");
 					returning = true;
@@ -132,8 +132,8 @@ namespace MultiGame {
 		public void Wander () {
 			if (!gameObject.activeInHierarchy)
 				return;
-			if (objective != null)
-				return;
+			//if (objective != null)
+			//	return;
 			StopAllCoroutines();
 			StartCoroutine(StopWandering(wanderWalkTime));
 			wandering = true;
@@ -154,19 +154,18 @@ namespace MultiGame {
 				_variance *= -1;
 
 			_y += (guardingRotation + _variance) * _sign;
-
 			transform.RotateAround(transform.position, Vector3.up, _y);
 		}
 
 		public void SetTarget (GameObject _target) {
 			if (!gameObject.activeInHierarchy)
 				return;
-			if (objective != null)
-				return;
+			//if (objective != null)
+			//	return;
 			if (debug)
 				Debug.Log("Guard " + gameObject.name + " is now targeting " + _target.name);
 			killTarget = _target;
-			objective = _target;
+			//objective = _target;
 			SetObjective(_target.transform.position);
 		}
 
@@ -175,7 +174,7 @@ namespace MultiGame {
 			if (debug)
 				Debug.Log("Guard " + gameObject.name + " cleared it's target.");
 			killTarget = null;
-			objective = null;
+			//objective = null;
 			StartCoroutine(StopWandering(0));
 		}
 
@@ -206,7 +205,7 @@ namespace MultiGame {
 			if (!gameObject.activeInHierarchy)
 				return;
 			persistentMoveTarget = _position;
-			SetObjective(_position);
+			//SetObjective(_position);
 		}
 
 

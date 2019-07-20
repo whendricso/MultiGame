@@ -11,7 +11,8 @@ namespace MultiGame {
 		[Header("Targeting Parameters")]
 		[Tooltip("How far above or below the target object's origin should we look for the 'center' of the object?")]
 		public float tgtYOffset = .5f;
-		[Tooltip("How wide should the target cone be? We must be facing withing this number of degrees of the target position + Tgt Y Offset to apply damage")]
+		[Tooltip("How wide should the target cone be? We must be facing within this percentage of a 180 degree FOV of the target position + Tgt Y Offset to apply damage")]
+		[Range(0,1)]
 		public float headingConeRadius = .35f;
 
 		[Header("Combat Settings")]
@@ -188,7 +189,7 @@ namespace MultiGame {
 						}
 						target.gameObject.SendMessage("ModifyHealth", -attackDamage, SendMessageOptions.DontRequireReceiver);
 						if (stunTime > 0)
-							target.gameObject.SendMessage("HitStun", stunTime);
+							target.gameObject.SendMessage("HitStun", stunTime, SendMessageOptions.DontRequireReceiver);
 						if (source != null && hitSounds.Count > 0)
 							source.PlayOneShot(hitSounds[Mathf.FloorToInt(Random.Range(0, hitSounds.Count))]);
 					}

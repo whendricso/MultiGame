@@ -63,7 +63,7 @@ namespace MultiGame {
 			if (_designator != designator)
 				return;
 			if (debug)
-				Debug.Log("Behavior Sequencer" + gameObject.name + " is starting sequence " + _designator);
+				Debug.Log("Behavior Sequencer " + gameObject.name + " is starting sequence " + _designator);
 			if (exclusive) {
 				gameObject.SendMessage("InterruptAll",SendMessageOptions.DontRequireReceiver);
 			}

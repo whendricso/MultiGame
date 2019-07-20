@@ -23,7 +23,7 @@ namespace MultiGame {
 		}
 
 		static MultiGameSettingsWindow() {
-			Debug.Log("Settings initialized");
+			//Debug.Log("Settings initialized");
 			if (!settingsLoaded) {
 				LoadSettings();
 			}

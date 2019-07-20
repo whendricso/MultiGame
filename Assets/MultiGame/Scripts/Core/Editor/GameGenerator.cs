@@ -840,18 +840,18 @@ namespace MultiGame {
 					y_01 = (float)y/(float)terrain.terrainData.alphamapHeight;
 					x_01 = (float)x/(float)terrain.terrainData.alphamapWidth;
 
-					height = terrain.terrainData.GetHeight(Mathf.RoundToInt(y_01 * terrain.terrainData.heightmapHeight),Mathf.RoundToInt(x_01 * terrain.terrainData.heightmapWidth) );
+					height = terrain.terrainData.GetHeight(Mathf.RoundToInt(y_01 * terrain.terrainData.heightmapResolution),Mathf.RoundToInt(x_01 * terrain.terrainData.heightmapResolution) );
 //					normal = terrain.terrainData.GetInterpolatedNormal(y_01,x_01);
 					steepness = terrain.terrainData.GetSteepness(y_01,x_01);
 //					percentOfHeight = height / terrain.terrainData.heightmapHeight;
 
 					//first, we will do the underpainting, the three main textures are generated in first
 	//				splatWeights[1] = splatWeights[0] + percentOfHeight * level.textureBorder2;//grassland/forest
-					splatWeights[0] =  Mathf.Clamp01((terrain.terrainData.heightmapHeight*level.textureBorder1 - height)/level.textureBorderBlend);
+					splatWeights[0] =  Mathf.Clamp01((terrain.terrainData.heightmapResolution*level.textureBorder1 - height)/level.textureBorderBlend);
 					splatWeights[1] = .5f;//splatWeights[1] + percentOfHeight;//grassland/forest
-					splatWeights[2] = Mathf.Clamp01(1f- ((terrain.terrainData.heightmapHeight*level.textureBorder2 - height)/(level.textureBorderBlend)));
+					splatWeights[2] = Mathf.Clamp01(1f- ((terrain.terrainData.heightmapResolution*level.textureBorder2 - height)/(level.textureBorderBlend)));
 	//				splatWeights[3] = Mathf.Clamp01( ( Mathf.Clamp01(1f- ((terrain.terrainData.heightmapHeight*level.highlandFactor - height)/(level.textureBorderBlend)*10f)) * Mathf.Clamp01(2 * normal.normalized.y)) / level.textureBorderBlend);
-					splatWeights[3] = Mathf.Clamp01 (   ((  (1.0f - Mathf.Clamp01((steepness*steepness/(terrain.terrainData.heightmapHeight)    )/* * level.lowlandFactor*/  + height* (1-level.lowlandFactor) )     ) )/* - splatWeights[3]*/) /(level.textureBorderBlend) );
+					splatWeights[3] = Mathf.Clamp01 (   ((  (1.0f - Mathf.Clamp01((steepness*steepness/(terrain.terrainData.heightmapResolution)    )/* * level.lowlandFactor*/  + height* (1-level.lowlandFactor) )     ) )/* - splatWeights[3]*/) /(level.textureBorderBlend) );
 
 	//				splatWeights[3] =  (height * Mathf.Clamp01(normal.normalized.y/level.textureBorderBlend));
 	//

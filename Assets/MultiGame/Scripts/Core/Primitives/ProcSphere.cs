@@ -161,11 +161,11 @@ namespace MultiGame {
 			mesh.triangles = triangles;
 			//Unwrapping.GenerateSecondaryUVSet(mesh);
 			if (coll != null) {
-				if (longitudinalSections > 15 || latitudinalSections > 15)
+				/*if (longitudinalSections > 15 || latitudinalSections > 15)
 					coll.inflateMesh = true;
 				if (longitudinalSections <= 15 && latitudinalSections <= 15)
 					coll.inflateMesh = false;
-
+					*///Obsolete
 
 				coll.sharedMesh = mesh;
 			}

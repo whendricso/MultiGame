@@ -7,19 +7,19 @@ namespace MultiGame {
 
 	public class RangeSpawner : MultiModule {
 
-		[Tooltip("the prefab we're spawning")]
+		[Tooltip("The prefab we're spawning")]
 		public GameObject spawnableObject;
-		[Tooltip("tag of the player object")]
-		public string targetTag = "Player";
+		[Tooltip("Tag of the object we wish to spawn near. Leave blank to use the object that this component is attached to.")]
+		public string targetTag = "";
 		[Tooltip("how many objects should we spawn?")]
-		public int numberToSpawn = 5;//
+		public int numberToSpawn = 5;
 		[Tooltip("Should we spawn the objects as soon as it is created?")]
 		public bool spawnOnStart = true;
 		[Tooltip("how far should the objects be from each other minimum?")]
 		public float objectSeparation = 1;//
-		[Tooltip("How far should the objects be from the player minimum?")]
-		public float playerSeparation = 1.5f;//
-		[Tooltip("How far on the x and z axes should we try to place the objects from the player?")]
+		[Tooltip("How far should the objects be from the object that they are being spawned around?")]
+		public float rootSeparation = 1.5f;//
+		[Tooltip("How far on the x and z axes should we try to place the objects from the object that they are being spawned around?")]
 		public float xzPlanarRange = 3f;//
 		[Tooltip("How many times can we try to place the objects? We will stop trying to place any if we run out of Iterations.")]
 		public int maxIterations = 30;
@@ -40,7 +40,10 @@ namespace MultiGame {
 
 		public MessageHelp spawnObjectsHelp = new MessageHelp("SpawnObjects", "Instantly tries to spawn objects around the closest object defined by the 'Target Tag'");
 		public void SpawnObjects() {
-			targetObject = FindClosestByTag(targetTag);//GameObject.FindGameObjectWithTag(playerTag);
+			if (!string.IsNullOrEmpty(targetTag))
+				targetObject = FindClosestByTag(targetTag);//GameObject.FindGameObjectWithTag(playerTag);
+			else
+				targetObject = gameObject;
 			if (targetObject == null) {
 				Debug.LogError("Range Spawner " + gameObject.name + " requires a targetable object in the scene!");
 				//enabled = false;
@@ -59,7 +62,7 @@ namespace MultiGame {
 				while (currentIterations < maxIterations) {
 					placementPoint = new Vector3(targetObject.transform.position.x + Random.Range(-(xzPlanarRange * flipFlopX), (xzPlanarRange * flipFlopX)), targetObject.transform.position.y + .1f, targetObject.transform.position.z + Random.Range(-(xzPlanarRange * flipFlopZ), (xzPlanarRange * flipFlopZ)));
 					currentIterations++;
-					if (FindClosestObjectSeparation(placementPoint) >= objectSeparation && Vector3.Distance(placementPoint, targetObject.transform.position) >= playerSeparation)
+					if (FindClosestObjectSeparation(placementPoint) >= objectSeparation && Vector3.Distance(placementPoint, targetObject.transform.position) >= rootSeparation)
 						break;
 				}
 

@@ -31,7 +31,7 @@ namespace MultiGame {
 		public float buttonPad = 5.0f;
 		private GameObject player;
 		Inventory inventory;
-		private bool populated = false;
+		//private bool populated = false;
 
 		public Dictionary<string, GameObject> inv = new Dictionary<string, GameObject>();
 		public Dictionary<string, int> invCount = new Dictionary<string, int>();
@@ -42,23 +42,15 @@ namespace MultiGame {
 			"limit the accessable range of this container, assign the 'Max Distance' property above. The contents of the container can be serialized by passing the 'Save' and 'Load' messages " +
 			"appropriately.");
 
-		private void Start() {
-			if (PlayerPrefs.HasKey("container" + fileName)) {
-				if (PlayerPrefs.GetInt("container" + fileName) > 0)
-					populated = true;
-			}
-			if (populated)
-				return;
-			populated = true;
-			PlayerPrefs.SetInt("container" + fileName, 1);
+		public bool debug = false;
 
-			foreach (ActiveObject _active in items) {
-				if (!inv.ContainsKey(_active.inventoryKey)) {
-					inv.Add(_active.inventoryKey, _active.gameObject);
-					invCount.Add(_active.inventoryKey, 1);
-				} else {
-					invCount[_active.inventoryKey]++;
-				}
+		private void Start() {
+			for (int i = 0; i < items.Count; i++) {
+				if (!inv.ContainsKey(items[i].inventoryKey)) {
+					inv.Add(items[i].inventoryKey, items[i].gameObject);
+					invCount.Add(items[i].inventoryKey, 1);
+				} else
+					invCount[items[i].inventoryKey]++;
 			}
 		}
 
@@ -122,22 +114,56 @@ namespace MultiGame {
 
 		}
 
+		/// <summary>
+		/// Add an object to the Container the same way you do with Player inventory, by passing a key value pair with a name and a prefab
+		/// </summary>
+		/// <param name="_kvp">A string name for the Inventory key and a prefab that represents it containing an ActiveObject component</param>
+		public void Pick(KeyValuePair<string, GameObject> _kvp) {
+			if (debug)
+				Debug.Log("Container " + gameObject.name + " is picking (" + _kvp.Key + ", " + _kvp.Value.name + ")");
+			if (!inv.ContainsKey(_kvp.Key)) {
+				inv.Add(_kvp.Key, _kvp.Value);
+				invCount.Add(_kvp.Key, 1);
+			} else {
+				if (invCount.ContainsKey(_kvp.Key))
+					invCount[_kvp.Key]++;
+				else
+					invCount.Add(_kvp.Key, 1);
+			}
+		}
+
 		[Header("Available Messages")]
+		public MessageHelp pickByNameHelp = new MessageHelp("PickByName","Loads the GameObject and checks for an ActiveObject component. If one is found, adds the item to the Container",4,"The name of the prefab we want to add to the Container. Prefab must have an ActiveObject component.");
+		public void PickByName(string _activeItemName) {
+			GameObject _active = Resources.Load<GameObject>(_activeItemName);
+			if (_active == null)
+				return;
+			ActiveObject _ob = _active.GetComponent<ActiveObject>();
+			if (_ob == null)
+				return;
+
+			Pick(new KeyValuePair<string, GameObject>(_ob.inventoryKey, _active));
+		}
+
 		public MessageHelp removeHelp = new MessageHelp("Remove", "Allows you to remove an item from the container by passing it's inventory key. This destroys the object.", 4, "The inventory key of the item you want to remove");
-		public void Remove(string key) {
-			if (invCount.ContainsKey(key)) {
-				if (invCount[key] > 1)
-					invCount[key] -= 1;
+		public void Remove(string _key) {
+			if (debug)
+				Debug.Log("Container " + gameObject.name + " is removing " + _key);
+			if (invCount.ContainsKey(_key)) {
+				if (invCount[_key] > 1)
+					invCount[_key] -= 1;
 				else {
-					invCount.Remove(key);
-					if (inv.ContainsKey(key))
-						inv.Remove(key);
+					invCount.Remove(_key);
+					if (inv.ContainsKey(_key))
+						inv.Remove(_key);
 				}
 			}
 		}
 
 		public MessageHelp saveHelp = new MessageHelp("Save", "Saves the inventory in a binary file on the player's machine. Does not work on web builds");
 		public void Save() {
+			if (debug)
+				Debug.Log("Container " + gameObject.name + " is saving " + inv.Count + " objects.");
 			if (string.IsNullOrEmpty(fileName)) {
 				Debug.LogError("Container " + gameObject.name + " reuires a filename for save & load functionality. Please specify a file name in the Inspector.");
 				return;
@@ -158,6 +184,8 @@ namespace MultiGame {
 
 		public MessageHelp loadHelp = new MessageHelp("Load", "Loads inventory from a binary file on the player's machine. Does not work on web builds");
 		public void Load() {
+			if (debug)
+				Debug.Log("Container " + gameObject.name + " is loading.");
 			if (string.IsNullOrEmpty(fileName)) {
 				Debug.LogError("Container " + gameObject.name + " reuires a filename for save & load functionality. Please specify a file name in the Inspector.");
 				return;
@@ -181,6 +209,8 @@ namespace MultiGame {
 				invCount.Add(_invKey, _kvp.Value);
 			}
 			stream.Close();
+			if (debug)
+				Debug.Log("Container " + gameObject.name + " loaded " + inv.Count + " objects.");
 		}
 
 		public MessageHelp openContainerHelp = new MessageHelp("OpenContainer","Opens the container GUI");

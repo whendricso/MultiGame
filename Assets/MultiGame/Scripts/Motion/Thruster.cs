@@ -24,7 +24,8 @@ namespace MultiGame {
 		public bool useInputAxis = false;
 		[Tooltip("How sensitive is that axis?")]
 		public float inputSensitivity = 0.2f;
-
+		[Tooltip("If a Particle Controller component is present, the Thruster will control it's Emission multiplier as a percentage of current thrust")]
+		public ParticleController controller;
 		private Rigidbody rigid;
 		//private bool useTargetRigidbody = false;
 
@@ -33,6 +34,10 @@ namespace MultiGame {
 			"how strong it is in which directions. Negative values may be used. Finally, either set it's 'Thrusting' setting to true, or send messages to it to control it's thrust state.");
 
 		void OnEnable () {
+			if (controller == null)
+				controller = GetComponent<ParticleController>();
+			if (controller == null)
+				controller = GetComponentInChildren<ParticleController>();
 			if (target == null)
 				target = gameObject;
 			rigid = target.GetComponent<Rigidbody>();
@@ -85,11 +90,15 @@ namespace MultiGame {
 		public MessageHelp beginThrustHelp = new MessageHelp("BeginThrust","Start to send the predetermined amount of force to the rigidbody each frame until stopped.");
 		public void BeginThrust () {
 			thrusting = true;
+			if (controller != null)
+				controller.FadeIn();
 		}
 
 		public MessageHelp endThrustHelp = new MessageHelp("EndThrust","Stop thrusting");
 		public void EndThrust () {
 			thrusting = false;
+			if (controller != null)
+				controller.FadeOut();
 		}
 
 		public MessageHelp thrustAmountHelp = new MessageHelp("ThrustAmount","Thrust a specific amount this frame",3,"The scalar of thrust we want to send (multiplied by the 'Thrust' you indicated above)");
@@ -125,6 +134,36 @@ namespace MultiGame {
 				else
 					rigid.AddForceAtPosition(new Vector3(input.x * thrust.x, input.y * thrust.y, input.z * thrust.z),transform.position, ForceMode.Force);
 			}
+			/*
+			if (controller != null) {
+				if (useInputAxis) {
+					return;
+				}
+					int _axesCount = 0;
+					float total = 0;
+					if (Mathf.Abs(input.x) > 0) {
+						_axesCount++;
+						total += Mathf.Abs(input.x);
+					}
+					if (Mathf.Abs(input.y) > 0) {
+						_axesCount++;
+						total += Mathf.Abs(input.y);
+					}
+					if (Mathf.Abs(input.z) > 0) {
+						_axesCount++;
+						total += Mathf.Abs(input.z);
+					}
+					if (_axesCount > 0)
+						controller.SetRatePercent(total / _axesCount);
+					else
+						controller.SetRatePercent(0);
+				} else {
+					if (thrusting)
+						controller.SetRatePercent(1);
+					else
+						controller.SetRatePercent(0);
+				//}
+			}*/
 		}
 	}
 }

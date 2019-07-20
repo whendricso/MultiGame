@@ -12,6 +12,8 @@ namespace MultiGame {
 		[Tooltip("What tags are we looking for while targeting? Any Game Object with one of these tags that is found will be passed as a target to the 'Message Receiver' defined below.")]
 		public string[] targetTags;
 		[Header("Target Settings")]
+		[Tooltip("Should we target the root transform of the object detected, or the object itself? Useful if colliders are parented to agents instead of being part of their root object.")]
+		public bool targetRoot = false;
 		[RequiredField("What object has a targeting computer, or other MultiGame AI component attached that needs a target?", RequiredFieldAttribute.RequirementLevels.Required)]
 		public GameObject messageReceiver;
 		[RequiredField("How often, in seconds, can we change targets?",RequiredFieldAttribute.RequirementLevels.Required)]
@@ -67,7 +69,10 @@ namespace MultiGame {
 				Debug.Log("Targeting Sensor " + gameObject.name + " set it's target to " + other.gameObject.name);
 			canRetarget = false;
 			StartCoroutine(ReEnableTargeting());
-			lastTarget = other.gameObject;
+			if (targetRoot)
+				lastTarget = other.transform.root.gameObject;
+			else
+				lastTarget = other.gameObject;
 			messageReceiver.SendMessage("SetTarget", lastTarget, SendMessageOptions.DontRequireReceiver);
 		}
 		

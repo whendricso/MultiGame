@@ -99,7 +99,12 @@ namespace MultiGame
 						EditorGUI.HelpBox (new Rect (rescanButtonRect.x * .2f, rescanButtonRect.y, rescanButtonRect.width / 2f, rescanButtonRect.height * 3f), "Locked. Will save & can be edited.", MessageType.Info);
 					else
 						EditorGUI.HelpBox (new Rect (rescanButtonRect.x, rescanButtonRect.y + 16f, rescanButtonRect.width, rescanButtonRect.height * 3f), "Lock message to save it.", MessageType.Warning);
-							
+
+					//if (property.FindPropertyRelative("msgOverride").boolValue) {
+
+					//}
+
+
 				} /*else {
 					if (!property.FindPropertyRelative ("msgOverride").boolValue)
 						EditorGUI.HelpBox (new Rect (rescanButtonRect.x * .2f, rescanButtonRect.y, rescanButtonRect.width / 2f, rescanButtonRect.height * 2f), "Select a message to get started.", MessageType.Info);
@@ -114,6 +119,8 @@ namespace MultiGame
 
 		public override float GetPropertyHeight (SerializedProperty property, GUIContent label)
 		{
+			if (property == null)
+				return 64;
 			string _val = property.FindPropertyRelative ("message").stringValue;
 			if (_val != "--none--" && !string.IsNullOrEmpty (_val))
 				return 96f;

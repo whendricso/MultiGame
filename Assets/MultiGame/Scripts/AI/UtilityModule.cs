@@ -6,17 +6,30 @@ using UnityEngine.UI;
 
 namespace MultiGame {
 	//[RequireComponent(typeof(NavModule))]
+	[AddComponentMenu("MultiGame/AI/Utility Module")]
 	public class UtilityModule : MultiModule {
+
+		[Tooltip("A unique string wich identifies this particular Utility Module from all others. Used for serialization only")]
+		public string uniqueIdentifier;
+		[Tooltip("The name of this personality that will be displayed to the player")]
+		public string personalityName;
+
+		[Header("IMGUI Settings")]
+		public bool showGui = false;
+		[Tooltip("Normalized viewport rectangle which controls the part of the screen which is taken up by the GUI box for this Utility AI. Numbers are a percentage of screen coordinates. Only applies to immediate mode GUI")]
+		public Rect guiArea = new Rect(.3f,.3f,.3f,.3f);
+		public GUISkin guiSkin;
+
+		[Header("UGUI Settings")]
+		[Tooltip("If we're using UGUI (as opposed to immediate mode) assign this to display the name of the personality for this AI")]
+		public Text nameDisplay;
 
 		[Reorderable]
 		public List<Directive> directives = new List<Directive>();
 
 		private int currrentsequence = -1;
 		private int highest = -1;
-		private string selector = "";//the directive we currently have selected
-
-		[BoolButton][Tooltip("Adds a new Behavior Sequencer component.")]
-		public bool addSequencer = false;
+		private string selector = "";
 
 		public HelpInfo help = new HelpInfo("Utility Module is a decision-making machine which compares your Directive's Utility Graphs and activates Behavior Sequencer components to orchestrate complex behavior. " +
 			"The graphs are compared at their current Valence (X axis) to get their Utility (Y axis). " +
@@ -27,12 +40,8 @@ namespace MultiGame {
 		[System.Serializable]
 		public class Directive {
 			public string name;
-			[Tooltip("If assigned, the Utility level for this directive will be output to a UI Text object")]
-			public Text utilityDisplay;
-			//public enum Modalities { fixedUtil, temporal,  programmatic};//FixedUti always returns maxUtility, temporal changes over time, programmatic changes based on messages
-			//public Modalities modality = Modalities.fixedUtil;
-			//[RequiredField("The Behavior Sequencer we wish to use to fulfill this directive")]
-			//public BehaviorSequencer sequencer;
+			[Tooltip("If assigned, the Utility level for this directive will be output to a UI Slider object")]
+			public Slider utilityDisplay;
 			[Tooltip("What Game Object contains the sequencer(s) we wish to use to attempt to satisfy this Directive?")]
 			public GameObject sequencerObject;
 			[Tooltip("What designator is assigned to the Behavior Sequencer(s) we wish to use to attempt to satisfy this Directive? This can be found on the 'Behavior Sequencer' component.")]
@@ -73,6 +82,9 @@ namespace MultiGame {
 		void OnValidate() {
 			AdjustUtilities();
 
+			if (string.IsNullOrEmpty(uniqueIdentifier))
+				RandomizeIdentifier();
+
 			foreach (Directive _dir in directives) {
 				if (_dir.utilityGraph.keys.Length <= 0) {
 					_dir.utilityGraph.AddKey(0, 0);
@@ -81,14 +93,29 @@ namespace MultiGame {
 				if (_dir.sequencerObject == null)
 					_dir.sequencerObject = gameObject;
 			}
-			if (addSequencer) {
-				addSequencer = false;
-				AddSequencer();
-			}
 		}
 
-		private void AddSequencer() {
-			BehaviorSequencer _seq = gameObject.AddComponent<BehaviorSequencer>();
+		void OnGUI() {
+			if (!showGui)
+				return;
+			GUI.skin = guiSkin;
+			GUILayout.BeginArea(new Rect(guiArea.x * Screen.width, guiArea.y * Screen.height, guiArea.width * Screen.width, guiArea.height * Screen.height),"","box");
+			if (!string.IsNullOrEmpty(personalityName)) {
+				GUILayout.BeginHorizontal();
+				GUILayout.FlexibleSpace();
+				GUILayout.Label(personalityName);
+				GUILayout.FlexibleSpace();
+				GUILayout.EndHorizontal();
+				GUILayout.FlexibleSpace();
+			}
+			for (int i = 0; i < directives.Count; i++) {
+				GUILayout.BeginHorizontal();
+				GUILayout.Label(directives[i].name);
+				GUILayout.FlexibleSpace();
+				GUILayout.HorizontalSlider(directives[i].utility,0,1, GUILayout.Width(100));
+				GUILayout.EndHorizontal();
+			}
+			GUILayout.EndArea();
 		}
 
 		void Start() {
@@ -100,9 +127,12 @@ namespace MultiGame {
 				if (_dir.sequencerObject == null)
 					_dir.sequencerObject = gameObject;
 				if (_dir.utilityDisplay != null) {
-					_dir.utilityDisplay.text =  "" + _dir.utility;
+					_dir.utilityDisplay.value = _dir.utility;
 				}
 			}
+
+			if (nameDisplay != null)
+				nameDisplay.text = personalityName;
 		}
 
 		void Update() {
@@ -113,6 +143,12 @@ namespace MultiGame {
 					InitializeDirective(highest);
 				}
 			}
+			foreach (Directive _dir in directives) {
+				if (_dir.utilityDisplay != null) {
+					_dir.utilityDisplay.value = _dir.utility;
+				}
+			}
+			
 		}
 
 		void InitializeDirective(int _index) {
@@ -148,6 +184,9 @@ namespace MultiGame {
 			return ret;
 		}
 
+		[Header("Available Messages")]
+		
+
 		public MessageHelp satisfyDirectiveHelp = new MessageHelp("SatisfyDirective","Applies the 'Satisfaction Value' of the given directive so that the valence of that directive can change",4, "The name of the directive we wish to satisfy. This moves the current X position on the Utility Graph ( Valence = Satisfaction Value + Valence). To satisfy completely, set Satsifaction Value to -1. To max out the graph, set Satsifaction Value to + 1.");
 		public void SatisfyDirective(string _directiveName) {
 			foreach (Directive _dir in directives) {
@@ -169,6 +208,77 @@ namespace MultiGame {
 					_dir.valence += _satisfaction;
 				}
 			}
+		}
+
+		public MessageHelp decideHelp = new MessageHelp("Decide", "Causes the AI to re-evaluate it's directives and immediately initiate a Behavior Sequencer, even if that sequence is already running.");
+		public void Decide() {
+			highest = FindHighestUtility();
+			if (highest != -1)
+				InitializeDirective(highest);
+		}
+
+		public MessageHelp saveHelp = new MessageHelp("Save","Saves the current state of this Utility Module based on it's unique identifier");
+		public void Save() {
+			PlayerPrefs.SetString("Util_" + uniqueIdentifier + "_personalityName", personalityName);
+			for (int i = 0; i < directives.Count; i++) {
+				PlayerPrefs.SetFloat("Util_" +uniqueIdentifier + "_" + i,directives[i].valence);
+			}
+		}
+
+		public MessageHelp loadHelp = new MessageHelp("Load","Loads the previous state of the Utilitymodule based on it's unique identifier");
+		public void Load() {
+			if (!PlayerPrefs.HasKey("Util_" + uniqueIdentifier + "_" + 0))
+				return;
+			if (PlayerPrefs.HasKey("Util_" + uniqueIdentifier + "_personalityName"))
+				personalityName = PlayerPrefs.GetString("Util_" + uniqueIdentifier + "_personalityName");
+			for (int i = 0; i < directives.Count; i++) {
+				directives[i].valence = PlayerPrefs.GetFloat("Util_" + uniqueIdentifier + "_" + i);
+			}
+			if (nameDisplay != null)
+				nameDisplay.text = personalityName;
+		}
+
+		public MessageHelp randomizeIdentifierHelp = new MessageHelp("RandomizeIdentifier","Finds an unused random number and uses it as the new Unique Identifier for this Utility Module");
+		public void RandomizeIdentifier() {
+			uniqueIdentifier = "";
+			int _maxIterations = 100;
+			int _currentIterations = 0;
+			while (string.IsNullOrEmpty(uniqueIdentifier)) {
+				int _rnd = Random.Range(0, 10000);
+				if (!PlayerPrefs.HasKey("Util_" + _rnd + "_" + 0)) {
+					uniqueIdentifier = "" + _rnd;
+				}
+				_currentIterations++;
+				if (_currentIterations >= _maxIterations)
+					break;
+			}
+		}
+
+		public MessageHelp setUniqueIdentifierHelp = new MessageHelp("SetUniqueIdentifier","Assigns a new Unique Identifier to this Utility Module",4,"The new Unique Identifier that you wish to use for this Utility Module.");
+		public void SetUniqueIdentifier(string _identifier) {
+			uniqueIdentifier = _identifier;
+		}
+
+		public MessageHelp setPersonalityNameHelp = new MessageHelp("SetPersonalityName","Assigns a new Personality Name to this Utility AI, which can be displayed as part of the AI's ");
+		public void SetPersonalityName(string _newName) {
+			personalityName = _newName;
+			if (nameDisplay != null)
+				nameDisplay.text = personalityName;
+		}
+
+		public MessageHelp openMenuHelp = new MessageHelp("OpenMenu", "Opens the IMGUI for this AI");
+		public void OpenMenu() {
+			showGui = true;
+		}
+
+		public MessageHelp closeMenuHelp = new MessageHelp("CloseMenu", "Closes the IMGUI for this AI");
+		public void CloseMenu() {
+			showGui = false;
+		}
+
+		public MessageHelp toggleMenuHelp = new MessageHelp("ToggleMenu", "Toggles the IMGUI for this AI");
+		public void ToggleMenu() {
+			showGui = !showGui;
 		}
 	}
 }

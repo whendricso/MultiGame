@@ -499,6 +499,7 @@ namespace MultiGame {
 		void OnControllerColliderHit ( ControllerColliderHit _hit) {
 			if (controller.isGrounded == false)
 				return;
+			Debug.Log("" + Vector3.Dot(Vector3.down, (_hit.point - transform.position)));
 			if (Vector3.Dot(Vector3.down, (_hit.point - transform.position)) >.9f) {
 				if (_hit.moveDirection.y < 0.9f && _hit.normal.y > 0.5f) {
 					platform = _hit.gameObject;

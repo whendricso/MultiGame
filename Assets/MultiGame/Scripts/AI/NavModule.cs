@@ -17,9 +17,12 @@ namespace MultiGame {
 		public float pathRecalculationInterval = 0.2f;
 		[RequiredField("What sound should we play while moving?",RequiredFieldAttribute.RequirementLevels.Recommended)]
 		public AudioClip movementSound;
+		[Range(0,1)]
+		public float soundVariance = .05f;
 
 		[System.NonSerialized]
 		public Animator anim;
+		private float startingPitch = 1;
 		private float recalcTimer;
 		private bool touchingTarget = false;
 		private float lastTouchTime;
@@ -47,6 +50,7 @@ namespace MultiGame {
 			source = GetComponent<AudioSource>();
 			agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
 			if (source != null && movementSound != null) {
+				startingPitch = source.pitch;
 				source.clip = movementSound;
 			}
 		}
@@ -66,7 +70,7 @@ namespace MultiGame {
 				agent.isStopped = true;
 				return;
 			}
-			if (lastTouchTime > .5f)
+			if (lastTouchTime - Time.time > .5f)
 				touchingTarget = false;
 			if (touchingTarget) {
 				transform.rotation = Quaternion.LookRotation(Vector3.RotateTowards(transform.forward, navTarget.transform.position - transform.position, agent.angularSpeed * Time.deltaTime,0f),Vector3.up);
@@ -86,19 +90,30 @@ namespace MultiGame {
 
 			if (source != null && movementSound != null) {
 				if (moveRate > 0) {
+					StartCoroutine(RandomizePitch());
 					if (!source.isPlaying)
 						source.Play();
 				}
 				else {
+					StopCoroutine(RandomizePitch());
 					source.Stop();
 				}
 			}
 
-			lastFramePosition = transform.position;
 
 			recalcTimer -= Time.deltaTime;
 			if (recalcTimer <= 0)
 				BeginPathingTowardsTarget();
+		}
+
+		private IEnumerator RandomizePitch() {
+			source.pitch = startingPitch + Random.Range(-soundVariance, soundVariance);
+			yield return new WaitForSeconds(movementSound.length);
+			StartCoroutine(RandomizePitch());
+		}
+
+		private void LateUpdate() {
+			lastFramePosition = transform.position;
 		}
 
 		void OnCollisionStay (Collision _collision) {
@@ -115,8 +130,6 @@ namespace MultiGame {
 			if (_collision.gameObject == navTarget)
 				touchingTarget = false;
 		}
-
-		
 
 		void SteerForward () {//Used by Guard Module
 			if (!gameObject.activeInHierarchy)
@@ -158,16 +171,18 @@ namespace MultiGame {
 		}
 
 		[Header("Available Messages")]
-		public MessageHelp stopMovingHelp = new MessageHelp("StopMoving","Causes the Nav Module to stop and target this position as it's move target.");
-		public void StopMoving () {
-			if(debug)
-				Debug.Log ("Nav Module " + gameObject.name + " is stopping");
-			//navTarget = null;
-			targetPosition = transform.position;
-		}
-
 		public MessageHelp stopNavigatingHelp = new MessageHelp("StopNavigating","Tells the Nav Mesh Agent to stop immediately, but does not affect the Nav Module directly.");
 		public void StopNavigating () {
+			navTarget = gameObject;
+			StopMoving();
+		}
+
+		//public MessageHelp stopMovingHelp = new MessageHelp("StopMoving","Causes the Nav Module to stop and target this position as it's move target.");
+		private void StopMoving() {
+			if (debug)
+				Debug.Log("Nav Module " + gameObject.name + " is stopping");
+			//navTarget = null;
+			targetPosition = transform.position;
 			agent.isStopped = true;
 		}
 

@@ -85,7 +85,7 @@ namespace MultiGame {
 		
 		void OnTriggerEnter (Collider other) {
 			if (debug)
-				Debug.Log("Enter " + target.name);
+				Debug.Log("Enter " + (checkRoot ? other.transform.root.gameObject.name : other.gameObject.name));
 			//if (playerOnly && other.gameObject.tag != "Player")
 			//	return;
 			
@@ -94,10 +94,12 @@ namespace MultiGame {
 			if (checkRoot && !activeTags.Contains( other.transform.root.gameObject.tag))
 				return;
 				
-			Debug.Log(messageToEnteringEntity.message);
+			if (debug)
+				Debug.Log(messageToEnteringEntity.message);
 
 			if (!string.IsNullOrEmpty(messageToEnteringEntity.message)) {
-				Debug.Log(other.name);
+				if (debug)
+					Debug.Log(other.name + " entered Active Zone " + gameObject.name);
 				if (!targetRoot)
 					MessageManager.SendTo(messageToEnteringEntity, other.gameObject);
 				else

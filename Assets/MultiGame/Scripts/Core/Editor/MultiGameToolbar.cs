@@ -40,6 +40,7 @@ namespace MultiGame {
 		private static Texture2D healthIcon;
 		private static Texture2D splineIcon;
 		private static Texture2D snapIcon;
+		private static Texture2D snapDownIcon;
 		private static Texture2D layerMaskIcon;
 		private static Texture2D shelfIcon;
 		private static Texture2D moveIcon;
@@ -58,6 +59,7 @@ namespace MultiGame {
 		private static Texture2D backupCamIcon;
 		private static Texture2D gunIcon;
 		private static Texture2D inventoryIcon;
+		private static Texture2D containerIcon;
 		private static Texture2D itemIcon;
 //		private static Texture2D itemSpawnIcon;
 //		private static Texture2D meleeInputIcon;
@@ -112,6 +114,7 @@ namespace MultiGame {
 		private static Texture2D saveSceneIcon;
 		private static Texture2D lodIcon;
 		private static Texture2D helpIcon;
+		private static Texture2D youTubeIcon;
 		//private static Texture2D messageHelpIcon;
 		private static Texture2D uvPlaneIcon;
 		private static Texture2D uvScalarIcon;
@@ -159,6 +162,8 @@ namespace MultiGame {
 			splineIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/Spline.png", typeof(Texture2D)) as Texture2D;
 			layerMaskIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/LayerMask.png", typeof(Texture2D)) as Texture2D;
 			snapIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/Snap.png", typeof(Texture2D)) as Texture2D;
+			snapDownIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/SnapToSurface.png", typeof(Texture2D)) as Texture2D;
+
 			activeCollIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/ActiveCollider.png", typeof(Texture2D)) as Texture2D;
 			activeCollSphereIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/ActiveColliderSphere.png", typeof(Texture2D)) as Texture2D;
 			activeZoneIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/ActiveZone.png", typeof(Texture2D)) as Texture2D;
@@ -177,6 +182,7 @@ namespace MultiGame {
 			moveIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/MotionButton.png", typeof(Texture2D)) as Texture2D;
 			moveRigidbodyIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/RigidbodyMotionButton.png", typeof(Texture2D)) as Texture2D;
 			inventoryIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/Inventory.png", typeof(Texture2D)) as Texture2D;
+			containerIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/Container.png", typeof(Texture2D)) as Texture2D;
 			itemIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/Item.png", typeof(Texture2D)) as Texture2D;
 //			itemSpawnIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/ItemSpawn", typeof(Texture2D)) as Texture2D;
 //			meleeInputIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/MeleeInput", typeof(Texture2D)) as Texture2D;
@@ -232,6 +238,7 @@ namespace MultiGame {
 			lodIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/LODGroup.png", typeof(Texture2D)) as Texture2D;
 			//messageHelpIcon = AssetDatabase.LoadAssetAtPath("MessageHelp", typeof(Texture2D)) as Texture2D;
 			helpIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/Help.png", typeof(Texture2D)) as Texture2D;
+			youTubeIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/YouTube.png", typeof(Texture2D)) as Texture2D;
 			uvScalarIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/UVScalar.png", typeof(Texture2D)) as Texture2D;
 			uvCubeIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/UVCube.png", typeof(Texture2D)) as Texture2D;
 			uvSphereIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/UVSphere.png", typeof(Texture2D)) as Texture2D;
@@ -315,7 +322,7 @@ namespace MultiGame {
 				ModeLabel();
 
 				scrollView = EditorGUILayout.BeginScrollView(scrollView,false, true, GUIStyle.none, GUIStyle.none, GUIStyle.none, GUILayout.Width(120f));
-				EditorGUILayout.BeginHorizontal("box",GUILayout.Width(113f));
+				EditorGUILayout.BeginHorizontal(GUILayout.Width(113f));
 				switch (mode) {
 				case Modes.Basic:
 					BasicObjectGUI();
@@ -342,7 +349,7 @@ namespace MultiGame {
 					HelpGUI();
 					break;
 				}
-				EditorGUILayout.BeginVertical();
+				EditorGUILayout.BeginVertical();//don't mess with the height values, or weird stuff might happen!!
 				if (GUILayout.Button(basicTab, GUIStyle.none, GUILayout.Width(24), GUILayout.Height(73), GUILayout.ExpandWidth(false), GUILayout.ExpandHeight(false)))
 					mode = Modes.Basic;
 				if (GUILayout.Button(objectTab, GUIStyle.none, GUILayout.Width(24), GUILayout.Height(81), GUILayout.ExpandWidth(false), GUILayout.ExpandHeight(false)))
@@ -367,7 +374,7 @@ namespace MultiGame {
 				GUI.color = Color.gray;
 				EditorGUILayout.LabelField("MultiGame");
 				EditorGUILayout.LabelField("Copyright " );
-				EditorGUILayout.LabelField("2012 - 2018 " );
+				EditorGUILayout.LabelField("2012 - 2019 " );
 				EditorGUILayout.LabelField("William H" );
 				EditorGUILayout.LabelField("Hendrickson ");
 				EditorGUILayout.LabelField("& Tech Drone");
@@ -387,13 +394,13 @@ namespace MultiGame {
 			EditorGUILayout.BeginVertical("box", GUILayout.Width(112f), GUILayout.ExpandWidth(false));
 //			EditorGUILayout.LabelField("Create from:", GUILayout.Width(108f));
 //			template = EditorGUILayout.ObjectField(template, typeof(GameObject), true, GUILayout.Width(64f), GUILayout.Height(16f)) as GameObject;
-			GUI.color = new Color(.6f,85f,1f);
+			GUI.backgroundColor = new Color(.6f,.85f,1f);
 			EditorGUILayout.BeginHorizontal();
 			if (GUILayout.Button("Clear\nSelection", GUILayout.Width(100), GUILayout.Height(52))) {
 				template = null;
 				Selection.activeGameObject = null;
 			}
-			GUI.color = Color.white;
+			GUI.backgroundColor = Color.white;
 			EditorGUILayout.EndHorizontal();
 			EditorGUILayout.EndVertical();
 			GUI.Label (new Rect(122f,48f,256f,64f),"Hey! If you see this text,\nsquish the toolbar sideways >>><<<\nand dock it next to the Inspector!","box");
@@ -477,23 +484,35 @@ namespace MultiGame {
 //			GUIHeader();
 
 			EditorGUILayout.BeginVertical("box", GUILayout.Width(60f));
-			if (MGButton(shelfIcon, "Prefab\nPainter")) {
-				if(!Shelves.running)
-					Shelves.ShowWindow();
-			}
-			if (MGButton(splineIcon ,"Spline\nDecorator")) {
-				Selection.activeGameObject = null;
+			if (MGButton(addRigidbodyIcon, "Physics")) {
 				ResolveOrCreateTarget();
-				BezierSpline spline = Undo.AddComponent<BezierSpline>(target);
-				SplineDecorator decorator = Undo.AddComponent<SplineDecorator>(target);
-				decorator.instantiationMode = SplineDecorator.InstantiationModes.Editor;
-				decorator.spline = spline;
-				decorator.frequency = 2;
-				decorator.refreshDecorations = true;
-				SmartRenameTarget("Spline Decoration");
+				SetupPhysics();
+				SmartRenameTarget("Rigidbody");
+			}
+			if (MGButton(moveIcon, "Basic\nMovement")) {
+				ResolveOrCreateTarget();
+				Undo.AddComponent<SimpleMotor>(target);
+				Undo.AddComponent<SpinMotor>(target);
+				SmartRenameTarget("Mover");
+			}
+			if (MGButton(moveRigidbodyIcon, "Physics\nThrust")) {
+				ResolveOrCreateTarget();
+				SetupPhysics();
+				Undo.AddComponent<Thruster>(target);
+				Undo.AddComponent<SpinMotor>(target);
+				SmartRenameTarget("Thruster");
+			}
+			if (MGButton(particlesIcon, "Particles")) {
+				ResolveOrCreateTarget();
+				GameObject _child = AddDirectChild(target);
+				Undo.AddComponent<ParticleSystem>(_child);
+				Undo.AddComponent<ParticleController>(_child);
+				_child.name = "Particle";
+				Selection.SetActiveObjectWithContext(_child, _child);
+				//SmartRenameTarget("Particle");
 			}
 			if (MGButton(splineIcon, "Spline\nMovement")) {
-				GameObject spline = new GameObject("Spline Path",typeof(BezierSpline));
+				GameObject spline = new GameObject("Spline Path", typeof(BezierSpline));
 				ResolveOrCreateTarget();
 				SmartRenameTarget("Spline Motor");
 				spline.transform.position = target.transform.position;
@@ -504,6 +523,55 @@ namespace MultiGame {
 				motor.spline = spline.GetComponent<BezierSpline>();
 				Selection.activeGameObject = spline;
 			}
+			if (MGButton(healthIcon, "Health")) {
+				ResolveOrCreateTarget();
+				if (target.GetComponent<Health>() != null)
+					return;
+				SetupHealth();
+				SmartRenameTarget("Mortal");
+			}
+			if (MGButton(spawnIcon, "Object\nSpawner")) {
+				ResolveOrCreateTarget();
+				Undo.AddComponent<MessageSpawner>(target);
+				SmartRenameTarget("Spawner");
+			}
+			if (MGButton(destructibleIcon, "Destructor")) {
+				ResolveOrCreateTarget();
+				Undo.AddComponent<MessageDestructor>(target);
+				SmartRenameTarget("Destructible");
+			}
+			if (MGButton(lightIcon, "Light")) {
+				ResolveOrCreateTarget();
+				GameObject _child = AddDirectChild(target);
+				Undo.AddComponent<Light>(_child);
+				_child.name = "Light";
+				//				SmartRenameTarget("Light");
+			}
+			if (MGButton(sounderIcon, "Sound")) {
+				ResolveOrCreateTarget();
+				if (target.GetComponent<Sounder>() != null)
+					return;
+				Undo.AddComponent<Sounder>(target);
+				target.GetComponent<AudioSource>().playOnAwake = false;
+				SmartRenameTarget("Sound");
+			}
+			if (MGButton(animationIcon, "Animation")) {
+				ResolveOrCreateTarget();
+				Animator _anim = target.GetComponent<Animator>();
+				if (_anim == null)
+					_anim = Undo.AddComponent<Animator>(target);
+				AnimationClip _clip = new AnimationClip();
+				SmartRenameTarget("Anim");
+				SmartCreateAsset(_clip,".anim");
+				UnityEditor.Animations.AnimatorController _ctrl = target.GetComponent<UnityEditor.Animations.AnimatorController>();
+				if (_ctrl == null)
+					_ctrl = UnityEditor.Animations.AnimatorController.CreateAnimatorControllerAtPathWithClip("Assets/Generated/" + target.name + ".controller", _clip);
+				_anim.runtimeAnimatorController = _ctrl;
+				if (target.GetComponent<MessageAnimator>() == null)
+					Undo.AddComponent<MessageAnimator>(target);
+				SmartRenameTarget("Anim");
+			}
+			
 			if (MGButton(addColliderIcon, "Generate\nColliders")) {
 				ResolveOrCreateTarget();
 				SetupAllColliders();
@@ -526,79 +594,10 @@ namespace MultiGame {
 				}
 				SmartRenameTarget("Collidable");
 			}
-			if (MGButton(addRigidbodyIcon, "Physics")) {
-				ResolveOrCreateTarget();
-				SetupPhysics();
-				SmartRenameTarget("Rigidbody");
-			}
-			if (MGButton(moveIcon, "Basic\nMovement")) {
-				ResolveOrCreateTarget();
-				Undo.AddComponent<SimpleMotor>(target);
-				Undo.AddComponent<SpinMotor>(target);
-				SmartRenameTarget("Mover");
-			}
-			if (MGButton(moveRigidbodyIcon, "Physics\nThrust")) {
-				ResolveOrCreateTarget();
-				SetupPhysics();
-				Undo.AddComponent<Thruster>(target);
-				Undo.AddComponent<SpinMotor>(target);
-				SmartRenameTarget("Thruster");
-			}
-			if (MGButton(animationIcon, "Animation")) {
-				ResolveOrCreateTarget();
-				Animator _anim = target.GetComponent<Animator>();
-				if (_anim == null)
-					_anim = Undo.AddComponent<Animator>(target);
-				AnimationClip _clip = new AnimationClip();
-				SmartRenameTarget("Anim");
-				SmartCreateAsset(_clip,".anim");
-				UnityEditor.Animations.AnimatorController _ctrl = target.GetComponent<UnityEditor.Animations.AnimatorController>();
-				if (_ctrl == null)
-					_ctrl = UnityEditor.Animations.AnimatorController.CreateAnimatorControllerAtPathWithClip("Assets/Generated/" + target.name + ".controller", _clip);
-				_anim.runtimeAnimatorController = _ctrl;
-				if (target.GetComponent<MessageAnimator>() == null)
-					Undo.AddComponent<MessageAnimator>(target);
-				SmartRenameTarget("Anim");
-			}
-			if (MGButton(cameraIcon, "Secondary\nCamera")) {
-				ResolveOrCreateTarget();
-				GameObject _child = AddDirectChild(target);
-				_child.name = "Camera";
-				Undo.AddComponent<Camera>(_child);
-//				Undo.AddComponent<AudioListener>(_child);
-				SmartRenameTarget("Cam");
-			}
+			
 
-			if (MGButton(healthIcon, "Health")) {
-				ResolveOrCreateTarget();
-				if (target.GetComponent<Health>() != null)
-					return;
-				SetupHealth();
-				SmartRenameTarget("Mortal");
-			}
-
-			if (MGButton(itemIcon, "Inventory\nItem")) {
-				ResolveOrCreateTarget();
-				SmartRenameTarget("Item");
-				GameObject _activeObj = Instantiate<GameObject>(target);
-				Undo.RegisterCreatedObjectUndo(_activeObj, "Create Active Object");
-				_activeObj.name = target.name + "Active";
-				_activeObj.tag = target.tag;
-				_activeObj.layer = target.layer;
-				ActiveObject _active = Undo.AddComponent<ActiveObject>(_activeObj);
-				_active.inventoryKey = target.name;
-				Pickable _pickable = Undo.AddComponent<Pickable>(target);
-				_pickable.inventoryKey = target.name;
-				_pickable.pickMode = Pickable.PickModes.Item;
-				if (!Physics.Raycast(target.transform.position, Vector3.right, 2f))
-					_activeObj.transform.position = new Vector3(target.transform.position.x + 1.5f, target.transform.position.y, target.transform.position.z);
-				else if (!Physics.Raycast(target.transform.position, Vector3.left, 2f))
-					_activeObj.transform.position = new Vector3(target.transform.position.x - 1.5f, target.transform.position.y, target.transform.position.z);
-				else if (!Physics.Raycast(target.transform.position, Vector3.forward, 2f))
-					_activeObj.transform.position = new Vector3(target.transform.position.x, target.transform.position.y, target.transform.position.z + 1.5f);
-				else if (!Physics.Raycast(target.transform.position, Vector3.back, 2f))
-					_activeObj.transform.position = new Vector3(target.transform.position.x, target.transform.position.y, target.transform.position.z - 1.5f);
-			}
+			
+			
 			if (MGButton(sceneChangeIcon, "Scene\nTransition")) {
 				ResolveOrCreateTarget();
 				if (target.GetComponent<SceneTransition>() != null)
@@ -606,39 +605,8 @@ namespace MultiGame {
 				Undo.AddComponent<SceneTransition>(target);
 				SmartRenameTarget("Scene Changer");
 			}
-			if (MGButton(spawnIcon, "Object\nSpawner")) {
-				ResolveOrCreateTarget();
-				Undo.AddComponent<MessageSpawner>(target);
-				SmartRenameTarget("Spawner");
-			}
-			if (MGButton(destructibleIcon, "Destructor")) {
-				ResolveOrCreateTarget();
-				Undo.AddComponent<MessageDestructor>(target);
-				SmartRenameTarget("Destructible");
-			}
-			if (MGButton(lightIcon,"Light")) {
-				ResolveOrCreateTarget();
-				GameObject _child = AddDirectChild (target);
-				Undo.AddComponent<Light>(_child);
-				_child.name = "Light";
-//				SmartRenameTarget("Light");
-			}
-			if (MGButton(sounderIcon,"Sound")) {
-				ResolveOrCreateTarget();
-				if (target.GetComponent<Sounder>() != null)
-					return;
-				Undo.AddComponent<Sounder>(target);
-				target.GetComponent<AudioSource>().playOnAwake = false;
-				SmartRenameTarget("Sound");
-			}
-			if (MGButton(particlesIcon,"Particles")) {
-				ResolveOrCreateTarget();
-				GameObject _child = AddDirectChild (target);
-				Undo.AddComponent<ParticleSystem>(_child);
-				_child.name = "Particle";
-				Selection.SetActiveObjectWithContext (_child, _child);
-				//SmartRenameTarget("Particle");
-			}
+			
+			
 			EditorGUILayout.EndVertical();
 			//commenting these out, as the pips tend to confuse new users
 //			EditorGUILayout.BeginVertical(GUILayout.Width(20f));
@@ -687,7 +655,21 @@ namespace MultiGame {
 //			GUIHeader();
 
 			EditorGUILayout.BeginVertical("box"/*, GUILayout.Width(112f)*/);
-
+			if (MGButton(shelfIcon, "Prefab\nPainter")) {
+				if (!Shelves.running)
+					Shelves.ShowWindow();
+			}
+			if (MGButton(splineIcon, "Spline\nDecorator")) {
+				Selection.activeGameObject = null;
+				ResolveOrCreateTarget();
+				BezierSpline spline = Undo.AddComponent<BezierSpline>(target);
+				SplineDecorator decorator = Undo.AddComponent<SplineDecorator>(target);
+				decorator.instantiationMode = SplineDecorator.InstantiationModes.Editor;
+				decorator.spline = spline;
+				decorator.frequency = 2;
+				decorator.refreshDecorations = true;
+				SmartRenameTarget("Spline Decoration");
+			}
 			if (MGButton (uvCubeIcon, "Procedural\nCube")) {
 				ResolveOrCreateTarget ();
 				GameObject _child = AddDirectChild (target);
@@ -777,19 +759,21 @@ namespace MultiGame {
 			
 			EditorGUILayout.BeginVertical("box"/*, GUILayout.Width(112f)*/);
 
+			
+			
+			if (MGButton(behaviorSequencerIcon, "Behavior\nSequencer")) {
+				SetupBehaviorSequencer();
+				
+			}
 			if (MGButton(startMessageIcon, "Automatic\nLogic")) {
 				ResolveOrCreateTarget();
 				Undo.AddComponent<StartMessage>(target);
 				SmartRenameTarget("Auto Trigger");
 			}
-			if (MGButton(timedIcon, "Timer")) {
+			if (MGButton(keyMessageIcon, "Key\nLogic")) {
 				ResolveOrCreateTarget();
-				Undo.AddComponent<TimedMessage>(target);
-				SmartRenameTarget("Timer");
-			}
-			if (MGButton(behaviorSequencerIcon, "Behavior\nSequencer")) {
-				SetupBehaviorSequencer();
-				
+				Undo.AddComponent<KeyMessage>(target);
+				SmartRenameTarget("Pressable");
 			}
 			if (MGButton(clickableIcon, "Click\nLogic")) {
 				ResolveOrCreateTarget();
@@ -798,20 +782,27 @@ namespace MultiGame {
 				Undo.AddComponent<Clickable>(target);
 				SmartRenameTarget("Clickable");
 			}
-			if (MGButton (mouseMessageIcon, "Mouse\nMessage")) {
-				ResolveOrCreateTarget ();
-				Undo.AddComponent<MouseMessage> (target);
-				SmartRenameTarget ("Mouse Message");
-			}
-			if (MGButton(keyMessageIcon, "Key\nLogic")) {
+			if (MGButton(mouseMessageIcon, "Mouse\nMessage")) {
 				ResolveOrCreateTarget();
-				Undo.AddComponent<KeyMessage>(target);
-				SmartRenameTarget("Pressable");
+				Undo.AddComponent<MouseMessage>(target);
+				SmartRenameTarget("Mouse Message");
+			}
+			if (MGButton(randomIcon, "Random\nLogic")) {
+				ResolveOrCreateTarget();
+				Undo.AddComponent<RandomizedMessage>(target);
+				//				Undo.AddComponent<RandomizeFloat>(target);
+				SmartRenameTarget("Randomizer");
 			}
 			if (MGButton(destructMessageIcon, "Logic On\nDestruct")) {
 				ResolveOrCreateTarget();
 				Undo.AddComponent<OnDestruct>(target);
 				SmartRenameTarget("Destruction Message");
+			}
+			
+			if (MGButton(messageToggleIcon, "Toggle")) {
+				ResolveOrCreateTarget();
+				Undo.AddComponent<MessageToggle>(target);
+				SmartRenameTarget("Message Toggle");
 			}
 			if (MGButton(relayIcon, "Message\nRelay")) {
 				ResolveOrCreateTarget();
@@ -829,18 +820,7 @@ namespace MultiGame {
 				Undo.AddComponent<TagBroadcaster>(_child);
 				SmartRenameTarget("Message Broadcaster");
 			}
-			if (MGButton(messageToggleIcon, "Toggle")) {
-				ResolveOrCreateTarget();
-				Undo.AddComponent<MessageToggle>(target);
-				SmartRenameTarget("Message Toggle");
-			}
-
-			if (MGButton(randomIcon, "Random\nLogic")) {
-				ResolveOrCreateTarget();
-				Undo.AddComponent<RandomizedMessage>(target);
-//				Undo.AddComponent<RandomizeFloat>(target);
-				SmartRenameTarget("Randomizer");
-			}
+			
 			if (MGButton(activeZoneIcon, "Trigger\nLogic")) {
 				SetupTriggerBox();
 				SmartRenameTarget("Trigger");
@@ -857,6 +837,12 @@ namespace MultiGame {
 				SetupActiveSphere();
 				SmartRenameTarget("Collidable");
 			}
+			if (MGButton(timedIcon, "Timer")) {
+				ResolveOrCreateTarget();
+				Undo.AddComponent<TimedMessage>(target);
+				SmartRenameTarget("Timer");
+			}
+			
 			EditorGUILayout.EndVertical();
 		}
 
@@ -963,8 +949,6 @@ namespace MultiGame {
 
 			
 			EditorGUILayout.BeginVertical("box"/*, GUILayout.Width(112f)*/);
-
-
 			if (MGButton(healthIcon, "Health")) {
 				ResolveOrCreateTarget();
 				if (target.GetComponent<Health>() != null)
@@ -979,12 +963,32 @@ namespace MultiGame {
 				Undo.AddComponent<Inventory>(target);
 				SmartRenameTarget("Static Player Inventory");
 			}
-			if (MGButton(characterCreatorIcon, "Character\nEditor")) {
+			if (MGButton(itemIcon, "Inventory\nItem")) {
 				ResolveOrCreateTarget();
-				if (target.GetComponent<CustomCharacter>() != null)
-					return;
-				Undo.AddComponent<CustomCharacter>(target);
-				SmartRenameTarget("Character Editor");
+				SmartRenameTarget("Item");
+				GameObject _activeObj = Instantiate<GameObject>(target);
+				Undo.RegisterCreatedObjectUndo(_activeObj, "Create Active Object");
+				_activeObj.name = target.name + "Active";
+				_activeObj.tag = target.tag;
+				_activeObj.layer = target.layer;
+				ActiveObject _active = Undo.AddComponent<ActiveObject>(_activeObj);
+				_active.inventoryKey = target.name;
+				Pickable _pickable = Undo.AddComponent<Pickable>(target);
+				_pickable.inventoryKey = target.name;
+				_pickable.pickMode = Pickable.PickModes.Item;
+				if (!Physics.Raycast(target.transform.position, Vector3.right, 2f))
+					_activeObj.transform.position = new Vector3(target.transform.position.x + 1.5f, target.transform.position.y, target.transform.position.z);
+				else if (!Physics.Raycast(target.transform.position, Vector3.left, 2f))
+					_activeObj.transform.position = new Vector3(target.transform.position.x - 1.5f, target.transform.position.y, target.transform.position.z);
+				else if (!Physics.Raycast(target.transform.position, Vector3.forward, 2f))
+					_activeObj.transform.position = new Vector3(target.transform.position.x, target.transform.position.y, target.transform.position.z + 1.5f);
+				else if (!Physics.Raycast(target.transform.position, Vector3.back, 2f))
+					_activeObj.transform.position = new Vector3(target.transform.position.x, target.transform.position.y, target.transform.position.z - 1.5f);
+			}
+			if (MGButton(containerIcon, "Container")) {
+				ResolveOrCreateTarget();
+				SmartRenameTarget("Inventory Container");
+				Undo.AddComponent<Container>(target);
 			}
 			if (MGButton(inputAnimatorIcon, "Player\nInput")) {
 				ResolveOrCreateTarget();
@@ -1044,13 +1048,13 @@ namespace MultiGame {
 				Undo.AddComponent<MouseAim>(target);
 				SmartRenameTarget("FPS Mouse Aim");
 			}
-			//			if (MGButton(meleeInputIcon, "Melee Input")) {//obsolete, use Player Input (CharacterOmnicontroller)
-//				ResolveOrCreateTarget();
-//				if (target.GetComponentInChildren<MeleeInputController>() != null)
-//					return;
-//				Undo.AddComponent<MeleeInputController>(target);
-//				SmartRenameTarget("Player Melee Input");
-//			}
+			if (MGButton(characterCreatorIcon, "Character\nEditor")) {
+				ResolveOrCreateTarget();
+				if (target.GetComponent<CustomCharacter>() != null)
+					return;
+				Undo.AddComponent<CustomCharacter>(target);
+				SmartRenameTarget("Character Editor");
+			}
 			if (MGButton(RTSIcon, "RTS\nCommand")) {
 				ResolveOrCreateTarget();
 				if (target.GetComponent<MouseCommander>() != null)
@@ -1140,45 +1144,11 @@ namespace MultiGame {
 			if (MGButton(behaviorSequencerIcon, "Behavior\nSequencer")) {
 				SetupBehaviorSequencer();
 			}
-
-			if (MGButton(layerMaskIcon, "Layer\nMask"))
-				SetupLayerMask();
-
-			if (MGButton(turretIcon, "Turret")) {
-
-				ResolveOrCreateTarget();
-
-				if (target.transform == target.transform.root) {
-					Debug.LogError("Tried to create turret, but it isn't parented to anything! Aborting...");
-					return;
-				}
-
-				if (target.GetComponentInChildren<TurretAction>() != null)
-					return;
-				TargetingComputer _computer = Undo.AddComponent<TargetingComputer>(target);
-				GameObject _sensorObj = GameObject.CreatePrimitive(PrimitiveType.Cube);
-				Undo.RegisterCreatedObjectUndo(_sensorObj,"Create Sensor");
-				_sensorObj.transform.SetParent(target.transform);
-				_sensorObj.transform.localPosition = Vector3.forward * 15f;
-				_sensorObj.transform.localRotation = Quaternion.identity;
-				_sensorObj.transform.localScale = Vector3.one * 30f;
-
-				TargetingSensor _sensor = Undo.AddComponent<TargetingSensor>(_sensorObj);
-				_sensor.messageReceiver = target;
-				_sensor.GetComponent<Collider>().isTrigger = true;
-				_sensorObj.GetComponent<MeshRenderer>().sharedMaterial = triggerMat;
-				if (target.transform.root.GetComponent<Rigidbody>() == null)
-					Undo.AddComponent<Rigidbody>( target.transform.root.gameObject);
-				_computer.mainBody = target.transform.root.GetComponent<Rigidbody>();
-				Undo.AddComponent<VanishOnStart>(_sensorObj);
-				Undo.AddComponent<TurretAction>(target);
-				SmartRenameTarget("Turret Top");
-			}
 			if (MGButton(rangedBotIcon, "Hitscan\nAI")) {
 				ResolveOrCreateTarget();
 				if (target.GetComponentInChildren<TargetingSensor>() == null) {
 					GameObject _sensorObj = GameObject.CreatePrimitive(PrimitiveType.Cube);
-					Undo.RegisterCreatedObjectUndo(_sensorObj,"Create Sensor");
+					Undo.RegisterCreatedObjectUndo(_sensorObj, "Create Sensor");
 					_sensorObj.transform.SetParent(target.transform);
 					_sensorObj.transform.localPosition = Vector3.forward * 15f;
 					_sensorObj.transform.localRotation = Quaternion.identity;
@@ -1210,17 +1180,48 @@ namespace MultiGame {
 
 				SmartRenameTarget("Hitscan Agent");
 			}
+			if (MGButton(turretIcon, "Turret")) {
+
+				ResolveOrCreateTarget();
+
+				if (target.transform == target.transform.root) {
+					Debug.LogError("Tried to create turret, but it isn't parented to anything! Aborting...");
+					return;
+				}
+
+				if (target.GetComponentInChildren<TurretAction>() != null)
+					return;
+				TargetingComputer _computer = Undo.AddComponent<TargetingComputer>(target);
+				GameObject _sensorObj = GameObject.CreatePrimitive(PrimitiveType.Cube);
+				Undo.RegisterCreatedObjectUndo(_sensorObj, "Create Sensor");
+				_sensorObj.transform.SetParent(target.transform);
+				_sensorObj.transform.localPosition = Vector3.forward * 15f;
+				_sensorObj.transform.localRotation = Quaternion.identity;
+				_sensorObj.transform.localScale = Vector3.one * 30f;
+
+				TargetingSensor _sensor = Undo.AddComponent<TargetingSensor>(_sensorObj);
+				_sensor.messageReceiver = target;
+				_sensor.GetComponent<Collider>().isTrigger = true;
+				_sensorObj.GetComponent<MeshRenderer>().sharedMaterial = triggerMat;
+				if (target.transform.root.GetComponent<Rigidbody>() == null)
+					Undo.AddComponent<Rigidbody>(target.transform.root.gameObject);
+				_computer.mainBody = target.transform.root.GetComponent<Rigidbody>();
+				Undo.AddComponent<VanishOnStart>(_sensorObj);
+				Undo.AddComponent<TurretAction>(target);
+				SmartRenameTarget("Turret Top");
+			}
+			
 			if (MGButton(targetingSensorIcon, "Sensor")) {
 				ResolveOrCreateTarget();
 				if (target.GetComponent<TargetingSensor>() != null)
 					return;
 				GameObject _sensorObj = GameObject.CreatePrimitive(PrimitiveType.Cube);
-				Undo.RegisterCreatedObjectUndo(_sensorObj,"Create Sensor");
+				Undo.RegisterCreatedObjectUndo(_sensorObj, "Create Sensor");
 				_sensorObj.transform.SetParent(target.transform);
 				_sensorObj.transform.localPosition = Vector3.forward * 15f;
 				_sensorObj.transform.localRotation = Quaternion.identity;
 				_sensorObj.transform.localScale = Vector3.one * 30f;
-				
+
 				TargetingSensor _sensor = Undo.AddComponent<TargetingSensor>(_sensorObj);
 				Undo.AddComponent<VanishOnStart>(_sensorObj);
 				_sensor.messageReceiver = target;
@@ -1228,6 +1229,9 @@ namespace MultiGame {
 				_sensorObj.GetComponent<MeshRenderer>().sharedMaterial = triggerMat;
 				SmartRenameTarget("Targeting Sensor");
 			}
+			if (MGButton(layerMaskIcon, "Layer\nMask"))
+				SetupLayerMask();
+
 
 			EditorGUILayout.EndVertical();
 			
@@ -1247,25 +1251,18 @@ namespace MultiGame {
 //			GUIHeader();
 
 			EditorGUILayout.BeginVertical("box"/*, GUILayout.Width(112f)*/);
-			if (MGButton (snapIcon, "Snap\nComponent")) {
-				ResolveOrCreateTarget ();
-				Undo.AddComponent<GridSnap> (target);
-				SmartRenameTarget ("Grid Based Object");
-			}
-			if (MGButton(layerMaskIcon, "Layer\nMask"))
-				SetupLayerMask();
-			if (MGButton(multiMenuIcon, "IMGUI\nMenu")) {
+			/*if (MGButton(multiMenuIcon, "IMGUI\nMenu")) {
 				ResolveOrCreateTarget();
 				GameObject _child = AddDirectChild(target);
 				_child.name = "MultiMenu";
-				Undo.RegisterCreatedObjectUndo(target,"Create MultiMenu");
+				Undo.RegisterCreatedObjectUndo(target, "Create MultiMenu");
 				Undo.AddComponent<MultiMenu>(_child);
 				SmartRenameTarget("IMGUI Menu");
-			}
+			}*/
 			if (MGButton(UGUIIcon, "UGUI\nCanvas")) {
 				ResolveOrCreateTarget();
 				GameObject _child = Instantiate<GameObject>(Resources.Load("Canvas", typeof(GameObject)) as GameObject);
-				Undo.RegisterCreatedObjectUndo(target,"Create UGUI");
+				Undo.RegisterCreatedObjectUndo(target, "Create UGUI");
 				_child.name = "UGUI Menu";
 				_child.transform.SetParent(target.transform);
 				_child.transform.localPosition = Vector3.zero;
@@ -1280,10 +1277,46 @@ namespace MultiGame {
 				}
 				SmartRenameTarget("UGUI");
 			}
+			if (MGButton (snapIcon, "Snap\nComponent")) {
+				ResolveOrCreateTarget ();
+				Undo.AddComponent<GridSnap> (target);
+				SmartRenameTarget ("Grid Based Object");
+			}
+			if (MGButton(snapDownIcon, "Snap\nTo Surface")) {
+				ResolveOrCreateTarget();
+				Undo.AddComponent<SnapToSurface>(target);
+				SmartRenameTarget("Surface Object");
+			}
+			if (MGButton(billboardIcon, "Billboard")) {
+				ResolveOrCreateTarget();
+				if (target.GetComponent<Billboard>() != null)
+					return;
+				Undo.AddComponent<Billboard>(target);
+				SmartRenameTarget("Billboard");
+			}
+			if (MGButton(lodIcon, "Level Of\nDetail")) {
+				ResolveOrCreateTarget();
+				LODGroup lodGroup = target.GetComponent<LODGroup>();
+				if (lodGroup == null)
+					lodGroup = Undo.AddComponent<LODGroup>(target);
+				LOD[] lods = new LOD[1];
+				lods[0] = new LOD(.015f, target.GetComponentsInChildren<Renderer>());
+				Debug.Log("LOD Set");
+				lodGroup.SetLODs(lods);
+				lodGroup.RecalculateBounds();
+			}
 			if (MGButton(doorIcon, "Door\nController")) {
 				ResolveOrCreateTarget();
 				Undo.AddComponent<DoorController>(target);
 				SmartRenameTarget("Door");
+			}
+			if (MGButton(saveSceneIcon, "Scene " +
+				"\nSaver")) {
+				ResolveOrCreateTarget();
+				if (target.GetComponent<SceneObjectListSerializer>() != null)
+					return;
+				Undo.AddComponent<SceneObjectListSerializer>(target);
+				SmartRenameTarget("Scene Save");
 			}
 			if (MGButton(savePrefsIcon, "Player\nPrefs")) {
 				ResolveOrCreateTarget();
@@ -1295,25 +1328,15 @@ namespace MultiGame {
 				Undo.AddComponent<UniqueObjectSerializer>(target);
 				SmartRenameTarget("Unique Field");
 			}
-			if (MGButton(saveSceneIcon, "Scene " +
-				"\nSaver")) {
+			if (MGButton(cameraIcon, "Secondary\nCamera")) {
 				ResolveOrCreateTarget();
-				if (target.GetComponent<SceneObjectListSerializer>() != null)
-					return;
-				Undo.AddComponent<SceneObjectListSerializer>(target);
-				SmartRenameTarget("Scene Save");
+				GameObject _child = AddDirectChild(target);
+				_child.name = "Camera";
+				Undo.AddComponent<Camera>(_child);
+				//				Undo.AddComponent<AudioListener>(_child);
+				SmartRenameTarget("Cam");
 			}
-			if (MGButton (lodIcon, "Level Of\nDetail")) {
-				ResolveOrCreateTarget ();
-				LODGroup lodGroup = target.GetComponent<LODGroup> ();
-				if (lodGroup == null)
-					lodGroup = Undo.AddComponent<LODGroup> (target);
-				LOD[] lods = new LOD[1];
-				lods[0] = new LOD(.015f,target.GetComponentsInChildren<Renderer> ());
-				Debug.Log ("LOD Set");
-				lodGroup.SetLODs (lods);
-				lodGroup.RecalculateBounds ();
-			}
+			
 			if (MGButton(musicIcon, "Music\nManager")) {
 				ResolveOrCreateTarget();
 				if (target.GetComponent<MusicManager>() != null)
@@ -1338,13 +1361,9 @@ namespace MultiGame {
 				}
 				SmartRenameTarget("Collectible");
 			}
-			if (MGButton(billboardIcon, "Billboard")) {
-				ResolveOrCreateTarget();
-				if (target.GetComponent<Billboard>() != null)
-					return;
-				Undo.AddComponent<Billboard>(target);
-				SmartRenameTarget("Billboard");
-			}
+			
+			if (MGButton(layerMaskIcon, "Layer\nMask"))
+				SetupLayerMask();
 			if (MGButton(backupCamIcon, "Backup\nCamera")) {
 				ResolveOrCreateTarget();
 				GameObject _child = AddDirectChild(target);
@@ -1386,19 +1405,19 @@ namespace MultiGame {
 			if (MGButton (helpIcon, "Online\nDoc")) {
 				Application.OpenURL("https://www.techdrone.com/multigamedocumentation");
 			}
-			if (MGButton (helpIcon, "Prefab\nPainter")) {
+			if (MGButton (youTubeIcon, "Prefab\nPainter")) {
 				Application.OpenURL ("https://youtu.be/8ptbRaj_qK8");
 			}
-			if (MGButton (helpIcon, "Splines")) {
+			if (MGButton (youTubeIcon, "Splines")) {
 				Application.OpenURL ("https://youtu.be/uHvZw2q27H0");
 			}
-			if (MGButton (helpIcon, "Managed\nMessages")) {
+			if (MGButton (youTubeIcon, "Managed\nMessages")) {
 				Application.OpenURL ("https://youtu.be/lbfWxTDlfps");
 			}
-			if (MGButton (helpIcon, "Advanced\nMessages")) {
+			if (MGButton (youTubeIcon, "Advanced\nMessages")) {
 				Application.OpenURL ("https://youtu.be/I_eG-bYCtaM");
 			}
-			if (MGButton (helpIcon,"Triggers")) {
+			if (MGButton (youTubeIcon, "Triggers")) {
 				Application.OpenURL ("https://youtu.be/K-7MAukHq-A");
 			}
 //			if (MGButton(unetIcon, "UNet-ify")) {
