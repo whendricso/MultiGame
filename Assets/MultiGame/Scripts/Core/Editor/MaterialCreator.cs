@@ -25,7 +25,7 @@ namespace MultiGame {
 
 		int[] sizes = new int[4] { 512,1024,2048,4096};
 
-		[MenuItem("MultiGame/Material Creator")]
+		[MenuItem("MultiGame/Experimental/Material Creator")]
 		static void ShowWindow() {
 			EditorWindow creator = EditorWindow.GetWindow(typeof(MaterialCreator),true);
 			creator.minSize = new Vector2(320, 320);

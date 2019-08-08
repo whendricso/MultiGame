@@ -104,6 +104,11 @@ namespace MultiGame {
 			}
 		}
 
+		/// <summary>
+		/// Refreshes the message list. Must be called in OnValidate, as this allows MultiGame to scan for new messages and removed messages and adjust the list accordingly.
+		/// </summary>
+		/// <param name="_msg">The message we wish to update, must be passed by reference explicitly.</param>
+		/// <param name="_self">A reference to the default gameObject that the message is on, used for default targeting behavior. Normally, you pass "gameObject" to this parameter.</param>
 		public static void UpdateMessageGUI(ref ManagedMessage _msg, GameObject _self) {
 			//		if (!_msg.isDirty)
 			//			return;

@@ -37,10 +37,12 @@ namespace MultiGame
 		[System.Serializable]
 		public class GameResource
 		{
-			[Tooltip("A UGUI Text component which we can use to display the current quantity and limit for this resource")]
-			public Text text;
 			[Tooltip("A unique name to identify this resource")]
 			public string resourceName;
+			[Tooltip("A UGUI Text component which we can use to display the current quantity and limit for this resource")]
+			public Text text;
+			[Tooltip("If we're using IMGUI, should we show this resource in the list?")]
+			public bool visible = true;
 			[Tooltip("How much of this resource do we currently have?")]
 			public float quantity;
 			[Tooltip("The most we can have of this resource")]
@@ -52,6 +54,7 @@ namespace MultiGame
 
 			public GameResource (float _quantity, float _limit, string _resourceName, float _tickTime, float _tickAmount)
 			{
+				visible = true;
 				quantity = _quantity;
 				limit = _limit;
 				resourceName = _resourceName;
@@ -76,15 +79,19 @@ namespace MultiGame
 		}
 
 		void OnGUI () {
+			if (!showGui)
+				return;
 			GUI.skin = guiSkin;
 			GUILayout.BeginArea(new Rect(guiArea.x * Screen.width, guiArea.y * Screen.height, guiArea.width * Screen.width, guiArea.height * Screen.height),"","box");
 			GUILayout.BeginHorizontal();
 
 			foreach(GameResource _res in resources) {
-				GUILayout.BeginVertical("","box");
-				GUILayout.Label(Mathf.Round(_res.quantity) + " / " + Mathf.Round(_res.limit));
-				GUILayout.Label(_res.resourceName);
-				GUILayout.EndVertical();
+				if (_res.visible) {
+					GUILayout.BeginVertical("", "box");
+					GUILayout.Label(Mathf.Round(_res.quantity) + " / " + Mathf.Round(_res.limit));
+					GUILayout.Label(_res.resourceName);
+					GUILayout.EndVertical();
+				}
 			}
 
 			GUILayout.EndHorizontal();
@@ -227,6 +234,22 @@ namespace MultiGame
 		public MessageHelp toggleMenuHelp = new MessageHelp("ToggleMenu","Toggles the IMGUI");
 		public void ToggleMenu() {
 			showGui = !showGui;
+		}
+
+		public MessageHelp showResourceHelp = new MessageHelp("ShowResource","Shows a given resource in the IMGUI (if applicable).",4,"The name of the resource we want to show.");
+		public void ShowResource(string _name) {
+			foreach (GameResource _res in resources) {
+				if (_res.resourceName == _name)
+					_res.visible = true;
+			}
+		}
+
+		public MessageHelp hideResourceHelp = new MessageHelp("HideResource", "Hides a given resource in the IMGUI (if applicable).", 4, "The name of the resource we want to hide.");
+		public void HideResource(string _name) {
+			foreach (GameResource _res in resources) {
+				if (_res.resourceName == _name)
+					_res.visible = false;
+			}
 		}
 	}
 }

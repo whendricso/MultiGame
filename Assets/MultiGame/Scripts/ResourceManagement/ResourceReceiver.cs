@@ -97,7 +97,7 @@ namespace MultiGame {
 				enabled = false;
 				return;
 			}
-			if ((resourceValue < 0 && messages.Count > 0) && ResourceManager.resources[resourceIndex].quantity < Mathf.Abs(resourceValue)) {
+			if ((resourceValue < 0 && messages.Count > 0) && ResourceManager.resources[resourceIndex].quantity < Mathf.Abs(_amount)) {
 				if (debug)
 					Debug.Log("Resource Receiver " + gameObject.name + " requested a collection of " + _amount + " and a maximum of " + ResourceManager.resources[resourceIndex].quantity + " are available");
 				if (!string.IsNullOrEmpty(failureMessage.message))

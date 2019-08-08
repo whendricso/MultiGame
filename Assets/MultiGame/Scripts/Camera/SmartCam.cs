@@ -99,8 +99,10 @@ namespace MultiGame
 
 			startingFov = cam.fieldOfView;
 			autoRetargetCounter = autoRetargetTime;
-			if (target == null)
-				target = GameObject.FindGameObjectWithTag(targetTag).transform;
+			try {
+				if (target == null)
+					target = GameObject.FindGameObjectWithTag(targetTag).transform;
+			} catch { }
 		}
 
 		void Update() {//acquire target

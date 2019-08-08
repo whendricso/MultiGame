@@ -40,8 +40,11 @@ namespace MultiGame {
 
 		[HideInInspector]
 		public bool assetGenerated = false;
-//		private Material mat;
-//		private List<Vector3> verts = new List<Vector3>();
+		//		private Material mat;
+		//		private List<Vector3> verts = new List<Vector3>();
+
+		[BoolButton]
+		public bool generateLightmapUVs = false;
 
 		void OnValidate () {
 			//if (updateMaterial) {
@@ -158,15 +161,20 @@ namespace MultiGame {
 					newUVs.Add (new Vector2(initialUVs[i].x * uvScale.x + uvOffset.x, initialUVs[i].y * uvScale.y + uvOffset.y));
 			}
 			mesh.SetUVs (0, newUVs);
-
-//			foreach (Material mat in rend.sharedMaterials) {
-//				if (useLocalScale) {
-//					mat.SetTextureScale ("_MainTex", new Vector2 (((transform.localScale.x + transform.localScale.z) * .5f) * textureScale.x, transform.localScale.y * textureScale.y));
-//				} else {
-//					mat.SetTextureScale ("_MainTex", textureScale);
-//				}
-//				mat.SetTextureOffset ("_MainTex", textureOffset);
-//			}
+#if UNITY_EDITOR
+			if (generateLightmapUVs && mesh != null) {
+				generateLightmapUVs = false;
+				Unwrapping.GenerateSecondaryUVSet(mesh);
+			}
+#endif
+			//			foreach (Material mat in rend.sharedMaterials) {
+			//				if (useLocalScale) {
+			//					mat.SetTextureScale ("_MainTex", new Vector2 (((transform.localScale.x + transform.localScale.z) * .5f) * textureScale.x, transform.localScale.y * textureScale.y));
+			//				} else {
+			//					mat.SetTextureScale ("_MainTex", textureScale);
+			//				}
+			//				mat.SetTextureOffset ("_MainTex", textureOffset);
+			//			}
 		}
 
 		//		void DrawUVOffsetHandle () {

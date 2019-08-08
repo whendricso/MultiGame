@@ -207,6 +207,13 @@ namespace MultiGame {
 
 		}
 
+		public MessageHelp targetNearestHelp = new MessageHelp("TargetNearest","Targets the nearest object of a given tag",4,"The tag of the object we wish to target");
+		public void TargetNearest(string _targetTag) {
+			GameObject _nearest = FindClosestByTag(_targetTag);
+			if (_nearest != null)
+				SetTarget(_nearest);
+		}
+
 		void SetTarget(GameObject newTarget) {
 			if (debug)
 				Debug.Log("HitscanModule " + gameObject.name + " received the target " + newTarget.name);
@@ -215,12 +222,14 @@ namespace MultiGame {
 			target = newTarget;
 		}
 
-		void ClearTarget() {
+		public MessageHelp clearTargetHelp = new MessageHelp("ClearTarget","Causes the Hitscan Module to stop targeting anything.");
+		public void ClearTarget() {
 			target = null;
 		}
 
 		void ReturnFromPool() {
 			ClearTarget();
+			gameObject.SendMessage("FaceTarget");
 		}
 	}
 }

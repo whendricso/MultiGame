@@ -130,10 +130,12 @@ namespace MultiGame {
 			List<GameObject> _objects = new List<GameObject>( GameObject.FindGameObjectsWithTag(_tag));
 			if(_objects.Count > 0) {
 				foreach (GameObject _gobj in _objects) {
-					_distChk = Vector3.Distance(gameObject.transform.position, _gobj.transform.position);
-					if (_distChk < _distance) {
-						_distance = _distChk;
-						_ret = _gobj;
+					if (_gobj.activeInHierarchy) {
+						_distChk = Vector3.Distance(gameObject.transform.position, _gobj.transform.position);
+						if (_distChk < _distance) {
+							_distance = _distChk;
+							_ret = _gobj;
+						}
 					}
 				}
 			}

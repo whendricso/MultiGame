@@ -8,7 +8,7 @@ namespace MultiGame {
 
 	public class CustomCharacter : MultiModule {
 
-		[Header("GUI Settings")]
+		[Header("IMGUI Settings")]
 		[Tooltip("Should we use the built-in GUI? Not suitable for mobile devices.")]
 		public bool showGui = true;
 		[Tooltip("an optional skin to use for the GUI")]
@@ -299,6 +299,7 @@ namespace MultiGame {
 					attachableSlots[i].currentAttachment.transform.localRotation = Quaternion.identity;
 				}
 			}
+			EnableControls();
 		}
 
 		public MessageHelp editCharacterHelp = new MessageHelp("EditCharacter","Enables character editing and disables controls for a clean experience.");

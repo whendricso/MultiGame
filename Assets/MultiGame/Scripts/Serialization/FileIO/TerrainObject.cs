@@ -1,3 +1,4 @@
+#pragma warning disable 0618
 using UnityEngine;
 using UnityEditor;
 using System.Collections;
@@ -225,7 +226,7 @@ namespace MultiGame{
             return color.a;
         }
 
-        public delegate float ProcessColorDelegate(Color color); 
+        public delegate float ProcessColorDelegate(Color color); //ew
         public static List<float> AssignColorsFromTexture(Texture2D[] textures, ProcessColorDelegate processColor, int miplevel){
             List<float> colorValues = new List<float>();
             if(textures.Length > 1){

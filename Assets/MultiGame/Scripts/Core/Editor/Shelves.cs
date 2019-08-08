@@ -45,7 +45,7 @@ namespace MultiGame {
 		public static void  ShowWindow () {
 			if (running)
 				return;
-			SceneView.onSceneGUIDelegate += OnSceneView;
+			SceneView.duringSceneGui += OnSceneView;
 			running = true;
 		}
 
@@ -83,13 +83,13 @@ namespace MultiGame {
 				adjustedHeight += 34f;
 			
 
-			GUILayout.BeginArea(new Rect(Camera.current.pixelWidth * 0.01f, Camera.current.pixelHeight * 0.01f, randomScale ? 210f : 146f, adjustedHeight),"Shelf");
+			GUILayout.BeginArea(new Rect(Camera.current.pixelWidth * 0.01f, Camera.current.pixelHeight * 0.01f, randomScale ? 226f : 162f, adjustedHeight),"Shelf");
 
 			GUILayout.BeginHorizontal();
 			GUILayout.Label("Prefab Painter");
 			GUILayout.FlexibleSpace();
 			if (MGPip(cancelIcon)) {
-				SceneView.onSceneGUIDelegate -= OnSceneView;
+				SceneView.duringSceneGui -= OnSceneView;
 				running = false;
 			}
 			GUILayout.EndHorizontal();
@@ -138,8 +138,8 @@ namespace MultiGame {
 			if (MGPip(minusIcon))
 				minimumDistance -= 0.0125f;
 			GUILayout.EndHorizontal();
-
 			minimumDistance = GUILayout.HorizontalSlider(minimumDistance, 0.001f, 100f, GUILayout.Width(110f));
+			GUILayout.Space(16);
 			randomRotation = GUILayout.Toggle(randomRotation,"Random Rotation", GUILayout.ExpandWidth(true));
 			autoParent = GUILayout.Toggle(autoParent,"Auto Parent", GUILayout.ExpandWidth(true));
 

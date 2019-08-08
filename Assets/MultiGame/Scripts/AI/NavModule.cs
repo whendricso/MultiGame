@@ -17,8 +17,11 @@ namespace MultiGame {
 		public float pathRecalculationInterval = 0.2f;
 		[RequiredField("What sound should we play while moving?",RequiredFieldAttribute.RequirementLevels.Recommended)]
 		public AudioClip movementSound;
+		public float footstepInterval = 0;
 		[Range(0,1)]
 		public float soundVariance = .05f;
+		[Tooltip("If no nearest nav target is found, should we send a message?")]
+		public MessageManager.ManagedMessage nearestNotFound;
 
 		[System.NonSerialized]
 		public Animator anim;
@@ -33,6 +36,8 @@ namespace MultiGame {
 		private AudioSource source;
 		private float moveRate;
 		private float stunDuration = 0;
+		private float intervalCounter;
+		private Quaternion targetRot;
 
 #if UNITY_EDITOR
 		public HelpInfo help = new HelpInfo("This component implements Unity's NavMesh directly, allowing AI to pathfind around easily. You need to bake a navigation mesh for" +
@@ -40,12 +45,18 @@ namespace MultiGame {
 			"\n\nTo get started most effectively, we recommend adding some other AI components such as a Guard Module, Melee Module, or others depending on what you want to make." +
 			" For example, to make a tank, first create an empty object, and parent a 3D model of a tank to it. Then, add a Guard Module, Nav Module to the base object. Finally," +
 			" add a Turret Action to the turret itself, a Targeting Computer (so it can aim at moving rigidbodies correctly), and create an invisible trigger with a Targeting Sensor" +
-			" component that sends it's target message to the turret. This creates a tank AI.");
+			" component that sends it's target message to the turret. This creates a tank AI.", "https://youtu.be/ClrtITChqkA");
 #endif
 		[Tooltip("Should we output useful information to the console?")]
 		public bool debug = false;
 
+		void OnValidate() {
+			MessageManager.UpdateMessageGUI(ref nearestNotFound, gameObject);
+		}
+
 		void Awake () {
+			if (nearestNotFound.target == null)
+				nearestNotFound.target = gameObject;
 			anim = GetComponentInChildren<Animator>();
 			source = GetComponent<AudioSource>();
 			agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
@@ -53,19 +64,27 @@ namespace MultiGame {
 				startingPitch = source.pitch;
 				source.clip = movementSound;
 			}
+			if (movementSound != null && footstepInterval == 0)
+				footstepInterval = movementSound.length;
+			intervalCounter = footstepInterval;
 		}
 
 		void OnEnable () {
 			lastTouchTime = Time.time;
 			targetPosition = transform.position;
+			if (anim != null)
+				anim.applyRootMotion = false;
 			recalcTimer = pathRecalculationInterval;
 			lastFramePosition = transform.position;
-			agent.updateRotation = false;
+			//agent.updateRotation = false;
 			stunDuration = 0;
 		}
 
 		void Update () {
+			if (!agent.enabled)
+				return;
 			stunDuration -= Time.deltaTime;
+			intervalCounter -= Time.deltaTime;
 			if (stunDuration > 0) {
 				agent.isStopped = true;
 				return;
@@ -77,9 +96,11 @@ namespace MultiGame {
 			}
 			if (navTarget != null) {
 				targetPosition = navTarget.transform.position;
-				Quaternion targetRot = Quaternion.LookRotation(Vector3.RotateTowards(transform.forward, navTarget.transform.position - transform.position, agent.angularSpeed * Time.deltaTime, 0f));
-				transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRot, agent.angularSpeed * Time.deltaTime);
-				transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, transform.eulerAngles.z);
+				targetRot = Quaternion.LookRotation(Vector3.RotateTowards(transform.forward, navTarget.transform.position - transform.position, agent.angularSpeed * Time.deltaTime, 0f));
+				if (!agent.updateRotation) {
+					transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRot, agent.angularSpeed * Time.deltaTime);
+					transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, transform.eulerAngles.z);
+				}
 			}
 
 			if (agent != null)
@@ -91,8 +112,12 @@ namespace MultiGame {
 			if (source != null && movementSound != null) {
 				if (moveRate > 0) {
 					StartCoroutine(RandomizePitch());
-					if (!source.isPlaying)
+					if (intervalCounter < 0) {
 						source.Play();
+						intervalCounter = footstepInterval;
+					}
+					//if (!source.isPlaying)
+					//	source.Play();
 				}
 				else {
 					StopCoroutine(RandomizePitch());
@@ -108,7 +133,7 @@ namespace MultiGame {
 
 		private IEnumerator RandomizePitch() {
 			source.pitch = startingPitch + Random.Range(-soundVariance, soundVariance);
-			yield return new WaitForSeconds(movementSound.length);
+			yield return new WaitForSeconds(footstepInterval);
 			StartCoroutine(RandomizePitch());
 		}
 
@@ -203,10 +228,37 @@ namespace MultiGame {
 			if (_closest != null) {
 				SetTarget(_closest);
 				MoveTo(_closest.transform.position);
+			} else {
+				MessageManager.Send(nearestNotFound);
 			}
+		}
+		public MessageHelp enableAgentHelp = new MessageHelp("EnableAgent","Sets the Nav Mesh Agent attached to this object to be enabled, allowing it to control the object's position.");
+		public void EnableAgent() {
+			agent.enabled = true;
+		}
+
+		public MessageHelp disabeAgentHelp = new MessageHelp("DisableAgent","Sets the Nav Mesh Agent attached to this object to be disabled, so that it will not control the object's position.");
+		public void DisableAgent() {
+			agent.enabled = false;
+		}
+
+		public MessageHelp toggleAgentHelp = new MessageHelp("ToggleAgent","Swaps the current enabled state of the Nav Mesh Agent");
+		public void ToggleAgent() {
+			agent.enabled = !agent.enabled;
+		}
+
+		public MessageHelp faceTargetHelp = new MessageHelp("FaceTarget","Causes the AI to always face it's target, no matter what direction it's moving in");
+		public void FaceTarget() {
+			agent.updateRotation = false;
+		}
+
+		public MessageHelp faceMoveDirectionHelp = new MessageHelp("FaceMoveDirection","Causes the AI to always face it's move direction, no matter the direction of the target");
+		public void FaceMoveDirection() {
+			agent.updateRotation = true;
 		}
 
 		void ReturnFromPool() {
+			agent.enabled = true;
 			navTarget = null;
 			targetPosition = transform.position;
 		}

@@ -32,17 +32,17 @@ namespace MultiGame {
 		}
 
 		[Header("Available Messages")]
-		public MessageHelp setImpetusXHelp = new MessageHelp("SetImpetusX","Changes the impetus on the X axis.",3,"The new rotational impetus");
-		public void SetImpetusX(float _impetus) {
+		public MessageHelp setImpetusXHelp = new MessageHelp("SpinImpetusX", "Changes the impetus on the X axis.",3,"The new rotational impetus");
+		public void SpinImpetusX(float _impetus) {
 			impetus.x = _impetus;
 		}
 
-		public MessageHelp setImpetusYHelp = new MessageHelp("SetImpetusY","Changes the impetus on the Y axis.",3,"The new rotational impetus");
-		public void SetImpetusY(float _impetus) {
+		public MessageHelp setImpetusYHelp = new MessageHelp("SpinImpetusY", "Changes the impetus on the Y axis.",3,"The new rotational impetus");
+		public void SpinImpetusY(float _impetus) {
 			impetus.y = _impetus;
 		}
-		public MessageHelp setImpetusZHelp = new MessageHelp("SetImpetusZ","Changes the impetus on the Z axis.",3,"The new rotational impetus");
-		public void SetImpetusZ(float _impetus) {
+		public MessageHelp setImpetusZHelp = new MessageHelp("SpinImpetusZ", "Changes the impetus on the Z axis.",3,"The new rotational impetus");
+		public void SpinImpetusZ(float _impetus) {
 			impetus.z = _impetus;
 		}
 	}

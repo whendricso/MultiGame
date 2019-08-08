@@ -9,6 +9,9 @@ namespace MultiGame {
 	[AddComponentMenu("MultiGame/AI/Utility Module")]
 	public class UtilityModule : MultiModule {
 
+		[Header("General Settings")]
+		[Reorderable]
+		public List<Directive> directives = new List<Directive>();
 		[Tooltip("A unique string wich identifies this particular Utility Module from all others. Used for serialization only")]
 		public string uniqueIdentifier;
 		[Tooltip("The name of this personality that will be displayed to the player")]
@@ -17,19 +20,17 @@ namespace MultiGame {
 		[Header("IMGUI Settings")]
 		public bool showGui = false;
 		[Tooltip("Normalized viewport rectangle which controls the part of the screen which is taken up by the GUI box for this Utility AI. Numbers are a percentage of screen coordinates. Only applies to immediate mode GUI")]
-		public Rect guiArea = new Rect(.3f,.3f,.3f,.3f);
+		public Rect guiArea = new Rect(.3f, .3f, .3f, .3f);
 		public GUISkin guiSkin;
 
 		[Header("UGUI Settings")]
 		[Tooltip("If we're using UGUI (as opposed to immediate mode) assign this to display the name of the personality for this AI")]
-		public Text nameDisplay;
+		public InputField nameDisplay;
 
-		[Reorderable]
-		public List<Directive> directives = new List<Directive>();
-
-		private int currrentsequence = -1;
+		private int currentSequence = -1;
 		private int highest = -1;
 		private string selector = "";
+		//private bool editName = false;
 
 		public HelpInfo help = new HelpInfo("Utility Module is a decision-making machine which compares your Directive's Utility Graphs and activates Behavior Sequencer components to orchestrate complex behavior. " +
 			"The graphs are compared at their current Valence (X axis) to get their Utility (Y axis). " +
@@ -46,21 +47,38 @@ namespace MultiGame {
 			public GameObject sequencerObject;
 			[Tooltip("What designator is assigned to the Behavior Sequencer(s) we wish to use to attempt to satisfy this Directive? This can be found on the 'Behavior Sequencer' component.")]
 			public string sequenceDesignator;
-			
+			[Tooltip("If this directive is failed, what sequence should we begin, if any?")]
+			public string failureSequence;
+			[Tooltip("If using IMGUI, should we show this Directive's current Utility value ?")]
+			public bool showUtility = true;
+
+			[Header("Temporal Desire")]
 			[Tooltip("How much does the Valence of this Directive change per second?")]
 			public float changePerSec;
-			[Tooltip("How much do we adjust the Valence when a 'SatisfyDirective' message occurs for this Directive?")]
-			public float satisfactionValue;
+
+
+			[Header("Objective Desire")]
+			[Tooltip("Do we desire to have an object if it becomes available or unavailable? If so, what is it's tag?")]
+			public string desiredObject;
+			[Tooltip("How many do we want to have?")]
+			public int desiredCount = 3;
+
+			[Header("Utility")]
 			[Tooltip("This graph represents the desire level of this Directive. When Valence (X axis) is zero, the desire or Utility (Y axis) is evaluated to the value on the leftmost side of the graph. When it is one, the desire level (Utility) is the value on the rightmost side of the graph for this directive. The graphs are compared at their current Valence (X axis) to get their Utility (Y axis).")]
 			public AnimationCurve utilityGraph;
-
+			[Tooltip("How much do we adjust the Valence when a 'SatisfyDirective' message occurs for this Directive?")]
+			public float satisfactionValue;
+			[Tooltip("If we start this directive, should we force the AI to stay on this directive until it is satisfied using either SatisfyDirective or SatisfySelected?")]
+			public bool lockUntilSatisfied = false;
+			[System.NonSerialized]
+			public bool currentlyLocked = false;
 
 			[System.NonSerialized]
 			public float startTime;
 			[Tooltip("What is the starting Valence for this directive? Valence is a value between 0 and 1, and represents the current position on the x axis of the Utility Graph for this Directive. The Utility " +
 				"of this Directive is evaluated at this point on the graph, and this value changes by 'Change Per Sec' indicated above. The leftmost point on the graph is where Valence == 0 and the rightmost point " +
 				"Valence == 1")]
-			[Range(0f,1f)]
+			[Range(0f, 1f)]
 			public float valence;
 			[Tooltip("The final calculated 'level of desire' for this Directive. The Directive with the highest Utility is chosen to be followed by the AI at any given time. " +
 				"It is the level of the graph at the X axis of the Utility Graph indicated by the Valence ( utility = utilityGraph @ valence ). Editing this value has no effect, " +
@@ -75,7 +93,7 @@ namespace MultiGame {
 				sequenceDesignator = "";
 				satisfactionValue = -1;
 				utilityGraph = new AnimationCurve();
-				
+
 			}
 		}
 
@@ -95,25 +113,34 @@ namespace MultiGame {
 			}
 		}
 
+		private void Awake() {
+			if (nameDisplay != null)
+				nameDisplay.text = personalityName;
+		}
+
 		void OnGUI() {
 			if (!showGui)
 				return;
 			GUI.skin = guiSkin;
-			GUILayout.BeginArea(new Rect(guiArea.x * Screen.width, guiArea.y * Screen.height, guiArea.width * Screen.width, guiArea.height * Screen.height),"","box");
-			if (!string.IsNullOrEmpty(personalityName)) {
-				GUILayout.BeginHorizontal();
-				GUILayout.FlexibleSpace();
-				GUILayout.Label(personalityName);
-				GUILayout.FlexibleSpace();
-				GUILayout.EndHorizontal();
-				GUILayout.FlexibleSpace();
-			}
+			GUILayout.BeginArea(new Rect(guiArea.x * Screen.width, guiArea.y * Screen.height, guiArea.width * Screen.width, guiArea.height * Screen.height), "", "box");
+
+			GUILayout.BeginHorizontal();
+			GUILayout.FlexibleSpace();
+			personalityName = GUILayout.TextField(personalityName);
+			GUILayout.FlexibleSpace();
+			if (GUILayout.Button("X", GUILayout.Width(32), GUILayout.Height(32)))
+				showGui = false;
+			GUILayout.EndHorizontal();
+			GUILayout.FlexibleSpace();
+
 			for (int i = 0; i < directives.Count; i++) {
-				GUILayout.BeginHorizontal();
-				GUILayout.Label(directives[i].name);
-				GUILayout.FlexibleSpace();
-				GUILayout.HorizontalSlider(directives[i].utility,0,1, GUILayout.Width(100));
-				GUILayout.EndHorizontal();
+				if (directives[i].showUtility) {
+					GUILayout.BeginHorizontal();
+					GUILayout.Label(directives[i].name);
+					GUILayout.FlexibleSpace();
+					GUILayout.HorizontalSlider(directives[i].utility, 0, 1, GUILayout.Width(100));
+					GUILayout.EndHorizontal();
+				}
 			}
 			GUILayout.EndArea();
 		}
@@ -138,9 +165,13 @@ namespace MultiGame {
 		void Update() {
 			AdjustUtilities();
 			highest = FindHighestUtility();
+			if (nameDisplay != null && nameDisplay.enabled)
+				personalityName = nameDisplay.text;
+
 			if (highest != -1) {
-				if (highest != currrentsequence) {
-					InitializeDirective(highest);
+				if (highest != currentSequence) {
+					if (currentSequence == -1 || !directives[highest].currentlyLocked)
+						InitializeDirective(highest);
 				}
 			}
 			foreach (Directive _dir in directives) {
@@ -148,15 +179,17 @@ namespace MultiGame {
 					_dir.utilityDisplay.value = _dir.utility;
 				}
 			}
-			
+
 		}
 
 		void InitializeDirective(int _index) {
-			currrentsequence = _index;
+			currentSequence = _index;
 			for (int i = 0; i < directives.Count; i++) {
 				if (i == _index) {
 					directives[i].sequencerObject.SendMessage("StartSequence", directives[i].sequenceDesignator, SendMessageOptions.DontRequireReceiver);
 					directives[i].startTime = Time.time;
+					if (directives[i].lockUntilSatisfied)
+						directives[i].currentlyLocked = true;
 				} else
 					directives[i].startTime = -1;
 			}
@@ -165,6 +198,18 @@ namespace MultiGame {
 		void AdjustUtilities() {
 			foreach (Directive _dir in directives) {
 				_dir.valence += _dir.changePerSec * Time.deltaTime;
+
+				//If we're running out of something, or getting a surplus, we can have a desire related to that
+				if (!string.IsNullOrEmpty(_dir.desiredObject)) {
+					List<GameObject> _desiredObjects = new List<GameObject>(GameObject.FindGameObjectsWithTag(_dir.desiredObject));
+					if (_dir.desiredCount != 0) {
+						_dir.valence = Mathf.Clamp01(Mathf.Abs(_desiredObjects.Count / _dir.desiredCount));
+					} else {
+						_dir.valence = _desiredObjects.Count > 0 ? 1 : 0;
+					}
+
+				}
+
 				_dir.valence = Mathf.Clamp01(_dir.valence);
 				_dir.utility = _dir.utilityGraph.Evaluate(_dir.valence);
 			}
@@ -175,7 +220,7 @@ namespace MultiGame {
 			float highestUtil = -1;
 
 			for (int i = 0; i < directives.Count; i++) {
-				if (directives[i].valence > highestUtil) {
+				if (directives[i].utility > highestUtil) {
 					highestUtil = directives[i].utility;
 					ret = i;
 				}
@@ -185,13 +230,35 @@ namespace MultiGame {
 		}
 
 		[Header("Available Messages")]
-		
-
-		public MessageHelp satisfyDirectiveHelp = new MessageHelp("SatisfyDirective","Applies the 'Satisfaction Value' of the given directive so that the valence of that directive can change",4, "The name of the directive we wish to satisfy. This moves the current X position on the Utility Graph ( Valence = Satisfaction Value + Valence). To satisfy completely, set Satsifaction Value to -1. To max out the graph, set Satsifaction Value to + 1.");
+		public MessageHelp satisfyDirectiveHelp = new MessageHelp("SatisfyDirective", "Applies the 'Satisfaction Value' of the given directive so that the valence of that directive can change", 4, "The name of the directive we wish to satisfy. This moves the current X position on the Utility Graph ( Valence = Satisfaction Value + Valence). To satisfy completely, set Satsifaction Value to -1. To max out the graph, set Satsifaction Value to + 1.");
 		public void SatisfyDirective(string _directiveName) {
 			foreach (Directive _dir in directives) {
 				if (_dir.name == _directiveName) {
 					_dir.valence += _dir.satisfactionValue;
+					_dir.currentlyLocked = false;
+				}
+			}
+		}
+
+		public MessageHelp failDirectiveHelp = new MessageHelp("FailDirective", "Causes the Utility AI to fail a given directive, allowing it to re-evaluate it's directives and optionally start a sequence resultant from that failure.", 4, "The name of the Directive we wish to fail.");
+		public void FailDirective(string _directiveName) {
+			for (int i = 0; i < directives.Count; i++) {
+				if (directives[i].name == _directiveName && currentSequence == i) {
+					currentSequence = -1;
+					if (!string.IsNullOrEmpty(directives[i].failureSequence))
+						directives[i].sequencerObject.SendMessage("StartSequence", directives[i].failureSequence, SendMessageOptions.DontRequireReceiver);
+				}
+			}
+		}
+
+		public MessageHelp failCurrentDirectiveHelp = new MessageHelp("FailCurrentDirective","Causes the AI to start the failure sequence associated with the currently active directive, if any, and choose another directive if possible");
+		public void FailCurrentDirective() {
+			if (currentSequence >= 0) {
+				for (int i = 0; i < directives.Count; i++) {
+					if (directives[i].sequenceDesignator == directives[currentSequence].sequenceDesignator) {
+						FailDirective(directives[i].name);
+						directives[i].currentlyLocked = false;
+					}
 				}
 			}
 		}
@@ -205,6 +272,7 @@ namespace MultiGame {
 		public void SatisfySelected(float _satisfaction) {
 			foreach (Directive _dir in directives) {
 				if (_dir.name == selector) {
+					_dir.currentlyLocked = false;
 					_dir.valence += _satisfaction;
 				}
 			}
@@ -212,6 +280,8 @@ namespace MultiGame {
 
 		public MessageHelp decideHelp = new MessageHelp("Decide", "Causes the AI to re-evaluate it's directives and immediately initiate a Behavior Sequencer, even if that sequence is already running.");
 		public void Decide() {
+			if (!enabled)
+				return;
 			highest = FindHighestUtility();
 			if (highest != -1)
 				InitializeDirective(highest);
@@ -222,6 +292,7 @@ namespace MultiGame {
 			PlayerPrefs.SetString("Util_" + uniqueIdentifier + "_personalityName", personalityName);
 			for (int i = 0; i < directives.Count; i++) {
 				PlayerPrefs.SetFloat("Util_" +uniqueIdentifier + "_" + i,directives[i].valence);
+				PlayerPrefs.SetInt("Util_Locked_" + uniqueIdentifier + "_" + i, (directives[i].currentlyLocked? 1 : 0));
 			}
 		}
 
@@ -233,6 +304,7 @@ namespace MultiGame {
 				personalityName = PlayerPrefs.GetString("Util_" + uniqueIdentifier + "_personalityName");
 			for (int i = 0; i < directives.Count; i++) {
 				directives[i].valence = PlayerPrefs.GetFloat("Util_" + uniqueIdentifier + "_" + i);
+				directives[i].currentlyLocked = (PlayerPrefs.GetInt("Util_Locked_" + uniqueIdentifier + "_" + i) == 1);
 			}
 			if (nameDisplay != null)
 				nameDisplay.text = personalityName;

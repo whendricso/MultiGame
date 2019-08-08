@@ -241,6 +241,8 @@ namespace MultiGame {
 			UpdatePlatformParent();
 			stunDuration -= Time.deltaTime;
 
+			UpdateMeleeDamageValue();
+
 			if (stunDuration > 0) {
 				if (anim != null)
 					anim.speed = 0;
@@ -270,7 +272,7 @@ namespace MultiGame {
 				if (!string.IsNullOrEmpty(weapon.animationTrigger))
 					animatorAttack = weapon.animationTrigger;
 				totalDamage -= weapon.damageValue;
-				if (weapon.arc > meleeArc)
+				if (weapon.arc < meleeArc)
 					meleeArc = weapon.arc;
 				if (weapon.stunTime > stunTime)
 					stunTime = weapon.stunTime;
@@ -499,7 +501,7 @@ namespace MultiGame {
 		void OnControllerColliderHit ( ControllerColliderHit _hit) {
 			if (controller.isGrounded == false)
 				return;
-			Debug.Log("" + Vector3.Dot(Vector3.down, (_hit.point - transform.position)));
+			//Debug.Log("" + Vector3.Dot(Vector3.down, (_hit.point - transform.position)));//debug for platform parent sometimes failing
 			if (Vector3.Dot(Vector3.down, (_hit.point - transform.position)) >.9f) {
 				if (_hit.moveDirection.y < 0.9f && _hit.normal.y > 0.5f) {
 					platform = _hit.gameObject;

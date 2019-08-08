@@ -65,6 +65,10 @@ namespace MultiGame {
 				foreach(string _teletag in teleTargetTags) {
 					_teles.AddRange(GameObject.FindGameObjectsWithTag(_teletag));
 				}
+				foreach (GameObject _tgt in _teles) {
+					if (!_tgt.activeInHierarchy)
+						_teles.Remove(_tgt);
+				}
 				if (_teles.Count > 0) {
 					if (splashPrefab != null)
 						Instantiate(splashPrefab, other.transform.position, other.transform.rotation);
@@ -84,9 +88,13 @@ namespace MultiGame {
 
 		[Header("Available Messages")]
 		public MessageHelp teleportToTargetHelp = new MessageHelp("TeleportToTarget","Teleports this object to the supplied 'Tele Target' scene object, if any.");
-		public void TeleportToTarget () {
+		public void TeleportToTarget() {
 			if (!gameObject.activeInHierarchy)
 				return;
+			if (teleTarget == null) {
+				MessageManager.Send(failureMessage);
+				return;
+			}
 			if (splashPrefab != null)
 				Instantiate(splashPrefab, transform.position, transform.rotation);
 			transform.position = teleTarget.transform.position;
@@ -96,10 +104,30 @@ namespace MultiGame {
 			MessageManager.Send (teleportMessage);
 		}
 
-		public MessageHelp teleportToTagHelp = new MessageHelp("TeleportToTag","Teleports this object to an object with a tag in the list of 'Tele Target Tags'");
-		public void TeleportToTag () {
+		public MessageHelp teleportToNearestHelp = new MessageHelp("TeleportToNearest","Teleports this object to the nearest object of a given tag.",4,"Tag of the object we can teleport to.");
+		public void TeleportToNearest(string _targetTag) {
 			if (!gameObject.activeInHierarchy)
 				return;
+			GameObject _nearest = FindClosestByTag(_targetTag);
+			if (_nearest != null) {
+				if (debug)
+					Debug.Log("Teleporter " + gameObject.name + " is teleporting to " + _targetTag);
+				transform.position = _nearest.transform.position;
+				transform.rotation = _nearest.transform.rotation;
+				MessageManager.Send (teleportMessage);
+			} else {
+				if (debug)
+					Debug.Log("Teleporter " + gameObject.name + " was unable to find a target tagged " + _targetTag);
+				MessageManager.Send(failureMessage);
+			}
+		}
+
+		public MessageHelp teleportToRandomHelp = new MessageHelp("TeleportToRandom","Teleports this object to an object with a tag in the list of 'Tele Target Tags'");
+		public void TeleportToRandom () {
+			if (!gameObject.activeInHierarchy)
+				return;
+			if (debug)
+				Debug.Log("Teleporter " + gameObject.name + " is teleporting to a random position");
 			if (teleTargetTags.Count > 0) {
 				List<GameObject> _teles = new List<GameObject>();
 				foreach(string _teletag in teleTargetTags) {

@@ -8,10 +8,10 @@ namespace MultiGame {
 	//[AddComponentMenu("MultiGame/General/Time Score")]
 	public class TimeScore : MultiModule {
 
-		[Header("Legacy GUI Settings")]
-		[Tooltip("Should we show a legacy Unity GUI? Not recommended for mobile devices")]
+		[Header("IMGUI Settings")]
+		[Tooltip("Should we show an immediate mode GUI? Not recommended for mobile devices")]
 		public bool showGUI = true;
-		[RequiredFieldAttribute("Unique identifier for the window, must be unique! (change it if it's not!)")]
+		[RequiredField("Unique identifier for the window, must be unique! (change it if it's not!)")]
 		public int windowID = 37503;
 		[Tooltip("Normalized viewport rectangle for the legacy GUI, values between 0 and 1")]
 		public Rect guiArea = new Rect(0.6f, 0.01f, 0.125f, .125f);
@@ -20,13 +20,17 @@ namespace MultiGame {
 		private bool showBestTime = false;
 
 		[Header("UGUI Settings")]
-		[RequiredFieldAttribute("A Text component you wish to use to display the timer. Works on mobile. Overrides Legacy GUI if used.", RequiredFieldAttribute.RequirementLevels.Optional)]
+		[RequiredField("A Text component you wish to use to display the timer. Works on mobile. Overrides Legacy GUI if used.", RequiredFieldAttribute.RequirementLevels.Optional)]
 		public Text timerDisplay;
+		[RequiredField("If we have a best time, we can display it using a UGUI text",RequiredFieldAttribute.RequirementLevels.Optional)]
+		public Text bestTimeDisplay;
+		[RequiredField("If we have a previous time, we can display it using a UGUI text",RequiredFieldAttribute.RequirementLevels.Optional)]
+		public Text previousTimeDisplay;
 
 		[Header("Timer Settings")]
 		[Tooltip("Should we automatically record the time when this object is destroyed?")]
 		public bool autorecord = true;
-		[RequiredFieldAttribute("How long do we have?")]
+		[RequiredField("How long do we have?", RequiredFieldAttribute.RequirementLevels.Optional)]
 		public float totalTime = 0.0f;
 		[HideInInspector]
 		public bool started = false;
@@ -71,14 +75,19 @@ namespace MultiGame {
 		}
 
 		void Update() {
-			
-
 			timeSinceStart += Time.deltaTime;
 
 			if (timerDisplay != null) {
 				showGUI = false;
 
-				timerDisplay.text = "Current Time: " + Mathf.FloorToInt( timeSinceStart) + "Last: " + Mathf.FloorToInt( previousTime ) + " Remaining: " + (totalTime - timeSinceStart);
+				timerDisplay.text = "Current Time: " + Mathf.FloorToInt( timeSinceStart) + "Last: " + Mathf.FloorToInt( previousTime ) + (totalTime == 0 ? "" : (" Remaining: " + (totalTime - timeSinceStart)));
+
+				if (previousTimeDisplay != null)
+					previousTimeDisplay.text = "" + previousTime;
+
+				if (bestTimeDisplay != null)
+					bestTimeDisplay.text = ""+bestTime;
+
 			}
 
 			if (timerDisplay != null)

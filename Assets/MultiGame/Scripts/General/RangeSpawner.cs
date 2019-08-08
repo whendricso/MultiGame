@@ -26,7 +26,7 @@ namespace MultiGame {
 
 		private List<GameObject> spawnableObjects = new List<GameObject>();//a private list containing all of the objects
 		private GameObject targetObject;
-		private float currentSeparation = 0;
+		//private float currentSeparation = 0;
 		private Vector3 placementPoint = Vector3.zero;
 		private int currentIterations = 0;
 

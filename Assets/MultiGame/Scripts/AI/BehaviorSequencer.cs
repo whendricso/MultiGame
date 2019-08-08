@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿#pragma warning disable 0414
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using MultiGame;
@@ -60,6 +61,10 @@ namespace MultiGame {
 
 		public MessageHelp startSequenceHelp = new MessageHelp("StartSequence","Initializes sequences on this object with a matching 'Designator', defined above.",4,"If the 'Designator' matches the string argument supplied, the BehaviorSequencer will activate.");
 		public void StartSequence(string _designator) {
+			if (!enabled)
+				return;
+			if (!gameObject.activeInHierarchy)
+				return;
 			if (_designator != designator)
 				return;
 			if (debug)

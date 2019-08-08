@@ -30,7 +30,7 @@ namespace MultiGame {
 		public HelpInfo help = new HelpInfo("The ultimate audio component! This component allows you to play arbitrary sounds based on messages sent from other components. To use, add it to the source object where " +
 			"you want sound to originate. For a single sound, just add the sound to the 'Audio Clip' attribute in the 'Audio Source' comonent attached to this object. If you want to play one of a set of sounds, add them all to the " +
 			"'Clips' attribute above. Then, send the message 'PlaySelectedSound' with an integer (starting at 0) indicating which you wish to play. For example, to play the second sound send 'PlaySelectedSound' with parameter '1' " +
-			"and 'Integer' parameter mode. Any message sender can be used, for example the 'Key Message' component can trigger this Sounder with the press of a key.");
+			"and 'Integer' parameter mode. Any message sender can be used, for example the 'Key Message' component can trigger this Sounder with the press of a key.", "https://www.youtube.com/watch?v=OsV4l0QzMA0");
 
 		public bool debug = false;
 

@@ -70,6 +70,7 @@ namespace MultiGame {
 		private static Texture2D rangedBotIcon;
 		private static Texture2D utilityBotIcon;
 		private static Texture2D behaviorSequencerIcon;
+		private static Texture2D navigationIcon;
 		//		private static Texture2D unitSpawnIcon;
 		private static Texture2D addColliderIcon;
 		private static Texture2D addRigidbodyIcon;
@@ -189,7 +190,8 @@ namespace MultiGame {
 			fighterInputIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/FighterInput.png", typeof(Texture2D)) as Texture2D;
 			//			minionSpawnIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/MinionSpawn", typeof(Texture2D)) as Texture2D;
 			turretIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/Turret.png", typeof(Texture2D)) as Texture2D;
-//			meleeBotIcon = AssetDatabase.LoadAssetAtPath("MeleeAI", typeof(Texture2D)) as Texture2D;
+			navigationIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/Navigation.png", typeof(Texture2D)) as Texture2D;
+			//			meleeBotIcon = AssetDatabase.LoadAssetAtPath("MeleeAI", typeof(Texture2D)) as Texture2D;
 			rangedBotIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/HitscanAI.png", typeof(Texture2D)) as Texture2D;
 			utilityBotIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/UtilityAI.png", typeof(Texture2D)) as Texture2D;
 			behaviorSequencerIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/BehaviorSequencer.png", typeof(Texture2D)) as Texture2D;
@@ -765,6 +767,11 @@ namespace MultiGame {
 				SetupBehaviorSequencer();
 				
 			}
+			if (MGButton(timedIcon, "Timer")) {
+				ResolveOrCreateTarget();
+				Undo.AddComponent<TimedMessage>(target);
+				SmartRenameTarget("Timer");
+			}
 			if (MGButton(startMessageIcon, "Automatic\nLogic")) {
 				ResolveOrCreateTarget();
 				Undo.AddComponent<StartMessage>(target);
@@ -837,11 +844,7 @@ namespace MultiGame {
 				SetupActiveSphere();
 				SmartRenameTarget("Collidable");
 			}
-			if (MGButton(timedIcon, "Timer")) {
-				ResolveOrCreateTarget();
-				Undo.AddComponent<TimedMessage>(target);
-				SmartRenameTarget("Timer");
-			}
+			
 			
 			EditorGUILayout.EndVertical();
 		}
@@ -1144,6 +1147,11 @@ namespace MultiGame {
 			if (MGButton(behaviorSequencerIcon, "Behavior\nSequencer")) {
 				SetupBehaviorSequencer();
 			}
+			if (MGButton(navigationIcon, "Navigation")) {
+				ResolveOrCreateTarget();
+				SmartRenameTarget("Agent");
+				Undo.AddComponent<NavModule>(target);
+			}
 			if (MGButton(rangedBotIcon, "Hitscan\nAI")) {
 				ResolveOrCreateTarget();
 				if (target.GetComponentInChildren<TargetingSensor>() == null) {
@@ -1251,14 +1259,15 @@ namespace MultiGame {
 //			GUIHeader();
 
 			EditorGUILayout.BeginVertical("box"/*, GUILayout.Width(112f)*/);
-			/*if (MGButton(multiMenuIcon, "IMGUI\nMenu")) {
+			if (MGButton(multiMenuIcon, "IMGUI\nMenu")) {
 				ResolveOrCreateTarget();
 				GameObject _child = AddDirectChild(target);
 				_child.name = "MultiMenu";
 				Undo.RegisterCreatedObjectUndo(target, "Create MultiMenu");
 				Undo.AddComponent<MultiMenu>(_child);
 				SmartRenameTarget("IMGUI Menu");
-			}*/
+				Selection.activeGameObject = _child;
+			}
 			if (MGButton(UGUIIcon, "UGUI\nCanvas")) {
 				ResolveOrCreateTarget();
 				GameObject _child = Instantiate<GameObject>(Resources.Load("Canvas", typeof(GameObject)) as GameObject);
