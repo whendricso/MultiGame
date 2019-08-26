@@ -11,23 +11,30 @@ namespace MultiGame {
 		[Tooltip("What are we trying to guard?")]
 		public GameObject objective;
 		[System.NonSerialized]
-		public Vector3 objectivePosition;
-		[System.NonSerialized]
-		public Vector3 persistentMoveTarget;
+		public Vector3 objectivePosition;//Set to match the position of the objective, if any, otherwise we guard our starting position
+		//[System.NonSerialized]
+		//public Vector3 persistentMoveTarget;
 		[RequiredField("Tag of the object we want to guard", RequiredFieldAttribute.RequirementLevels.Optional)]
 		public string guardObjectiveTag;
 		[Tooltip("How often do we search for our objective by tag? (Only occurs if a Guard Objective Tag is defined)")]
-		public float objectiveSearchTime = 2f;
-
+		public float objectiveSearchTime = 2;
 		[Tooltip("Who you wan' me kill? (Assigns a target that already exists in the scene, good for scripted events)")]
 		public GameObject killTarget;
+
+		[Header("Line Of Sight")]
+		public float visionRange = 45;
+		[Tooltip("When we're looking for our target, what collision layers can block our view?")]
+		public LayerMask obstructionMask;
+		public Vector3 lookRayOffset = Vector3.zero;
+		public Vector3 targetRayOffset = Vector3.zero;
+		public bool switchWalkMode = false;
 		
 		[Header("Behavior Modifiers")]
-		[Tooltip("How often do I think about changing targets?")]
-		public float targetCooldownTime = 6.0f;
+		//[Tooltip("How often do I think about changing targets?")]
+		//public float targetCooldownTime = 6.0f;
 		[Tooltip("How far from my objective can I travel?")]
 		public float guardRange = 30.0f;
-		[Tooltip("How far do I turn while guarding a position?")]
+		[Tooltip("How far do I turn, in degrees, while guarding a position?")]
 		public float guardingRotation = 30.0f;
 		[Tooltip("How varied, in degrees, is that rotation?")]
 		public float rotationVariance = 15.0f;
@@ -36,6 +43,12 @@ namespace MultiGame {
 		[Tooltip("How long do I walk for?")]
 		public float wanderWalkTime = 3.0f;
 		private float wanderCounter;
+		private float currentSearchTime = 0;
+		private float targetSearchTime = 0;
+		private bool hunting = false;
+		private Vector3 lastSeenPosition = Vector3.zero;
+		private bool targetInView = false;
+		private bool targetInViewLastFrame = false;
 
 		[Tooltip("Do I change orientation automatically?")]
 		public bool autoLookAround = true;
@@ -58,65 +71,82 @@ namespace MultiGame {
 			wandering = false;
 			returning = false;
 			wanderCounter = wanderInterval;
+			lastSeenPosition = transform.position;
 			if (objective == null)
 				objectivePosition = transform.position;
 			else
 				objectivePosition = objective.transform.position;
-			persistentMoveTarget = transform.position;
-			if (!string.IsNullOrEmpty(guardObjectiveTag)) {
-				StartCoroutine(SearchForObjective());
-			}
 		}
 
-		public IEnumerator SearchForObjective () {
-			yield return new WaitForSeconds (objectiveSearchTime);
-			if (debug)
-				Debug.Log ("Guard Module" + gameObject.name + " is searching for a guard objective. Objective: " + objective);
-			if (gameObject.activeInHierarchy && !string.IsNullOrEmpty (guardObjectiveTag)) {
-
-				if (objective == null)
-					objective = FindClosestByTag(guardObjectiveTag);//GameObject.FindGameObjectWithTag (guardObjectiveTag);
-			}
-			StartCoroutine (SearchForObjective());
+		private void OnDisable() {
+			StopAllCoroutines();
 		}
 
-		void Update () {
-			if (killTarget == null && Vector3.Distance(transform.position, objectivePosition) > guardRange)
-				StartCoroutine(StopWandering(0));
+		void FixedUpdate () {
+			wanderCounter -= Time.deltaTime;
+			currentSearchTime -= Time.deltaTime;
+			targetSearchTime -= Time.deltaTime;
 
-			//Debug.Log(Vector3.Distance(transform.position, objectivePosition));
-			/*if (objective != null) {
+			if (objective != null)
 				objectivePosition = objective.transform.position;
-				gameObject.SendMessage("MoveTo",objectivePosition, SendMessageOptions.DontRequireReceiver);
-			}
-			else*/
-				objectivePosition = persistentMoveTarget;
-
-			if (!returning) {
-				if (Vector3.Distance(transform.position, objectivePosition) > guardRange /*&& objective == null*/) {
-					if (debug)
-						Debug.Log("Guard " + gameObject.name + " has left guard range, returning...");
-					returning = true;
-					StopAllCoroutines();
-					StopWandering(0);
-					gameObject.SendMessage("MoveTo",objectivePosition, SendMessageOptions.DontRequireReceiver);
+			else {
+				if (currentSearchTime < 0 && !string.IsNullOrEmpty(guardObjectiveTag)) {
+					currentSearchTime = objectiveSearchTime;
+					GameObject _nearest = FindClosestByTag(guardObjectiveTag);
+					if (_nearest != null)
+						objective = _nearest;
 				}
 			}
-			if (Vector3.Distance(transform.position, objectivePosition) < guardRange) {
-				returning = false;
-				gameObject.SendMessage("StopMoving", SendMessageOptions.DontRequireReceiver);
+
+			UpdateTargetView();
+
+			if (killTarget == null) {
+				hunting = false;
+				UpdateWander();
+			} else {
+				if (switchWalkMode) {
+					if (targetInView/* && !targetInViewLastFrame*/)
+						gameObject.SendMessage("FaceTarget", SendMessageOptions.DontRequireReceiver);
+					else if (!targetInView/* && targetInViewLastFrame*/)
+						gameObject.SendMessage("FaceMoveDirection", SendMessageOptions.DontRequireReceiver);
+				}
+				UpdateAttack();
 			}
-			wanderCounter -= Time.deltaTime;
+			
+
+			targetInViewLastFrame = targetInView;
+		}
+		
+		private void UpdateTargetView() {
+			if (killTarget != null && Vector3.Distance(killTarget.transform.position, transform.position) < visionRange) {
+				targetInView = !Physics.Linecast(transform.position + lookRayOffset, killTarget.transform.position + targetRayOffset, obstructionMask);
+			} else {
+				targetInView = false;
+			}
+			if (debug && killTarget != null)
+				Debug.DrawLine(transform.position + lookRayOffset, killTarget.transform.position + targetRayOffset,(targetInView ? XKCDColors.PaleGreen : XKCDColors.YellowOrange));
+		}
+
+		private void UpdateWander() {
+
+			if (Vector3.Distance(transform.position, objectivePosition) > guardRange)
+				StartCoroutine(StopWandering(0));
+
 			if (wanderCounter <= 0) {
 				wanderCounter = wanderInterval;
 				if (autoLookAround || wander)
 					ChangeOrientation();
-				if(wander) {
+				if (wander) {
 					Wander();
 				}
 			}
-			if (wandering && !returning)
-				gameObject.SendMessage("SteerForward", true, SendMessageOptions.DontRequireReceiver);
+		}
+
+		private void UpdateAttack() {
+			if (targetSearchTime < 0 && killTarget != null) {
+				targetSearchTime = objectiveSearchTime;
+				gameObject.SendMessage("SetTarget", killTarget, SendMessageOptions.DontRequireReceiver);//A hack! Shouldn't be sending messages every frame on AI
+			}
 		}
 
 		IEnumerator StopWandering (float _delay) {
@@ -127,9 +157,22 @@ namespace MultiGame {
 			}
 			gameObject.SendMessage("MoveTo", objectivePosition, SendMessageOptions.DontRequireReceiver);
 		}
+
+
 		[Header("Available Messages")]
+		public MessageHelp huntHelp = new MessageHelp("Hunt","Enables hunting mode, where we will try to go to the target's last known position");
+		public void Hunt() {
+			hunting = true;
+		}
+
+		public MessageHelp stopHuntingHelp = new MessageHelp("StopHunting","Disables hunting mode, so normal target following behavior willbe used instead");
+		public void StopHunting() {
+			hunting = false;
+		}
+
 		public MessageHelp wanderHelp = new MessageHelp("Wander", "Causes the Guard Module to immediately begin wandering to a new location.");
 		public void Wander () {
+			gameObject.SendMessage("FaceMoveDirection", SendMessageOptions.DontRequireReceiver);
 			if (!gameObject.activeInHierarchy)
 				return;
 			//if (objective != null)
@@ -160,6 +203,7 @@ namespace MultiGame {
 		public void SetTarget (GameObject _target) {
 			if (!gameObject.activeInHierarchy)
 				return;
+			gameObject.SendMessage("FaceTarget", SendMessageOptions.DontRequireReceiver);
 			//if (objective != null)
 			//	return;
 			if (debug)
@@ -204,10 +248,9 @@ namespace MultiGame {
 		public void MoveTo (Vector3 _position) {
 			if (!gameObject.activeInHierarchy)
 				return;
-			persistentMoveTarget = _position;
+			//persistentMoveTarget = _position;
 			//SetObjective(_position);
 		}
-
 
 		private void ReturnFromPool() {
 			ClearTarget();

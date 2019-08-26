@@ -28,100 +28,104 @@ namespace MultiGame {
 		private Vector2 scrollView = new Vector2(0f,0f);
 
 		private bool iconsLoaded = false;
-		private static Texture2D basicTab;
-		private static Texture2D objectTab;
-		private static Texture2D logicTab;
-		private static Texture2D combatTab;
-		private static Texture2D playerTab;
-		private static Texture2D aiTab;
-		private static Texture2D utilityTab;
-		private static Texture2D helpTab;
+		private Texture2D basicTab;
+		private Texture2D objectTab;
+		private Texture2D logicTab;
+		private Texture2D combatTab;
+		private Texture2D playerTab;
+		private Texture2D aiTab;
+		private Texture2D utilityTab;
+		private Texture2D helpTab;
 
-		private static Texture2D healthIcon;
-		private static Texture2D splineIcon;
-		private static Texture2D snapIcon;
-		private static Texture2D snapDownIcon;
-		private static Texture2D layerMaskIcon;
-		private static Texture2D shelfIcon;
-		private static Texture2D moveIcon;
-		private static Texture2D moveRigidbodyIcon;
-		private static Texture2D activeCollIcon;
-		private static Texture2D activeCollSphereIcon;
-		private static Texture2D activeZoneIcon;
-		private static Texture2D activeZoneSphereIcon;
-		private static Texture2D cameraIcon;
-		private static Texture2D RTSIcon;
-		private static Texture2D cursorLockIcon;
-		private static Texture2D mouseAimIcon;
-		private static Texture2D animationIcon;
-		private static Texture2D camZoneIcon;
-		private static Texture2D camSphereIcon;
-		private static Texture2D backupCamIcon;
-		private static Texture2D gunIcon;
-		private static Texture2D inventoryIcon;
-		private static Texture2D containerIcon;
-		private static Texture2D itemIcon;
-//		private static Texture2D itemSpawnIcon;
-//		private static Texture2D meleeInputIcon;
-		private static Texture2D fighterInputIcon;
-//		private static Texture2D minionSpawnIcon;
-		private static Texture2D turretIcon;
-//		private static Texture2D meleeBotIcon;
-		private static Texture2D rangedBotIcon;
-		private static Texture2D utilityBotIcon;
-		private static Texture2D behaviorSequencerIcon;
-		private static Texture2D navigationIcon;
-		//		private static Texture2D unitSpawnIcon;
-		private static Texture2D addColliderIcon;
-		private static Texture2D addRigidbodyIcon;
-		private static Texture2D particlesIcon;
-		private static Texture2D clickableIcon;
-		private static Texture2D mouseMessageIcon;
-		private static Texture2D sounderIcon;
-		private static Texture2D musicIcon;
-		private static Texture2D UGUIIcon;
-		private static Texture2D multiMenuIcon;
-		private static Texture2D keyMessageIcon;
-		private static Texture2D startMessageIcon;
-		private static Texture2D destructibleIcon;
-		private static Texture2D explosionIcon;
-		private static Texture2D spawnIcon;
-		private static Texture2D lightIcon;
-		private static Texture2D doorIcon;
-		private static Texture2D collLogicIcon;
-		private static Texture2D relayIcon;
-		private static Texture2D tagRelayIcon;
-		private static Texture2D timedIcon;
-		private static Texture2D randomIcon;
-		private static Texture2D destructMessageIcon;
-		private static Texture2D missileIcon;
-//		private static Texture2D mineIcon;
-		private static Texture2D sceneChangeIcon;
-		private static Texture2D bulletIcon;
-		private static Texture2D clipIcon;
-		private static Texture2D clipInvIcon;
-		private static Texture2D meleeWeaponIcon;
-		private static Texture2D armorIcon;
-		//		private static Texture2D fpsIcon;
-		private static Texture2D sixAxisIcon;
-		private static Texture2D inputAnimatorIcon;
-		private static Texture2D characterCreatorIcon;
-		private static Texture2D collectibleIcon;
-		private static Texture2D billboardIcon;
-		private static Texture2D targetingSensorIcon;
-		private static Texture2D messageToggleIcon;
-		private static Texture2D savePrefsIcon;
-		private static Texture2D saveToDiskIcon;
-		private static Texture2D saveSceneIcon;
-		private static Texture2D lodIcon;
-		private static Texture2D helpIcon;
-		private static Texture2D youTubeIcon;
-		//private static Texture2D messageHelpIcon;
-		private static Texture2D uvPlaneIcon;
-		private static Texture2D uvScalarIcon;
-		private static Texture2D uvCubeIcon;
-		private static Texture2D uvSphereIcon;
-		private static Texture2D uvConeIcon;
+		private Texture2D healthIcon;
+		private Texture2D splineIcon;
+		private Texture2D snapIcon;
+		private Texture2D snapDownIcon;
+		private Texture2D layerMaskIcon;
+		private Texture2D shelfIcon;
+		private Texture2D moveIcon;
+		private Texture2D moveRigidbodyIcon;
+		private Texture2D activeCollIcon;
+		private Texture2D activeCollSphereIcon;
+		private Texture2D activeZoneIcon;
+		private Texture2D activeZoneSphereIcon;
+		private Texture2D cameraIcon;
+		private Texture2D RTSIcon;
+		private Texture2D cursorLockIcon;
+		private Texture2D mouseAimIcon;
+		private Texture2D animationIcon;
+		private Texture2D camZoneIcon;
+		private Texture2D camSphereIcon;
+		private Texture2D backupCamIcon;
+		private Texture2D gunIcon;
+		private Texture2D inventoryIcon;
+		private Texture2D containerIcon;
+		private Texture2D itemIcon;
+//		private Texture2D itemSpawnIcon;
+//		private Texture2D meleeInputIcon;
+		private Texture2D fighterInputIcon;
+//		private Texture2D minionSpawnIcon;
+		private Texture2D turretIcon;
+//		private Texture2D meleeBotIcon;
+		private Texture2D rangedBotIcon;
+		private Texture2D utilityBotIcon;
+		private Texture2D behaviorSequencerIcon;
+		private Texture2D navigationIcon;
+		//		private Texture2D unitSpawnIcon;
+		private Texture2D addColliderIcon;
+		private Texture2D addRigidbodyIcon;
+		private Texture2D particlesIcon;
+		private Texture2D clickableIcon;
+		private Texture2D mouseMessageIcon;
+		private Texture2D sounderIcon;
+		private Texture2D musicIcon;
+		private Texture2D UGUIIcon;
+		private Texture2D multiMenuIcon;
+		private Texture2D keyMessageIcon;
+		private Texture2D startMessageIcon;
+		private Texture2D destructibleIcon;
+		private Texture2D explosionIcon;
+		private Texture2D spawnIcon;
+		private Texture2D lightIcon;
+		private Texture2D doorIcon;
+		private Texture2D collLogicIcon;
+		private Texture2D relayIcon;
+		private Texture2D tagRelayIcon;
+		private Texture2D timedIcon;
+		private Texture2D randomIcon;
+		private Texture2D destructMessageIcon;
+		private Texture2D missileIcon;
+//		private Texture2D mineIcon;
+		private Texture2D sceneChangeIcon;
+		private Texture2D bulletIcon;
+		private Texture2D clipIcon;
+		private Texture2D clipInvIcon;
+		private Texture2D meleeWeaponIcon;
+		private Texture2D armorIcon;
+		//		private Texture2D fpsIcon;
+		private Texture2D sixAxisIcon;
+		private Texture2D inputAnimatorIcon;
+		private Texture2D characterCreatorIcon;
+		private Texture2D collectibleIcon;
+		private Texture2D billboardIcon;
+		private Texture2D targetingSensorIcon;
+		private Texture2D messageToggleIcon;
+		private Texture2D savePrefsIcon;
+		private Texture2D saveToDiskIcon;
+		private Texture2D saveSceneIcon;
+		private Texture2D lodIcon;
+		private Texture2D helpIcon;
+		private Texture2D youTubeIcon;
+		//private Texture2D messageHelpIcon;
+		private Texture2D uvPlaneIcon;
+		private Texture2D uvScalarIcon;
+		private Texture2D uvCubeIcon;
+		private Texture2D uvSphereIcon;
+		private Texture2D uvConeIcon;
+
+		private Texture2D rewinderIcon;
+		private Texture2D hotbarIcon;
+
 		//		private static Texture2D newSphereIcon;
 		//		private static Texture2D photonIcon;
 		//		private static Texture2D photonCharacterIcon;
@@ -148,6 +152,10 @@ namespace MultiGame {
 			EditorWindow window = EditorWindow.GetWindow(typeof(MultiGameToolbar));
 			window.minSize = new Vector2 (116f, 640f );
 			window.maxSize = new Vector2 (116f, Mathf.Infinity);
+		}
+
+		void Awake() {
+			LoadIcons();
 		}
 
 		void LoadIcons () {
@@ -246,6 +254,10 @@ namespace MultiGame {
 			uvSphereIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/UVSphere.png", typeof(Texture2D)) as Texture2D;
 			uvPlaneIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/UVPlane.png", typeof(Texture2D)) as Texture2D;
 			uvConeIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/UVCone.png", typeof(Texture2D)) as Texture2D;
+
+			rewinderIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/UVCone.png", typeof(Texture2D)) as Texture2D;
+			hotbarIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/Hotbar.png", typeof(Texture2D)) as Texture2D;
+
 			//			newSphereIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/NewSphere.png", typeof(Texture2D)) as Texture2D;
 			//			photonIcon = AssetDatabase.LoadAssetAtPath("PhotonButton", typeof(Texture2D)) as Texture2D;
 			//			photonCharacterIcon = AssetDatabase.LoadAssetAtPath("PhotonCharacterButton", typeof(Texture2D)) as Texture2D;
@@ -271,54 +283,54 @@ namespace MultiGame {
 
 		void OnGUI () {
 			try {
-				if (Event.current.type == EventType.Repaint) {
+				/*if (Event.current.type == EventType.Repaint) {
 					if (!iconsLoaded) {
 						LoadIcons();
 						return;
 					}
 
 					if (activeCollIcon == null) {
-							LoadIcons();
+						Debug.LogError("MultiGame could not load icons! Make sure that the MultiGame folder is in the Assets folder of your project, and that the icons are in the 'MultiGame/Editor/Icos' folder.");
 						return;
 					}
-				}
+				}*/
 				//but it causes problems when resetting out of play mode.
-	//			if (EditorApplication.isPlaying)
-	//				return;
-//				EditorGUILayout.BeginHorizontal("box", GUILayout.Width(106f));
-//				GUI.color = XKCDColors.Lightgreen;
-//				if (GUILayout.Button("B", GUILayout.Width (20f), GUILayout.Height(16f)))
-//					mode = Modes.Basic;
-//				GUI.color = XKCDColors.Lightblue;//new Color(1f, .75f, 0f);
-//				if (GUILayout.Button("O", GUILayout.Width (20f), GUILayout.Height(16f)))
-//					mode = Modes.UI;
-//				GUI.color = XKCDColors.LightOrange;
-//				if (GUILayout.Button("L", GUILayout.Width (20f), GUILayout.Height(16f)))
-//					mode = Modes.Logic;
-//				GUI.color = XKCDColors.LightRed;
-//				if (GUILayout.Button("C", GUILayout.Width (20f), GUILayout.Height(16f)))
-//					mode = Modes.Combat;
-//
-//				GUI.color = Color.white;
-//				EditorGUILayout.EndHorizontal ();
-//				//second row
-//				EditorGUILayout.BeginHorizontal("box", GUILayout.Width(112f));
-//
-//				GUI.color = XKCDColors.LightYellow;
-//				if (GUILayout.Button("P", GUILayout.Width (20f), GUILayout.Height(16f)))
-//					mode = Modes.Player;
-//				GUI.color = XKCDColors.PaleSkyBlue;
-//				if (GUILayout.Button("A", GUILayout.Width (20f), GUILayout.Height(16f)))
-//					mode = Modes.AI;
-//				GUI.color = XKCDColors.LightPurple;
-//				if (GUILayout.Button("U", GUILayout.Width (20f), GUILayout.Height(16f)))
-//					mode = Modes.Utility;
-//				GUI.color = XKCDColors.LightTeal;
-//				if (GUILayout.Button("H", GUILayout.Width (20f), GUILayout.Height(16f)))
-//					mode = Modes.Help;
-//			
-//				GUI.color = Color.white;
-//				EditorGUILayout.EndHorizontal ();
+				//			if (EditorApplication.isPlaying)
+				//				return;
+				//				EditorGUILayout.BeginHorizontal("box", GUILayout.Width(106f));
+				//				GUI.color = XKCDColors.Lightgreen;
+				//				if (GUILayout.Button("B", GUILayout.Width (20f), GUILayout.Height(16f)))
+				//					mode = Modes.Basic;
+				//				GUI.color = XKCDColors.Lightblue;//new Color(1f, .75f, 0f);
+				//				if (GUILayout.Button("O", GUILayout.Width (20f), GUILayout.Height(16f)))
+				//					mode = Modes.UI;
+				//				GUI.color = XKCDColors.LightOrange;
+				//				if (GUILayout.Button("L", GUILayout.Width (20f), GUILayout.Height(16f)))
+				//					mode = Modes.Logic;
+				//				GUI.color = XKCDColors.LightRed;
+				//				if (GUILayout.Button("C", GUILayout.Width (20f), GUILayout.Height(16f)))
+				//					mode = Modes.Combat;
+				//
+				//				GUI.color = Color.white;
+				//				EditorGUILayout.EndHorizontal ();
+				//				//second row
+				//				EditorGUILayout.BeginHorizontal("box", GUILayout.Width(112f));
+				//
+				//				GUI.color = XKCDColors.LightYellow;
+				//				if (GUILayout.Button("P", GUILayout.Width (20f), GUILayout.Height(16f)))
+				//					mode = Modes.Player;
+				//				GUI.color = XKCDColors.PaleSkyBlue;
+				//				if (GUILayout.Button("A", GUILayout.Width (20f), GUILayout.Height(16f)))
+				//					mode = Modes.AI;
+				//				GUI.color = XKCDColors.LightPurple;
+				//				if (GUILayout.Button("U", GUILayout.Width (20f), GUILayout.Height(16f)))
+				//					mode = Modes.Utility;
+				//				GUI.color = XKCDColors.LightTeal;
+				//				if (GUILayout.Button("H", GUILayout.Width (20f), GUILayout.Height(16f)))
+				//					mode = Modes.Help;
+				//			
+				//				GUI.color = Color.white;
+				//				EditorGUILayout.EndHorizontal ();
 
 				GUIHeader();
 				ModeLabel();
@@ -387,7 +399,8 @@ namespace MultiGame {
 				if (scrollView.y < 1f) {
 					EditorGUILayout.LabelField("\\/ More \\/");
 				}
-			} catch {
+			} catch (System.Exception _ex){
+				Debug.Log("MultiGame Toolbar died with exception " + _ex);
 				//do nothing, thus suppressing the Unity IMGUI "getting control position blah" bug that never seems to get fixed
 			}
 		}
@@ -988,6 +1001,11 @@ namespace MultiGame {
 				else if (!Physics.Raycast(target.transform.position, Vector3.back, 2f))
 					_activeObj.transform.position = new Vector3(target.transform.position.x, target.transform.position.y, target.transform.position.z - 1.5f);
 			}
+			if (MGButton(hotbarIcon, "Hotbar")) {
+				ResolveOrCreateTarget();
+				SmartRenameTarget("Hotbar");
+				Undo.AddComponent<Hotbar>(target);
+			}
 			if (MGButton(containerIcon, "Container")) {
 				ResolveOrCreateTarget();
 				SmartRenameTarget("Inventory Container");
@@ -1286,6 +1304,12 @@ namespace MultiGame {
 				}
 				SmartRenameTarget("UGUI");
 			}
+			if (MGButton(rewinderIcon, "Time\nRewinder")) {
+				ResolveOrCreateTarget();
+				if (target.GetComponent<Rewinder>() != null)
+					return;
+				Undo.AddComponent<Rewinder>(target);
+			}
 			if (MGButton (snapIcon, "Snap\nComponent")) {
 				ResolveOrCreateTarget ();
 				Undo.AddComponent<GridSnap> (target);
@@ -1366,7 +1390,7 @@ namespace MultiGame {
 					_collectible.collectionManager = _man;
 				} else {
 					_man = (new GameObject("Collection Manager")).AddComponent<CollectionManager>();
-					_man.max = 3;
+					_man.max = 3;//ew, magic number!
 				}
 				SmartRenameTarget("Collectible");
 			}

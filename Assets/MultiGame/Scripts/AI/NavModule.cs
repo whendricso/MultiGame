@@ -22,7 +22,13 @@ namespace MultiGame {
 		public float soundVariance = .05f;
 		[Tooltip("If no nearest nav target is found, should we send a message?")]
 		public MessageManager.ManagedMessage nearestNotFound;
+		[RequiredField("How close should we stop if hunting? Increase this to just inside weapon range for ranged attackers.")]
+		public float huntingDistance = .5f;
 
+		/// <summary>
+		/// If this is defined, we will try to reach Hunting Distance away from target on the Nav Mesh
+		/// </summary>
+		private bool hunting;
 		[System.NonSerialized]
 		public Animator anim;
 		private float startingPitch = 1;
@@ -85,24 +91,29 @@ namespace MultiGame {
 				return;
 			stunDuration -= Time.deltaTime;
 			intervalCounter -= Time.deltaTime;
+
 			if (stunDuration > 0) {
 				agent.isStopped = true;
 				return;
 			}
-			if (lastTouchTime - Time.time > .5f)
-				touchingTarget = false;
-			if (touchingTarget) {
-				transform.rotation = Quaternion.LookRotation(Vector3.RotateTowards(transform.forward, navTarget.transform.position - transform.position, agent.angularSpeed * Time.deltaTime,0f),Vector3.up);
-			}
+
 			if (navTarget != null) {
 				targetPosition = navTarget.transform.position;
-				targetRot = Quaternion.LookRotation(Vector3.RotateTowards(transform.forward, navTarget.transform.position - transform.position, agent.angularSpeed * Time.deltaTime, 0f));
+				targetRot = Quaternion.LookRotation(Vector3.RotateTowards(transform.forward, targetPosition - transform.position, agent.angularSpeed * Time.deltaTime, 0f));
+
 				if (!agent.updateRotation) {
-					transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRot, agent.angularSpeed * Time.deltaTime);
-					transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, transform.eulerAngles.z);
+					if (touchingTarget) {
+						transform.rotation = Quaternion.LookRotation(Vector3.RotateTowards(transform.forward, targetPosition - transform.position, agent.angularSpeed * Time.deltaTime, 0f), Vector3.up);
+					} else {
+						transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRot, agent.angularSpeed * Time.deltaTime);
+						transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, transform.eulerAngles.z);
+					}
 				}
 			}
 
+			if (lastTouchTime - Time.time > .5f)
+				touchingTarget = false;
+			
 			if (agent != null)
 				moveRate = ((Vector3.Distance(transform.position, lastFramePosition) / Time.deltaTime) / (agent.speed));
 
@@ -179,7 +190,7 @@ namespace MultiGame {
 		public void SetTarget (GameObject _target) {
 			if (!gameObject.activeInHierarchy)
 				return;
-			if (_target == null)
+			if (_target == null)//why did I write this?
 				return;
 			if(debug)
 				Debug.Log ("Nav Module " + gameObject.name + " is setting a target to " + _target.name);
@@ -193,6 +204,14 @@ namespace MultiGame {
 				Debug.Log("Nav Module " + gameObject.name + " moving to " + _destination);
 			targetPosition = _destination;
 			BeginPathingTowardsTarget();
+		}
+
+		public void Hunt() {
+			hunting = true;
+		}
+
+		public void StopHunting() {
+			hunting = false;
 		}
 
 		[Header("Available Messages")]

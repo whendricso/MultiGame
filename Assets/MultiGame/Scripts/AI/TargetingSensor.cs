@@ -7,7 +7,7 @@ namespace MultiGame {
 	[AddComponentMenu("MultiGame/AI/Targeting Sensor")]
 	public class TargetingSensor : MultiModule {
 
-		[ReorderableAttribute]
+		[Reorderable]
 		[Header("Important - must be populated")]
 		[Tooltip("What tags are we looking for while targeting? Any Game Object with one of these tags that is found will be passed as a target to the 'Message Receiver' defined below.")]
 		public string[] targetTags;
@@ -20,6 +20,18 @@ namespace MultiGame {
 		public float retargetTime = 0.75f;
 		[RequiredField("How far away does our target need to get before we look for another?", RequiredFieldAttribute.RequirementLevels.Required)]
 		public float maxDistance = 25.0f;
+
+		[Header("Line Of Sight")]
+		[Tooltip("Should we check line of sight between the message receiver and the target? This requires a raycast, which queries the physics engine and can be expensive.")]
+		public bool checkLOS = false;
+		[Tooltip("How much should we offset the ray origin from the origin of the message receiver?")]
+		public Vector3 rayOriginOffset = Vector3.zero;
+		[Tooltip("How much should we offset the target point of the ray against the target we're checking for LOS?")]
+		public Vector3 rayTargetOffset = Vector3.zero;
+		[Tooltip("What physics layers can obstruct the view of this AI? This should NOT include the target!")]
+		public LayerMask obstructionMask;
+		[Tooltip("Should we try to get into line of sight if we don't have it?")]
+		public bool chaseToLOS = false;
 
 		private bool canRetarget = true;
 		private GameObject lastTarget;
@@ -56,6 +68,7 @@ namespace MultiGame {
 			}
 		}
 		
+		//Used for target acquisition & hunting behavior
 		void OnTriggerStay (Collider other) {
 			if (debug)
 				Debug.Log("Targeting Sensor " + gameObject.name + " is checking if " + other.gameObject.name + " is a valid target");
@@ -63,8 +76,20 @@ namespace MultiGame {
 				return;
 			if (!CheckIsValidTarget(other.gameObject))
 				return;
-			if (lastTarget != null)
+			if (lastTarget != null)//Only continue if we have no target currently
 				return;
+
+			if (checkLOS) {
+				if (!QueryLineOfSight(other.gameObject)) {
+					return;
+				}
+				if (chaseToLOS) {
+					messageReceiver.SendMessage("Hunt", SendMessageOptions.DontRequireReceiver);
+					messageReceiver.SendMessage("FaceMoveDirection", SendMessageOptions.DontRequireReceiver);
+				}
+			}
+			messageReceiver.SendMessage("SetTarget", other.gameObject, SendMessageOptions.DontRequireReceiver);
+
 			if (debug)
 				Debug.Log("Targeting Sensor " + gameObject.name + " set it's target to " + other.gameObject.name);
 			canRetarget = false;
@@ -81,14 +106,24 @@ namespace MultiGame {
 			canRetarget = true;
 		}
 		
-		bool CheckIsValidTarget (GameObject possibleTarget) {
-			bool ret = false;
+		bool CheckIsValidTarget (GameObject _possibleTarget) {
+			bool _ret = false;
 			foreach (string str in targetTags) {
-				if (possibleTarget.tag == str)
-					ret = true;
+				if (_possibleTarget.tag == str)
+					_ret = true;
 			}
-			return ret;
+			return _ret;
 		}
 
+		/// <summary>
+		/// Casts a ray into the scene to determine if the target can be seen.
+		/// </summary>
+		/// <param name="_target">The target we wish to check for discoverability.</param>
+		/// <returns>True if no obstruction was found by the ray.</returns>
+		bool QueryLineOfSight(GameObject _target) {
+			bool _ret = true;
+			_ret = !Physics.Linecast(messageReceiver.transform.position + rayOriginOffset, _target.transform.position + rayTargetOffset, obstructionMask);
+			return _ret;
+		}
 	}
 }

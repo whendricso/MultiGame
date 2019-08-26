@@ -51,11 +51,15 @@ namespace MultiGame {
 		/// <param name="_icon">Icon for the button.</param>
 		/// <param name="_caption">Optional caption.</param>
 		public static bool MGButton (Texture2D _icon, string _caption) {
-			if (EditorApplication.isPlaying || _icon == null)
+			if (EditorApplication.isPlaying) {
+				GUILayout.Box(""+_caption[0]);
 				return false;
-
+			}
 			bool _ret = false;
-			_ret = GUILayout.Button(_icon, GUILayout.Width( mgButtonSize > 0 ? mgButtonSize : _icon.width), GUILayout.Height (mgButtonSize > 0 ? mgButtonSize : _icon.height));
+			_ret = GUILayout.Button(
+				new GUIContent((_icon == null ? new GUIContent("" + _caption[0]) : new GUIContent(_icon))),
+				GUILayout.Width( mgButtonSize > 0 ? mgButtonSize : _icon.width), GUILayout.Height (mgButtonSize > 0 ? mgButtonSize : _icon.height)
+			);
 			if (!string.IsNullOrEmpty( _caption))
 				GUILayout.Label(_caption);
 			GUILayout.Space(8f);
@@ -69,7 +73,7 @@ namespace MultiGame {
 		/// <param name="_icon">Icon for the button.</param>
 		public static bool MGPip (Texture2D _icon) {
 			bool _ret = false;
-			
+
 			_ret = GUILayout.Button(_icon, GUIStyle.none, GUILayout.Width(mgPipSize), GUILayout.Height(mgPipSize));
 
 			return _ret;

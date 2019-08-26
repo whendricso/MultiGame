@@ -13,8 +13,11 @@ namespace MultiGame {
 		int argType;//{None, Bool, Int, Float, String}
 
 		public override void OnGUI (Rect position, SerializedProperty property, GUIContent label) {
-			
-			property.FindPropertyRelative("showInfo").boolValue = EditorGUI.Foldout(position, property.FindPropertyRelative("showInfo").boolValue, GUIContent.none);
+
+			if (property.FindPropertyRelative("showInfo").boolValue)
+				property.FindPropertyRelative("showInfo").boolValue = EditorGUI.Foldout(position, property.FindPropertyRelative("showInfo").boolValue, GUIContent.none);
+			else
+				property.FindPropertyRelative("showInfo").boolValue = GUI.Button(position,"");
 
 			if (property.FindPropertyRelative("showInfo").boolValue) {
 				argType = property.FindPropertyRelative("argumentType").intValue;

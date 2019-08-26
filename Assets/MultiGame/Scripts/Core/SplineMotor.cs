@@ -25,7 +25,7 @@ namespace MultiGame {
 		public HelpInfo help = new HelpInfo("Spline Motor allows an object to move along a given spline, assigned in the inspector. Select the Spline object to begin editing it.\n" +
 			"\n" +
 			"To add more complexity to the motion, select the Spline and click 'Add Node' in the Inspector. You can then click on a Node to move it, or select it's handles to change the curvature of the Spline. " +
-			" To slow the object down, increase the 'Duration'. To create a looping or ping-pong motion, set the 'Mode'.");
+			" To slow the object down, increase the 'Duration'. To create a looping or ping-pong motion, set the 'Mode'.", "https://youtu.be/uHvZw2q27H0");
 
 		void OnValidate () {
 			MessageManager.UpdateMessageGUI(ref endOfPathMessage, gameObject);

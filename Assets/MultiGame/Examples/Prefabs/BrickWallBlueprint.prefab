@@ -1,0 +1,3728 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8114543486894100040
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8114543486894100043}
+  - component: {fileID: 8114543486894100047}
+  - component: {fileID: 8114543486894100044}
+  - component: {fileID: 8114543486894100045}
+  - component: {fileID: 8114543486894100042}
+  m_Layer: 2
+  m_Name: Mortar
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8114543486894100043
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543486894100040}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.58, z: 0}
+  m_LocalScale: {x: 0.98341, y: 1, z: 2.142331}
+  m_Children: []
+  m_Father: {fileID: 8114543488380747606}
+  m_RootOrder: 24
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &8114543486894100047
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543486894100040}
+  m_Mesh: {fileID: 4300000, guid: 54ee3973b8d45044bb368021f213b7e3, type: 2}
+--- !u!23 &8114543486894100044
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543486894100040}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 6c7cc297b3ff48942b9c092cb9a12770, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!114 &8114543486894100045
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543486894100040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 606a7e0239e6a494781d43a5a0915ed6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  generateLightmapUVs: 0
+  addCollider: 0
+  debug: 0
+  mesh: {fileID: 4300000, guid: 54ee3973b8d45044bb368021f213b7e3, type: 2}
+  width: 1.86
+  length: 0.07
+  height: 1.16
+  uvScale: {x: 1, y: 1, z: 1}
+  uvOffset: {x: 0, y: 0, z: 0}
+  help:
+    showInfo: 0
+    helpText: ProcCube is a powerful tool for object and level design. It allows
+      you to make boxes of any given proportion, and properly changes the UV coordinates
+      so that your textures don't stretch like they do with a normal Unity cube.
+      To use, simply add this to an empty transform (or create it with a Rapid Dev
+      Toolbar button)
+    videoLink: 
+--- !u!64 &8114543486894100042
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543486894100040}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 14
+  m_Mesh: {fileID: 4300000, guid: 54ee3973b8d45044bb368021f213b7e3, type: 2}
+--- !u!1 &8114543486990168802
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8114543486990168805}
+  - component: {fileID: 8114543486990168825}
+  - component: {fileID: 8114543486990168806}
+  - component: {fileID: 8114543486990168807}
+  - component: {fileID: 8114543486990168804}
+  m_Layer: 2
+  m_Name: Brick1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8114543486990168805
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543486990168802}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.25, y: 0.3, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8114543488380747606}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &8114543486990168825
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543486990168802}
+  m_Mesh: {fileID: 4300000, guid: b36f1d3707119224d98d21f24ce26f8a, type: 2}
+--- !u!23 &8114543486990168806
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543486990168802}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 6c7cc297b3ff48942b9c092cb9a12770, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!114 &8114543486990168807
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543486990168802}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 606a7e0239e6a494781d43a5a0915ed6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  generateLightmapUVs: 0
+  addCollider: 0
+  debug: 0
+  mesh: {fileID: 4300000, guid: b36f1d3707119224d98d21f24ce26f8a, type: 2}
+  width: 0.45
+  length: 0.21
+  height: 0.18
+  uvScale: {x: 10, y: 10, z: 10}
+  uvOffset: {x: 0, y: 0, z: -0.2}
+  help:
+    showInfo: 0
+    helpText: ProcCube is a powerful tool for object and level design. It allows
+      you to make boxes of any given proportion, and properly changes the UV coordinates
+      so that your textures don't stretch like they do with a normal Unity cube.
+      To use, simply add this to an empty transform (or create it with a Rapid Dev
+      Toolbar button)
+    videoLink: 
+--- !u!64 &8114543486990168804
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543486990168802}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 14
+  m_Mesh: {fileID: 4300000, guid: b36f1d3707119224d98d21f24ce26f8a, type: 2}
+--- !u!1 &8114543487099083161
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8114543487099083160}
+  - component: {fileID: 8114543487099083165}
+  - component: {fileID: 8114543487099083162}
+  - component: {fileID: 8114543487099083163}
+  m_Layer: 2
+  m_Name: ConcretePost
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8114543487099083160
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543487099083161}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -1, y: 0.65000004, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8114543488380747606}
+  m_RootOrder: 25
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &8114543487099083165
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543487099083161}
+  m_Mesh: {fileID: 4300000, guid: 7c3c306da748fea4dac6931dd9ad23dc, type: 2}
+--- !u!23 &8114543487099083162
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543487099083161}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 6c7cc297b3ff48942b9c092cb9a12770, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!114 &8114543487099083163
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543487099083161}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 606a7e0239e6a494781d43a5a0915ed6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  generateLightmapUVs: 0
+  addCollider: 0
+  debug: 0
+  mesh: {fileID: 4300000, guid: 7c3c306da748fea4dac6931dd9ad23dc, type: 2}
+  width: 0.38
+  length: 0.38
+  height: 1.3
+  uvScale: {x: 1, y: 1, z: 1}
+  uvOffset: {x: 0, y: 0, z: 0}
+  help:
+    showInfo: 0
+    helpText: ProcCube is a powerful tool for object and level design. It allows
+      you to make boxes of any given proportion, and properly changes the UV coordinates
+      so that your textures don't stretch like they do with a normal Unity cube.
+      To use, simply add this to an empty transform (or create it with a Rapid Dev
+      Toolbar button)
+    videoLink: 
+--- !u!1 &8114543487133995948
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8114543487133995951}
+  - component: {fileID: 8114543487133995939}
+  - component: {fileID: 8114543487133995936}
+  - component: {fileID: 8114543487133995937}
+  - component: {fileID: 8114543487133995950}
+  m_Layer: 2
+  m_Name: Brick1 (21)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8114543487133995951
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543487133995948}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.6999998, y: 1.09, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8114543488380747606}
+  m_RootOrder: 21
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &8114543487133995939
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543487133995948}
+  m_Mesh: {fileID: 4300000, guid: b36f1d3707119224d98d21f24ce26f8a, type: 2}
+--- !u!23 &8114543487133995936
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543487133995948}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 6c7cc297b3ff48942b9c092cb9a12770, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!114 &8114543487133995937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543487133995948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 606a7e0239e6a494781d43a5a0915ed6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  generateLightmapUVs: 0
+  addCollider: 0
+  debug: 0
+  mesh: {fileID: 4300000, guid: b36f1d3707119224d98d21f24ce26f8a, type: 2}
+  width: 0.45
+  length: 0.21
+  height: 0.18
+  uvScale: {x: 1, y: 1, z: 1}
+  uvOffset: {x: 0, y: 0, z: 0}
+  help:
+    showInfo: 0
+    helpText: ProcCube is a powerful tool for object and level design. It allows
+      you to make boxes of any given proportion, and properly changes the UV coordinates
+      so that your textures don't stretch like they do with a normal Unity cube.
+      To use, simply add this to an empty transform (or create it with a Rapid Dev
+      Toolbar button)
+    videoLink: 
+--- !u!64 &8114543487133995950
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543487133995948}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 14
+  m_Mesh: {fileID: 4300000, guid: b36f1d3707119224d98d21f24ce26f8a, type: 2}
+--- !u!1 &8114543487287910616
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8114543487287910619}
+  - component: {fileID: 8114543487287910623}
+  - component: {fileID: 8114543487287910620}
+  - component: {fileID: 8114543487287910621}
+  - component: {fileID: 8114543487287910618}
+  m_Layer: 2
+  m_Name: Brick1 (19)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8114543487287910619
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543487287910616}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.71000004, y: 0.69, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8114543488380747606}
+  m_RootOrder: 19
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &8114543487287910623
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543487287910616}
+  m_Mesh: {fileID: 4300000, guid: b36f1d3707119224d98d21f24ce26f8a, type: 2}
+--- !u!23 &8114543487287910620
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543487287910616}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 6c7cc297b3ff48942b9c092cb9a12770, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!114 &8114543487287910621
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543487287910616}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 606a7e0239e6a494781d43a5a0915ed6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  generateLightmapUVs: 0
+  addCollider: 0
+  debug: 0
+  mesh: {fileID: 4300000, guid: b36f1d3707119224d98d21f24ce26f8a, type: 2}
+  width: 0.45
+  length: 0.21
+  height: 0.18
+  uvScale: {x: 1, y: 1, z: 1}
+  uvOffset: {x: 0, y: 0, z: 0}
+  help:
+    showInfo: 0
+    helpText: ProcCube is a powerful tool for object and level design. It allows
+      you to make boxes of any given proportion, and properly changes the UV coordinates
+      so that your textures don't stretch like they do with a normal Unity cube.
+      To use, simply add this to an empty transform (or create it with a Rapid Dev
+      Toolbar button)
+    videoLink: 
+--- !u!64 &8114543487287910618
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543487287910616}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 14
+  m_Mesh: {fileID: 4300000, guid: b36f1d3707119224d98d21f24ce26f8a, type: 2}
+--- !u!1 &8114543487335525046
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8114543487335525065}
+  - component: {fileID: 8114543487335525069}
+  - component: {fileID: 8114543487335525066}
+  - component: {fileID: 8114543487335525067}
+  - component: {fileID: 8114543487335525064}
+  m_Layer: 2
+  m_Name: Brick1 (7)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8114543487335525065
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543487335525046}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.71000004, y: 0.08, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8114543488380747606}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &8114543487335525069
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543487335525046}
+  m_Mesh: {fileID: 4300000, guid: b36f1d3707119224d98d21f24ce26f8a, type: 2}
+--- !u!23 &8114543487335525066
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543487335525046}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 6c7cc297b3ff48942b9c092cb9a12770, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!114 &8114543487335525067
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543487335525046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 606a7e0239e6a494781d43a5a0915ed6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  generateLightmapUVs: 0
+  addCollider: 0
+  debug: 0
+  mesh: {fileID: 4300000, guid: b36f1d3707119224d98d21f24ce26f8a, type: 2}
+  width: 0.45
+  length: 0.21
+  height: 0.18
+  uvScale: {x: 1, y: 1, z: 1}
+  uvOffset: {x: 0, y: 0, z: 0}
+  help:
+    showInfo: 0
+    helpText: ProcCube is a powerful tool for object and level design. It allows
+      you to make boxes of any given proportion, and properly changes the UV coordinates
+      so that your textures don't stretch like they do with a normal Unity cube.
+      To use, simply add this to an empty transform (or create it with a Rapid Dev
+      Toolbar button)
+    videoLink: 
+--- !u!64 &8114543487335525064
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543487335525046}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 14
+  m_Mesh: {fileID: 4300000, guid: b36f1d3707119224d98d21f24ce26f8a, type: 2}
+--- !u!1 &8114543487458586687
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8114543487458586686}
+  - component: {fileID: 8114543487458586674}
+  - component: {fileID: 8114543487458586675}
+  - component: {fileID: 8114543487458586672}
+  - component: {fileID: 8114543487458586673}
+  m_Layer: 2
+  m_Name: Brick1 (17)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8114543487458586686
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543487458586687}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.24000072, y: 0.89, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8114543488380747606}
+  m_RootOrder: 17
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &8114543487458586674
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543487458586687}
+  m_Mesh: {fileID: 4300000, guid: b36f1d3707119224d98d21f24ce26f8a, type: 2}
+--- !u!23 &8114543487458586675
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543487458586687}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 6c7cc297b3ff48942b9c092cb9a12770, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!114 &8114543487458586672
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543487458586687}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 606a7e0239e6a494781d43a5a0915ed6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  generateLightmapUVs: 0
+  addCollider: 0
+  debug: 0
+  mesh: {fileID: 4300000, guid: b36f1d3707119224d98d21f24ce26f8a, type: 2}
+  width: 0.45
+  length: 0.21
+  height: 0.18
+  uvScale: {x: 1, y: 1, z: 1}
+  uvOffset: {x: 0, y: 0, z: 0}
+  help:
+    showInfo: 0
+    helpText: ProcCube is a powerful tool for object and level design. It allows
+      you to make boxes of any given proportion, and properly changes the UV coordinates
+      so that your textures don't stretch like they do with a normal Unity cube.
+      To use, simply add this to an empty transform (or create it with a Rapid Dev
+      Toolbar button)
+    videoLink: 
+--- !u!64 &8114543487458586673
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543487458586687}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 14
+  m_Mesh: {fileID: 4300000, guid: b36f1d3707119224d98d21f24ce26f8a, type: 2}
+--- !u!1 &8114543487465946838
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8114543487465946857}
+  - component: {fileID: 8114543487465946861}
+  - component: {fileID: 8114543487465946858}
+  - component: {fileID: 8114543487465946859}
+  - component: {fileID: 8114543487465946856}
+  m_Layer: 2
+  m_Name: Brick1 (8)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8114543487465946857
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543487465946838}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.22999954, y: 0.48999998, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8114543488380747606}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &8114543487465946861
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543487465946838}
+  m_Mesh: {fileID: 4300000, guid: b36f1d3707119224d98d21f24ce26f8a, type: 2}
+--- !u!23 &8114543487465946858
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543487465946838}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 6c7cc297b3ff48942b9c092cb9a12770, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!114 &8114543487465946859
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543487465946838}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 606a7e0239e6a494781d43a5a0915ed6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  generateLightmapUVs: 0
+  addCollider: 0
+  debug: 0
+  mesh: {fileID: 4300000, guid: b36f1d3707119224d98d21f24ce26f8a, type: 2}
+  width: 0.45
+  length: 0.21
+  height: 0.18
+  uvScale: {x: 1, y: 1, z: 1}
+  uvOffset: {x: 0, y: 0, z: 0}
+  help:
+    showInfo: 0
+    helpText: ProcCube is a powerful tool for object and level design. It allows
+      you to make boxes of any given proportion, and properly changes the UV coordinates
+      so that your textures don't stretch like they do with a normal Unity cube.
+      To use, simply add this to an empty transform (or create it with a Rapid Dev
+      Toolbar button)
+    videoLink: 
+--- !u!64 &8114543487465946856
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543487465946838}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 14
+  m_Mesh: {fileID: 4300000, guid: b36f1d3707119224d98d21f24ce26f8a, type: 2}
+--- !u!1 &8114543487574423180
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8114543487574423183}
+  - component: {fileID: 8114543487574423171}
+  - component: {fileID: 8114543487574423168}
+  - component: {fileID: 8114543487574423169}
+  - component: {fileID: 8114543487574423182}
+  m_Layer: 2
+  m_Name: Brick1 (6)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8114543487574423183
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543487574423180}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.25, y: 0.1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8114543488380747606}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &8114543487574423171
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543487574423180}
+  m_Mesh: {fileID: 4300000, guid: b36f1d3707119224d98d21f24ce26f8a, type: 2}
+--- !u!23 &8114543487574423168
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543487574423180}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 6c7cc297b3ff48942b9c092cb9a12770, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!114 &8114543487574423169
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543487574423180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 606a7e0239e6a494781d43a5a0915ed6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  generateLightmapUVs: 0
+  addCollider: 0
+  debug: 0
+  mesh: {fileID: 4300000, guid: b36f1d3707119224d98d21f24ce26f8a, type: 2}
+  width: 0.45
+  length: 0.21
+  height: 0.18
+  uvScale: {x: 1, y: 1, z: 1}
+  uvOffset: {x: 0, y: 0, z: 0}
+  help:
+    showInfo: 0
+    helpText: ProcCube is a powerful tool for object and level design. It allows
+      you to make boxes of any given proportion, and properly changes the UV coordinates
+      so that your textures don't stretch like they do with a normal Unity cube.
+      To use, simply add this to an empty transform (or create it with a Rapid Dev
+      Toolbar button)
+    videoLink: 
+--- !u!64 &8114543487574423182
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543487574423180}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 14
+  m_Mesh: {fileID: 4300000, guid: b36f1d3707119224d98d21f24ce26f8a, type: 2}
+--- !u!1 &8114543487693984641
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8114543487693984640}
+  - component: {fileID: 8114543487693984644}
+  - component: {fileID: 8114543487693984645}
+  - component: {fileID: 8114543487693984642}
+  - component: {fileID: 8114543487693984643}
+  m_Layer: 2
+  m_Name: Brick1 (5)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8114543487693984640
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543487693984641}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.24000072, y: 0.29, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8114543488380747606}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &8114543487693984644
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543487693984641}
+  m_Mesh: {fileID: 4300000, guid: b36f1d3707119224d98d21f24ce26f8a, type: 2}
+--- !u!23 &8114543487693984645
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543487693984641}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 6c7cc297b3ff48942b9c092cb9a12770, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!114 &8114543487693984642
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543487693984641}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 606a7e0239e6a494781d43a5a0915ed6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  generateLightmapUVs: 0
+  addCollider: 0
+  debug: 0
+  mesh: {fileID: 4300000, guid: b36f1d3707119224d98d21f24ce26f8a, type: 2}
+  width: 0.45
+  length: 0.21
+  height: 0.18
+  uvScale: {x: 1, y: 1, z: 1}
+  uvOffset: {x: 0, y: 0, z: 0}
+  help:
+    showInfo: 0
+    helpText: ProcCube is a powerful tool for object and level design. It allows
+      you to make boxes of any given proportion, and properly changes the UV coordinates
+      so that your textures don't stretch like they do with a normal Unity cube.
+      To use, simply add this to an empty transform (or create it with a Rapid Dev
+      Toolbar button)
+    videoLink: 
+--- !u!64 &8114543487693984643
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543487693984641}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 14
+  m_Mesh: {fileID: 4300000, guid: b36f1d3707119224d98d21f24ce26f8a, type: 2}
+--- !u!1 &8114543487832278350
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8114543487832278337}
+  - component: {fileID: 8114543487832278341}
+  - component: {fileID: 8114543487832278338}
+  - component: {fileID: 8114543487832278339}
+  - component: {fileID: 8114543487832278336}
+  m_Layer: 2
+  m_Name: Brick1 (13)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8114543487832278337
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543487832278350}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.6999998, y: 0.69, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8114543488380747606}
+  m_RootOrder: 13
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &8114543487832278341
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543487832278350}
+  m_Mesh: {fileID: 4300000, guid: b36f1d3707119224d98d21f24ce26f8a, type: 2}
+--- !u!23 &8114543487832278338
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543487832278350}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 6c7cc297b3ff48942b9c092cb9a12770, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!114 &8114543487832278339
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543487832278350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 606a7e0239e6a494781d43a5a0915ed6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  generateLightmapUVs: 0
+  addCollider: 0
+  debug: 0
+  mesh: {fileID: 4300000, guid: b36f1d3707119224d98d21f24ce26f8a, type: 2}
+  width: 0.45
+  length: 0.21
+  height: 0.18
+  uvScale: {x: 1, y: 1, z: 1}
+  uvOffset: {x: 0, y: 0, z: 0}
+  help:
+    showInfo: 0
+    helpText: ProcCube is a powerful tool for object and level design. It allows
+      you to make boxes of any given proportion, and properly changes the UV coordinates
+      so that your textures don't stretch like they do with a normal Unity cube.
+      To use, simply add this to an empty transform (or create it with a Rapid Dev
+      Toolbar button)
+    videoLink: 
+--- !u!64 &8114543487832278336
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543487832278350}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 14
+  m_Mesh: {fileID: 4300000, guid: b36f1d3707119224d98d21f24ce26f8a, type: 2}
+--- !u!1 &8114543487861578537
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8114543487861578536}
+  - component: {fileID: 8114543487861578540}
+  - component: {fileID: 8114543487861578541}
+  - component: {fileID: 8114543487861578538}
+  - component: {fileID: 8114543487861578539}
+  m_Layer: 2
+  m_Name: Brick1 (9)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8114543487861578536
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543487861578537}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.6999998, y: 0.48999998, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8114543488380747606}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &8114543487861578540
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543487861578537}
+  m_Mesh: {fileID: 4300000, guid: b36f1d3707119224d98d21f24ce26f8a, type: 2}
+--- !u!23 &8114543487861578541
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543487861578537}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 6c7cc297b3ff48942b9c092cb9a12770, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!114 &8114543487861578538
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543487861578537}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 606a7e0239e6a494781d43a5a0915ed6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  generateLightmapUVs: 0
+  addCollider: 0
+  debug: 0
+  mesh: {fileID: 4300000, guid: b36f1d3707119224d98d21f24ce26f8a, type: 2}
+  width: 0.45
+  length: 0.21
+  height: 0.18
+  uvScale: {x: 1, y: 1, z: 1}
+  uvOffset: {x: 0, y: 0, z: 0}
+  help:
+    showInfo: 0
+    helpText: ProcCube is a powerful tool for object and level design. It allows
+      you to make boxes of any given proportion, and properly changes the UV coordinates
+      so that your textures don't stretch like they do with a normal Unity cube.
+      To use, simply add this to an empty transform (or create it with a Rapid Dev
+      Toolbar button)
+    videoLink: 
+--- !u!64 &8114543487861578539
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543487861578537}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 14
+  m_Mesh: {fileID: 4300000, guid: b36f1d3707119224d98d21f24ce26f8a, type: 2}
+--- !u!1 &8114543487865096716
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8114543487865096719}
+  - component: {fileID: 8114543487865096707}
+  - component: {fileID: 8114543487865096704}
+  - component: {fileID: 8114543487865096705}
+  - component: {fileID: 8114543487865096718}
+  m_Layer: 2
+  m_Name: Brick1 (22)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8114543487865096719
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543487865096716}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.71000004, y: 1.09, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8114543488380747606}
+  m_RootOrder: 22
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &8114543487865096707
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543487865096716}
+  m_Mesh: {fileID: 4300000, guid: b36f1d3707119224d98d21f24ce26f8a, type: 2}
+--- !u!23 &8114543487865096704
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543487865096716}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 6c7cc297b3ff48942b9c092cb9a12770, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!114 &8114543487865096705
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543487865096716}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 606a7e0239e6a494781d43a5a0915ed6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  generateLightmapUVs: 0
+  addCollider: 0
+  debug: 0
+  mesh: {fileID: 4300000, guid: b36f1d3707119224d98d21f24ce26f8a, type: 2}
+  width: 0.45
+  length: 0.21
+  height: 0.18
+  uvScale: {x: 1, y: 1, z: 1}
+  uvOffset: {x: 0, y: 0, z: 0}
+  help:
+    showInfo: 0
+    helpText: ProcCube is a powerful tool for object and level design. It allows
+      you to make boxes of any given proportion, and properly changes the UV coordinates
+      so that your textures don't stretch like they do with a normal Unity cube.
+      To use, simply add this to an empty transform (or create it with a Rapid Dev
+      Toolbar button)
+    videoLink: 
+--- !u!64 &8114543487865096718
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543487865096716}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 14
+  m_Mesh: {fileID: 4300000, guid: b36f1d3707119224d98d21f24ce26f8a, type: 2}
+--- !u!1 &8114543487901600016
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8114543487901600019}
+  - component: {fileID: 8114543487901600023}
+  - component: {fileID: 8114543487901600020}
+  - component: {fileID: 8114543487901600021}
+  - component: {fileID: 8114543487901600018}
+  m_Layer: 2
+  m_Name: Brick1 (20)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8114543487901600019
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543487901600016}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.22999954, y: 1.09, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8114543488380747606}
+  m_RootOrder: 20
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &8114543487901600023
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543487901600016}
+  m_Mesh: {fileID: 4300000, guid: b36f1d3707119224d98d21f24ce26f8a, type: 2}
+--- !u!23 &8114543487901600020
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543487901600016}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 6c7cc297b3ff48942b9c092cb9a12770, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!114 &8114543487901600021
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543487901600016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 606a7e0239e6a494781d43a5a0915ed6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  generateLightmapUVs: 0
+  addCollider: 0
+  debug: 0
+  mesh: {fileID: 4300000, guid: b36f1d3707119224d98d21f24ce26f8a, type: 2}
+  width: 0.45
+  length: 0.21
+  height: 0.18
+  uvScale: {x: 1, y: 1, z: 1}
+  uvOffset: {x: 0, y: 0, z: 0}
+  help:
+    showInfo: 0
+    helpText: ProcCube is a powerful tool for object and level design. It allows
+      you to make boxes of any given proportion, and properly changes the UV coordinates
+      so that your textures don't stretch like they do with a normal Unity cube.
+      To use, simply add this to an empty transform (or create it with a Rapid Dev
+      Toolbar button)
+    videoLink: 
+--- !u!64 &8114543487901600018
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543487901600016}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 14
+  m_Mesh: {fileID: 4300000, guid: b36f1d3707119224d98d21f24ce26f8a, type: 2}
+--- !u!1 &8114543487927551947
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8114543487927551946}
+  - component: {fileID: 8114543487927551950}
+  - component: {fileID: 8114543487927551951}
+  - component: {fileID: 8114543487927551948}
+  - component: {fileID: 8114543487927551949}
+  m_Layer: 2
+  m_Name: Brick1 (4)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8114543487927551946
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543487927551947}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.71000004, y: 0.29, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8114543488380747606}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &8114543487927551950
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543487927551947}
+  m_Mesh: {fileID: 4300000, guid: b36f1d3707119224d98d21f24ce26f8a, type: 2}
+--- !u!23 &8114543487927551951
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543487927551947}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 6c7cc297b3ff48942b9c092cb9a12770, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!114 &8114543487927551948
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543487927551947}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 606a7e0239e6a494781d43a5a0915ed6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  generateLightmapUVs: 0
+  addCollider: 0
+  debug: 0
+  mesh: {fileID: 4300000, guid: b36f1d3707119224d98d21f24ce26f8a, type: 2}
+  width: 0.45
+  length: 0.21
+  height: 0.18
+  uvScale: {x: 1, y: 1, z: 1}
+  uvOffset: {x: 0, y: 0, z: 0}
+  help:
+    showInfo: 0
+    helpText: ProcCube is a powerful tool for object and level design. It allows
+      you to make boxes of any given proportion, and properly changes the UV coordinates
+      so that your textures don't stretch like they do with a normal Unity cube.
+      To use, simply add this to an empty transform (or create it with a Rapid Dev
+      Toolbar button)
+    videoLink: 
+--- !u!64 &8114543487927551949
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543487927551947}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 14
+  m_Mesh: {fileID: 4300000, guid: b36f1d3707119224d98d21f24ce26f8a, type: 2}
+--- !u!1 &8114543488120576699
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8114543488120576698}
+  - component: {fileID: 8114543488120576702}
+  - component: {fileID: 8114543488120576703}
+  - component: {fileID: 8114543488120576700}
+  - component: {fileID: 8114543488120576701}
+  m_Layer: 2
+  m_Name: Brick1 (10)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8114543488120576698
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543488120576699}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.71000004, y: 0.48999998, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8114543488380747606}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &8114543488120576702
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543488120576699}
+  m_Mesh: {fileID: 4300000, guid: b36f1d3707119224d98d21f24ce26f8a, type: 2}
+--- !u!23 &8114543488120576703
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543488120576699}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 6c7cc297b3ff48942b9c092cb9a12770, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!114 &8114543488120576700
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543488120576699}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 606a7e0239e6a494781d43a5a0915ed6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  generateLightmapUVs: 0
+  addCollider: 0
+  debug: 0
+  mesh: {fileID: 4300000, guid: b36f1d3707119224d98d21f24ce26f8a, type: 2}
+  width: 0.45
+  length: 0.21
+  height: 0.18
+  uvScale: {x: 1, y: 1, z: 1}
+  uvOffset: {x: 0, y: 0, z: 0}
+  help:
+    showInfo: 0
+    helpText: ProcCube is a powerful tool for object and level design. It allows
+      you to make boxes of any given proportion, and properly changes the UV coordinates
+      so that your textures don't stretch like they do with a normal Unity cube.
+      To use, simply add this to an empty transform (or create it with a Rapid Dev
+      Toolbar button)
+    videoLink: 
+--- !u!64 &8114543488120576701
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543488120576699}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 14
+  m_Mesh: {fileID: 4300000, guid: b36f1d3707119224d98d21f24ce26f8a, type: 2}
+--- !u!1 &8114543488253936377
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8114543488253936376}
+  - component: {fileID: 8114543488253936380}
+  - component: {fileID: 8114543488253936381}
+  - component: {fileID: 8114543488253936378}
+  - component: {fileID: 8114543488253936379}
+  m_Layer: 2
+  m_Name: Brick1 (11)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8114543488253936376
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543488253936377}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.24000072, y: 0.48999998, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8114543488380747606}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &8114543488253936380
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543488253936377}
+  m_Mesh: {fileID: 4300000, guid: b36f1d3707119224d98d21f24ce26f8a, type: 2}
+--- !u!23 &8114543488253936381
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543488253936377}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 6c7cc297b3ff48942b9c092cb9a12770, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!114 &8114543488253936378
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543488253936377}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 606a7e0239e6a494781d43a5a0915ed6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  generateLightmapUVs: 0
+  addCollider: 0
+  debug: 0
+  mesh: {fileID: 4300000, guid: b36f1d3707119224d98d21f24ce26f8a, type: 2}
+  width: 0.45
+  length: 0.21
+  height: 0.18
+  uvScale: {x: 1, y: 1, z: 1}
+  uvOffset: {x: 0, y: 0, z: 0}
+  help:
+    showInfo: 0
+    helpText: ProcCube is a powerful tool for object and level design. It allows
+      you to make boxes of any given proportion, and properly changes the UV coordinates
+      so that your textures don't stretch like they do with a normal Unity cube.
+      To use, simply add this to an empty transform (or create it with a Rapid Dev
+      Toolbar button)
+    videoLink: 
+--- !u!64 &8114543488253936379
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543488253936377}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 14
+  m_Mesh: {fileID: 4300000, guid: b36f1d3707119224d98d21f24ce26f8a, type: 2}
+--- !u!1 &8114543488324105550
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8114543488324105537}
+  - component: {fileID: 8114543488324105541}
+  - component: {fileID: 8114543488324105538}
+  - component: {fileID: 8114543488324105539}
+  - component: {fileID: 8114543488324105536}
+  m_Layer: 2
+  m_Name: Brick1 (3)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8114543488324105537
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543488324105550}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.6999998, y: 0.29, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8114543488380747606}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &8114543488324105541
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543488324105550}
+  m_Mesh: {fileID: 4300000, guid: b36f1d3707119224d98d21f24ce26f8a, type: 2}
+--- !u!23 &8114543488324105538
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543488324105550}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 6c7cc297b3ff48942b9c092cb9a12770, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!114 &8114543488324105539
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543488324105550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 606a7e0239e6a494781d43a5a0915ed6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  generateLightmapUVs: 0
+  addCollider: 0
+  debug: 0
+  mesh: {fileID: 4300000, guid: b36f1d3707119224d98d21f24ce26f8a, type: 2}
+  width: 0.45
+  length: 0.21
+  height: 0.18
+  uvScale: {x: 1, y: 1, z: 1}
+  uvOffset: {x: 0, y: 0, z: 0}
+  help:
+    showInfo: 0
+    helpText: ProcCube is a powerful tool for object and level design. It allows
+      you to make boxes of any given proportion, and properly changes the UV coordinates
+      so that your textures don't stretch like they do with a normal Unity cube.
+      To use, simply add this to an empty transform (or create it with a Rapid Dev
+      Toolbar button)
+    videoLink: 
+--- !u!64 &8114543488324105536
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543488324105550}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 14
+  m_Mesh: {fileID: 4300000, guid: b36f1d3707119224d98d21f24ce26f8a, type: 2}
+--- !u!1 &8114543488333803223
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8114543488333803222}
+  - component: {fileID: 8114543488333803242}
+  - component: {fileID: 8114543488333803243}
+  - component: {fileID: 8114543488333803240}
+  - component: {fileID: 8114543488333803241}
+  m_Layer: 2
+  m_Name: Brick1 (18)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8114543488333803222
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543488333803223}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.24000072, y: 0.69, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8114543488380747606}
+  m_RootOrder: 18
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &8114543488333803242
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543488333803223}
+  m_Mesh: {fileID: 4300000, guid: b36f1d3707119224d98d21f24ce26f8a, type: 2}
+--- !u!23 &8114543488333803243
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543488333803223}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 6c7cc297b3ff48942b9c092cb9a12770, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!114 &8114543488333803240
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543488333803223}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 606a7e0239e6a494781d43a5a0915ed6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  generateLightmapUVs: 0
+  addCollider: 0
+  debug: 0
+  mesh: {fileID: 4300000, guid: b36f1d3707119224d98d21f24ce26f8a, type: 2}
+  width: 0.45
+  length: 0.21
+  height: 0.18
+  uvScale: {x: 1, y: 1, z: 1}
+  uvOffset: {x: 0, y: 0, z: 0}
+  help:
+    showInfo: 0
+    helpText: ProcCube is a powerful tool for object and level design. It allows
+      you to make boxes of any given proportion, and properly changes the UV coordinates
+      so that your textures don't stretch like they do with a normal Unity cube.
+      To use, simply add this to an empty transform (or create it with a Rapid Dev
+      Toolbar button)
+    videoLink: 
+--- !u!64 &8114543488333803241
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543488333803223}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 14
+  m_Mesh: {fileID: 4300000, guid: b36f1d3707119224d98d21f24ce26f8a, type: 2}
+--- !u!1 &8114543488380747600
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8114543488380747606}
+  - component: {fileID: 8114543488380747607}
+  - component: {fileID: 8114543488380747604}
+  - component: {fileID: 8114543488380747605}
+  - component: {fileID: 8114543488380747602}
+  - component: {fileID: 8114543488380747603}
+  - component: {fileID: 903656882602737367}
+  - component: {fileID: 1071167226800226771}
+  - component: {fileID: 4601387717007708501}
+  - component: {fileID: 4093609479166778290}
+  - component: {fileID: 6655321173264512749}
+  m_Layer: 2
+  m_Name: BrickWallBlueprint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8114543488380747606
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543488380747600}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 10, y: 0, z: 0.51}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 8114543486990168805}
+  - {fileID: 8114543488491613964}
+  - {fileID: 8114543488960608215}
+  - {fileID: 8114543488324105537}
+  - {fileID: 8114543487927551946}
+  - {fileID: 8114543487693984640}
+  - {fileID: 8114543487574423183}
+  - {fileID: 8114543487335525065}
+  - {fileID: 8114543487465946857}
+  - {fileID: 8114543487861578536}
+  - {fileID: 8114543488120576698}
+  - {fileID: 8114543488253936376}
+  - {fileID: 8114543488954915113}
+  - {fileID: 8114543487832278337}
+  - {fileID: 8114543488525428734}
+  - {fileID: 8114543488660951602}
+  - {fileID: 8114543488736343698}
+  - {fileID: 8114543487458586686}
+  - {fileID: 8114543488333803222}
+  - {fileID: 8114543487287910619}
+  - {fileID: 8114543487901600019}
+  - {fileID: 8114543487133995951}
+  - {fileID: 8114543487865096719}
+  - {fileID: 8114543488956423398}
+  - {fileID: 8114543486894100043}
+  - {fileID: 8114543487099083160}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!208 &8114543488380747607
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543488380747600}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.935, y: 0.61, z: 0.1}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0.57, z: 0}
+  m_TimeToStationary: 0.5
+--- !u!54 &8114543488380747604
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543488380747600}
+  serializedVersion: 2
+  m_Mass: 40
+  m_Drag: 0.14
+  m_AngularDrag: 0.14
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 1
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &8114543488380747605
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543488380747600}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72575fd4615a3e849a0e1077e3479438, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toggleGravity: 1
+  delay: 0
+  nullifyMotion: 0
+  controlColliderState: 0
+  help:
+    showInfo: 0
+    helpText: "This component allows the physics simulation of a given object to
+      be toggled based on messages. 'EnablePhysics' and 'DisablePhysics' take no
+      parameters. 'SwapPhysics' takes no parameter and will reverse the physics state
+      of the object. It also optionally changes the 'convex' state of a collider
+      based on physics state (recommended for advanced users only) \n\nTo use, add
+      to a physics object and when appropriate, send messages to this component using
+      any message sender (such as ActiveCollider)."
+    videoLink: 
+  disablePhysicsHelp:
+    showInfo: 0
+    messageName: DisablePhysics
+    helpText: Disables physics calculations on this object (it will still collide
+      with objects if it has a collider)
+    argumentType: 0
+    argumentText: 
+  enablePhysicsHelp:
+    showInfo: 0
+    messageName: EnablePhysics
+    helpText: Disables physics calculations on this object
+    argumentType: 0
+    argumentText: 
+  swapPhysicsHelp:
+    showInfo: 0
+    messageName: SwapPhysics
+    helpText: Toggles the physics state of this object.
+    argumentType: 0
+    argumentText: 
+--- !u!114 &8114543488380747602
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543488380747600}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f33ce65a205b5b34a8ca4909a5557669, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pool: 0
+  deathPrefabs: []
+  help:
+    showInfo: 0
+    helpText: 'This component allows things to be destroyed by receiving the ''Destruct''
+      message. Very handy.
+
+
+      Drag and drop prefabs onto the ''Death Prefabs''
+      list to make handy things come to life when this one dies.'
+    videoLink: 
+  debug: 0
+  destructHelp:
+    showInfo: 0
+    messageName: Destruct
+    helpText: Deletes this object from the scene, and spawns the supplied list of
+      'Death Prefabs' if any
+    argumentType: 0
+    argumentText: 
+--- !u!114 &8114543488380747603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543488380747600}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d29f3479b2dc21429d430b98ee49771, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  impetus: {x: 0, y: 120}
+  help:
+    showInfo: 1
+    helpText: This component applies Transform rotation based on the horizontal and
+      vertical axes. To use, put the top rotation speed in for the X and Y axes.
+      Z is ignored. These automatically rotate on the X axis (Vertical) and Y axis
+      (horizontal) rotations.
+    videoLink: 
+--- !u!114 &903656882602737367
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543488380747600}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 247b8f498f07e604cbd4b468c104adf8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: 323
+  button: 
+  keyDownMessage:
+    target: {fileID: 0}
+    message: StartSequence
+    msgOverride: 1
+    messageIndex: 7
+    possibleMessages:
+    - DisablePhysics
+    - EnablePhysics
+    - SwapPhysics
+    - Destruct
+    - Spawn
+    - SpawnAsChild
+    - StartSequence
+    - Interrupt
+    - InterruptAll
+    isDirty: 0
+    sendMessageType: 0
+    parameter: CreateWall
+    parameterMode: 4
+  keyHeldMessage:
+    target: {fileID: 0}
+    message: --none--
+    msgOverride: 0
+    messageIndex: 0
+    possibleMessages:
+    - DisablePhysics
+    - EnablePhysics
+    - SwapPhysics
+    - Destruct
+    - Spawn
+    - SpawnAsChild
+    - StartSequence
+    - Interrupt
+    - InterruptAll
+    isDirty: 0
+    sendMessageType: 0
+    parameter: 
+    parameterMode: 0
+  keyUpMessage:
+    target: {fileID: 0}
+    message: --none--
+    msgOverride: 0
+    messageIndex: 0
+    possibleMessages:
+    - DisablePhysics
+    - EnablePhysics
+    - SwapPhysics
+    - Destruct
+    - Spawn
+    - SpawnAsChild
+    - StartSequence
+    - Interrupt
+    - InterruptAll
+    isDirty: 0
+    sendMessageType: 0
+    parameter: 
+    parameterMode: 0
+  target: {fileID: 0}
+  debug: 0
+  help:
+    showInfo: 0
+    helpText: This component sends messages based on the state of a key or button.
+      Buttons are defined in (Edit -> Project Settings -> Input)
+    videoLink: 
+--- !u!114 &1071167226800226771
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543488380747600}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 247b8f498f07e604cbd4b468c104adf8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: 27
+  button: 
+  keyDownMessage:
+    target: {fileID: 0}
+    message: Destruct
+    msgOverride: 1
+    messageIndex: 4
+    possibleMessages:
+    - DisablePhysics
+    - EnablePhysics
+    - SwapPhysics
+    - Destruct
+    - Spawn
+    - SpawnAsChild
+    - StartSequence
+    - Interrupt
+    - InterruptAll
+    isDirty: 0
+    sendMessageType: 0
+    parameter: 
+    parameterMode: 0
+  keyHeldMessage:
+    target: {fileID: 0}
+    message: --none--
+    msgOverride: 1
+    messageIndex: 0
+    possibleMessages:
+    - DisablePhysics
+    - EnablePhysics
+    - SwapPhysics
+    - Destruct
+    - Spawn
+    - SpawnAsChild
+    - StartSequence
+    - Interrupt
+    - InterruptAll
+    isDirty: 0
+    sendMessageType: 0
+    parameter: 
+    parameterMode: 0
+  keyUpMessage:
+    target: {fileID: 0}
+    message: --none--
+    msgOverride: 1
+    messageIndex: 0
+    possibleMessages:
+    - DisablePhysics
+    - EnablePhysics
+    - SwapPhysics
+    - Destruct
+    - Spawn
+    - SpawnAsChild
+    - StartSequence
+    - Interrupt
+    - InterruptAll
+    isDirty: 0
+    sendMessageType: 0
+    parameter: 
+    parameterMode: 0
+  target: {fileID: 0}
+  debug: 0
+  help:
+    showInfo: 0
+    helpText: This component sends messages based on the state of a key or button.
+      Buttons are defined in (Edit -> Project Settings -> Input)
+    videoLink: 
+--- !u!114 &4601387717007708501
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543488380747600}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f912f75ea5c8c6e44a50a624931f06bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  poolObjects: 0
+  item: {fileID: 9034590489804196789, guid: dad663cd767ad494780f3426dbc14d49, type: 3}
+  spawnPoint: {fileID: 0}
+  inheritVelocity: 1
+  debug: 0
+  help:
+    showInfo: 0
+    helpText: Simply send 'Spawn' or 'SpawnAsChild' to this component to instantiate
+      'Item' at 'SpawnPoint'. 'Item' does not have to be an Inventory Pickable, but
+      it can be if you wish. It can be any object that you want to instantiate into
+      your game for any reason. For example you could spawn anthropomorphic bullets
+      out of a cartoon cannon in your level using this, or you could spawn items
+      or even invisible sound effect objects. Really, any prefab is a valid choice.
+    videoLink: 
+  spawnHelp:
+    showInfo: 0
+    messageName: Spawn
+    helpText: Spawns the 'Item' at 'Spawn Point'.
+    argumentType: 0
+    argumentText: 
+  spawnAsChildHelp:
+    showInfo: 0
+    messageName: SpawnAsChild
+    helpText: Spawns the 'Item' at 'Spawn Point' and then parents it to the spawn
+      point.
+    argumentType: 0
+    argumentText: 
+--- !u!114 &4093609479166778290
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543488380747600}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d94d5019b294354f9a061a101b81eb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  designator: CreateWall
+  exclusive: 1
+  completionDelay: 0
+  loop: 0
+  sequence:
+  - delay: 0
+    message:
+      target: {fileID: 0}
+      message: Spawn
+      msgOverride: 1
+      messageIndex: 5
+      possibleMessages:
+      - DisablePhysics
+      - EnablePhysics
+      - SwapPhysics
+      - Destruct
+      - Spawn
+      - SpawnAsChild
+      - StartSequence
+      - Interrupt
+      - InterruptAll
+      isDirty: 0
+      sendMessageType: 0
+      parameter: 
+      parameterMode: 0
+  - delay: 0
+    message:
+      target: {fileID: 0}
+      message: Destruct
+      msgOverride: 1
+      messageIndex: 4
+      possibleMessages:
+      - DisablePhysics
+      - EnablePhysics
+      - SwapPhysics
+      - Destruct
+      - Spawn
+      - SpawnAsChild
+      - StartSequence
+      - Interrupt
+      - InterruptAll
+      isDirty: 0
+      sendMessageType: 0
+      parameter: 
+      parameterMode: 0
+  help:
+    showInfo: 0
+    helpText: Behavior Sequencer allows you to define a sequence of actions that
+      can be started or interrupted by sending messages. To use, first assign the
+      Actions you wish this sequencer to take. Then, at the appropriate time, send
+      the 'StartSequence' message to this object with a string argument containing
+      the 'Designator' assigned above. This will initiate this sequencer and optionally
+      stop all other sequencers on this object if this sequencer is set to 'Exclusive'.
+      A Utility Module can be used to select from a list of sequences based on current
+      in-game conditions of a given agent.
+    videoLink: 
+  debug: 0
+  startSequenceHelp:
+    showInfo: 0
+    messageName: StartSequence
+    helpText: Initializes sequences on this object with a matching 'Designator',
+      defined above.
+    argumentType: 4
+    argumentText: If the 'Designator' matches the string argument supplied, the BehaviorSequencer
+      will activate.
+  takeSelectedActionHelp:
+    showInfo: 0
+    messageName: TakeSelectedAction
+    helpText: Allows you to schedule a specific action right now.
+    argumentType: 2
+    argumentText: The index of the Action in the Sequence. These are zero-indexed,
+      so the first one is zero, second one is one etc.
+  interruptHelp:
+    showInfo: 0
+    messageName: Interrupt
+    helpText: Stops all scheduled actions on this BehaviorSequencer only if the designator
+      matches the supplied string.
+    argumentType: 4
+    argumentText: The designator associated with the BehaviorSequencers you wish
+      to Interrupt
+  interruptAllHelp:
+    showInfo: 0
+    messageName: InterruptAll
+    helpText: Immediately stops all actions scheduled on this BehaveiorSequencer
+    argumentType: 0
+    argumentText: 
+--- !u!114 &6655321173264512749
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543488380747600}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b35ad4f6c7fb6143b10ef6dff044d0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 132096
+  maxDistance: 1500
+  constrainX: 0
+  constrainY: 0
+  constrainZ: 0
+  help:
+    showInfo: 0
+    helpText: This component causes an object to always be at the position of the
+      mouse in the world. To use, add it to an object that you want to follow the
+      mouse. Then, populate the Layer Mask at the top with layers of objects that
+      represent the world geometry, such as the terrain. Then, this object will always
+      be under the player's cursor while it's alive, as long as the cursor is over
+      one of these object groups. This can be useful for selection painting, object
+      placement, spellcasting, or creating a light around the cursor in dimly-lit
+      game areas.
+    videoLink: 
+--- !u!1 &8114543488491613965
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8114543488491613964}
+  - component: {fileID: 8114543488491613952}
+  - component: {fileID: 8114543488491613953}
+  - component: {fileID: 8114543488491613966}
+  - component: {fileID: 8114543488491613967}
+  m_Layer: 2
+  m_Name: Brick1 (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8114543488491613964
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543488491613965}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.6999998, y: 0.08, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8114543488380747606}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &8114543488491613952
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543488491613965}
+  m_Mesh: {fileID: 4300000, guid: b36f1d3707119224d98d21f24ce26f8a, type: 2}
+--- !u!23 &8114543488491613953
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543488491613965}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 6c7cc297b3ff48942b9c092cb9a12770, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!114 &8114543488491613966
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543488491613965}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 606a7e0239e6a494781d43a5a0915ed6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  generateLightmapUVs: 0
+  addCollider: 0
+  debug: 0
+  mesh: {fileID: 4300000, guid: b36f1d3707119224d98d21f24ce26f8a, type: 2}
+  width: 0.45
+  length: 0.21
+  height: 0.18
+  uvScale: {x: 1, y: 1, z: 1}
+  uvOffset: {x: 0, y: 0, z: 0}
+  help:
+    showInfo: 0
+    helpText: ProcCube is a powerful tool for object and level design. It allows
+      you to make boxes of any given proportion, and properly changes the UV coordinates
+      so that your textures don't stretch like they do with a normal Unity cube.
+      To use, simply add this to an empty transform (or create it with a Rapid Dev
+      Toolbar button)
+    videoLink: 
+--- !u!64 &8114543488491613967
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543488491613965}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 14
+  m_Mesh: {fileID: 4300000, guid: b36f1d3707119224d98d21f24ce26f8a, type: 2}
+--- !u!1 &8114543488525428735
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8114543488525428734}
+  - component: {fileID: 8114543488525428722}
+  - component: {fileID: 8114543488525428723}
+  - component: {fileID: 8114543488525428720}
+  - component: {fileID: 8114543488525428721}
+  m_Layer: 2
+  m_Name: Brick1 (14)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8114543488525428734
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543488525428735}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.22999954, y: 0.69, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8114543488380747606}
+  m_RootOrder: 14
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &8114543488525428722
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543488525428735}
+  m_Mesh: {fileID: 4300000, guid: b36f1d3707119224d98d21f24ce26f8a, type: 2}
+--- !u!23 &8114543488525428723
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543488525428735}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 6c7cc297b3ff48942b9c092cb9a12770, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!114 &8114543488525428720
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543488525428735}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 606a7e0239e6a494781d43a5a0915ed6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  generateLightmapUVs: 0
+  addCollider: 0
+  debug: 0
+  mesh: {fileID: 4300000, guid: b36f1d3707119224d98d21f24ce26f8a, type: 2}
+  width: 0.45
+  length: 0.21
+  height: 0.18
+  uvScale: {x: 1, y: 1, z: 1}
+  uvOffset: {x: 0, y: 0, z: 0}
+  help:
+    showInfo: 0
+    helpText: ProcCube is a powerful tool for object and level design. It allows
+      you to make boxes of any given proportion, and properly changes the UV coordinates
+      so that your textures don't stretch like they do with a normal Unity cube.
+      To use, simply add this to an empty transform (or create it with a Rapid Dev
+      Toolbar button)
+    videoLink: 
+--- !u!64 &8114543488525428721
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543488525428735}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 14
+  m_Mesh: {fileID: 4300000, guid: b36f1d3707119224d98d21f24ce26f8a, type: 2}
+--- !u!1 &8114543488660951603
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8114543488660951602}
+  - component: {fileID: 8114543488660951606}
+  - component: {fileID: 8114543488660951607}
+  - component: {fileID: 8114543488660951604}
+  - component: {fileID: 8114543488660951605}
+  m_Layer: 2
+  m_Name: Brick1 (15)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8114543488660951602
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543488660951603}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.6999998, y: 0.89, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8114543488380747606}
+  m_RootOrder: 15
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &8114543488660951606
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543488660951603}
+  m_Mesh: {fileID: 4300000, guid: b36f1d3707119224d98d21f24ce26f8a, type: 2}
+--- !u!23 &8114543488660951607
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543488660951603}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 6c7cc297b3ff48942b9c092cb9a12770, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!114 &8114543488660951604
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543488660951603}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 606a7e0239e6a494781d43a5a0915ed6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  generateLightmapUVs: 0
+  addCollider: 0
+  debug: 0
+  mesh: {fileID: 4300000, guid: b36f1d3707119224d98d21f24ce26f8a, type: 2}
+  width: 0.45
+  length: 0.21
+  height: 0.18
+  uvScale: {x: 1, y: 1, z: 1}
+  uvOffset: {x: 0, y: 0, z: 0}
+  help:
+    showInfo: 0
+    helpText: ProcCube is a powerful tool for object and level design. It allows
+      you to make boxes of any given proportion, and properly changes the UV coordinates
+      so that your textures don't stretch like they do with a normal Unity cube.
+      To use, simply add this to an empty transform (or create it with a Rapid Dev
+      Toolbar button)
+    videoLink: 
+--- !u!64 &8114543488660951605
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543488660951603}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 14
+  m_Mesh: {fileID: 4300000, guid: b36f1d3707119224d98d21f24ce26f8a, type: 2}
+--- !u!1 &8114543488736343699
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8114543488736343698}
+  - component: {fileID: 8114543488736343702}
+  - component: {fileID: 8114543488736343703}
+  - component: {fileID: 8114543488736343700}
+  - component: {fileID: 8114543488736343701}
+  m_Layer: 2
+  m_Name: Brick1 (16)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8114543488736343698
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543488736343699}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.71000004, y: 0.89, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8114543488380747606}
+  m_RootOrder: 16
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &8114543488736343702
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543488736343699}
+  m_Mesh: {fileID: 4300000, guid: b36f1d3707119224d98d21f24ce26f8a, type: 2}
+--- !u!23 &8114543488736343703
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543488736343699}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 6c7cc297b3ff48942b9c092cb9a12770, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!114 &8114543488736343700
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543488736343699}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 606a7e0239e6a494781d43a5a0915ed6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  generateLightmapUVs: 0
+  addCollider: 0
+  debug: 0
+  mesh: {fileID: 4300000, guid: b36f1d3707119224d98d21f24ce26f8a, type: 2}
+  width: 0.45
+  length: 0.21
+  height: 0.18
+  uvScale: {x: 1, y: 1, z: 1}
+  uvOffset: {x: 0, y: 0, z: 0}
+  help:
+    showInfo: 0
+    helpText: ProcCube is a powerful tool for object and level design. It allows
+      you to make boxes of any given proportion, and properly changes the UV coordinates
+      so that your textures don't stretch like they do with a normal Unity cube.
+      To use, simply add this to an empty transform (or create it with a Rapid Dev
+      Toolbar button)
+    videoLink: 
+--- !u!64 &8114543488736343701
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543488736343699}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 14
+  m_Mesh: {fileID: 4300000, guid: b36f1d3707119224d98d21f24ce26f8a, type: 2}
+--- !u!1 &8114543488954915094
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8114543488954915113}
+  - component: {fileID: 8114543488954915117}
+  - component: {fileID: 8114543488954915114}
+  - component: {fileID: 8114543488954915115}
+  - component: {fileID: 8114543488954915112}
+  m_Layer: 2
+  m_Name: Brick1 (12)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8114543488954915113
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543488954915094}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.22999954, y: 0.89, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8114543488380747606}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &8114543488954915117
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543488954915094}
+  m_Mesh: {fileID: 4300000, guid: b36f1d3707119224d98d21f24ce26f8a, type: 2}
+--- !u!23 &8114543488954915114
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543488954915094}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 6c7cc297b3ff48942b9c092cb9a12770, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!114 &8114543488954915115
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543488954915094}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 606a7e0239e6a494781d43a5a0915ed6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  generateLightmapUVs: 0
+  addCollider: 0
+  debug: 0
+  mesh: {fileID: 4300000, guid: b36f1d3707119224d98d21f24ce26f8a, type: 2}
+  width: 0.45
+  length: 0.21
+  height: 0.18
+  uvScale: {x: 1, y: 1, z: 1}
+  uvOffset: {x: 0, y: 0, z: 0}
+  help:
+    showInfo: 0
+    helpText: ProcCube is a powerful tool for object and level design. It allows
+      you to make boxes of any given proportion, and properly changes the UV coordinates
+      so that your textures don't stretch like they do with a normal Unity cube.
+      To use, simply add this to an empty transform (or create it with a Rapid Dev
+      Toolbar button)
+    videoLink: 
+--- !u!64 &8114543488954915112
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543488954915094}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 14
+  m_Mesh: {fileID: 4300000, guid: b36f1d3707119224d98d21f24ce26f8a, type: 2}
+--- !u!1 &8114543488956423399
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8114543488956423398}
+  - component: {fileID: 8114543488956423418}
+  - component: {fileID: 8114543488956423419}
+  - component: {fileID: 8114543488956423416}
+  - component: {fileID: 8114543488956423417}
+  m_Layer: 2
+  m_Name: Brick1 (23)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8114543488956423398
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543488956423399}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.24000072, y: 1.09, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8114543488380747606}
+  m_RootOrder: 23
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &8114543488956423418
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543488956423399}
+  m_Mesh: {fileID: 4300000, guid: b36f1d3707119224d98d21f24ce26f8a, type: 2}
+--- !u!23 &8114543488956423419
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543488956423399}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 6c7cc297b3ff48942b9c092cb9a12770, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!114 &8114543488956423416
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543488956423399}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 606a7e0239e6a494781d43a5a0915ed6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  generateLightmapUVs: 0
+  addCollider: 0
+  debug: 0
+  mesh: {fileID: 4300000, guid: b36f1d3707119224d98d21f24ce26f8a, type: 2}
+  width: 0.45
+  length: 0.21
+  height: 0.18
+  uvScale: {x: 1, y: 1, z: 1}
+  uvOffset: {x: 0, y: 0, z: 0}
+  help:
+    showInfo: 0
+    helpText: ProcCube is a powerful tool for object and level design. It allows
+      you to make boxes of any given proportion, and properly changes the UV coordinates
+      so that your textures don't stretch like they do with a normal Unity cube.
+      To use, simply add this to an empty transform (or create it with a Rapid Dev
+      Toolbar button)
+    videoLink: 
+--- !u!64 &8114543488956423417
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543488956423399}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 14
+  m_Mesh: {fileID: 4300000, guid: b36f1d3707119224d98d21f24ce26f8a, type: 2}
+--- !u!1 &8114543488960608212
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8114543488960608215}
+  - component: {fileID: 8114543488960608235}
+  - component: {fileID: 8114543488960608232}
+  - component: {fileID: 8114543488960608233}
+  - component: {fileID: 8114543488960608214}
+  m_Layer: 2
+  m_Name: Brick1 (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8114543488960608215
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543488960608212}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.22999954, y: 0.08, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8114543488380747606}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &8114543488960608235
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543488960608212}
+  m_Mesh: {fileID: 4300000, guid: b36f1d3707119224d98d21f24ce26f8a, type: 2}
+--- !u!23 &8114543488960608232
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543488960608212}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 6c7cc297b3ff48942b9c092cb9a12770, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!114 &8114543488960608233
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543488960608212}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 606a7e0239e6a494781d43a5a0915ed6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  generateLightmapUVs: 0
+  addCollider: 0
+  debug: 0
+  mesh: {fileID: 4300000, guid: b36f1d3707119224d98d21f24ce26f8a, type: 2}
+  width: 0.45
+  length: 0.21
+  height: 0.18
+  uvScale: {x: 1, y: 1, z: 1}
+  uvOffset: {x: 0, y: 0, z: 0}
+  help:
+    showInfo: 0
+    helpText: ProcCube is a powerful tool for object and level design. It allows
+      you to make boxes of any given proportion, and properly changes the UV coordinates
+      so that your textures don't stretch like they do with a normal Unity cube.
+      To use, simply add this to an empty transform (or create it with a Rapid Dev
+      Toolbar button)
+    videoLink: 
+--- !u!64 &8114543488960608214
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543488960608212}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 14
+  m_Mesh: {fileID: 4300000, guid: b36f1d3707119224d98d21f24ce26f8a, type: 2}

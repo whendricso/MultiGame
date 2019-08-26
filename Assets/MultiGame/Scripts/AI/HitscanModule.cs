@@ -30,8 +30,10 @@ namespace MultiGame {
 		public GameObject damageRayOrigin;
 		[Tooltip("Range of the attack")]
 		public float hitscanRange = 2.3f;
-		[Tooltip("What collision layers can block our attacks?")]
+		[Tooltip("What collision layers can block our attacks & vision?")]
 		public LayerMask damageObstructionMask;
+		[Tooltip("How long do we keep hunting our target after we can't see them anymore?")]
+		public float huntingTimeOut = 10;
 		//private float lastTriggerTime;
 		[Header("Message Senders")]
 		[ReorderableAttribute]
@@ -54,6 +56,9 @@ namespace MultiGame {
 		[Reorderable]
 		public List<AudioClip> missSounds = new List<AudioClip>();
 
+		private bool targetVisible = false;
+		private float lastSeenTime = 0;
+		private bool hunting = false;
 		private List<GameObject> touchingObjects = new List<GameObject>();
 		private GameObject target;
 		[System.NonSerialized]
@@ -127,13 +132,25 @@ namespace MultiGame {
 					anim.speed = 1;
 			}
 			if (target != null) {
+
 				Vector3 tgtPos = new Vector3(target.transform.position.x, target.transform.position.y + tgtYOffset, target.transform.position.z);
 				Vector3 toOther = tgtPos - transform.position;
 
 				float heading = Vector3.Dot(transform.TransformDirection(Vector3.forward), toOther);
+				targetVisible = !Physics.Linecast(damageRayOrigin.transform.position, tgtPos, damageObstructionMask, QueryTriggerInteraction.Ignore);
+				if (targetVisible)
+					lastSeenTime = Time.time;
+
+				if (hunting) {
+					if (Time.time - lastSeenTime > huntingTimeOut) {
+						target = null;
+						hunting = false;
+						return;
+					}
+				}
 
 				if (debug) {
-					if (heading < headingConeRadius || Physics.Linecast(damageRayOrigin.transform.position, tgtPos, damageObstructionMask, QueryTriggerInteraction.Ignore))
+					if (heading < headingConeRadius || !targetVisible)
 						Debug.DrawLine(damageRayOrigin.transform.position, tgtPos, XKCDColors.RedOrange);//Debug.DrawRay(damageRayOrigin.transform.position, damageRayOrigin.transform.TransformDirection(Vector3.forward));
 					else {
 						if (Vector3.Distance(damageRayOrigin.transform.position, tgtPos) <= hitscanRange)
@@ -146,26 +163,39 @@ namespace MultiGame {
 				if (attackCounter < 0) {
 					ActivateAttack(heading);
 				}
+
+			} else {//target is null
+				targetVisible = false;
 			}
 		}
 
 		void ActivateAttack (float headingToTarget) {
 			if (!gameObject.activeInHierarchy)
 				return;
-			attackCounter = cooldownDuration;
-			Vector3 targetPosition = target.transform.position;
 
 			if (target!= null) {//target found!
 				if (debug)
 					Debug.Log("Melee Module " + gameObject.name + " has a target.");
-				if (headingToTarget > headingConeRadius && Vector3.Distance(damageRayOrigin.transform.position, targetPosition) <= hitscanRange) {//target is within damage cone and in-range!
-					if (anim != null && !string.IsNullOrEmpty(attackAnimationTrigger)) if (debug)
-							Debug.Log("Melee Module " + gameObject.name + " is in range and looking towards the target " + target.name);
-					if (anim != null)
-						anim.SetTrigger(attackAnimationTrigger);
-					if (source != null && attackSounds.Count > 0)
-						source.PlayOneShot(attackSounds[Mathf.FloorToInt(Random.Range(0, attackSounds.Count))]);
-					StartCoroutine(DamageOther());
+
+				attackCounter = cooldownDuration;
+				Vector3 targetPosition = target.transform.position;
+
+				if (targetVisible) {
+					if (headingToTarget > headingConeRadius && Vector3.Distance(damageRayOrigin.transform.position, targetPosition) <= hitscanRange) {//target is within damage cone and in-range!
+						hunting = false;
+						foreach (MessageManager.ManagedMessage myMsg in attackMessages) {
+							MessageManager.Send(myMsg);//nullref error??
+						}
+						if (anim != null) {
+							if (debug)
+								Debug.Log("Melee Module " + gameObject.name + " is in range and looking towards the target " + target.name);
+							if (!string.IsNullOrEmpty(attackAnimationTrigger))
+								anim.SetTrigger(attackAnimationTrigger);
+						}
+						if (source != null && attackSounds.Count > 0)
+							source.PlayOneShot(attackSounds[Mathf.FloorToInt(Random.Range(0, attackSounds.Count))]);
+						StartCoroutine(DamageOther());
+					}
 				}
 			}
 		}
@@ -184,9 +214,7 @@ namespace MultiGame {
 						foreach (MessageManager.ManagedMessage otherMsg in messagesToVictim) {
 							MessageManager.SendTo(otherMsg, target);
 						}
-						foreach (MessageManager.ManagedMessage myMsg in attackMessages) {
-							MessageManager.Send(myMsg);
-						}
+						
 						target.gameObject.SendMessage("ModifyHealth", -attackDamage, SendMessageOptions.DontRequireReceiver);
 						if (stunTime > 0)
 							target.gameObject.SendMessage("HitStun", stunTime, SendMessageOptions.DontRequireReceiver);
@@ -204,7 +232,6 @@ namespace MultiGame {
 					}
 				}
 			}
-
 		}
 
 		public MessageHelp targetNearestHelp = new MessageHelp("TargetNearest","Targets the nearest object of a given tag",4,"The tag of the object we wish to target");
@@ -220,6 +247,15 @@ namespace MultiGame {
 			if (!gameObject.activeInHierarchy)
 				return;
 			target = newTarget;
+		}
+
+		void Hunt() {
+			hunting = true;
+		}
+
+		public void StopHunting() {
+			target = null;
+			hunting = false;
 		}
 
 		public MessageHelp clearTargetHelp = new MessageHelp("ClearTarget","Causes the Hitscan Module to stop targeting anything.");

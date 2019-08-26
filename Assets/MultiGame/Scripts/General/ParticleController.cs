@@ -86,5 +86,31 @@ namespace MultiGame {
 		public void SetFadeDuration(float _duration) {
 			fadeDuration = _duration;
 		}
+
+		public MessageHelp startParticleHelp = new MessageHelp("StartParticle","Enables emission on this particle system without affecting rate");
+		public void StartParticle() {
+			emission.enabled = true;
+		}
+
+		public MessageHelp stopParticleHelp = new MessageHelp("StopParticle","Disables emission on this particle system without affecting rate");
+		public void StopParticle() {
+			emission.enabled = false;
+		}
+
+		public MessageHelp toggleParticleHelp = new MessageHelp("ToggleParticle","Toggles emission on this particle system without affecting rate");
+		public void ToggleParticle() {
+			emission.enabled = !emission.enabled;
+		}
+
+		public MessageHelp burstForDurationHelp = new MessageHelp("BurstForDuration","Enables emission on this particle system for a specified period of time without fading or affecting rate",3,"How long would we like to burst this particle system for at it's current rate?");
+		public void BurstForDuration(float _burstDuration) {
+			emission.enabled = true;
+			StartCoroutine(EndBurst(_burstDuration));
+		}
+
+		private IEnumerator EndBurst(float _delay) {
+			yield return new WaitForSeconds(_delay);
+			emission.enabled = false;
+		}
 	}
 }

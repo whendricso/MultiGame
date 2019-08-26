@@ -27,6 +27,7 @@ namespace MultiGame {
 		[Header("Motion")]
 		[Tooltip("If true, will auto-parent to the object it stands on, for moving platform support.")]
 		public bool platformParent = true;
+		public ParentingModes parentingMode = ParentingModes.RootTransform;
 		[RequiredFieldAttribute("Moving forward, how fast can the character go at full sprint?")]
 		public float runSpeed = 7f;
 		[RequiredFieldAttribute("How fast are we able to move sideways?")]
@@ -102,6 +103,8 @@ namespace MultiGame {
 		[Tooltip("Hyyyyah!!")]
 		public AudioClip attackSound;
 		public MessageManager.ManagedMessage attackMessage;
+
+		public enum ParentingModes {Transform, RootTransform };
 
 		[ReorderableAttribute]
 		[Header("Custom")]
@@ -194,9 +197,8 @@ namespace MultiGame {
 			}
 		}
 
-		void Stun(float duration) {
-			stunDuration = duration;
-		}
+
+		
 
 		void OnEnable () {
 			if (inventory == null)
@@ -506,9 +508,15 @@ namespace MultiGame {
 				if (_hit.moveDirection.y < 0.9f && _hit.normal.y > 0.5f) {
 					platform = _hit.gameObject;
 					if (platformParent)
-						transform.SetParent(platform.transform.root, true);
+						transform.SetParent(parentingMode == ParentingModes.RootTransform ? platform.transform.root : platform.transform, true);
 				}
 			}
+		}
+
+		[Header("Available Messages")]
+		public MessageHelp stunHelp = new MessageHelp("Stun","Prevents the character from moving or attacking for a specific period of time",3,"The time, in seconds, that the stun should last.");
+		public void Stun(float duration) {
+			stunDuration = duration;
 		}
 
 		public MessageHelp setBonusDamageHelp = new MessageHelp("SetBonusDamage", "Adds additional damage to the next attack. Resets to 0 after attack", 3, "How much additional damage should we add?");

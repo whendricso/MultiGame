@@ -16,8 +16,6 @@ namespace MultiGame {
 		public float completionDelay = 0;
 		public bool loop = false;
 
-		
-
 		[Reorderable]
 		public List<Action> sequence = new List<Action>();
 		
@@ -53,11 +51,7 @@ namespace MultiGame {
 				_msg = _action.message;
 				MessageManager.UpdateMessageGUI(ref _msg, gameObject);
 			}
-
-			
 		}
-
-		
 
 		public MessageHelp startSequenceHelp = new MessageHelp("StartSequence","Initializes sequences on this object with a matching 'Designator', defined above.",4,"If the 'Designator' matches the string argument supplied, the BehaviorSequencer will activate.");
 		public void StartSequence(string _designator) {

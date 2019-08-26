@@ -12,6 +12,7 @@ namespace MultiGame {
 		
 		public bool snapOnStart = false;
 		public Vector3 gridSetting = Vector3.one;
+		public Vector3 rotationSetting = Vector3.zero;
 		[BoolButton]
 		public bool snapNow = false;
 		[Tooltip("If true, the object will snap itself constantly while in edit mode. Disable this when finished, as it uses CPU cycles each frame.")]
@@ -49,8 +50,9 @@ namespace MultiGame {
 		#endif
 
 		void LateUpdate () {
-			if (snapEachFrame)
-				SnapToGrid ();
+			if (snapEachFrame) {
+				SnapToGrid();
+			}
 		}
 
 		public MessageHelp snapToGridHelp = new MessageHelp("SnapToGrid","Immediately snaps this object to the grid. Grid snap occurs in global coordinates.");
@@ -59,13 +61,29 @@ namespace MultiGame {
 				return;
 			SnapToSpecificGrid(gridSetting);
 		}
-		
+
+		public MessageHelp snapToRotGridHelp = new MessageHelp("SnapToRotGrid","Snaps the object's rotation in local space to the Rotation Setting defined above.");
+		public void SnapToRotGrid() {
+			if (!gameObject.activeInHierarchy)
+				return;
+			SnapToSpecificRotGrid(rotationSetting);
+		}
+
 		public void SnapToSpecificGrid(Vector3 gridSpace) {
 			//Debug.Log("Snap!");
 			float newX = Mathf.Round (transform.position.x / gridSpace.x) * gridSpace.x;
 			float newY = Mathf.Round (transform.position.y / gridSpace.y) * gridSpace.y;
 			float newZ = Mathf.Round (transform.position.z / gridSpace.z) * gridSpace.z;
 			transform.position = new Vector3(newX, newY, newZ);
+		}
+
+		public void SnapToSpecificRotGrid(Vector3 angularSnap) {
+			if (angularSnap == Vector3.zero)//don't allow the default setting
+				return;
+			float newX = Mathf.Round(transform.localEulerAngles.x);
+			float newY = Mathf.Round(transform.localEulerAngles.y);
+			float newZ = Mathf.Round(transform.localEulerAngles.z);
+			transform.eulerAngles = new Vector3(newX,newY,newZ);
 		}
 		
 		public void SnapTargetToGrid (GameObject target, Vector3 gridSpace) {

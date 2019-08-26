@@ -53,7 +53,7 @@ namespace MultiGame {
 		public MultiModule.HelpInfo help = new MultiModule.HelpInfo("Spline Decorator allows objects to be placed procedurally along a spline that you define in the editor.\n" +
 			"\n" +
 			"To use, add some 'Decorations' and increase the 'Frequency' until you reach the desired amount. Spacing is influenced by the distance between nodes. Next, you can set some jitter " +
-			"options, if you are looking for a mor organic distribution (such as rocks near a road)");
+			"options, if you are looking for a mor organic distribution (such as rocks near a road)", "https://youtu.be/uHvZw2q27H0");
 
 		private void Awake () {
 			if (spline == null)
