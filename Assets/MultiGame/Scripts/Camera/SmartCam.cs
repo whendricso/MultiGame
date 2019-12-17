@@ -193,10 +193,12 @@ namespace MultiGame
 			transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, 0);
 		}
 
+		public MessageHelp setShakeTimeHelp = new MessageHelp("SetShakeTime","Allows you to define a new Shake Time for this camera, which controls how long the camera shakes for.",3,"How long would you like camera shake to last for?");
 		public void SetShakeTime(float newTime) {
 			shakeTime = newTime;
 		}
 
+		public MessageHelp shakeHelp = new MessageHelp("Shake","Shakes the camera immediately by setting a new shake magnitude, which decays over time based on the settings above",3,"How much would you like the camera to shake in world position (or field of view, for pulse mode)?");
 		public void Shake(float magnitude) {
 			shakeMagnitude = magnitude;
 			shakeStartTime = Time.time;

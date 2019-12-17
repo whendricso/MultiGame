@@ -4,8 +4,9 @@
 Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_Name: OrangeIron
   m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: _EMISSION
@@ -76,6 +77,6 @@ Material:
     m_Colors:
     - _Color: {r: 1, g: 0.10344827, b: 0, a: 1}
     - _Emission: {r: 1, g: 0.5586207, b: 0, a: 0}
-    - _EmissionColor: {r: 0.85, g: 0.08666667, b: 0, a: 0.85}
+    - _EmissionColor: {r: 1.9215686, g: 0.19607843, b: 0, a: 0.85}
     - _EmissionColorUI: {r: 1, g: 0.10196079, b: 0, a: 1}
     - _SpecColor: {r: 1, g: 0.6102941, b: 0.92474633, a: 1}

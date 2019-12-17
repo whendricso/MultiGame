@@ -14,6 +14,7 @@ namespace MultiGame {
 		public bool forceYUp = true;
 		[RequiredFieldAttribute("What object are we targeting? If none is set, the Main Camera will be targeted instead",RequiredFieldAttribute.RequirementLevels.Optional)]
 		public Transform target;
+		public string targetTag = "MainCamera";
 		[Tooltip("If not instant, what is our turning speed?")]
 		public float speed = 6.0f;
 
@@ -25,8 +26,8 @@ namespace MultiGame {
 		private List<Renderer> rends = new List<Renderer> ();
 		private Vector3 originalScale;
 
-		public HelpInfo help = new HelpInfo("This component causes an object to turn to face another object automatically. If no Target is provided, the object will look at the " +
-			" MainCamera instead. If 'Instant' is false, it will turn over time. Can be used with 'TargetingComputer' (useful for laser beams, billboard sprites, creepy eyes etc)" +
+		public HelpInfo help = new HelpInfo("This component causes an object to turn to face another object automatically. If no Target is provided, the object will find a " +
+			" target. If 'Instant' is false, it will turn over time. Can be used with 'TargetingComputer' (useful for laser beams, billboard sprites, creepy eyes etc)" +
 			"\n\n" +
 			"Targeting Sensor causes this object to target what ever the sensor sees. Set this as a Message Receiver on the Targeting Sensor component ");
 
@@ -36,8 +37,10 @@ namespace MultiGame {
 		}
 
 		void Update () {
-			if(target == null && Camera.main != null) {
-				target = Camera.main.GetComponent<Transform>();
+			if(target == null && !string.IsNullOrEmpty(targetTag)) {
+				GameObject _tgt = GameObject.FindGameObjectWithTag(targetTag);
+				if (_tgt != null)
+					target = _tgt.transform;
 				return;
 			}
 

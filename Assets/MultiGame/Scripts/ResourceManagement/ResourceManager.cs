@@ -39,10 +39,6 @@ namespace MultiGame
 		{
 			[Tooltip("A unique name to identify this resource")]
 			public string resourceName;
-			[Tooltip("A UGUI Text component which we can use to display the current quantity and limit for this resource")]
-			public Text text;
-			[Tooltip("If we're using IMGUI, should we show this resource in the list?")]
-			public bool visible = true;
 			[Tooltip("How much of this resource do we currently have?")]
 			public float quantity;
 			[Tooltip("The most we can have of this resource")]
@@ -51,6 +47,10 @@ namespace MultiGame
 			public float tickTime;
 			[Tooltip("The amount of this resource we want to add each interval")]
 			public float tickAmount;
+			[Tooltip("If we're using IMGUI, should we show this resource in the list?")]
+			public bool visible = true;
+			[RequiredField("A UGUI Text component which we can use to display the current quantity and limit for this resource", RequiredFieldAttribute.RequirementLevels.Optional)]
+			public Text text;
 
 			public GameResource (float _quantity, float _limit, string _resourceName, float _tickTime, float _tickAmount)
 			{

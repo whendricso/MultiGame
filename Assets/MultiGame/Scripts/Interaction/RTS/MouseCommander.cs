@@ -15,6 +15,20 @@ namespace MultiGame {
 		[Header("Important - Must be Populated")]
 		[Tooltip("What objects can we deploy on, by collision mask?")]
 		public LayerMask deployMask;
+		[Tooltip("What objects can be selected using banding boxes?")]
+		[Reorderable]
+		public List<string> selectableTags = new List<string>();
+
+		[Header("Box Selection")]
+		[Tooltip("If enabled, we will draw a box on screen when the user clicks and drags the mouse, and select anything inside that box tagged with one of the 'SelectableTags'")]
+		public bool boxSelect = true;
+		public Material boxMaterial;
+		[Tooltip("What area of the screen is available for selection? Clicks outside of this area are ignored. This is represented as a 'Normalized Viewport Rectangle', where each value indicates a percentage of screen space represented as a decimal value between 0 and 1.")]
+		public Rect selectableArea = new Rect(0,0,1,1);
+		[RequiredField("How high above the click point should the top of the selection box be?", RequiredFieldAttribute.RequirementLevels.Recommended)]
+		public float ceiling = 1;
+		[RequiredField("How deep below the click point shoud the bottom of the selection box be?", RequiredFieldAttribute.RequirementLevels.Recommended)]
+		public float floor = -1;
 		//public int windowID = 0;
 
 		[Header("GUI Settings")]
@@ -24,7 +38,7 @@ namespace MultiGame {
 		[Tooltip("Which direction should the buttons be drawn in?")]
 		public Layouts layout = Layouts.Horizontal;
 		[Tooltip("Normalized viewport rectangle indicating where we should draw the buttons. Numbers  indicate a percentage of screen space from 0 to 1")]
-		public Rect guiArea = new Rect(0.01f, 0.8f, .98f, .79f);
+		public Rect guiArea = new Rect(0.01f, 0.88f, .98f, .11f);
 		public GUISkin guiSkin;
 		public int buttonWidth = 64;
 		public int buttonHeight = 64;
@@ -49,9 +63,9 @@ namespace MultiGame {
 		[Tooltip("What objects can the player buy?")]
 		[ReorderableAttribute]
 		public Deployable[] deploys;
-		[Tooltip("What resources, if any, exist in the game?")]//[ReorderableField()]//TODO: Finish reorderable fields
-		[ReorderableAttribute]
-		public List<ResourceManager.GameResource> resources = new List<ResourceManager.GameResource>();
+		//[Tooltip("What resources, if any, exist in the game?")]//[ReorderableField()]//TODO: Finish reorderable fields
+		//[ReorderableAttribute]
+		//public List<ResourceManager.GameResource> resources = new List<ResourceManager.GameResource>();
 
 		[Header("Message Senders")]
 		[Tooltip("Sent when we can't afford something")]
@@ -69,6 +83,10 @@ namespace MultiGame {
 		public int[] quantities;
 		[HideInInspector]
 		public int[] maxQuantities;
+
+		private GameObject selectionBox;
+		private MeshRenderer selectionRenderer;
+		private List<GameObject> objectsBeingSelected = new List<GameObject>();
 
 		//some local variables
 		[System.NonSerialized]
@@ -97,26 +115,44 @@ namespace MultiGame {
 
 		[System.Serializable]
 		public class Deployable {
+			[Tooltip("What is the prefab we wish to deploy?")]
 			public GameObject deploy;
+			[Tooltip("Should we adjust the final deploy point by a global offset? (For example, to make the foundation of a building stick into the ground)")]
 			public Vector3 offset;
+			[Tooltip("What icon represents this deployable?")]
 			public Texture2D icon;
+			[Tooltip("How many do we start with available?")]
 			public int quantity = 0;
+			[Tooltip("How many can we have at maximum?")]
 			public int maxQuantity = 0;
+			[Tooltip("How much does it cost to deploy one of these?")]
 			public float cost = 0;
+			[Tooltip("How far from forbidden objects does this deploy have to be?")]
 			public float minimumDeployRadius = 3.0f;
+			[Tooltip("What is the name of the resource used to track cost?")]
 			public string resourceUsed = "";
 			[System.NonSerialized]
 			public List<GameObject> deployed = new List<GameObject>();
 		}
 
 		void Awake () {
-			ResourceManager.resources.AddRange(resources);
+			//ResourceManager.resources.AddRange(resources);
+			if (selectionBox == null)
+				selectionBox = GameObject.CreatePrimitive(PrimitiveType.Cube);
+			if (selectionBox.GetComponent<Collider>() != null)
+				selectionBox.GetComponent<Collider>().enabled = false; ;
+			selectionRenderer = selectionBox.GetComponent<MeshRenderer>();
+			selectionRenderer.sharedMaterial = (boxMaterial == null ? Resources.Load<Material>("MGTrigger") : boxMaterial);
+			selectionRenderer.enabled = false;
 			if (deployMask == -1) {
 				Debug.LogError("Mouse Commander " + gameObject.name + " does not have a deploy mask assigned in the inspector so deploying will be impossible!");
 			}
+			if (boxMaterial == null)
+				boxMaterial = Resources.Load<Material>("MGTrigger");
 		}
 
 		void Start () {
+			objectsBeingSelected.Clear();
 			if (insufficientResourceMessage.target == null)
 				insufficientResourceMessage.target = gameObject;
 			if (itemSelectedMessage.target == null)
@@ -150,6 +186,8 @@ namespace MultiGame {
 		}
 
 		void OnGUI () {
+			
+
 			if (guiSkin != null)
 				GUI.skin = guiSkin;
 			if (!useGUI || mode != Modes.Build)//should we show the building GUI?
@@ -228,8 +266,72 @@ namespace MultiGame {
 			GUILayout.EndScrollView();
 			GUILayout.EndArea();
 		}
-		
+
+		Vector3 boxStart = Vector3.zero;
+		Vector3 boxEnd = Vector3.zero;
+
 		void FixedUpdate () {
+			//banding box selection
+			if (boxSelect && currentSelection == -1) {//box select enabled, and no Deployable is selected for placement
+
+				Ray _ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+				RaycastHit _hinfo;
+				bool _didHit = Physics.Raycast(_ray, out _hinfo, Mathf.Infinity, deployMask);
+				boxEnd = _hinfo.point;
+				/*
+				float minX;
+				float maxX;
+				float minY;
+				float maxY;
+				float minZ;
+				float maxZ;
+				*/
+				if (Input.GetMouseButtonDown(0)) {//begin box selection
+					if (CheckMouseRegion()) {
+						boxStart = _hinfo.point;
+						selectionRenderer.enabled = true;
+						//Debug.Log("Start " + boxStart);
+					}
+				} else {
+					if (Input.GetMouseButton(0) && selectionRenderer.enabled) {//holding, but didn't start our click during this frame, and we are selecting right now
+						if (_didHit)
+							boxEnd = _hinfo.point;
+
+						//Debug.Log("Selecting from " + boxStart + " to " + boxEnd);
+
+						selectionBox.transform.position = Vector3.Lerp(boxStart,boxEnd, .5f);
+						selectionBox.transform.rotation = Quaternion.identity;
+						selectionBox.transform.localScale = new Vector3(Mathf.Abs( boxStart.x-boxEnd.x), (Mathf.Abs(boxStart.y)+Mathf.Abs(boxEnd.y)) + (Mathf.Abs(ceiling)+Mathf.Abs(floor)), Mathf.Abs( boxStart.z-boxEnd.z));
+					}
+				}
+				if (Input.GetMouseButtonUp(0)) {//finalize selection
+
+					Bounds bounds = new Bounds(selectionBox.transform.position, selectionBox.transform.localScale);
+					//Debug.Log("Start " + boxStart);
+					//Debug.Log("End " + boxEnd);
+
+					List<GameObject> possibleSelection = new List<GameObject>();
+					foreach (string _tag in selectableTags)
+						possibleSelection.AddRange(GameObject.FindGameObjectsWithTag(_tag));
+
+					foreach (GameObject gobj in possibleSelection) {
+						if (bounds.Contains(gobj.transform.position))
+							objectsBeingSelected.Add(gobj);
+					}
+
+					foreach (GameObject selObj in objectsBeingSelected)
+						selObj.SendMessage("Select", SendMessageOptions.DontRequireReceiver);
+
+					objectsBeingSelected.Clear();
+					selectionRenderer.enabled = false;
+					selectionBox.transform.localScale = Vector3.one;
+				}
+			}
+
+			if (!Input.GetMouseButton(0))
+				selectionRenderer.enabled = false;
+
+			//deploy selection
 			int _num = SelectByNumber();
 			if (_num != -1)
 				SelectDeploy( _num-1);
@@ -243,6 +345,7 @@ namespace MultiGame {
 					currentSelection = -1;
 			}
 
+			//clean up deploys
 			foreach (Deployable _deploy in deploys) {
 				for (int i = 0; i < _deploy.deployed.Count; i++) {
 					if (_deploy.deployed[i] == null) {
@@ -251,6 +354,21 @@ namespace MultiGame {
 					}
 				}
 			}
+		}
+
+		bool CheckMouseRegion() {
+			bool _ret = true;
+
+			if (Input.mousePosition.x < (Screen.width * selectableArea.x))
+				_ret = false;
+			if (Input.mousePosition.x > ((Screen.width * selectableArea.width) + (Screen.width * selectableArea.x)))
+				_ret = false;
+			if (Input.mousePosition.y < (Screen.height * selectableArea.y))
+				_ret = false;
+			if (Input.mousePosition.y > (Screen.height * selectableArea.height) + (Screen.height * selectableArea.y))
+				_ret = false;
+
+			return _ret;
 		}
 
 		void UpdateCam () {
@@ -286,6 +404,7 @@ namespace MultiGame {
 			MessageManager.Send(itemSelectedMessage);
 		}
 
+		public MessageHelp deployHelp = new MessageHelp("Deploy","Deploys the designated object immediately at the mouse position",2,"The index of the Deployable you wish to deploy.");
 		void Deploy (int selector ) {
 			if (deploys.Length <= selector)//deployables[selector] == null)
 				return;
@@ -401,6 +520,17 @@ namespace MultiGame {
 				ret = false;
 
 			return ret;
+		}
+
+		[Header("Available Messages")]
+		public MessageHelp enableBoxSelectHelp = new MessageHelp("EnableBoxSelect","Allows banding box selection by clicking and dragging.");
+		public void EnableBoxSelect() {
+			boxSelect = true;
+		}
+
+		public MessageHelp disableBoxSelectHelp = new MessageHelp("DisableBoxSelect","Disables banding box selection across the entire screen.");
+		public void DisableBoxSelect() {
+			boxSelect = false;
 		}
 
 		public MessageHelp toggleBuildGUIHelp = new MessageHelp("ToggleBuildGUI","Opens/closes the build GUI");

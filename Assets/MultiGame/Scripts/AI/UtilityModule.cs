@@ -354,3 +354,4 @@ namespace MultiGame {
 		}
 	}
 }
+//MultiGame copyright 2011-2019 William Hendrickson and Tech Drone

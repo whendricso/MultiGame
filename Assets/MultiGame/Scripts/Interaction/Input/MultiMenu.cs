@@ -6,13 +6,14 @@ using MultiGame;
 namespace MultiGame {
 
 	//MultiMenu Copyright 2013 William Hendrickson and Tech Drone
-
 	[AddComponentMenu("MultiGame/Interaction/Input/MultiMenu")]
 	public class MultiMenu : MultiModule {
 
 		//public GameObject target;
 		[Tooltip("Should this menu stay around even in between scenes?")]
 		public bool persistent = false;
+		[Tooltip("If true, the menu will be displayed as a window. If false, it will be displayed in a layout box instead (to conserve screen space)")]
+		public bool asWindow = false;
 		public GUISkin guiSkin;
 		[Tooltip("Normalized viewport rectangle designating the screen area for the menu, values between 0 and 1")]
 		public Rect screenArea = new Rect(.3f,.3f,.3f,.3f);
@@ -23,14 +24,18 @@ namespace MultiGame {
 		[Tooltip("What sort of text prompt do we need?")]
 		[Multiline()]
 		public string infoText;
-		[ReorderableAttribute]
+		[Tooltip("Would you like to display an image, like an illustration or character portrait?")]
+		public Texture2D image;
+		[Tooltip("What is the maximum number of pixels we should take up with the image? If undefined, the image size itself will be used.")]
+		public Vector2 maxImageSize = Vector2.zero;
+		[Reorderable]
 		public Button[] buttons;
 		public bool debug = false;
 
 		public HelpInfo help = new HelpInfo("This is a generic implementation of Unity's built-in GUI. Not suitable for mobile devices. " +
-			"By combining many of these together in a tree in the Heirarchy and setting targets for each message manually, you can create dialogue trees. " +
-			"You can also use this component to implement pause menus, save/load menus, graphics settings menus for toggling postprocess effects, and really anything you like, " +
-			"as long as what you like is based on text and buttons.");
+			"To use, add this component to any object, assign some text, buttons, and perhaps an image. For each button, assign some messages for " +
+			"it to send to other components, to implement the desired selection into your game. You can also combine many MultiMenu components " +
+			"together using the MultiGame Toolbar to add each one, creating dialogue trees and multi-tiered menus.");
 
 		[System.Serializable]
 		public class Button {
@@ -39,8 +44,6 @@ namespace MultiGame {
 			public MessageManager.ManagedMessage message;
 			public List<MessageManager.ManagedMessage> messages = new List<MessageManager.ManagedMessage>();
 		}
-
-
 
 		void Awake () {
 			foreach (Button button in buttons) {
@@ -76,9 +79,15 @@ namespace MultiGame {
 				return;
 			if (guiSkin != null)
 				GUI.skin = guiSkin;
-			GUILayout.BeginArea(new Rect(screenArea.x * Screen.width, screenArea.y * Screen.height, screenArea.width * Screen.width, screenArea.height * Screen.height),"","box");
-			if(!string.IsNullOrEmpty(infoText))
-			GUILayout.Label(infoText, "label");
+			GUILayout.BeginArea(new Rect(screenArea.x * Screen.width, screenArea.y * Screen.height, screenArea.width * Screen.width, screenArea.height * Screen.height),"",(asWindow ? "window" : "box"));
+			if (image != null)
+				GUILayout.Box(image, GUILayout.MaxWidth(maxImageSize.x > 0 ? maxImageSize.x : image.width), GUILayout.MaxHeight(maxImageSize.y > 0 ? maxImageSize.y : image.height));
+			GUILayout.FlexibleSpace();
+			if (!string.IsNullOrEmpty(infoText))
+				GUILayout.Label(infoText, "label");
+
+			GUILayout.FlexibleSpace();
+
 			for(int i = 0; i < buttons.Length; i++) {
 				if (GUILayout.Button(buttons[i].button)) {
 					if (closeOnSelect)
@@ -88,8 +97,8 @@ namespace MultiGame {
 
 				}
 			}
+			GUILayout.FlexibleSpace();
 			GUILayout.EndArea();
-
 		}
 
 		public MessageHelp openMenuHelp = new MessageHelp("OpenMenu","Opens the IMGUI");

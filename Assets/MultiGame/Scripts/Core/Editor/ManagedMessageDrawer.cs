@@ -19,7 +19,7 @@ namespace MultiGame
 			GUI.color = Color.white;
 
 			EditorGUI.BeginProperty (position, label, property);
-			position = EditorGUI.PrefixLabel (position, GUIUtility.GetControlID (FocusType.Passive), label);
+			position = EditorGUI.PrefixLabel (position, GUIUtility.GetControlID (FocusType.Passive), label);//Really?
 			int indent = EditorGUI.indentLevel;
 			EditorGUI.indentLevel = 0;
 
@@ -29,7 +29,7 @@ namespace MultiGame
 			Rect sendTypeRect = new Rect (position.x-128, position.y + 80f, position.width+128, 16f);
 			Rect parameterRect = new Rect (position.x-128, position.y + 48f, position.width+128, 16f);
 			Rect parameterTypeRect = new Rect (position.x-128, position.y + 64f, position.width+128, 16f);
-			Rect rescanButtonRect = new Rect (position.x-128, position.y + 32f, position.width+128, 16f);
+			Rect rescanButtonRect = new Rect (position.x-128, position.y + 32f, position.width+128, 16f);//Wow it actually works xD
 
 
 			_msgStrings = new List<string> ();
@@ -40,6 +40,7 @@ namespace MultiGame
 					_msgStrings.Add (val);
 			}
 			possibleMessages = _msgStrings.ToArray ();
+
 			if (property.FindPropertyRelative("target").objectReferenceValue == null)
 				GUI.color = MGEditor.validColor;
 			else
@@ -120,16 +121,17 @@ namespace MultiGame
 		public override float GetPropertyHeight (SerializedProperty property, GUIContent label)
 		{
 			if (property == null)
-				return 64;
+				return 80;
 			string _val = property.FindPropertyRelative ("message").stringValue;
 			if (_val != "--none--" && !string.IsNullOrEmpty (_val))
-				return 96f;
+				return 112;
 			else {
 				if (!property.FindPropertyRelative("msgOverride").boolValue)
-					return 64;
+					return 80;
 				else
-					return 34f;
+					return 50;
 			}
 		}
 	}
 }
+//MultiGame is Copyright William Hendrickson and Tech Drone, all rights reserved.

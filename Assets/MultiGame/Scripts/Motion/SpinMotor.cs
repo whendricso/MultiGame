@@ -12,6 +12,9 @@ namespace MultiGame {
 		/// </summary>
 		[Tooltip("If no rigidbody, the number of degrees per second per axis, otherwise the amount of torque per fixed update")]
 		public Vector3 impetus = Vector3.zero;
+		public Space space = Space.Self;
+		public enum UpdateModes {Update, FixedUpdate, LateUpdate };
+		public UpdateModes updateMode = UpdateModes.FixedUpdate;
 
 		private Rigidbody rigid;
 
@@ -22,12 +25,29 @@ namespace MultiGame {
 			rigid = GetComponent<Rigidbody> ();
 		}
 
-		// Update is called once per frame
+		private void Update() {
+			if (updateMode == UpdateModes.Update)
+				UpdateRotation();
+		}
+
 		void FixedUpdate () {
+			if (updateMode == UpdateModes.FixedUpdate)
+				UpdateRotation();
+		}
+
+		private void LateUpdate() {
+			if (updateMode == UpdateModes.LateUpdate)
+				UpdateRotation();
+		}
+
+		void UpdateRotation() {
 			if (rigid == null) {
-				transform.Rotate(impetus * Time.deltaTime);
+				transform.Rotate(impetus * Time.deltaTime, space);
 			} else {
-				rigid.AddRelativeTorque(impetus);
+				if (space == Space.Self)
+					rigid.AddRelativeTorque(impetus);
+				else
+					rigid.AddTorque(impetus);
 			}
 		}
 

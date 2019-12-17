@@ -77,7 +77,11 @@ namespace MultiGame {
 		void Update () {
 			if (!refreshDecorations)
 				return;
-			Decorate();
+			try {
+				Decorate();
+			} catch {
+				//Do nothing: Unity throws an exception if Decorate fails which happens inside of prefab instances. We can ignore it safely.
+			}
 		}
 
 		void Decorate () {

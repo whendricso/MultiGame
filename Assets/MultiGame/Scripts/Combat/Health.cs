@@ -126,14 +126,16 @@ namespace MultiGame {
 		}
 		
 		void OnGUI () {
+			//Debug.Log("" + GUI.contentColor);
 			if (hp == maxHP && autoHide)
 				return;
 			if (showHealthBarGUI) {
 				GUI.skin = guiSkin;
-				GUI.color = barColor;
+				GUI.contentColor = barColor;
 				GUILayout.BeginArea(new Rect(healthBar.x * Screen.width, healthBar.y * Screen.height, (healthBar.width * Screen.width) * (hp / maxHP), healthBar.height * Screen.height));
 				GUILayout.Box("Health");
 				GUILayout.EndArea();
+				
 			}
 		}
 

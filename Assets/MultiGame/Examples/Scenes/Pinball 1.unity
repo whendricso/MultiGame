@@ -1,0 +1,3552 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!29 &1
+OcclusionCullingSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_OcclusionBakeSettings:
+    smallestOccluder: 5
+    smallestHole: 0.25
+    backfaceThreshold: 100
+  m_SceneGUID: 00000000000000000000000000000000
+  m_OcclusionCullingData: {fileID: 0}
+--- !u!104 &2
+RenderSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 9
+  m_Fog: 0
+  m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  m_FogMode: 3
+  m_FogDensity: 0.01
+  m_LinearFogStart: 0
+  m_LinearFogEnd: 300
+  m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
+  m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
+  m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
+  m_AmbientIntensity: 1
+  m_AmbientMode: 0
+  m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 88d7e09e67e9c024588439ba0f98bdd3, type: 2}
+  m_HaloStrength: 0.5
+  m_FlareStrength: 1
+  m_FlareFadeSpeed: 3
+  m_HaloTexture: {fileID: 0}
+  m_SpotCookie: {fileID: 10001, guid: 0000000000000000e000000000000000, type: 0}
+  m_DefaultReflectionMode: 0
+  m_DefaultReflectionResolution: 128
+  m_ReflectionBounces: 1
+  m_ReflectionIntensity: 1
+  m_CustomReflection: {fileID: 0}
+  m_Sun: {fileID: 0}
+  m_IndirectSpecularColor: {r: 0.2822928, g: 0.32394823, b: 0.34376585, a: 1}
+  m_UseRadianceAmbientProbe: 0
+--- !u!157 &3
+LightmapSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 11
+  m_GIWorkflowMode: 0
+  m_GISettings:
+    serializedVersion: 2
+    m_BounceScale: 1
+    m_IndirectOutputScale: 1
+    m_AlbedoBoost: 1
+    m_EnvironmentLightingMode: 0
+    m_EnableBakedLightmaps: 1
+    m_EnableRealtimeLightmaps: 1
+  m_LightmapEditorSettings:
+    serializedVersion: 12
+    m_Resolution: 2
+    m_BakeResolution: 40
+    m_AtlasSize: 1024
+    m_AO: 0
+    m_AOMaxDistance: 1
+    m_CompAOExponent: 1
+    m_CompAOExponentDirect: 0
+    m_ExtractAmbientOcclusion: 0
+    m_Padding: 2
+    m_LightmapParameters: {fileID: 0}
+    m_LightmapsBakeMode: 1
+    m_TextureCompression: 1
+    m_FinalGather: 0
+    m_FinalGatherFiltering: 1
+    m_FinalGatherRayCount: 256
+    m_ReflectionCompression: 2
+    m_MixedBakeMode: 2
+    m_BakeBackend: 1
+    m_PVRSampling: 1
+    m_PVRDirectSampleCount: 32
+    m_PVRSampleCount: 500
+    m_PVRBounces: 2
+    m_PVREnvironmentSampleCount: 500
+    m_PVREnvironmentReferencePointCount: 2048
+    m_PVRFilteringMode: 2
+    m_PVRDenoiserTypeDirect: 0
+    m_PVRDenoiserTypeIndirect: 0
+    m_PVRDenoiserTypeAO: 0
+    m_PVRFilterTypeDirect: 0
+    m_PVRFilterTypeIndirect: 0
+    m_PVRFilterTypeAO: 0
+    m_PVREnvironmentMIS: 0
+    m_PVRCulling: 1
+    m_PVRFilteringGaussRadiusDirect: 1
+    m_PVRFilteringGaussRadiusIndirect: 5
+    m_PVRFilteringGaussRadiusAO: 2
+    m_PVRFilteringAtrousPositionSigmaDirect: 0.5
+    m_PVRFilteringAtrousPositionSigmaIndirect: 2
+    m_PVRFilteringAtrousPositionSigmaAO: 1
+    m_ExportTrainingData: 0
+    m_TrainingDataDestination: TrainingData
+    m_LightProbeSampleCountMultiplier: 4
+  m_LightingDataAsset: {fileID: 0}
+  m_UseShadowmask: 1
+--- !u!196 &4
+NavMeshSettings:
+  serializedVersion: 2
+  m_ObjectHideFlags: 0
+  m_BuildSettings:
+    serializedVersion: 2
+    agentTypeID: 0
+    agentRadius: 0.5
+    agentHeight: 2
+    agentSlope: 45
+    agentClimb: 0.4
+    ledgeDropHeight: 0
+    maxJumpAcrossDistance: 0
+    minRegionArea: 2
+    manualCellSize: 0
+    cellSize: 0.16666667
+    manualTileSize: 0
+    tileSize: 256
+    accuratePlacement: 0
+    debug:
+      m_Flags: 0
+  m_NavMeshData: {fileID: 0}
+--- !u!1 &8104287
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 1184835432392638, guid: cbc06cb9b0853c349a028d153837a52b,
+    type: 3}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8104288}
+  - component: {fileID: 8104291}
+  - component: {fileID: 8104290}
+  - component: {fileID: 8104289}
+  - component: {fileID: 8104292}
+  m_Layer: 0
+  m_Name: UV Cube
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 4294967295
+  m_IsActive: 1
+--- !u!4 &8104288
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 4749204600339862, guid: cbc06cb9b0853c349a028d153837a52b,
+    type: 3}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8104287}
+  m_LocalRotation: {x: -0.17197587, y: 0.3999772, z: -0.06259409, w: 0.8980671}
+  m_LocalPosition: {x: 9.400001, y: 2.5, z: 40.8}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 284436489}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: -13.553, y: 48.524002, z: -14.848001}
+--- !u!114 &8104289
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 114750451936485366, guid: cbc06cb9b0853c349a028d153837a52b,
+    type: 3}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8104287}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 606a7e0239e6a494781d43a5a0915ed6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  generateLightmapUVs: 0
+  addCollider: 1
+  debug: 0
+  mesh: {fileID: 4300000, guid: 27f8b9b215fff964b8aeb7c8dd28b0a3, type: 2}
+  width: 12.12
+  length: 1
+  height: 3.37
+  uvScale: {x: 1, y: 1, z: 1}
+  uvOffset: {x: 0, y: 0, z: 0}
+  help:
+    showInfo: 0
+    helpText: ProcCube is a powerful tool for object and level design. It allows
+      you to make boxes of any given proportion, and properly changes the UV coordinates
+      so that your textures don't stretch like they do with a normal Unity cube.
+      To use, simply add this to an empty transform (or create it with a Rapid Dev
+      Toolbar button)
+    videoLink: 
+--- !u!33 &8104290
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 33238262679970392, guid: cbc06cb9b0853c349a028d153837a52b,
+    type: 3}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8104287}
+  m_Mesh: {fileID: 4300000, guid: 27f8b9b215fff964b8aeb7c8dd28b0a3, type: 2}
+--- !u!23 &8104291
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 23925291997435044, guid: cbc06cb9b0853c349a028d153837a52b,
+    type: 3}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8104287}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RenderingLayerMask: 4294967295
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 1a12c4051a4d23c4c9b758b278604636, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!64 &8104292
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8104287}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 14
+  m_Mesh: {fileID: 4300000, guid: 27f8b9b215fff964b8aeb7c8dd28b0a3, type: 2}
+--- !u!1 &190461281
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 190461282}
+  - component: {fileID: 190461286}
+  - component: {fileID: 190461285}
+  - component: {fileID: 190461284}
+  - component: {fileID: 190461283}
+  m_Layer: 0
+  m_Name: UV Cube
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &190461282
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 190461281}
+  m_LocalRotation: {x: 0.1736483, y: -0, z: -0, w: -0.9848077}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 371225993}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: -20.351002, y: 0, z: 0}
+--- !u!64 &190461283
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 190461281}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 14
+  m_Mesh: {fileID: 4300000, guid: bc6c969e114a3c0458bc15667255fb89, type: 2}
+--- !u!114 &190461284
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 190461281}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 606a7e0239e6a494781d43a5a0915ed6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  generateLightmapUVs: 0
+  addCollider: 0
+  debug: 0
+  mesh: {fileID: 4300000, guid: bc6c969e114a3c0458bc15667255fb89, type: 2}
+  width: 1
+  length: 1
+  height: 1
+  uvScale: {x: 1, y: 1, z: 1}
+  uvOffset: {x: 0, y: 0, z: 0}
+  help:
+    showInfo: 0
+    helpText: ProcCube is a powerful tool for object and level design. It allows
+      you to make boxes of any given proportion, and properly changes the UV coordinates
+      so that your textures don't stretch like they do with a normal Unity cube.
+      To use, simply add this to an empty transform (or create it with a Rapid Dev
+      Toolbar button)
+    videoLink: 
+--- !u!33 &190461285
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 190461281}
+  m_Mesh: {fileID: 4300000, guid: bc6c969e114a3c0458bc15667255fb89, type: 2}
+--- !u!23 &190461286
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 190461281}
+  m_Enabled: 0
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RenderingLayerMask: 4294967295
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 751cc08a7c8b0604dabd0f950f19c32d, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!1 &239961867
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 239961868}
+  m_Layer: 0
+  m_Name: Procedural Model
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &239961868
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 239961867}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.06, y: 14.269, z: -1.816}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1709243716}
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &284436488
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 1117294161037188, guid: cbc06cb9b0853c349a028d153837a52b,
+    type: 3}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 284436489}
+  m_Layer: 0
+  m_Name: Table
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 4294967295
+  m_IsActive: 1
+--- !u!4 &284436489
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 4169151167065566, guid: cbc06cb9b0853c349a028d153837a52b,
+    type: 3}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 284436488}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -1.1753793, y: 2.5819921, z: -9.873968}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 662040320}
+  - {fileID: 1617969518}
+  - {fileID: 2140175121}
+  - {fileID: 1062276350}
+  - {fileID: 730696190}
+  - {fileID: 1894638150}
+  - {fileID: 8104288}
+  m_Father: {fileID: 461899388}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &346721496
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4102938300493480, guid: 2a0ed0e007942a44eb3fb7f43d4c006d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.4679999
+      objectReference: {fileID: 0}
+    - target: {fileID: 4102938300493480, guid: 2a0ed0e007942a44eb3fb7f43d4c006d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 13.995999
+      objectReference: {fileID: 0}
+    - target: {fileID: 4102938300493480, guid: 2a0ed0e007942a44eb3fb7f43d4c006d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -4.215
+      objectReference: {fileID: 0}
+    - target: {fileID: 4102938300493480, guid: 2a0ed0e007942a44eb3fb7f43d4c006d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.17830679
+      objectReference: {fileID: 0}
+    - target: {fileID: 4102938300493480, guid: 2a0ed0e007942a44eb3fb7f43d4c006d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.16338807
+      objectReference: {fileID: 0}
+    - target: {fileID: 4102938300493480, guid: 2a0ed0e007942a44eb3fb7f43d4c006d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.012179068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4102938300493480, guid: 2a0ed0e007942a44eb3fb7f43d4c006d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9702385
+      objectReference: {fileID: 0}
+    - target: {fileID: 4102938300493480, guid: 2a0ed0e007942a44eb3fb7f43d4c006d, type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4102938300493480, guid: 2a0ed0e007942a44eb3fb7f43d4c006d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -19.866001
+      objectReference: {fileID: 0}
+    - target: {fileID: 4102938300493480, guid: 2a0ed0e007942a44eb3fb7f43d4c006d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -19.985
+      objectReference: {fileID: 0}
+    - target: {fileID: 4102938300493480, guid: 2a0ed0e007942a44eb3fb7f43d4c006d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 5.262
+      objectReference: {fileID: 0}
+    - target: {fileID: 54106100890105572, guid: 2a0ed0e007942a44eb3fb7f43d4c006d,
+        type: 3}
+      propertyPath: m_AngularDrag
+      value: 0.001
+      objectReference: {fileID: 0}
+    - target: {fileID: 4463506126362696, guid: 2a0ed0e007942a44eb3fb7f43d4c006d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.84
+      objectReference: {fileID: 0}
+    - target: {fileID: 114448493958288712, guid: 2a0ed0e007942a44eb3fb7f43d4c006d,
+        type: 3}
+      propertyPath: width
+      value: 2.66
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 114556766979890476, guid: 2a0ed0e007942a44eb3fb7f43d4c006d, type: 3}
+    - {fileID: 114314498114698260, guid: 2a0ed0e007942a44eb3fb7f43d4c006d, type: 3}
+  m_SourcePrefab: {fileID: 100100000, guid: 2a0ed0e007942a44eb3fb7f43d4c006d, type: 3}
+--- !u!1 &371225992
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 371225993}
+  m_Layer: 0
+  m_Name: Procedural Model
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &371225993
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 371225992}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2, y: 13.466, z: -6.014}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 190461282}
+  m_Father: {fileID: 0}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &461899387
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 1029279224037300, guid: cbc06cb9b0853c349a028d153837a52b,
+    type: 3}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 461899388}
+  m_Layer: 0
+  m_Name: PinballTable
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 4294967295
+  m_IsActive: 1
+--- !u!4 &461899388
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 4743483104281440, guid: cbc06cb9b0853c349a028d153837a52b,
+    type: 3}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 461899387}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.1753793, y: 14.75, z: -3.77}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_Children:
+  - {fileID: 284436489}
+  - {fileID: 848183799}
+  - {fileID: 2026737834}
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &662040319
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 1856184915763650, guid: cbc06cb9b0853c349a028d153837a52b,
+    type: 3}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 662040320}
+  - component: {fileID: 662040324}
+  - component: {fileID: 662040323}
+  - component: {fileID: 662040322}
+  - component: {fileID: 662040321}
+  m_Layer: 0
+  m_Name: UV Plane
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 4294967295
+  m_IsActive: 1
+--- !u!4 &662040320
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 4214486903968850, guid: cbc06cb9b0853c349a028d153837a52b,
+    type: 3}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 662040319}
+  m_LocalRotation: {x: 0.1736483, y: -0, z: -0, w: -0.9848077}
+  m_LocalPosition: {x: 0, y: -4, z: 23}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 284436489}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: -18.537, y: 0, z: 0}
+--- !u!65 &662040321
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 65804113311536024, guid: cbc06cb9b0853c349a028d153837a52b,
+    type: 3}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 662040319}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Size: {x: 25, y: 0, z: 45}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &662040322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 114456809741207424, guid: cbc06cb9b0853c349a028d153837a52b,
+    type: 3}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 662040319}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a405f437497629e42a4b6c57df13eca8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  generateLightmapUVs: 0
+  addCollider: 0
+  debug: 0
+  mesh: {fileID: 4300000, guid: 02b21b9cbb0b4c642996393c5c01a7b7, type: 2}
+  length: 45
+  width: 25
+  resolution: 2
+  uvScale: 1
+  uvOffset: {x: 0, y: 0}
+  help:
+    showInfo: 0
+    helpText: 'ProcPlane allows you to create procedural plane primitives in your
+      scene, and adjust their resolution and UV settings to fit your needs. To use,
+      simply add this to an empty object, adjust it''s placement '
+    videoLink: 
+--- !u!33 &662040323
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 33194427317802012, guid: cbc06cb9b0853c349a028d153837a52b,
+    type: 3}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 662040319}
+  m_Mesh: {fileID: 4300000, guid: 02b21b9cbb0b4c642996393c5c01a7b7, type: 2}
+--- !u!23 &662040324
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 23521455484647836, guid: cbc06cb9b0853c349a028d153837a52b,
+    type: 3}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 662040319}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RenderingLayerMask: 4294967295
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 4b9407a0b16dcec46a267988612c87aa, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!1 &730696189
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 1281574135887620, guid: cbc06cb9b0853c349a028d153837a52b,
+    type: 3}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 730696190}
+  - component: {fileID: 730696194}
+  - component: {fileID: 730696193}
+  - component: {fileID: 730696192}
+  - component: {fileID: 730696191}
+  m_Layer: 0
+  m_Name: UV Cube (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 4294967295
+  m_IsActive: 1
+--- !u!4 &730696190
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 4530613014930264, guid: cbc06cb9b0853c349a028d153837a52b,
+    type: 3}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 730696189}
+  m_LocalRotation: {x: 0.1736483, y: -0, z: -0, w: -0.9848077}
+  m_LocalPosition: {x: 0, y: 4, z: 44}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 284436489}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: -22.281, y: 0, z: 0}
+--- !u!64 &730696191
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 64948292617103764, guid: cbc06cb9b0853c349a028d153837a52b,
+    type: 3}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 730696189}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 14
+  m_Mesh: {fileID: 4300000, guid: f2392f127868b37468512da75f47cf0e, type: 2}
+--- !u!114 &730696192
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 114342423222271248, guid: cbc06cb9b0853c349a028d153837a52b,
+    type: 3}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 730696189}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 606a7e0239e6a494781d43a5a0915ed6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  generateLightmapUVs: 0
+  addCollider: 0
+  debug: 0
+  mesh: {fileID: 4300000, guid: f2392f127868b37468512da75f47cf0e, type: 2}
+  width: 25
+  length: 1
+  height: 3.5
+  uvScale: {x: 1, y: 1, z: 1}
+  uvOffset: {x: 0, y: 0, z: 0}
+  help:
+    showInfo: 0
+    helpText: ProcCube is a powerful tool for object and level design. It allows
+      you to make boxes of any given proportion, and properly changes the UV coordinates
+      so that your textures don't stretch like they do with a normal Unity cube.
+      To use, simply add this to an empty transform (or create it with a Rapid Dev
+      Toolbar button)
+    videoLink: 
+--- !u!33 &730696193
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 33456581703954208, guid: cbc06cb9b0853c349a028d153837a52b,
+    type: 3}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 730696189}
+  m_Mesh: {fileID: 4300000, guid: f2392f127868b37468512da75f47cf0e, type: 2}
+--- !u!23 &730696194
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 23373951857998856, guid: cbc06cb9b0853c349a028d153837a52b,
+    type: 3}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 730696189}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RenderingLayerMask: 4294967295
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 1a12c4051a4d23c4c9b758b278604636, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!1 &741603935
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 741603938}
+  - component: {fileID: 741603937}
+  - component: {fileID: 741603936}
+  m_Layer: 0
+  m_Name: Main Camera
+  m_TagString: MainCamera
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!81 &741603936
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 741603935}
+  m_Enabled: 1
+--- !u!20 &741603937
+Camera:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 741603935}
+  m_Enabled: 1
+  serializedVersion: 2
+  m_ClearFlags: 1
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
+  m_projectionMatrixMode: 1
+  m_GateFitMode: 2
+  m_FOVAxisMode: 0
+  m_SensorSize: {x: 36, y: 24}
+  m_LensShift: {x: 0, y: 0}
+  m_FocalLength: 50
+  m_NormalizedViewPortRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+  near clip plane: 0.3
+  far clip plane: 1000
+  field of view: 60
+  orthographic: 0
+  orthographic size: 5
+  m_Depth: -1
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RenderingPath: -1
+  m_TargetTexture: {fileID: 0}
+  m_TargetDisplay: 0
+  m_TargetEye: 3
+  m_HDR: 1
+  m_AllowMSAA: 1
+  m_AllowDynamicResolution: 0
+  m_ForceIntoRT: 0
+  m_OcclusionCulling: 1
+  m_StereoConvergence: 10
+  m_StereoSeparation: 0.022
+--- !u!4 &741603938
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 741603935}
+  m_LocalRotation: {x: 0.34202015, y: 0, z: 0, w: 0.9396927}
+  m_LocalPosition: {x: 0, y: 17.1, z: -6.3}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 39.144, y: 0, z: 0}
+--- !u!1 &831482114
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 831482119}
+  - component: {fileID: 831482118}
+  - component: {fileID: 831482117}
+  m_Layer: 0
+  m_Name: RFlipperCounterspring
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!145 &831482117
+SpringJoint:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 831482114}
+  m_ConnectedBody: {fileID: 1834185013}
+  m_Anchor: {x: -0.31, y: 0, z: 0.18}
+  m_AutoConfigureConnectedAnchor: 1
+  m_ConnectedAnchor: {x: 0.8500669, y: 0.76517826, z: 0.031137517}
+  serializedVersion: 2
+  m_Spring: 177.6
+  m_Damper: 0.5
+  m_MinDistance: 0
+  m_MaxDistance: 0
+  m_Tolerance: 0.025
+  m_BreakForce: Infinity
+  m_BreakTorque: Infinity
+  m_EnableCollision: 0
+  m_EnablePreprocessing: 1
+  m_MassScale: 1
+  m_ConnectedMassScale: 1
+--- !u!54 &831482118
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 831482114}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
+--- !u!4 &831482119
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 831482114}
+  m_LocalRotation: {x: 0.17348303, y: -0.04295671, z: -0.007574432, w: -0.98387045}
+  m_LocalPosition: {x: 1.691, y: 14.143, z: -4.249}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 0.20000005}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: -20.500002, y: 6.268, z: -1.9720001}
+--- !u!1 &841671535
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 841671538}
+  - component: {fileID: 841671537}
+  - component: {fileID: 841671536}
+  m_Layer: 0
+  m_Name: RFlipperCounterspring (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!145 &841671536
+SpringJoint:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 841671535}
+  m_ConnectedBody: {fileID: 889826623}
+  m_Anchor: {x: -0.31, y: 0, z: 0.18}
+  m_AutoConfigureConnectedAnchor: 1
+  m_ConnectedAnchor: {x: -1.0062997, y: 0.49209648, z: 0.54883724}
+  serializedVersion: 2
+  m_Spring: 177.6
+  m_Damper: 0.5
+  m_MinDistance: 0
+  m_MaxDistance: 0
+  m_Tolerance: 0.025
+  m_BreakForce: Infinity
+  m_BreakTorque: Infinity
+  m_EnableCollision: 0
+  m_EnablePreprocessing: 1
+  m_MassScale: 1
+  m_ConnectedMassScale: 1
+--- !u!54 &841671537
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 841671535}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
+--- !u!4 &841671538
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 841671535}
+  m_LocalRotation: {x: 0.17348303, y: -0.04295671, z: -0.007574432, w: -0.98387045}
+  m_LocalPosition: {x: 0.164, y: 14.121, z: -4.174}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 0.20000005}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 13
+  m_LocalEulerAnglesHint: {x: -20.500002, y: 6.268, z: -1.9720001}
+--- !u!1 &848183798
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 1912575682906390, guid: cbc06cb9b0853c349a028d153837a52b,
+    type: 3}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 848183799}
+  m_Layer: 0
+  m_Name: RFlipper
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 4294967295
+  m_IsActive: 1
+--- !u!4 &848183799
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 4030666908230848, guid: cbc06cb9b0853c349a028d153837a52b,
+    type: 3}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 848183798}
+  m_LocalRotation: {x: -0.17830679, y: -0.16338807, z: 0.012179068, w: 0.9702385}
+  m_LocalPosition: {x: 2.93, y: -7.43, z: -4.49}
+  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_Children: []
+  m_Father: {fileID: 461899388}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: -19.713001, y: -18.148, z: 6.0690002}
+--- !u!1001 &885862492
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 114409531892835362, guid: 77e456743f0bbbe43a01482cc10f9f9f,
+        type: 3}
+      propertyPath: message.possibleMessages.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114409531892835362, guid: 77e456743f0bbbe43a01482cc10f9f9f,
+        type: 3}
+      propertyPath: message.target
+      value: 
+      objectReference: {fileID: 1406928120}
+    - target: {fileID: 114409531892835362, guid: 77e456743f0bbbe43a01482cc10f9f9f,
+        type: 3}
+      propertyPath: message.possibleMessages.Array.data[0]
+      value: Spawn
+      objectReference: {fileID: 0}
+    - target: {fileID: 114409531892835362, guid: 77e456743f0bbbe43a01482cc10f9f9f,
+        type: 3}
+      propertyPath: message.possibleMessages.Array.data[1]
+      value: SpawnAsChild
+      objectReference: {fileID: 0}
+    - target: {fileID: 4001077885713576, guid: 77e456743f0bbbe43a01482cc10f9f9f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.83784133
+      objectReference: {fileID: 0}
+    - target: {fileID: 4001077885713576, guid: 77e456743f0bbbe43a01482cc10f9f9f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 13.888199
+      objectReference: {fileID: 0}
+    - target: {fileID: 4001077885713576, guid: 77e456743f0bbbe43a01482cc10f9f9f, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -4.504
+      objectReference: {fileID: 0}
+    - target: {fileID: 4001077885713576, guid: 77e456743f0bbbe43a01482cc10f9f9f, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4001077885713576, guid: 77e456743f0bbbe43a01482cc10f9f9f, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4001077885713576, guid: 77e456743f0bbbe43a01482cc10f9f9f, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4001077885713576, guid: 77e456743f0bbbe43a01482cc10f9f9f, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4001077885713576, guid: 77e456743f0bbbe43a01482cc10f9f9f, type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 77e456743f0bbbe43a01482cc10f9f9f, type: 3}
+--- !u!1001 &889826622
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1971630910234748, guid: 2a0ed0e007942a44eb3fb7f43d4c006d, type: 3}
+      propertyPath: m_Name
+      value: RFlipper (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4102938300493480, guid: 2a0ed0e007942a44eb3fb7f43d4c006d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.288
+      objectReference: {fileID: 0}
+    - target: {fileID: 4102938300493480, guid: 2a0ed0e007942a44eb3fb7f43d4c006d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 4102938300493480, guid: 2a0ed0e007942a44eb3fb7f43d4c006d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -4.24
+      objectReference: {fileID: 0}
+    - target: {fileID: 4102938300493480, guid: 2a0ed0e007942a44eb3fb7f43d4c006d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.17366597
+      objectReference: {fileID: 0}
+    - target: {fileID: 4102938300493480, guid: 2a0ed0e007942a44eb3fb7f43d4c006d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.09287765
+      objectReference: {fileID: 0}
+    - target: {fileID: 4102938300493480, guid: 2a0ed0e007942a44eb3fb7f43d4c006d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.008088324
+      objectReference: {fileID: 0}
+    - target: {fileID: 4102938300493480, guid: 2a0ed0e007942a44eb3fb7f43d4c006d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9803818
+      objectReference: {fileID: 0}
+    - target: {fileID: 4102938300493480, guid: 2a0ed0e007942a44eb3fb7f43d4c006d, type: 3}
+      propertyPath: m_RootOrder
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 4102938300493480, guid: 2a0ed0e007942a44eb3fb7f43d4c006d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -20
+      objectReference: {fileID: 0}
+    - target: {fileID: 4102938300493480, guid: 2a0ed0e007942a44eb3fb7f43d4c006d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 11.000001
+      objectReference: {fileID: 0}
+    - target: {fileID: 4102938300493480, guid: 2a0ed0e007942a44eb3fb7f43d4c006d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -0.814
+      objectReference: {fileID: 0}
+    - target: {fileID: 54106100890105572, guid: 2a0ed0e007942a44eb3fb7f43d4c006d,
+        type: 3}
+      propertyPath: m_AngularDrag
+      value: 0.001
+      objectReference: {fileID: 0}
+    - target: {fileID: 4463506126362696, guid: 2a0ed0e007942a44eb3fb7f43d4c006d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.87
+      objectReference: {fileID: 0}
+    - target: {fileID: 4463506126362696, guid: 2a0ed0e007942a44eb3fb7f43d4c006d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.00824725
+      objectReference: {fileID: 0}
+    - target: {fileID: 4463506126362696, guid: 2a0ed0e007942a44eb3fb7f43d4c006d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.449
+      objectReference: {fileID: 0}
+    - target: {fileID: 4463506126362696, guid: 2a0ed0e007942a44eb3fb7f43d4c006d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.106
+      objectReference: {fileID: 0}
+    - target: {fileID: 4463506126362696, guid: 2a0ed0e007942a44eb3fb7f43d4c006d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0.39000002
+      objectReference: {fileID: 0}
+    - target: {fileID: 4463506126362696, guid: 2a0ed0e007942a44eb3fb7f43d4c006d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 5.624
+      objectReference: {fileID: 0}
+    - target: {fileID: 4463506126362696, guid: 2a0ed0e007942a44eb3fb7f43d4c006d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -1.3900001
+      objectReference: {fileID: 0}
+    - target: {fileID: 4463506126362696, guid: 2a0ed0e007942a44eb3fb7f43d4c006d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.00300236
+      objectReference: {fileID: 0}
+    - target: {fileID: 4463506126362696, guid: 2a0ed0e007942a44eb3fb7f43d4c006d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9987559
+      objectReference: {fileID: 0}
+    - target: {fileID: 4463506126362696, guid: 2a0ed0e007942a44eb3fb7f43d4c006d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.049087964
+      objectReference: {fileID: 0}
+    - target: {fileID: 114448493958288712, guid: 2a0ed0e007942a44eb3fb7f43d4c006d,
+        type: 3}
+      propertyPath: width
+      value: 2.66
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 114556766979890476, guid: 2a0ed0e007942a44eb3fb7f43d4c006d, type: 3}
+    - {fileID: 114314498114698260, guid: 2a0ed0e007942a44eb3fb7f43d4c006d, type: 3}
+  m_SourcePrefab: {fileID: 100100000, guid: 2a0ed0e007942a44eb3fb7f43d4c006d, type: 3}
+--- !u!54 &889826623 stripped
+Rigidbody:
+  m_CorrespondingSourceObject: {fileID: 54106100890105572, guid: 2a0ed0e007942a44eb3fb7f43d4c006d,
+    type: 3}
+  m_PrefabInstance: {fileID: 889826622}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1062276349
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 1493485892613562, guid: cbc06cb9b0853c349a028d153837a52b,
+    type: 3}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1062276350}
+  - component: {fileID: 1062276354}
+  - component: {fileID: 1062276353}
+  - component: {fileID: 1062276352}
+  - component: {fileID: 1062276351}
+  m_Layer: 0
+  m_Name: UV Cube
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 4294967295
+  m_IsActive: 1
+--- !u!4 &1062276350
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 4995664727953352, guid: cbc06cb9b0853c349a028d153837a52b,
+    type: 3}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1062276349}
+  m_LocalRotation: {x: 0.1736483, y: -0, z: -0, w: -0.9848077}
+  m_LocalPosition: {x: 0, y: -11, z: 2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 284436489}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: -22.281, y: 0, z: 0}
+--- !u!64 &1062276351
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 64600477521730882, guid: cbc06cb9b0853c349a028d153837a52b,
+    type: 3}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1062276349}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 14
+  m_Mesh: {fileID: 4300000, guid: f2392f127868b37468512da75f47cf0e, type: 2}
+--- !u!114 &1062276352
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 114130348295352908, guid: cbc06cb9b0853c349a028d153837a52b,
+    type: 3}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1062276349}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 606a7e0239e6a494781d43a5a0915ed6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  generateLightmapUVs: 0
+  addCollider: 0
+  debug: 0
+  mesh: {fileID: 4300000, guid: f2392f127868b37468512da75f47cf0e, type: 2}
+  width: 25
+  length: 1
+  height: 3.5
+  uvScale: {x: 1, y: 1, z: 1}
+  uvOffset: {x: 0, y: 0, z: 0}
+  help:
+    showInfo: 0
+    helpText: ProcCube is a powerful tool for object and level design. It allows
+      you to make boxes of any given proportion, and properly changes the UV coordinates
+      so that your textures don't stretch like they do with a normal Unity cube.
+      To use, simply add this to an empty transform (or create it with a Rapid Dev
+      Toolbar button)
+    videoLink: 
+--- !u!33 &1062276353
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 33071971465268582, guid: cbc06cb9b0853c349a028d153837a52b,
+    type: 3}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1062276349}
+  m_Mesh: {fileID: 4300000, guid: f2392f127868b37468512da75f47cf0e, type: 2}
+--- !u!23 &1062276354
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 23078316832629890, guid: cbc06cb9b0853c349a028d153837a52b,
+    type: 3}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1062276349}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RenderingLayerMask: 4294967295
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 1a12c4051a4d23c4c9b758b278604636, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!1001 &1172228644
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4251264630439950, guid: b8e1a7a732fde1d4b9d95715ed1e6441, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2.198
+      objectReference: {fileID: 0}
+    - target: {fileID: 4251264630439950, guid: b8e1a7a732fde1d4b9d95715ed1e6441, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 14.45
+      objectReference: {fileID: 0}
+    - target: {fileID: 4251264630439950, guid: b8e1a7a732fde1d4b9d95715ed1e6441, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -3.276
+      objectReference: {fileID: 0}
+    - target: {fileID: 4251264630439950, guid: b8e1a7a732fde1d4b9d95715ed1e6441, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.1736483
+      objectReference: {fileID: 0}
+    - target: {fileID: 4251264630439950, guid: b8e1a7a732fde1d4b9d95715ed1e6441, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4251264630439950, guid: b8e1a7a732fde1d4b9d95715ed1e6441, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4251264630439950, guid: b8e1a7a732fde1d4b9d95715ed1e6441, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.9848077
+      objectReference: {fileID: 0}
+    - target: {fileID: 4251264630439950, guid: b8e1a7a732fde1d4b9d95715ed1e6441, type: 3}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114879716393136948, guid: b8e1a7a732fde1d4b9d95715ed1e6441,
+        type: 3}
+      propertyPath: debug
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114879716393136948, guid: b8e1a7a732fde1d4b9d95715ed1e6441,
+        type: 3}
+      propertyPath: pool
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114088366156678714, guid: b8e1a7a732fde1d4b9d95715ed1e6441,
+        type: 3}
+      propertyPath: debug
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b8e1a7a732fde1d4b9d95715ed1e6441, type: 3}
+--- !u!1001 &1176915767
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4787522467407432, guid: 30ec1d0bb3e863a49b844c7a7984244f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2.183
+      objectReference: {fileID: 0}
+    - target: {fileID: 4787522467407432, guid: 30ec1d0bb3e863a49b844c7a7984244f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 14.196
+      objectReference: {fileID: 0}
+    - target: {fileID: 4787522467407432, guid: 30ec1d0bb3e863a49b844c7a7984244f, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -3.959
+      objectReference: {fileID: 0}
+    - target: {fileID: 4787522467407432, guid: 30ec1d0bb3e863a49b844c7a7984244f, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.81915206
+      objectReference: {fileID: 0}
+    - target: {fileID: 4787522467407432, guid: 30ec1d0bb3e863a49b844c7a7984244f, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.000000060878094
+      objectReference: {fileID: 0}
+    - target: {fileID: 4787522467407432, guid: 30ec1d0bb3e863a49b844c7a7984244f, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.000000060878094
+      objectReference: {fileID: 0}
+    - target: {fileID: 4787522467407432, guid: 30ec1d0bb3e863a49b844c7a7984244f, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.57357645
+      objectReference: {fileID: 0}
+    - target: {fileID: 4787522467407432, guid: 30ec1d0bb3e863a49b844c7a7984244f, type: 3}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 114499548726465804, guid: 30ec1d0bb3e863a49b844c7a7984244f,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114499548726465804, guid: 30ec1d0bb3e863a49b844c7a7984244f,
+        type: 3}
+      propertyPath: thrust.y
+      value: 728.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 114499548726465804, guid: 30ec1d0bb3e863a49b844c7a7984244f,
+        type: 3}
+      propertyPath: useInputAxis
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 145399763837778338, guid: 30ec1d0bb3e863a49b844c7a7984244f,
+        type: 3}
+      propertyPath: m_Spring
+      value: 990
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 114548105213868266, guid: 30ec1d0bb3e863a49b844c7a7984244f, type: 3}
+  m_SourcePrefab: {fileID: 100100000, guid: 30ec1d0bb3e863a49b844c7a7984244f, type: 3}
+--- !u!1 &1355329230
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1355329234}
+  - component: {fileID: 1355329231}
+  - component: {fileID: 1355329233}
+  - component: {fileID: 1355329232}
+  - component: {fileID: 1355329236}
+  - component: {fileID: 1355329235}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1355329231
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1355329230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc626e5bd67de234bb0e0d26dfe48eb9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thrusting: 1
+  thrust: {x: 0, y: -4800, z: 0}
+  axis: Vertical
+  space: 1
+  ignoreThrusterPosition: 1
+  target: {fileID: 1372824615}
+  useInputAxis: 0
+  inputSensitivity: 0.2
+  controller: {fileID: 0}
+  help:
+    showInfo: 0
+    helpText: This component adds thrust to a given Rigidbody. It also works with
+      the 'InputVector' component (optionally) allthoug it can be used either by
+      itself or with any message sender/toggle component. To use, add this to an
+      object with a Rigidbody component that you'd like to push around. Then, input
+      some 'Thrust' settings above to tell the Thruster how strong it is in which
+      directions. Negative values may be used. Finally, either set it's 'Thrusting'
+      setting to true, or send messages to it to control it's thrust state.
+    videoLink: 
+  beginThrustHelp:
+    showInfo: 0
+    messageName: BeginThrust
+    helpText: Start to send the predetermined amount of force to the rigidbody each
+      frame until stopped.
+    argumentType: 0
+    argumentText: 
+  endThrustHelp:
+    showInfo: 0
+    messageName: EndThrust
+    helpText: Stop thrusting
+    argumentType: 0
+    argumentText: 
+  thrustAmountHelp:
+    showInfo: 0
+    messageName: ThrustAmount
+    helpText: Thrust a specific amount this frame
+    argumentType: 3
+    argumentText: The scalar of thrust we want to send (multiplied by the 'Thrust'
+      you indicated above)
+--- !u!114 &1355329232
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1355329230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f52eb8c7bfc74341a0276a24b5e5a1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pool: 0
+  messages:
+  - target: {fileID: 0}
+    message: ToggleOff
+    msgOverride: 1
+    messageIndex: 5
+    possibleMessages:
+    - BeginThrust
+    - EndThrust
+    - ThrustAmount
+    - ToggleOn
+    - ToggleOff
+    - SwapToggle
+    - Toggle
+    - StartTimer
+    - Abort
+    isDirty: 0
+    sendMessageType: 0
+    parameter: 
+    parameterMode: 0
+  debug: 0
+  help:
+    showInfo: 0
+    helpText: This component sends messages as soon as the object is created.
+    videoLink: 
+--- !u!114 &1355329233
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1355329230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60489080b617832428dbaa335d84762e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameObjectTargets: []
+  scriptTargets:
+  - {fileID: 1355329231}
+  lightTarget: {fileID: 0}
+  invert: 0
+  help:
+    showInfo: 0
+    helpText: This component toggles scripts and game objects based on messages.
+      The 'Toggle' message takes a boolean value, 'SwapToggle' will alternate the
+      current setting. Can be used with MultiMenu, Unity 5 UI, or other message senders.
+      Just make sure that the thing you want to toggle appears in one of the lists
+      above. To add scripts, drag and drop the header of the component onto the list
+      itself, and MultiGame will add the reference. To do this on an object not currently
+      being inspected, create a second Inspector by clicking the tiny menu icon next
+      to the lock at the top of the Inspector -> Add Tab -> Inspector. Then dock
+      the new inspector somewhere else, so that both are visible. Select the object
+      that has the component you wish to target, then lock that inspector by clicking
+      the tiny lock at the top. Finally, select this object (the one with the Message
+      Toggle) and drag and drop the component itself (from it's title text) onto
+      the 'Script Targets' list. This will tell MultiGame to add it to the list.
+    videoLink: 
+  debug: 0
+  toggleOnHelp:
+    showInfo: 0
+    messageName: ToggleOn
+    helpText: Enables all 'Game Object Targets' and 'Script Targets'
+    argumentType: 0
+    argumentText: 
+  toggleOffHelp:
+    showInfo: 0
+    messageName: ToggleOff
+    helpText: Disables all 'Game Object Targets' and 'Script Targets'
+    argumentType: 0
+    argumentText: 
+  swapToggleHelp:
+    showInfo: 0
+    messageName: SwapToggle
+    helpText: Reverses the state of all targets
+    argumentType: 0
+    argumentText: 
+  toggleHelp:
+    showInfo: 0
+    messageName: Toggle
+    helpText: Allows you to set the state of all 'Game Object Targets' and 'Script
+      Targets' explicitly
+    argumentType: 1
+    argumentText: The new state for the targets
+--- !u!4 &1355329234
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1355329230}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1372824621}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1355329235
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1355329230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 247b8f498f07e604cbd4b468c104adf8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: 32
+  button: 
+  keyDownMessage:
+    target: {fileID: 0}
+    message: --none--
+    msgOverride: 0
+    messageIndex: 0
+    possibleMessages:
+    - BeginThrust
+    - EndThrust
+    - ThrustAmount
+    - ToggleOn
+    - ToggleOff
+    - SwapToggle
+    - Toggle
+    - StartTimer
+    - Abort
+    isDirty: 0
+    sendMessageType: 0
+    parameter: 
+    parameterMode: 0
+  keyHeldMessage:
+    target: {fileID: 0}
+    message: --none--
+    msgOverride: 0
+    messageIndex: 0
+    possibleMessages:
+    - BeginThrust
+    - EndThrust
+    - ThrustAmount
+    - ToggleOn
+    - ToggleOff
+    - SwapToggle
+    - Toggle
+    - StartTimer
+    - Abort
+    isDirty: 0
+    sendMessageType: 0
+    parameter: 
+    parameterMode: 0
+  keyUpMessage:
+    target: {fileID: 0}
+    message: StartTimer
+    msgOverride: 1
+    messageIndex: 8
+    possibleMessages:
+    - BeginThrust
+    - EndThrust
+    - ThrustAmount
+    - ToggleOn
+    - ToggleOff
+    - SwapToggle
+    - Toggle
+    - StartTimer
+    - Abort
+    isDirty: 0
+    sendMessageType: 0
+    parameter: 
+    parameterMode: 0
+  target: {fileID: 0}
+  debug: 0
+  help:
+    showInfo: 0
+    helpText: This component sends messages based on the state of a key or button.
+      Buttons are defined in (Edit -> Project Settings -> Input)
+    videoLink: 
+--- !u!114 &1355329236
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1355329230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d74835e3fb2f9c44b8b006b889dfce3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeDelay: 1
+  variance: 0
+  timerText: {fileID: 0}
+  message: 
+  managedMessage:
+    target: {fileID: 0}
+    message: ToggleOff
+    msgOverride: 1
+    messageIndex: 5
+    possibleMessages:
+    - BeginThrust
+    - EndThrust
+    - ThrustAmount
+    - ToggleOn
+    - ToggleOff
+    - SwapToggle
+    - Toggle
+    - StartTimer
+    - Abort
+    isDirty: 0
+    sendMessageType: 0
+    parameter: 
+    parameterMode: 0
+  autoStart: 0
+  looping: 0
+  oneAtATime: 1
+  debug: 0
+  help:
+    showInfo: 0
+    helpText: This component sends messages based on a timer. Accepts the 'StartTimer'
+      and 'Abort' messages.
+    videoLink: 
+  startTimerHelp:
+    showInfo: 0
+    messageName: StartTimer
+    helpText: Starts this timer, useful if it doesn't start automatically.
+    argumentType: 0
+    argumentText: 
+  abortHelp:
+    showInfo: 0
+    messageName: Abort
+    helpText: Stops execution of the timer immediately.
+    argumentType: 0
+    argumentText: 
+--- !u!1 &1372824615 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1337940954956712, guid: 30ec1d0bb3e863a49b844c7a7984244f,
+    type: 3}
+  m_PrefabInstance: {fileID: 1176915767}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1372824619
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1372824615}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 247b8f498f07e604cbd4b468c104adf8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: 32
+  button: 
+  keyDownMessage:
+    target: {fileID: 0}
+    message: ToggleOff
+    msgOverride: 1
+    messageIndex: 5
+    possibleMessages:
+    - BeginThrust
+    - EndThrust
+    - ThrustAmount
+    - ToggleOn
+    - ToggleOff
+    - SwapToggle
+    - Toggle
+    - BeginThrust
+    - EndThrust
+    - ThrustAmount
+    - ToggleOn
+    - ToggleOff
+    - SwapToggle
+    - Toggle
+    - StartTimer
+    - Abort
+    isDirty: 0
+    sendMessageType: 0
+    parameter: 
+    parameterMode: 0
+  keyHeldMessage:
+    target: {fileID: 0}
+    message: --none--
+    msgOverride: 0
+    messageIndex: 0
+    possibleMessages:
+    - BeginThrust
+    - EndThrust
+    - ThrustAmount
+    - ToggleOn
+    - ToggleOff
+    - SwapToggle
+    - Toggle
+    - BeginThrust
+    - EndThrust
+    - ThrustAmount
+    - ToggleOn
+    - ToggleOff
+    - SwapToggle
+    - Toggle
+    - StartTimer
+    - Abort
+    isDirty: 0
+    sendMessageType: 0
+    parameter: 
+    parameterMode: 0
+  keyUpMessage:
+    target: {fileID: 0}
+    message: ToggleOn
+    msgOverride: 1
+    messageIndex: 4
+    possibleMessages:
+    - BeginThrust
+    - EndThrust
+    - ThrustAmount
+    - ToggleOn
+    - ToggleOff
+    - SwapToggle
+    - Toggle
+    - BeginThrust
+    - EndThrust
+    - ThrustAmount
+    - ToggleOn
+    - ToggleOff
+    - SwapToggle
+    - Toggle
+    - StartTimer
+    - Abort
+    isDirty: 0
+    sendMessageType: 0
+    parameter: 
+    parameterMode: 0
+  target: {fileID: 0}
+  debug: 0
+  help:
+    showInfo: 0
+    helpText: This component sends messages based on the state of a key or button.
+      Buttons are defined in (Edit -> Project Settings -> Input)
+    videoLink: 
+--- !u!4 &1372824621 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4787522467407432, guid: 30ec1d0bb3e863a49b844c7a7984244f,
+    type: 3}
+  m_PrefabInstance: {fileID: 1176915767}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1372824622
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1372824615}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60489080b617832428dbaa335d84762e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameObjectTargets: []
+  scriptTargets:
+  - {fileID: 1355329231}
+  lightTarget: {fileID: 0}
+  invert: 0
+  help:
+    showInfo: 0
+    helpText: This component toggles scripts and game objects based on messages.
+      The 'Toggle' message takes a boolean value, 'SwapToggle' will alternate the
+      current setting. Can be used with MultiMenu, Unity 5 UI, or other message senders.
+      Just make sure that the thing you want to toggle appears in one of the lists
+      above. To add scripts, drag and drop the header of the component onto the list
+      itself, and MultiGame will add the reference. To do this on an object not currently
+      being inspected, create a second Inspector by clicking the tiny menu icon next
+      to the lock at the top of the Inspector -> Add Tab -> Inspector. Then dock
+      the new inspector somewhere else, so that both are visible. Select the object
+      that has the component you wish to target, then lock that inspector by clicking
+      the tiny lock at the top. Finally, select this object (the one with the Message
+      Toggle) and drag and drop the component itself (from it's title text) onto
+      the 'Script Targets' list. This will tell MultiGame to add it to the list.
+    videoLink: 
+  debug: 0
+  toggleOnHelp:
+    showInfo: 0
+    messageName: ToggleOn
+    helpText: Enables all 'Game Object Targets' and 'Script Targets'
+    argumentType: 0
+    argumentText: 
+  toggleOffHelp:
+    showInfo: 0
+    messageName: ToggleOff
+    helpText: Disables all 'Game Object Targets' and 'Script Targets'
+    argumentType: 0
+    argumentText: 
+  swapToggleHelp:
+    showInfo: 0
+    messageName: SwapToggle
+    helpText: Reverses the state of all targets
+    argumentType: 0
+    argumentText: 
+  toggleHelp:
+    showInfo: 0
+    messageName: Toggle
+    helpText: Allows you to set the state of all 'Game Object Targets' and 'Script
+      Targets' explicitly
+    argumentType: 1
+    argumentText: The new state for the targets
+--- !u!1 &1406928120 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1560031782001422, guid: b8e1a7a732fde1d4b9d95715ed1e6441,
+    type: 3}
+  m_PrefabInstance: {fileID: 1172228644}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1460774737
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1460774742}
+  - component: {fileID: 1460774741}
+  - component: {fileID: 1460774740}
+  - component: {fileID: 1460774739}
+  - component: {fileID: 1460774738}
+  m_Layer: 0
+  m_Name: RFlipperActuator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1460774738
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1460774737}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 247b8f498f07e604cbd4b468c104adf8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: 305
+  button: 
+  keyDownMessage:
+    target: {fileID: 0}
+    message: BeginThrust
+    msgOverride: 1
+    messageIndex: 1
+    possibleMessages:
+    - BeginThrust
+    - EndThrust
+    - ThrustAmount
+    isDirty: 0
+    sendMessageType: 0
+    parameter: 
+    parameterMode: 0
+  keyHeldMessage:
+    target: {fileID: 0}
+    message: --none--
+    msgOverride: 0
+    messageIndex: 0
+    possibleMessages:
+    - BeginThrust
+    - EndThrust
+    - ThrustAmount
+    isDirty: 0
+    sendMessageType: 0
+    parameter: 
+    parameterMode: 0
+  keyUpMessage:
+    target: {fileID: 0}
+    message: EndThrust
+    msgOverride: 1
+    messageIndex: 2
+    possibleMessages:
+    - BeginThrust
+    - EndThrust
+    - ThrustAmount
+    isDirty: 0
+    sendMessageType: 0
+    parameter: 
+    parameterMode: 0
+  target: {fileID: 0}
+  debug: 0
+  help:
+    showInfo: 0
+    helpText: This component sends messages based on the state of a key or button.
+      Buttons are defined in (Edit -> Project Settings -> Input)
+    videoLink: 
+--- !u!114 &1460774739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1460774737}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc626e5bd67de234bb0e0d26dfe48eb9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thrusting: 0
+  thrust: {x: 0, y: 0, z: 250}
+  axis: Vertical
+  space: 1
+  ignoreThrusterPosition: 1
+  target: {fileID: 0}
+  useInputAxis: 0
+  inputSensitivity: 0.2
+  controller: {fileID: 0}
+  help:
+    showInfo: 0
+    helpText: This component adds thrust to a given Rigidbody. It also works with
+      the 'InputVector' component (optionally) allthoug it can be used either by
+      itself or with any message sender/toggle component. To use, add this to an
+      object with a Rigidbody component that you'd like to push around. Then, input
+      some 'Thrust' settings above to tell the Thruster how strong it is in which
+      directions. Negative values may be used. Finally, either set it's 'Thrusting'
+      setting to true, or send messages to it to control it's thrust state.
+    videoLink: 
+  beginThrustHelp:
+    showInfo: 0
+    messageName: BeginThrust
+    helpText: Start to send the predetermined amount of force to the rigidbody each
+      frame until stopped.
+    argumentType: 0
+    argumentText: 
+  endThrustHelp:
+    showInfo: 0
+    messageName: EndThrust
+    helpText: Stop thrusting
+    argumentType: 0
+    argumentText: 
+  thrustAmountHelp:
+    showInfo: 1
+    messageName: ThrustAmount
+    helpText: Thrust a specific amount this frame
+    argumentType: 3
+    argumentText: The scalar of thrust we want to send (multiplied by the 'Thrust'
+      you indicated above)
+--- !u!145 &1460774740
+SpringJoint:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1460774737}
+  m_ConnectedBody: {fileID: 1834185013}
+  m_Anchor: {x: -0.01, y: 0, z: 0}
+  m_AutoConfigureConnectedAnchor: 1
+  m_ConnectedAnchor: {x: -1.839108, y: 0.60790443, z: 0.16451646}
+  serializedVersion: 2
+  m_Spring: 84.89
+  m_Damper: 30.16
+  m_MinDistance: 0
+  m_MaxDistance: 0
+  m_Tolerance: 0.025
+  m_BreakForce: Infinity
+  m_BreakTorque: Infinity
+  m_EnableCollision: 0
+  m_EnablePreprocessing: 1
+  m_MassScale: 1
+  m_ConnectedMassScale: 1
+--- !u!54 &1460774741
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1460774737}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 118
+  m_CollisionDetection: 0
+--- !u!4 &1460774742
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1460774737}
+  m_LocalRotation: {x: 0.17348303, y: -0.04295671, z: -0.007574432, w: -0.98387045}
+  m_LocalPosition: {x: 1.1155541, y: 14.090942, z: -4.343692}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 0.20000005}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: -20.500002, y: 6.268, z: -1.9720001}
+--- !u!1 &1617969517
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 1589633273189582, guid: cbc06cb9b0853c349a028d153837a52b,
+    type: 3}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1617969518}
+  - component: {fileID: 1617969522}
+  - component: {fileID: 1617969521}
+  - component: {fileID: 1617969520}
+  - component: {fileID: 1617969519}
+  m_Layer: 0
+  m_Name: UV Cube
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 4294967295
+  m_IsActive: 1
+--- !u!4 &1617969518
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 4789757386438440, guid: cbc06cb9b0853c349a028d153837a52b,
+    type: 3}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1617969517}
+  m_LocalRotation: {x: 0.1736483, y: -0, z: -0, w: -0.9848077}
+  m_LocalPosition: {x: -13, y: -3, z: 23}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 284436489}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: -20.486, y: 0, z: 0}
+--- !u!64 &1617969519
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 64461820614891652, guid: cbc06cb9b0853c349a028d153837a52b,
+    type: 3}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1617969517}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 14
+  m_Mesh: {fileID: 4300000, guid: 59e07eb4b69e2a34dba25ddbd4028eaa, type: 2}
+--- !u!114 &1617969520
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 114506215612386682, guid: cbc06cb9b0853c349a028d153837a52b,
+    type: 3}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1617969517}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 606a7e0239e6a494781d43a5a0915ed6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  generateLightmapUVs: 0
+  addCollider: 0
+  debug: 0
+  mesh: {fileID: 4300000, guid: 59e07eb4b69e2a34dba25ddbd4028eaa, type: 2}
+  width: 1
+  length: 45
+  height: 3.5
+  uvScale: {x: 1, y: 1, z: 1}
+  uvOffset: {x: 0, y: 0, z: 0}
+  help:
+    showInfo: 0
+    helpText: ProcCube is a powerful tool for object and level design. It allows
+      you to make boxes of any given proportion, and properly changes the UV coordinates
+      so that your textures don't stretch like they do with a normal Unity cube.
+      To use, simply add this to an empty transform (or create it with a Rapid Dev
+      Toolbar button)
+    videoLink: 
+--- !u!33 &1617969521
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 33723531311688998, guid: cbc06cb9b0853c349a028d153837a52b,
+    type: 3}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1617969517}
+  m_Mesh: {fileID: 4300000, guid: 59e07eb4b69e2a34dba25ddbd4028eaa, type: 2}
+--- !u!23 &1617969522
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 23651968401646660, guid: cbc06cb9b0853c349a028d153837a52b,
+    type: 3}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1617969517}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RenderingLayerMask: 4294967295
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 1a12c4051a4d23c4c9b758b278604636, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!1 &1709243715
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1709243716}
+  - component: {fileID: 1709243719}
+  - component: {fileID: 1709243718}
+  - component: {fileID: 1709243717}
+  - component: {fileID: 1709243720}
+  m_Layer: 0
+  m_Name: UV Cube
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1709243716
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1709243715}
+  m_LocalRotation: {x: 0.1736483, y: -0, z: -0, w: -0.9848077}
+  m_LocalPosition: {x: -0.01, y: 0.159, z: 0.34}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 239961868}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: -20.04, y: 0, z: 0}
+--- !u!114 &1709243717
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1709243715}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 606a7e0239e6a494781d43a5a0915ed6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  generateLightmapUVs: 0
+  addCollider: 0
+  debug: 0
+  mesh: {fileID: 4300000, guid: 807dc43aef7c1974db5fd22bd0fe585c, type: 2}
+  width: 4.48
+  length: 6.24
+  height: 1
+  uvScale: {x: 1, y: 1, z: 1}
+  uvOffset: {x: 0, y: 0, z: 0}
+  help:
+    showInfo: 0
+    helpText: ProcCube is a powerful tool for object and level design. It allows
+      you to make boxes of any given proportion, and properly changes the UV coordinates
+      so that your textures don't stretch like they do with a normal Unity cube.
+      To use, simply add this to an empty transform (or create it with a Rapid Dev
+      Toolbar button)
+    videoLink: 
+--- !u!33 &1709243718
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1709243715}
+  m_Mesh: {fileID: 4300000, guid: 807dc43aef7c1974db5fd22bd0fe585c, type: 2}
+--- !u!23 &1709243719
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1709243715}
+  m_Enabled: 0
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RenderingLayerMask: 4294967295
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 751cc08a7c8b0604dabd0f950f19c32d, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!64 &1709243720
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1709243715}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 14
+  m_Mesh: {fileID: 4300000, guid: 807dc43aef7c1974db5fd22bd0fe585c, type: 2}
+--- !u!1 &1750978793
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1750978794}
+  m_Layer: 0
+  m_Name: Procedural Model
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1750978794
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1750978793}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.20626324, y: 12.818985, z: 3.378912}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 2099686642}
+  m_Father: {fileID: 0}
+  m_RootOrder: 15
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1813884808
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1813884809}
+  - component: {fileID: 1813884813}
+  - component: {fileID: 1813884812}
+  - component: {fileID: 1813884811}
+  - component: {fileID: 1813884810}
+  m_Layer: 0
+  m_Name: UV Cube
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1813884809
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1813884808}
+  m_LocalRotation: {x: 0.1736483, y: -0, z: -0, w: -0.9848077}
+  m_LocalPosition: {x: -0.01, y: 0.283, z: 0.775}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2051710138}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: -20.04, y: 0, z: 0}
+--- !u!64 &1813884810
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1813884808}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 14
+  m_Mesh: {fileID: 4300000, guid: 807dc43aef7c1974db5fd22bd0fe585c, type: 2}
+--- !u!114 &1813884811
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1813884808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 606a7e0239e6a494781d43a5a0915ed6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  generateLightmapUVs: 0
+  addCollider: 0
+  debug: 0
+  mesh: {fileID: 4300000, guid: 807dc43aef7c1974db5fd22bd0fe585c, type: 2}
+  width: 4.48
+  length: 6.24
+  height: 1
+  uvScale: {x: 1, y: 1, z: 1}
+  uvOffset: {x: 0, y: 0, z: 0}
+  help:
+    showInfo: 0
+    helpText: ProcCube is a powerful tool for object and level design. It allows
+      you to make boxes of any given proportion, and properly changes the UV coordinates
+      so that your textures don't stretch like they do with a normal Unity cube.
+      To use, simply add this to an empty transform (or create it with a Rapid Dev
+      Toolbar button)
+    videoLink: 
+--- !u!33 &1813884812
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1813884808}
+  m_Mesh: {fileID: 4300000, guid: 807dc43aef7c1974db5fd22bd0fe585c, type: 2}
+--- !u!23 &1813884813
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1813884808}
+  m_Enabled: 0
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RenderingLayerMask: 4294967295
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 751cc08a7c8b0604dabd0f950f19c32d, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!54 &1834185013 stripped
+Rigidbody:
+  m_CorrespondingSourceObject: {fileID: 54106100890105572, guid: 2a0ed0e007942a44eb3fb7f43d4c006d,
+    type: 3}
+  m_PrefabInstance: {fileID: 346721496}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1894638149
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 1884187221101692, guid: cbc06cb9b0853c349a028d153837a52b,
+    type: 3}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1894638150}
+  - component: {fileID: 1894638154}
+  - component: {fileID: 1894638153}
+  - component: {fileID: 1894638152}
+  - component: {fileID: 1894638151}
+  m_Layer: 0
+  m_Name: UV Cube
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 4294967295
+  m_IsActive: 1
+--- !u!4 &1894638150
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 4762459297806854, guid: cbc06cb9b0853c349a028d153837a52b,
+    type: 3}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1894638149}
+  m_LocalRotation: {x: 0.1736483, y: -0, z: -0, w: -0.9848077}
+  m_LocalPosition: {x: 9.48, y: -5.06, z: 18.4}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 284436489}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: -20, y: 0, z: 0}
+--- !u!64 &1894638151
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 64215095018422686, guid: cbc06cb9b0853c349a028d153837a52b,
+    type: 3}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1894638149}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 14
+  m_Mesh: {fileID: 4300000, guid: 7c4890c065a61044c8c453d45d4fcdad, type: 2}
+--- !u!114 &1894638152
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 114638888980239316, guid: cbc06cb9b0853c349a028d153837a52b,
+    type: 3}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1894638149}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 606a7e0239e6a494781d43a5a0915ed6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  generateLightmapUVs: 0
+  addCollider: 0
+  debug: 0
+  mesh: {fileID: 4300000, guid: 7c4890c065a61044c8c453d45d4fcdad, type: 2}
+  width: 1
+  length: 34.15
+  height: 3.37
+  uvScale: {x: 1, y: 1, z: 1}
+  uvOffset: {x: 0, y: 0, z: 0}
+  help:
+    showInfo: 0
+    helpText: ProcCube is a powerful tool for object and level design. It allows
+      you to make boxes of any given proportion, and properly changes the UV coordinates
+      so that your textures don't stretch like they do with a normal Unity cube.
+      To use, simply add this to an empty transform (or create it with a Rapid Dev
+      Toolbar button)
+    videoLink: 
+--- !u!33 &1894638153
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 33283667203266838, guid: cbc06cb9b0853c349a028d153837a52b,
+    type: 3}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1894638149}
+  m_Mesh: {fileID: 4300000, guid: 7c4890c065a61044c8c453d45d4fcdad, type: 2}
+--- !u!23 &1894638154
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 23034696970015690, guid: cbc06cb9b0853c349a028d153837a52b,
+    type: 3}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1894638149}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RenderingLayerMask: 4294967295
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 1a12c4051a4d23c4c9b758b278604636, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!1 &1939810331
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1939810333}
+  - component: {fileID: 1939810332}
+  m_Layer: 0
+  m_Name: Directional Light
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!108 &1939810332
+Light:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1939810331}
+  m_Enabled: 1
+  serializedVersion: 10
+  m_Type: 1
+  m_Shape: 0
+  m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
+  m_Intensity: 1
+  m_Range: 10
+  m_SpotAngle: 30
+  m_InnerSpotAngle: 21.80208
+  m_CookieSize: 10
+  m_Shadows:
+    m_Type: 2
+    m_Resolution: -1
+    m_CustomResolution: -1
+    m_Strength: 1
+    m_Bias: 0.05
+    m_NormalBias: 0.4
+    m_NearPlane: 0.2
+    m_CullingMatrixOverride:
+      e00: 1
+      e01: 0
+      e02: 0
+      e03: 0
+      e10: 0
+      e11: 1
+      e12: 0
+      e13: 0
+      e20: 0
+      e21: 0
+      e22: 1
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    m_UseCullingMatrixOverride: 0
+  m_Cookie: {fileID: 0}
+  m_DrawHalo: 0
+  m_Flare: {fileID: 0}
+  m_RenderMode: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RenderingLayerMask: 1
+  m_Lightmapping: 4
+  m_LightShadowCasterMode: 0
+  m_AreaSize: {x: 1, y: 1}
+  m_BounceIntensity: 1
+  m_ColorTemperature: 6570
+  m_UseColorTemperature: 0
+  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_UseBoundingSphereOverride: 0
+  m_ShadowRadius: 0
+  m_ShadowAngle: 0
+--- !u!4 &1939810333
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1939810331}
+  m_LocalRotation: {x: -0.4082179, y: 0.2345698, z: -0.10938169, w: -0.8754261}
+  m_LocalPosition: {x: 35, y: 51, z: -26}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &1965709759
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1965709764}
+  - component: {fileID: 1965709763}
+  - component: {fileID: 1965709762}
+  - component: {fileID: 1965709761}
+  - component: {fileID: 1965709760}
+  m_Layer: 0
+  m_Name: RFlipperActuator (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1965709760
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1965709759}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 247b8f498f07e604cbd4b468c104adf8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: 306
+  button: 
+  keyDownMessage:
+    target: {fileID: 0}
+    message: BeginThrust
+    msgOverride: 1
+    messageIndex: 1
+    possibleMessages:
+    - BeginThrust
+    - EndThrust
+    - ThrustAmount
+    isDirty: 0
+    sendMessageType: 0
+    parameter: 
+    parameterMode: 0
+  keyHeldMessage:
+    target: {fileID: 0}
+    message: --none--
+    msgOverride: 0
+    messageIndex: 0
+    possibleMessages:
+    - BeginThrust
+    - EndThrust
+    - ThrustAmount
+    isDirty: 0
+    sendMessageType: 0
+    parameter: 
+    parameterMode: 0
+  keyUpMessage:
+    target: {fileID: 0}
+    message: EndThrust
+    msgOverride: 1
+    messageIndex: 2
+    possibleMessages:
+    - BeginThrust
+    - EndThrust
+    - ThrustAmount
+    isDirty: 0
+    sendMessageType: 0
+    parameter: 
+    parameterMode: 0
+  target: {fileID: 0}
+  debug: 0
+  help:
+    showInfo: 0
+    helpText: This component sends messages based on the state of a key or button.
+      Buttons are defined in (Edit -> Project Settings -> Input)
+    videoLink: 
+--- !u!114 &1965709761
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1965709759}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc626e5bd67de234bb0e0d26dfe48eb9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thrusting: 0
+  thrust: {x: 0, y: 0, z: 250}
+  axis: Vertical
+  space: 1
+  ignoreThrusterPosition: 1
+  target: {fileID: 0}
+  useInputAxis: 0
+  inputSensitivity: 0.2
+  controller: {fileID: 0}
+  help:
+    showInfo: 0
+    helpText: This component adds thrust to a given Rigidbody. It also works with
+      the 'InputVector' component (optionally) allthoug it can be used either by
+      itself or with any message sender/toggle component. To use, add this to an
+      object with a Rigidbody component that you'd like to push around. Then, input
+      some 'Thrust' settings above to tell the Thruster how strong it is in which
+      directions. Negative values may be used. Finally, either set it's 'Thrusting'
+      setting to true, or send messages to it to control it's thrust state.
+    videoLink: 
+  beginThrustHelp:
+    showInfo: 0
+    messageName: BeginThrust
+    helpText: Start to send the predetermined amount of force to the rigidbody each
+      frame until stopped.
+    argumentType: 0
+    argumentText: 
+  endThrustHelp:
+    showInfo: 0
+    messageName: EndThrust
+    helpText: Stop thrusting
+    argumentType: 0
+    argumentText: 
+  thrustAmountHelp:
+    showInfo: 1
+    messageName: ThrustAmount
+    helpText: Thrust a specific amount this frame
+    argumentType: 3
+    argumentText: The scalar of thrust we want to send (multiplied by the 'Thrust'
+      you indicated above)
+--- !u!145 &1965709762
+SpringJoint:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1965709759}
+  m_ConnectedBody: {fileID: 889826623}
+  m_Anchor: {x: -0.01, y: 0, z: 0}
+  m_AutoConfigureConnectedAnchor: 1
+  m_ConnectedAnchor: {x: 1.7742784, y: 0.44451207, z: -0.011199599}
+  serializedVersion: 2
+  m_Spring: 84.89
+  m_Damper: 30.16
+  m_MinDistance: 0
+  m_MaxDistance: 0
+  m_Tolerance: 0.025
+  m_BreakForce: Infinity
+  m_BreakTorque: Infinity
+  m_EnableCollision: 0
+  m_EnablePreprocessing: 1
+  m_MassScale: 1
+  m_ConnectedMassScale: 1
+--- !u!54 &1965709763
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1965709759}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 118
+  m_CollisionDetection: 0
+--- !u!4 &1965709764
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1965709759}
+  m_LocalRotation: {x: 0.17348303, y: -0.04295671, z: -0.007574432, w: -0.98387045}
+  m_LocalPosition: {x: 0.634, y: 14.076942, z: -4.338}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 0.20000005}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 14
+  m_LocalEulerAnglesHint: {x: -20.500002, y: 6.268, z: -1.9720001}
+--- !u!1 &2026737833
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 1893371930562930, guid: cbc06cb9b0853c349a028d153837a52b,
+    type: 3}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2026737834}
+  - component: {fileID: 2026737835}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 4294967295
+  m_IsActive: 1
+--- !u!4 &2026737834
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 4921023273673612, guid: cbc06cb9b0853c349a028d153837a52b,
+    type: 3}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2026737833}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -2.1753793, y: -3.718008, z: -1.5739679}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 461899388}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2026737835
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 114514051023724702, guid: cbc06cb9b0853c349a028d153837a52b,
+    type: 3}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2026737833}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17552a26108cf724ca7c845c599f2aa8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  guiArea:
+    serializedVersion: 2
+    x: 0.8
+    y: 0.01
+    width: 0.19
+    height: 0.09
+  windowTitle: Score
+  windowID: 53346
+  max: 10000
+  collectionMessage:
+    target: {fileID: 0}
+    message: --none--
+    msgOverride: 0
+    messageIndex: 0
+    possibleMessages:
+    - Collect
+    isDirty: 0
+    sendMessageType: 0
+    parameter: 
+    parameterMode: 0
+  maxedMessage:
+    target: {fileID: 0}
+    message: --none--
+    msgOverride: 0
+    messageIndex: 0
+    possibleMessages:
+    - Collect
+    isDirty: 0
+    sendMessageType: 0
+    parameter: 
+    parameterMode: 0
+  target: {fileID: 0}
+  closeOnCompletion: 0
+  showGUI: 1
+  guiSkin: {fileID: 0}
+  help:
+    showInfo: 0
+    helpText: 'This component handles basic collectible-based scoring. To use, add
+      this to an object in the scene and add a ''Collectible'' component to the prefab
+      for your game''s collectible item. When one is collected, ''Collection Message''
+      will be sent. When the player reaches the ''Max'' (defined above), ''Maxed
+      Message'' will be sent. For example you could have coins, and set the ''Max''
+      to 100. Then, if you have ''lives'' in your game you could add an additional
+      life to the player by sending a message to the component which manages player
+      lives. To write a message in a script, simply implement a new method as such:
+
+
+      public
+      void MyNewMessage( )
+
+      The message you implement may have 0 arguments,
+      or it may take an integer, float, bool, or string. This will tell MultiGame
+      to add it to the Messages list when you hit ''Refresh Messages''.'
+    videoLink: 
+  collectHelp:
+    showInfo: 0
+    messageName: Collect
+    helpText: Increments the collection count by one, sending messages as appropriate
+    argumentType: 0
+    argumentText: 
+--- !u!1 &2051710137
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2051710138}
+  m_Layer: 0
+  m_Name: Procedural Model (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2051710138
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2051710137}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.06, y: 15.34, z: -2.633}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1813884809}
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2099686641
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2099686642}
+  - component: {fileID: 2099686649}
+  - component: {fileID: 2099686648}
+  - component: {fileID: 2099686647}
+  - component: {fileID: 2099686646}
+  - component: {fileID: 2099686645}
+  - component: {fileID: 2099686644}
+  - component: {fileID: 2099686643}
+  m_Layer: 0
+  m_Name: UV Cone
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2099686642
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2099686641}
+  m_LocalRotation: {x: -0.18223555, y: 0, z: 0, w: 0.9832549}
+  m_LocalPosition: {x: -0.189, y: 1.666, z: -5.991}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1750978794}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: -21, y: 0, z: 0}
+--- !u!114 &2099686643
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2099686641}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d94d5019b294354f9a061a101b81eb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  designator: ActivateBumper
+  exclusive: 1
+  completionDelay: 0.2
+  loop: 0
+  sequence:
+  - delay: 0
+    message:
+      target: {fileID: 0}
+      message: 
+      msgOverride: 0
+      messageIndex: 0
+      possibleMessages:
+      - StartSequence
+      - Interrupt
+      - InterruptAll
+      isDirty: 0
+      sendMessageType: 0
+      parameter: 
+      parameterMode: 0
+  help:
+    showInfo: 0
+    helpText: Behavior Sequencer allows you to define a sequence of actions that
+      can be started or interrupted by sending messages. To use, first assign the
+      Actions you wish this sequencer to take. Then, at the appropriate time, send
+      the 'StartSequence' message to this object with a string argument containing
+      the 'Designator' assigned above. This will initiate this sequencer and optionally
+      stop all other sequencers on this object if this sequencer is set to 'Exclusive'.
+      A Utility Module can be used to select from a list of sequences based on current
+      in-game conditions of a given agent.
+    videoLink: 
+  debug: 0
+  startSequenceHelp:
+    showInfo: 0
+    messageName: StartSequence
+    helpText: Initializes sequences on this object with a matching 'Designator',
+      defined above.
+    argumentType: 4
+    argumentText: If the 'Designator' matches the string argument supplied, the BehaviorSequencer
+      will activate.
+  takeSelectedActionHelp:
+    showInfo: 0
+    messageName: TakeSelectedAction
+    helpText: Allows you to schedule a specific action right now.
+    argumentType: 2
+    argumentText: The index of the Action in the Sequence. These are zero-indexed,
+      so the first one is zero, second one is one etc.
+  interruptHelp:
+    showInfo: 0
+    messageName: Interrupt
+    helpText: Stops all scheduled actions on this BehaviorSequencer only if the designator
+      matches the supplied string.
+    argumentType: 4
+    argumentText: The designator associated with the BehaviorSequencers you wish
+      to Interrupt
+  interruptAllHelp:
+    showInfo: 0
+    messageName: InterruptAll
+    helpText: Immediately stops all actions scheduled on this BehaveiorSequencer
+    argumentType: 0
+    argumentText: 
+--- !u!114 &2099686644
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2099686641}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b48f171aca4578b43b2bcce5d464b2b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activeTags:
+  - Player
+  checkRoot: 0
+  velocityThreshold: 0
+  target: {fileID: 0}
+  hitPrefab: {fileID: 0}
+  message:
+    target: {fileID: 0}
+    message: --none--
+    msgOverride: 0
+    messageIndex: 0
+    possibleMessages: []
+    isDirty: 0
+    sendMessageType: 0
+    parameter: 
+    parameterMode: 0
+  messageToEnteringEntity:
+    target: {fileID: 0}
+    message: --none--
+    msgOverride: 0
+    messageIndex: 0
+    possibleMessages: []
+    isDirty: 0
+    sendMessageType: 0
+    parameter: 
+    parameterMode: 0
+  messageOnExit: 0
+  exitMessage:
+    target: {fileID: 0}
+    message: --none--
+    msgOverride: 0
+    messageIndex: 0
+    possibleMessages: []
+    isDirty: 0
+    sendMessageType: 0
+    parameter: 
+    parameterMode: 0
+  targetLevel: 
+  help:
+    showInfo: 0
+    helpText: 'This component sends messages when an object touches (or stops touching)
+      it. First add a list of Active Tags, these are tagged object groups that you
+      want to activate this trigger.
+
+      Next, add at least one message that you
+      wish to send when the collision occurs.'
+    videoLink: https://youtu.be/RllnqtE_g1Y
+  debug: 0
+--- !u!54 &2099686645
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2099686641}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!64 &2099686646
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2099686641}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300000, guid: 5b4621b61a2fbf14a9eb04c1591d4e7e, type: 2}
+--- !u!114 &2099686647
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2099686641}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b116a37e4440f54bb45ac4f86476e4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  generateLightmapUVs: 0
+  addCollider: 0
+  debug: 0
+  mesh: {fileID: 4300000, guid: 5b4621b61a2fbf14a9eb04c1591d4e7e, type: 2}
+  height: 0.2
+  topRadius: 0.125
+  bottomRadius: 0.075
+  sides: 16
+  uvTopScale: {x: 1, y: 1}
+  uvBottomScale: {x: 1, y: 1}
+  uvSideScale: {x: 4, y: 4}
+--- !u!23 &2099686648
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2099686641}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 751cc08a7c8b0604dabd0f950f19c32d, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!33 &2099686649
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2099686641}
+  m_Mesh: {fileID: 4300000, guid: 5b4621b61a2fbf14a9eb04c1591d4e7e, type: 2}
+--- !u!1 &2140175120
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 1275626579395052, guid: cbc06cb9b0853c349a028d153837a52b,
+    type: 3}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2140175121}
+  - component: {fileID: 2140175125}
+  - component: {fileID: 2140175124}
+  - component: {fileID: 2140175123}
+  - component: {fileID: 2140175122}
+  m_Layer: 0
+  m_Name: UV Cube (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 4294967295
+  m_IsActive: 1
+--- !u!4 &2140175121
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 4966897334335092, guid: cbc06cb9b0853c349a028d153837a52b,
+    type: 3}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2140175120}
+  m_LocalRotation: {x: 0.1736483, y: -0, z: -0, w: -0.9848077}
+  m_LocalPosition: {x: 13, y: -3, z: 23}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 284436489}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: -20.486, y: 0, z: 0}
+--- !u!64 &2140175122
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 64809475101467902, guid: cbc06cb9b0853c349a028d153837a52b,
+    type: 3}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2140175120}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 14
+  m_Mesh: {fileID: 4300000, guid: 59e07eb4b69e2a34dba25ddbd4028eaa, type: 2}
+--- !u!114 &2140175123
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 114108270619282506, guid: cbc06cb9b0853c349a028d153837a52b,
+    type: 3}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2140175120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 606a7e0239e6a494781d43a5a0915ed6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  generateLightmapUVs: 0
+  addCollider: 0
+  debug: 0
+  mesh: {fileID: 4300000, guid: 59e07eb4b69e2a34dba25ddbd4028eaa, type: 2}
+  width: 1
+  length: 45
+  height: 3.5
+  uvScale: {x: 1, y: 1, z: 1}
+  uvOffset: {x: 0, y: 0, z: 0}
+  help:
+    showInfo: 0
+    helpText: ProcCube is a powerful tool for object and level design. It allows
+      you to make boxes of any given proportion, and properly changes the UV coordinates
+      so that your textures don't stretch like they do with a normal Unity cube.
+      To use, simply add this to an empty transform (or create it with a Rapid Dev
+      Toolbar button)
+    videoLink: 
+--- !u!33 &2140175124
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 33733238539333594, guid: cbc06cb9b0853c349a028d153837a52b,
+    type: 3}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2140175120}
+  m_Mesh: {fileID: 4300000, guid: 59e07eb4b69e2a34dba25ddbd4028eaa, type: 2}
+--- !u!23 &2140175125
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 23407909299452774, guid: cbc06cb9b0853c349a028d153837a52b,
+    type: 3}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2140175120}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RenderingLayerMask: 4294967295
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 1a12c4051a4d23c4c9b758b278604636, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0

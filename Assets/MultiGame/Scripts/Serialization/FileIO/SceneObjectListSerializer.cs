@@ -14,17 +14,20 @@ namespace MultiGame
         [RequiredFieldAttribute("Allows one Unity scene to have multiple saves, by changing this. Can also be changed with the 'SetUniqueSceneIdentifier' " +
             "which takes a string representing the new identifier you want to use", RequiredFieldAttribute.RequirementLevels.Optional)]
         public string optionalUniqueSceneIdentifier = "";//if supplied, allows one Unity scene to have multiple saves associated
-        [HideInInspector]
-        public List<SceneObject> objects = new List<SceneObject>();
+        
         [Tooltip("Do we want to automatically instantiate the objects when we load?")]
         public bool autoInstantiate = true;
         [Tooltip("Do we want to save automatically when we gather a list of objects from the scene? (recommended)")]
         public bool autoSaveOnPopulate = true;
         [Tooltip("When saving to URL, should we save the file locally as well?")]
         public bool localBackup = false;
-        public bool debug = false;
 
-        private string user;
+		[Header("Debugging and Help")]
+        public bool debug = false;
+		[Tooltip("The list of local objects stored in memory. Shown here for debugging purposes, calling 'Save' will write this object list to disk, and 'Load' will get the object from disk and ADD it to the current list. 'Clear' can be used to clear the list and start again.")]
+		public List<SceneObject> objects = new List<SceneObject>();
+
+		private string user;
 
         private NodeSessionManager nodeMan;
 		private Scene activeScene;
@@ -33,7 +36,7 @@ namespace MultiGame
             "The objects you are loading, and their materials, must be directly inside a folder called 'Resources' anywhere in your project, or Unity will not have access to the data. " +
             "\n\n" +
             "To use, add a tag to your game for objects that you want to save. Then, at save time, call 'PopulateByTag' for each tag of objects you want to save. If saving more than one tag, " +
-            "disable 'Auto Save On Populate' and call 'Save' after all tags are added. To load, first call 'ClearObjectsByTag' for each tag you wish to load, then call 'Load', if 'Auto Instantiate' is " +
+            "disable 'Auto Save On Populate' and call 'Save' after all tags are added. To load, first call 'Clear' to clear the temporary object list then 'ClearObjectsByTag' for each tag you wish to load to remove the physical objects from the scene, then call 'Load' to get the old temporary object list from disk and put it into memory, if 'Auto Instantiate' is " +
             "disabled, call 'InstantiateObjectList' when done loading tags.");
 
         [System.Serializable]
@@ -124,7 +127,7 @@ namespace MultiGame
             FileStream stream = File.Open(Application.persistentDataPath + "/" + activeScene.name + optionalUniqueSceneIdentifier, FileMode.Create);
             formatter.Serialize(stream, objects);
             stream.Close();
-        }
+		}
 
         public MessageHelp clearObjectsByTagHelp = new MessageHelp("ClearObjectsByTag", "Deletes all objects with a supplied tag from the scene. Be sure to do this before loading objects or you will get duplicates.",
             4, "A Tag representing the scene objects you want to delete. Usually this is the same as the tag for objects you are loading. To clear multiple tags, call this multiple times (try using a 'Message Relay').");
@@ -141,6 +144,7 @@ namespace MultiGame
 
         public void Load()
         {
+			
 			activeScene = SceneManager.GetActiveScene();
             if (!File.Exists(Application.persistentDataPath + "/" + activeScene.name + optionalUniqueSceneIdentifier))
             {
@@ -174,6 +178,7 @@ namespace MultiGame
         public MessageHelp instantiateObjectListHelp = new MessageHelp("InstantiateObjectList", "Instantiates the current object list into the game. Useful if not using 'Auto Instantiate' but be sure to call " +
             "'ClearObjectsByTag' first, to get rid of the old ones.");
 
+		private Material newMat = null;//cache reference to test for null values
         public void InstantiateObjectList()
         {
             if (objects.Count < 1)
@@ -189,7 +194,9 @@ namespace MultiGame
                     Debug.Log("Assigning " + _rend.sharedMaterials.Length + " materials");
                 for (int i = 0; i < _rend.sharedMaterials.Length; i++)
                 {
-                    _newMaterials[i] = Resources.Load(_scobj.materials[i]) as Material;
+					newMat = Resources.Load(_scobj.materials[i]) as Material;
+					if (newMat != null)
+						_newMaterials[i] = newMat;
                     if (debug)
                         Debug.Log("Assigning " + _scobj.materials[i]);
                 }

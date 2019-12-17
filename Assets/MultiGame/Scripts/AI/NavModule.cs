@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using MultiGame;
 
 namespace MultiGame {
@@ -22,6 +23,8 @@ namespace MultiGame {
 		public float soundVariance = .05f;
 		[Tooltip("If no nearest nav target is found, should we send a message?")]
 		public MessageManager.ManagedMessage nearestNotFound;
+		[Tooltip("If no available station is found, should we send a message?")]
+		public MessageManager.ManagedMessage stationNotFound;
 		[RequiredField("How close should we stop if hunting? Increase this to just inside weapon range for ranged attackers.")]
 		public float huntingDistance = .5f;
 
@@ -45,6 +48,8 @@ namespace MultiGame {
 		private float intervalCounter;
 		private Quaternion targetRot;
 
+		private AIStation currentStation;
+
 #if UNITY_EDITOR
 		public HelpInfo help = new HelpInfo("This component implements Unity's NavMesh directly, allowing AI to pathfind around easily. You need to bake a navigation mesh for" +
 			" your scene before it can work, otherwise you will get an error. Click Window -> Navigation to bake a navmesh." +
@@ -58,11 +63,14 @@ namespace MultiGame {
 
 		void OnValidate() {
 			MessageManager.UpdateMessageGUI(ref nearestNotFound, gameObject);
+			MessageManager.UpdateMessageGUI(ref stationNotFound, gameObject);
 		}
 
 		void Awake () {
 			if (nearestNotFound.target == null)
 				nearestNotFound.target = gameObject;
+			if (stationNotFound.target == null)
+				stationNotFound.target = gameObject;
 			anim = GetComponentInChildren<Animator>();
 			source = GetComponent<AudioSource>();
 			agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
@@ -97,6 +105,11 @@ namespace MultiGame {
 				return;
 			}
 
+			if (hunting && Vector3.Distance(transform.position, targetPosition) < huntingDistance) {
+				agent.isStopped = true;
+				return;
+			}
+
 			if (navTarget != null) {
 				targetPosition = navTarget.transform.position;
 				targetRot = Quaternion.LookRotation(Vector3.RotateTowards(transform.forward, targetPosition - transform.position, agent.angularSpeed * Time.deltaTime, 0f));
@@ -122,8 +135,9 @@ namespace MultiGame {
 
 			if (source != null && movementSound != null) {
 				if (moveRate > 0) {
-					StartCoroutine(RandomizePitch());
+					//StartCoroutine(RandomizePitch());
 					if (intervalCounter < 0) {
+						source.pitch = startingPitch + Random.Range(-soundVariance, soundVariance);
 						source.Play();
 						intervalCounter = footstepInterval;
 					}
@@ -131,23 +145,22 @@ namespace MultiGame {
 					//	source.Play();
 				}
 				else {
-					StopCoroutine(RandomizePitch());
+					//StopCoroutine(RandomizePitch());
 					source.Stop();
 				}
 			}
-
 
 			recalcTimer -= Time.deltaTime;
 			if (recalcTimer <= 0)
 				BeginPathingTowardsTarget();
 		}
-
+		/*
 		private IEnumerator RandomizePitch() {
 			source.pitch = startingPitch + Random.Range(-soundVariance, soundVariance);
 			yield return new WaitForSeconds(footstepInterval);
 			StartCoroutine(RandomizePitch());
 		}
-
+		*/
 		private void LateUpdate() {
 			lastFramePosition = transform.position;
 		}
@@ -242,13 +255,16 @@ namespace MultiGame {
 		public MessageHelp navToNearestHelp = new MessageHelp("NavToNearest","Finds the nearest object with a given tag, and if found navigates to it.",4,"The tag of the object we wish to move towards");
 		public void NavToNearest(string _tag) {
 			GameObject _closest = FindClosestByTag(_tag);
-			if (debug)
-				Debug.Log("NavModule " + gameObject.name + " is going to the closest object tagged " + _tag + " and found object " + _closest);
+			
 			if (_closest != null) {
+				if (debug)
+					Debug.Log("NavModule " + gameObject.name + " is going to the closest object tagged " + _tag + " and found object " + _closest);
 				SetTarget(_closest);
 				MoveTo(_closest.transform.position);
 			} else {
 				MessageManager.Send(nearestNotFound);
+				if (debug)
+					Debug.Log("NavModule " + gameObject.name + " could not find an object tagged " + _tag);
 			}
 		}
 		public MessageHelp enableAgentHelp = new MessageHelp("EnableAgent","Sets the Nav Mesh Agent attached to this object to be enabled, allowing it to control the object's position.");
@@ -274,6 +290,48 @@ namespace MultiGame {
 		public MessageHelp faceMoveDirectionHelp = new MessageHelp("FaceMoveDirection","Causes the AI to always face it's move direction, no matter the direction of the target");
 		public void FaceMoveDirection() {
 			agent.updateRotation = true;
+		}
+
+		public MessageHelp goToStationHelp = new MessageHelp("GoToStation","Causes the AI to find an available, unoccupied 'AIStation' component on an object with the tag you supply, then goes to it if available.",4,"The GameObject tag of the station type we wish to find for this AI");
+		public void GoToStation(string stationTag) {
+			List<GameObject> stations = new List<GameObject>();
+			stations.AddRange(GameObject.FindGameObjectsWithTag(stationTag));
+
+			List<AIStation> targetStations = new List<AIStation>();
+
+			AIStation possibleStation;
+
+			foreach (GameObject _station in stations) {
+				possibleStation = _station.GetComponentInChildren<AIStation>();
+				if (possibleStation != null)
+					targetStations.Add(possibleStation);
+			}
+
+			AIStation availableStation = null;
+
+			if (debug)
+				Debug.Log("NavModule " + gameObject.name + " found " + targetStations.Count + " stations.");
+
+			if (targetStations.Count > 0) {
+
+				for (int i = 0; i < targetStations.Count; i++) {
+					if (targetStations[i].currentOccupant == null) {
+						availableStation = targetStations[i];
+
+						if (debug)
+							Debug.Log("NavModule " + gameObject.name + " is occupying " + availableStation.name + " at " + availableStation.transform.position);
+
+						availableStation.SendMessage("Occupy", gameObject, SendMessageOptions.DontRequireReceiver);
+						if (currentStation != null)
+							currentStation.SendMessage("Vacate", SendMessageOptions.DontRequireReceiver);
+						currentStation = availableStation;
+						SetTarget(currentStation.gameObject);
+						break;
+					}
+				}
+			} else {
+				MessageManager.Send(stationNotFound);
+			}
 		}
 
 		void ReturnFromPool() {

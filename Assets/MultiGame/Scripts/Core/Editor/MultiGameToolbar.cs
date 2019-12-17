@@ -149,9 +149,11 @@ namespace MultiGame {
 
 		[MenuItem ("MultiGame/Toolbar")]
 		public static void  ShowWindow () {
-			EditorWindow window = EditorWindow.GetWindow(typeof(MultiGameToolbar));
+			//EditorWindow window = EditorWindow.GetWindow(typeof(MultiGameToolbar));
+			MultiGameToolbar window = CreateInstance<MultiGameToolbar>();
 			window.minSize = new Vector2 (116f, 640f );
-			window.maxSize = new Vector2 (116f, Mathf.Infinity);
+			window.maxSize = new Vector2 (133f, Mathf.Infinity);
+			window.Show();
 		}
 
 		void Awake() {
@@ -255,7 +257,7 @@ namespace MultiGame {
 			uvPlaneIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/UVPlane.png", typeof(Texture2D)) as Texture2D;
 			uvConeIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/UVCone.png", typeof(Texture2D)) as Texture2D;
 
-			rewinderIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/UVCone.png", typeof(Texture2D)) as Texture2D;
+			rewinderIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/TimedMessage.png", typeof(Texture2D)) as Texture2D;
 			hotbarIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/Hotbar.png", typeof(Texture2D)) as Texture2D;
 
 			//			newSphereIcon = AssetDatabase.LoadAssetAtPath("Assets/MultiGame/Editor/Icons/NewSphere.png", typeof(Texture2D)) as Texture2D;
@@ -1086,6 +1088,7 @@ namespace MultiGame {
 				_child.transform.SetParent(_brush.transform);
 				_child.transform.localPosition = Vector3.zero;
 				_child.transform.localRotation = Quaternion.identity;
+				_child.transform.localScale = Vector3.one * 3;
 				Undo.RegisterCreatedObjectUndo(_brush, "Create Brush");
 				Undo.RegisterCreatedObjectUndo(_child,"Create Trigger");
 				Undo.AddComponent<MouseFollow>(_brush);

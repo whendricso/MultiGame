@@ -39,6 +39,10 @@ namespace MultiGame {
 		}
 
 		void OnEnable () {
+			foreach (MessageManager.ManagedMessage message in messages) {
+				if (message.target == null)
+					message.target = gameObject;
+			}
 			if (selectionIndicator != null)
 				selectionIndicator.SetActive(selected);
 			SetToggles();
