@@ -3,9 +3,6 @@ using UnityEngine;
 using UnityEditor;
 #endif
 //using System.IO;
-using System.Collections;
-using System.Collections.Generic;
-using MultiGame;
 
 //context-sensitive toolbar
 //Creation Workflow:
@@ -1079,10 +1076,37 @@ namespace MultiGame {
 				SmartRenameTarget("Character Editor");
 			}
 			if (MGButton(RTSIcon, "RTS\nCommand")) {
+				//First, try to target this object and assume that the designer has selected the right object
 				ResolveOrCreateTarget();
-				if (target.GetComponent<MouseCommander>() != null)
+
+				if (target.GetComponentInChildren<MouseCommander>() != null)//We already have one applied. Just cancel out.
 					return;
+
+				//now, check if they have selected something weird, and force the current selection to the camera
+				if (target.GetComponentInChildren<Camera>() == null) {//They didn't select a camera
+
+					if (Camera.main != null)//If we have a main camera only, then that should logically be what we apply the commander system to
+						target = Camera.main.gameObject;
+
+					if (target.GetComponentInChildren<Camera>() == null) {//No main camera, we'll just add a camera instead
+						Undo.AddComponent<Camera>(target);
+						target.tag = "MainCamera";
+					}
+				}
+				
 				Undo.AddComponent<MouseCommander>(target);
+
+				Rigidbody _rigid = target.GetComponent<Rigidbody>();
+
+				if (_rigid == null)
+					_rigid = Undo.AddComponent<Rigidbody>(target);
+
+				/*
+				 * Selection brushes are the old way of selecting things in MultiGame. If you would like, you can uncomment this code,
+				 * and MultiGame will create a selection brush so that your players can paint selection into the world, 
+				 * instead of using the banding-box functionality similar to most RTS games. If you do, remember to disable
+				 * banding-boxes in the MouseCommander component settings.
+				
 				GameObject _brush = new GameObject("Selection Brush");
 				GameObject _child = GameObject.CreatePrimitive(PrimitiveType.Sphere);
 				_child.transform.SetParent(_brush.transform);
@@ -1101,7 +1125,7 @@ namespace MultiGame {
 				_toggle.reverse = true;
 				_zone.messageToEnteringEntity = new MessageManager.ManagedMessage(null, "Select");
 				_zone.messageToEnteringEntity.msgOverride = true;
-				_child.SetActive(false);
+				_child.SetActive(false);*/
 				SmartRenameTarget("RTS Commander");
 
 			}

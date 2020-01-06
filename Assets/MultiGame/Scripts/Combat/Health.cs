@@ -92,6 +92,8 @@ namespace MultiGame {
 					hp = PlayerPrefs.GetFloat ("Health" + autoSaveKey);
 			if (healthGoneMessage.target == null)
 				healthGoneMessage.target = gameObject;
+			if (hitMessage.target == null)
+				hitMessage.target = gameObject;
 			UpdateArmor();
 		}
 

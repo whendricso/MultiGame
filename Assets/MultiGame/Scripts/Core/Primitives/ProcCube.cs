@@ -15,15 +15,15 @@ namespace MultiGame {
 		public float length = 1f;
 		public float height = 1f;
 
-		//public bool handles = false;
+		public bool lockEditing = false;
 
 		public Vector3 uvScale = Vector3.one;
 		public Vector3 uvOffset = Vector3.zero;
 
-		/*Vector3 corner0 = Vector3.zero;
+		Vector3 corner0 = Vector3.zero;
 		Vector3 corner0Previous = Vector3.zero;
 		Vector3 corner1 = Vector3.zero;
-		Vector3 corner1Previous = Vector3.zero;*/
+		Vector3 corner1Previous = Vector3.zero;
 
 		public HelpInfo help = new HelpInfo ("ProcCube is a powerful tool for object and level design. It allows you to make boxes of any given proportion, and properly changes the UV coordinates so that your " +
 			"textures don't stretch like they do with a normal Unity cube. To use, simply add this to an empty transform (or create it with a Rapid Dev Toolbar button)");
@@ -36,6 +36,7 @@ namespace MultiGame {
 				rebuildMesh = true;
 				refreshMesh = false;
 			}
+
 		}
 
 		void Reset () {
@@ -69,37 +70,42 @@ namespace MultiGame {
 			}
 		}
 
-		/*
+		
 		Vector3 translateDelta0 = Vector3.zero;
 		Vector3 translateDelta1 = Vector3.zero;
-		private void OnDrawGizmos() {
-			if (corner1 == corner0 || !handles)//corners undefined, wait until a frame when they are.
+		private void OnDrawGizmosSelected() {
+			if (lockEditing)
+				return;
+			if (corner0 == corner1)
 				return;
 
-			float size0 = HandleUtility.GetHandleSize(corner0) * 0.1f;
-			float size1 = HandleUtility.GetHandleSize(corner1) * 0.1f;
+			translateDelta0 = Vector3.zero;
+			translateDelta1 = Vector3.zero;
+
+			bool _mod = false;//key modifier held?
+
+			if (Input.GetKey(KeyCode.LeftShift))
+				_mod = true;
+
+			if (Input.GetKey(KeyCode.Z)) {
+
+			}
+
 			Vector3 snap = Vector3.one * 0.01f;
 
-			EditorGUI.BeginChangeCheck();
+			float xDelta = (translateDelta0.x - corner0Previous.x) + (translateDelta1.x - corner1Previous.x);
+			float yDelta = (translateDelta0.y - corner0Previous.y) + (translateDelta1.y - corner1Previous.y);
+			float zDelta = (translateDelta0.z - corner0Previous.z) + (translateDelta1.z - corner1Previous.z);
 
-			translateDelta0 = Handles.FreeMoveHandle(transform.TransformPoint(corner0), Quaternion.identity, size0, snap, Handles.RectangleHandleCap);
-			translateDelta1 = Handles.FreeMoveHandle(transform.TransformPoint(corner1), Quaternion.identity, size1, snap, Handles.RectangleHandleCap);
-
-			if (EditorGUI.EndChangeCheck()) {
-				float xDelta = (translateDelta0.x - corner0Previous.x) + (translateDelta1.x - corner1Previous.x);
-				float yDelta = (translateDelta0.y - corner0Previous.y) + (translateDelta1.y - corner1Previous.y);
-				float zDelta = (translateDelta0.z - corner0Previous.z) + (translateDelta1.z - corner1Previous.z);
-
-				transform.Translate(new Vector3(.5f * xDelta, .5f * yDelta, .5f * zDelta));
-				width += xDelta;
-				height += yDelta;
-				length += zDelta;
-			}
+			transform.Translate(new Vector3(.5f * xDelta, .5f * yDelta, .5f * zDelta));
+			width += xDelta;
+			height += yDelta;
+			length += zDelta;
 
 			corner0Previous = corner0;
 			corner1Previous = corner1;
 		}
-		*/
+		
 		void BuildCube () {
 			if (mesh == null)
 				AcquireMesh ();
@@ -138,6 +144,11 @@ namespace MultiGame {
 				// Top
 				p7, p6, p5, p4
 			};
+			#endregion
+
+			#region handles
+			corner0 = transform.TransformPoint(p3);
+			corner1 = transform.TransformPoint(p5);
 			#endregion
 
 			#region normals

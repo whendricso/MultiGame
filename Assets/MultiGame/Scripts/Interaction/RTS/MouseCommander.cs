@@ -121,7 +121,8 @@ namespace MultiGame {
 			public Vector3 offset;
 			[Tooltip("What icon represents this deployable?")]
 			public Texture2D icon;
-			[Tooltip("How many do we start with available?")]
+			//[Tooltip("How many do we start with available?")]
+			[System.NonSerialized]//causes a  bug if we allow the user to change it
 			public int quantity = 0;
 			[Tooltip("How many can we have at maximum?")]
 			public int maxQuantity = 0;

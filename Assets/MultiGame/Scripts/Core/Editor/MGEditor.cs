@@ -126,7 +126,7 @@ namespace MultiGame {
 			try {
 				sceneTransform = SceneView.lastActiveSceneView.camera.transform;
 			} catch {
-				Debug.LogWarning("Scene view inactive");
+				Debug.LogWarning("Scene view inactive, MultiGame cannot resolve a target for Toolbar action.");
 				return;
 			}
 			if (Selection.activeGameObject == null) {
