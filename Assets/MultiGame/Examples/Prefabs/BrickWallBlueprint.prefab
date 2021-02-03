@@ -100,8 +100,11 @@ MonoBehaviour:
   width: 1.86
   length: 0.07
   height: 1.16
+  lockEditing: 0
   uvScale: {x: 1, y: 1, z: 1}
   uvOffset: {x: 0, y: 0, z: 0}
+  corner0: {x: -0.5, y: -0.5, z: -0.5}
+  corner1: {x: 0.5, y: 0.5, z: 0.5}
   help:
     showInfo: 0
     helpText: ProcCube is a powerful tool for object and level design. It allows
@@ -224,8 +227,11 @@ MonoBehaviour:
   width: 0.45
   length: 0.21
   height: 0.18
+  lockEditing: 0
   uvScale: {x: 10, y: 10, z: 10}
   uvOffset: {x: 0, y: 0, z: -0.2}
+  corner0: {x: -0.5, y: -0.5, z: -0.5}
+  corner1: {x: 0.5, y: 0.5, z: 0.5}
   help:
     showInfo: 0
     helpText: ProcCube is a powerful tool for object and level design. It allows
@@ -347,8 +353,11 @@ MonoBehaviour:
   width: 0.38
   length: 0.38
   height: 1.3
+  lockEditing: 0
   uvScale: {x: 1, y: 1, z: 1}
   uvOffset: {x: 0, y: 0, z: 0}
+  corner0: {x: -0.5, y: -0.5, z: -0.5}
+  corner1: {x: 0.5, y: 0.5, z: 0.5}
   help:
     showInfo: 0
     helpText: ProcCube is a powerful tool for object and level design. It allows
@@ -457,8 +466,11 @@ MonoBehaviour:
   width: 0.45
   length: 0.21
   height: 0.18
+  lockEditing: 0
   uvScale: {x: 1, y: 1, z: 1}
   uvOffset: {x: 0, y: 0, z: 0}
+  corner0: {x: -0.5, y: -0.5, z: -0.5}
+  corner1: {x: 0.5, y: 0.5, z: 0.5}
   help:
     showInfo: 0
     helpText: ProcCube is a powerful tool for object and level design. It allows
@@ -581,8 +593,11 @@ MonoBehaviour:
   width: 0.45
   length: 0.21
   height: 0.18
+  lockEditing: 0
   uvScale: {x: 1, y: 1, z: 1}
   uvOffset: {x: 0, y: 0, z: 0}
+  corner0: {x: -0.5, y: -0.5, z: -0.5}
+  corner1: {x: 0.5, y: 0.5, z: 0.5}
   help:
     showInfo: 0
     helpText: ProcCube is a powerful tool for object and level design. It allows
@@ -705,8 +720,11 @@ MonoBehaviour:
   width: 0.45
   length: 0.21
   height: 0.18
+  lockEditing: 0
   uvScale: {x: 1, y: 1, z: 1}
   uvOffset: {x: 0, y: 0, z: 0}
+  corner0: {x: -0.5, y: -0.5, z: -0.5}
+  corner1: {x: 0.5, y: 0.5, z: 0.5}
   help:
     showInfo: 0
     helpText: ProcCube is a powerful tool for object and level design. It allows
@@ -829,8 +847,11 @@ MonoBehaviour:
   width: 0.45
   length: 0.21
   height: 0.18
+  lockEditing: 0
   uvScale: {x: 1, y: 1, z: 1}
   uvOffset: {x: 0, y: 0, z: 0}
+  corner0: {x: -0.5, y: -0.5, z: -0.5}
+  corner1: {x: 0.5, y: 0.5, z: 0.5}
   help:
     showInfo: 0
     helpText: ProcCube is a powerful tool for object and level design. It allows
@@ -953,8 +974,11 @@ MonoBehaviour:
   width: 0.45
   length: 0.21
   height: 0.18
+  lockEditing: 0
   uvScale: {x: 1, y: 1, z: 1}
   uvOffset: {x: 0, y: 0, z: 0}
+  corner0: {x: -0.5, y: -0.5, z: -0.5}
+  corner1: {x: 0.5, y: 0.5, z: 0.5}
   help:
     showInfo: 0
     helpText: ProcCube is a powerful tool for object and level design. It allows
@@ -1077,8 +1101,11 @@ MonoBehaviour:
   width: 0.45
   length: 0.21
   height: 0.18
+  lockEditing: 0
   uvScale: {x: 1, y: 1, z: 1}
   uvOffset: {x: 0, y: 0, z: 0}
+  corner0: {x: -0.5, y: -0.5, z: -0.5}
+  corner1: {x: 0.5, y: 0.5, z: 0.5}
   help:
     showInfo: 0
     helpText: ProcCube is a powerful tool for object and level design. It allows
@@ -1201,8 +1228,11 @@ MonoBehaviour:
   width: 0.45
   length: 0.21
   height: 0.18
+  lockEditing: 0
   uvScale: {x: 1, y: 1, z: 1}
   uvOffset: {x: 0, y: 0, z: 0}
+  corner0: {x: -0.5, y: -0.5, z: -0.5}
+  corner1: {x: 0.5, y: 0.5, z: 0.5}
   help:
     showInfo: 0
     helpText: ProcCube is a powerful tool for object and level design. It allows
@@ -1325,8 +1355,11 @@ MonoBehaviour:
   width: 0.45
   length: 0.21
   height: 0.18
+  lockEditing: 0
   uvScale: {x: 1, y: 1, z: 1}
   uvOffset: {x: 0, y: 0, z: 0}
+  corner0: {x: -0.5, y: -0.5, z: -0.5}
+  corner1: {x: 0.5, y: 0.5, z: 0.5}
   help:
     showInfo: 0
     helpText: ProcCube is a powerful tool for object and level design. It allows
@@ -1449,8 +1482,11 @@ MonoBehaviour:
   width: 0.45
   length: 0.21
   height: 0.18
+  lockEditing: 0
   uvScale: {x: 1, y: 1, z: 1}
   uvOffset: {x: 0, y: 0, z: 0}
+  corner0: {x: -0.5, y: -0.5, z: -0.5}
+  corner1: {x: 0.5, y: 0.5, z: 0.5}
   help:
     showInfo: 0
     helpText: ProcCube is a powerful tool for object and level design. It allows
@@ -1573,8 +1609,11 @@ MonoBehaviour:
   width: 0.45
   length: 0.21
   height: 0.18
+  lockEditing: 0
   uvScale: {x: 1, y: 1, z: 1}
   uvOffset: {x: 0, y: 0, z: 0}
+  corner0: {x: -0.5, y: -0.5, z: -0.5}
+  corner1: {x: 0.5, y: 0.5, z: 0.5}
   help:
     showInfo: 0
     helpText: ProcCube is a powerful tool for object and level design. It allows
@@ -1697,8 +1736,11 @@ MonoBehaviour:
   width: 0.45
   length: 0.21
   height: 0.18
+  lockEditing: 0
   uvScale: {x: 1, y: 1, z: 1}
   uvOffset: {x: 0, y: 0, z: 0}
+  corner0: {x: -0.5, y: -0.5, z: -0.5}
+  corner1: {x: 0.5, y: 0.5, z: 0.5}
   help:
     showInfo: 0
     helpText: ProcCube is a powerful tool for object and level design. It allows
@@ -1821,8 +1863,11 @@ MonoBehaviour:
   width: 0.45
   length: 0.21
   height: 0.18
+  lockEditing: 0
   uvScale: {x: 1, y: 1, z: 1}
   uvOffset: {x: 0, y: 0, z: 0}
+  corner0: {x: -0.5, y: -0.5, z: -0.5}
+  corner1: {x: 0.5, y: 0.5, z: 0.5}
   help:
     showInfo: 0
     helpText: ProcCube is a powerful tool for object and level design. It allows
@@ -1945,8 +1990,11 @@ MonoBehaviour:
   width: 0.45
   length: 0.21
   height: 0.18
+  lockEditing: 0
   uvScale: {x: 1, y: 1, z: 1}
   uvOffset: {x: 0, y: 0, z: 0}
+  corner0: {x: -0.5, y: -0.5, z: -0.5}
+  corner1: {x: 0.5, y: 0.5, z: 0.5}
   help:
     showInfo: 0
     helpText: ProcCube is a powerful tool for object and level design. It allows
@@ -2069,8 +2117,11 @@ MonoBehaviour:
   width: 0.45
   length: 0.21
   height: 0.18
+  lockEditing: 0
   uvScale: {x: 1, y: 1, z: 1}
   uvOffset: {x: 0, y: 0, z: 0}
+  corner0: {x: -0.5, y: -0.5, z: -0.5}
+  corner1: {x: 0.5, y: 0.5, z: 0.5}
   help:
     showInfo: 0
     helpText: ProcCube is a powerful tool for object and level design. It allows
@@ -2193,8 +2244,11 @@ MonoBehaviour:
   width: 0.45
   length: 0.21
   height: 0.18
+  lockEditing: 0
   uvScale: {x: 1, y: 1, z: 1}
   uvOffset: {x: 0, y: 0, z: 0}
+  corner0: {x: -0.5, y: -0.5, z: -0.5}
+  corner1: {x: 0.5, y: 0.5, z: 0.5}
   help:
     showInfo: 0
     helpText: ProcCube is a powerful tool for object and level design. It allows
@@ -2317,8 +2371,11 @@ MonoBehaviour:
   width: 0.45
   length: 0.21
   height: 0.18
+  lockEditing: 0
   uvScale: {x: 1, y: 1, z: 1}
   uvOffset: {x: 0, y: 0, z: 0}
+  corner0: {x: -0.5, y: -0.5, z: -0.5}
+  corner1: {x: 0.5, y: 0.5, z: 0.5}
   help:
     showInfo: 0
     helpText: ProcCube is a powerful tool for object and level design. It allows
@@ -2360,6 +2417,7 @@ GameObject:
   - component: {fileID: 4601387717007708501}
   - component: {fileID: 4093609479166778290}
   - component: {fileID: 6655321173264512749}
+  - component: {fileID: -659557427947302713}
   m_Layer: 2
   m_Name: BrickWallBlueprint
   m_TagString: Untagged
@@ -2858,6 +2916,84 @@ MonoBehaviour:
       placement, spellcasting, or creating a light around the cursor in dimly-lit
       game areas.
     videoLink: 
+--- !u!114 &-659557427947302713
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114543488380747600}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 247b8f498f07e604cbd4b468c104adf8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: 119
+  button: 
+  keyDownMessage:
+    target: {fileID: 0}
+    message: Destruct
+    msgOverride: 1
+    messageIndex: 4
+    possibleMessages:
+    - DisablePhysics
+    - EnablePhysics
+    - SwapPhysics
+    - Destruct
+    - Spawn
+    - SpawnAsChild
+    - StartSequence
+    - Interrupt
+    - InterruptAll
+    isDirty: 0
+    sendMessageType: 0
+    parameter: 
+    parameterMode: 0
+  keyHeldMessage:
+    target: {fileID: 0}
+    message: --none--
+    msgOverride: 1
+    messageIndex: 0
+    possibleMessages:
+    - DisablePhysics
+    - EnablePhysics
+    - SwapPhysics
+    - Destruct
+    - Spawn
+    - SpawnAsChild
+    - StartSequence
+    - Interrupt
+    - InterruptAll
+    isDirty: 0
+    sendMessageType: 0
+    parameter: 
+    parameterMode: 0
+  keyUpMessage:
+    target: {fileID: 0}
+    message: --none--
+    msgOverride: 1
+    messageIndex: 0
+    possibleMessages:
+    - DisablePhysics
+    - EnablePhysics
+    - SwapPhysics
+    - Destruct
+    - Spawn
+    - SpawnAsChild
+    - StartSequence
+    - Interrupt
+    - InterruptAll
+    isDirty: 0
+    sendMessageType: 0
+    parameter: 
+    parameterMode: 0
+  target: {fileID: 0}
+  debug: 0
+  help:
+    showInfo: 0
+    helpText: This component sends messages based on the state of a key or button.
+      Buttons are defined in (Edit -> Project Settings -> Input)
+    videoLink: 
 --- !u!1 &8114543488491613965
 GameObject:
   m_ObjectHideFlags: 0
@@ -2958,8 +3094,11 @@ MonoBehaviour:
   width: 0.45
   length: 0.21
   height: 0.18
+  lockEditing: 0
   uvScale: {x: 1, y: 1, z: 1}
   uvOffset: {x: 0, y: 0, z: 0}
+  corner0: {x: -0.5, y: -0.5, z: -0.5}
+  corner1: {x: 0.5, y: 0.5, z: 0.5}
   help:
     showInfo: 0
     helpText: ProcCube is a powerful tool for object and level design. It allows
@@ -3082,8 +3221,11 @@ MonoBehaviour:
   width: 0.45
   length: 0.21
   height: 0.18
+  lockEditing: 0
   uvScale: {x: 1, y: 1, z: 1}
   uvOffset: {x: 0, y: 0, z: 0}
+  corner0: {x: -0.5, y: -0.5, z: -0.5}
+  corner1: {x: 0.5, y: 0.5, z: 0.5}
   help:
     showInfo: 0
     helpText: ProcCube is a powerful tool for object and level design. It allows
@@ -3206,8 +3348,11 @@ MonoBehaviour:
   width: 0.45
   length: 0.21
   height: 0.18
+  lockEditing: 0
   uvScale: {x: 1, y: 1, z: 1}
   uvOffset: {x: 0, y: 0, z: 0}
+  corner0: {x: -0.5, y: -0.5, z: -0.5}
+  corner1: {x: 0.5, y: 0.5, z: 0.5}
   help:
     showInfo: 0
     helpText: ProcCube is a powerful tool for object and level design. It allows
@@ -3330,8 +3475,11 @@ MonoBehaviour:
   width: 0.45
   length: 0.21
   height: 0.18
+  lockEditing: 0
   uvScale: {x: 1, y: 1, z: 1}
   uvOffset: {x: 0, y: 0, z: 0}
+  corner0: {x: -0.5, y: -0.5, z: -0.5}
+  corner1: {x: 0.5, y: 0.5, z: 0.5}
   help:
     showInfo: 0
     helpText: ProcCube is a powerful tool for object and level design. It allows
@@ -3454,8 +3602,11 @@ MonoBehaviour:
   width: 0.45
   length: 0.21
   height: 0.18
+  lockEditing: 0
   uvScale: {x: 1, y: 1, z: 1}
   uvOffset: {x: 0, y: 0, z: 0}
+  corner0: {x: -0.5, y: -0.5, z: -0.5}
+  corner1: {x: 0.5, y: 0.5, z: 0.5}
   help:
     showInfo: 0
     helpText: ProcCube is a powerful tool for object and level design. It allows
@@ -3578,8 +3729,11 @@ MonoBehaviour:
   width: 0.45
   length: 0.21
   height: 0.18
+  lockEditing: 0
   uvScale: {x: 1, y: 1, z: 1}
   uvOffset: {x: 0, y: 0, z: 0}
+  corner0: {x: -0.5, y: -0.5, z: -0.5}
+  corner1: {x: 0.5, y: 0.5, z: 0.5}
   help:
     showInfo: 0
     helpText: ProcCube is a powerful tool for object and level design. It allows
@@ -3702,8 +3856,11 @@ MonoBehaviour:
   width: 0.45
   length: 0.21
   height: 0.18
+  lockEditing: 0
   uvScale: {x: 1, y: 1, z: 1}
   uvOffset: {x: 0, y: 0, z: 0}
+  corner0: {x: -0.5, y: -0.5, z: -0.5}
+  corner1: {x: 0.5, y: 0.5, z: 0.5}
   help:
     showInfo: 0
     helpText: ProcCube is a powerful tool for object and level design. It allows

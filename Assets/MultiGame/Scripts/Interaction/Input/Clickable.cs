@@ -39,6 +39,8 @@ namespace MultiGame {
 		}
 
 		void ClickMessage () {
+			if (!enabled)
+				return;
 			if (modifier != KeyCode.None && !Input.GetKey(modifier)) {
 				if (debug)
 					Debug.Log("Click discarded");

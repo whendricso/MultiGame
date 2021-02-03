@@ -65,5 +65,17 @@ namespace MultiGame {
 		public void SpinImpetusZ(float _impetus) {
 			impetus.z = _impetus;
 		}
+		public MessageHelp rotateXByHelp = new MessageHelp("RotateXBy", "Rotates the object on the X axis once",3,"How much should we rotate?");
+		public void RotateXBy(float _impetus) {
+			transform.Rotate(space == Space.Self ? transform.right : Vector3.right, _impetus);
+		}
+		public MessageHelp rotateYByHelp = new MessageHelp("RotateYBy", "Rotates the object on the Y axis once",3,"How much should we rotate?");
+		public void RotateYBy(float _impetus) {
+			transform.Rotate(space == Space.Self ? transform.up : Vector3.up, _impetus);
+		}
+		public MessageHelp rotateZByHelp = new MessageHelp("RotateZBy", "Rotates the object on the Z axis once",3,"How much should we rotate?");
+		public void RotateZBy(float _impetus) {
+			transform.Rotate(space == Space.Self ? transform.forward : Vector3.forward, _impetus);
+		}
 	}
 }

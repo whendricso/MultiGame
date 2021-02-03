@@ -134,4 +134,4 @@ namespace MultiGame
 		}
 	}
 }
-//MultiGame is Copyright William Hendrickson and Tech Drone, all rights reserved.
+//MultiGame is Copyright William Hendrickson and Tech Drone LLC, all rights reserved.

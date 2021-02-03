@@ -40,16 +40,5 @@ namespace MultiGame {
 				enabled = false;
 			}
 		}
-
-		public void RandomizeMaterials() {
-			if (!enabled)
-				return;
-
-			
-		}
-
-		public void ResetMaterials() {
-
-		}
 	}
 }

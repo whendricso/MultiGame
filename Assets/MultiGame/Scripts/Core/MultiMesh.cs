@@ -48,11 +48,11 @@ namespace MultiGame {
 
 		protected virtual IEnumerator AddColl () {//Coroutine allows sending of Unity internal messages, preventing an error
 
-			yield return new WaitForSeconds (.001f);
 		#if UNITY_EDITOR
 			coll = Undo.AddComponent<MeshCollider>(gameObject);
 			coll.convex = true;
 		#endif
+			yield return new WaitForSeconds (.001f);
 		}
 
 		protected virtual IEnumerator GenerateLightmapUVs() {

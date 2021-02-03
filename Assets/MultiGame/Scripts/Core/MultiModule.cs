@@ -142,6 +142,37 @@ namespace MultiGame {
 			return _ret;
 		}
 
+		/// <summary>
+		/// Get the closest transform in a heirarchy from a given position by tag
+		/// </summary>
+		/// <param name="_transform">The top transform in the heirarchy we want to check</param>
+		/// <param name="_position">The position we're comparing distance to</param>
+		/// <param name="_tag">The tag of the object we're looking for</param>
+		/// <returns></returns>
+		public GameObject FindClosestToPositionInHeirarchyByTag(Transform _transform, Vector3 _position, string _tag, float _maxDistance, bool _cullNonEmpty = true) {
+			GameObject _ret = null;
+			float _distance = _maxDistance;
+			float _distChk = 0;
+			List<Transform> _transforms = new List<Transform>(_transform.gameObject.GetComponentsInChildren<Transform>());
+			List<Transform> _taggedTransforms = new List<Transform>();
+			foreach (Transform _trans in _transforms) {
+				if (_trans.tag == _tag && (_cullNonEmpty ? (_trans.childCount < 1) : true))
+					_taggedTransforms.Add(_trans);
+			}
+			if (_taggedTransforms.Count > 0) {
+				foreach (Transform _trans in _taggedTransforms) {
+					if (_trans.gameObject.activeInHierarchy) {
+						_distChk = Vector3.Distance(_trans.position, _position);
+						if (_distChk < _distance) {
+							_distance = _distChk;
+							_ret = _trans.gameObject;
+						}
+					}
+				}
+			}
+			return _ret;
+		}
+
 		public Vector3 FindCenterOfImage(GameObject _target) {
 			Vector3 _ret = Vector3.zero;
 			int i = 0;

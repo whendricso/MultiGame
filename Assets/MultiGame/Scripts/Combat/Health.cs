@@ -95,6 +95,7 @@ namespace MultiGame {
 			if (hitMessage.target == null)
 				hitMessage.target = gameObject;
 			UpdateArmor();
+			
 		}
 
 		void UpdateArmor() {

@@ -399,7 +399,7 @@ namespace MultiGame {
 					EditorGUILayout.LabelField("\\/ More \\/");
 				}
 			} catch (System.Exception _ex){
-				Debug.Log("MultiGame Toolbar died with exception " + _ex);
+				Debug.Log("MultiGame Toolbar suspended a frame with exception " + _ex);
 				//do nothing, thus suppressing the Unity IMGUI "getting control position blah" bug that never seems to get fixed
 			}
 		}
@@ -1019,6 +1019,11 @@ namespace MultiGame {
 				/*CharacterOmnicontroller control = */Undo.AddComponent<CharacterOmnicontroller>(target);
 				if ( target.tag == "Untagged")
 					target.tag = "Player";
+
+				CharacterController _controller = target.GetComponent<CharacterController>();
+				if (_controller != null)
+					_controller.center = Vector3.up;
+
 //				CharacterInputAnimator _input = Undo.AddComponent<CharacterInputAnimator>(target);
 //				Animator _anim = target.GetComponentInChildren<Animator>();
 //				if (_anim == null)

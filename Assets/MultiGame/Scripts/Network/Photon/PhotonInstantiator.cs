@@ -34,6 +34,7 @@ namespace MultiGame {
 				Debug.LogError ("Room is null");
 				return;
 			}
+
 			if (!asSceneObject)
 				spawnedEntity = PhotonNetwork.Instantiate(prefabResourceName, transform.position + spawnOffset, transform.rotation, 0);
 			else

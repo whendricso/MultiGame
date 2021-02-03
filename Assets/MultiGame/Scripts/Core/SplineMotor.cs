@@ -12,6 +12,7 @@ namespace MultiGame {
 		public bool running = true;
 		[Tooltip("Should the object face the direction of motion automatically?")]
 		public bool lookForward = true;
+		public bool destroyOnSplineLoss = true;
 
 		[Tooltip("Should we move along the spline only once, or should we keep going somehow?")]
 		public SplineMotorMode mode = SplineMotorMode.Once;
@@ -47,6 +48,12 @@ namespace MultiGame {
 		}
 
 		private void Update () {
+			if (destroyOnSplineLoss && spline == null)
+				Destroy(gameObject);
+			if (spline == null) {
+				MessageManager.Send(endOfPathMessage);
+				return;
+			}
 			if (!running)
 				return;
 			duration = Mathf.Abs (duration);

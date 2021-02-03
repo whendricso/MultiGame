@@ -4,8 +4,9 @@
 Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_Name: Orange
   m_Shader: {fileID: 4800000, guid: e4c4a260fecb4d645a8e494bfb356ca8, type: 3}
   m_ShaderKeywords: _EMISSION
@@ -61,7 +62,7 @@ Material:
     - _DstBlend: 0
     - _EmissionScaleUI: 0
     - _GlossMapScale: 1
-    - _Glossiness: 0.05
+    - _Glossiness: 0
     - _GlossyReflections: 1
     - _Metallic: 0.03
     - _Mode: 0

@@ -12,12 +12,15 @@ namespace MultiGame {
 		[Tooltip("How fast in local space?")]
 		public Vector3 localImpetus = Vector3.zero;
 		public bool reverseOnCollision = false;
+		public bool reverseOnTrigger = false;
 		[Tooltip("Should the object move by default?")]
 		public bool running = true;
 
 		public HelpInfo help = new HelpInfo("This component is similar to the ConstantForce component, except it works on non-rigidbodies instead. To use, add to any object that you would like to move and input the global or local " +
 			"motion you would like. For example, you could add this and a 'Billboard' component to an enemy, and set the Local Impetus' Z value to the speed you wish the enemy to move. The enemy will then fly through the air " +
 			"towards the camera automatically.");
+
+		public bool debug = true;
 
 		void Update () {
 			if (running) {
@@ -27,7 +30,17 @@ namespace MultiGame {
 		}
 
 		private void OnCollisionEnter(Collision collision) {
+			if (debug)
+				Debug.Log("SimpleMotor " + gameObject.name + " triggered on " + collision.transform.name);
 			if (reverseOnCollision) {
+				Reverse();
+			}
+		}
+
+		private void OnTriggerEnter(Collider other) {
+			if (debug)
+				Debug.Log("SimpleMotor " + gameObject.name + " triggered on " + other.name);
+			if (reverseOnTrigger) {
 				Reverse();
 			}
 		}

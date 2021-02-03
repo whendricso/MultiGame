@@ -96,7 +96,7 @@ namespace MultiGame {
 			for (int i = 0; i < actions.Count; i++) {
 				GUILayout.BeginVertical();
 
-				if ((actions[i].maxCharges > 0 && actions[i].charges > 0) || actions[i].remainingCooldown <= 0) {
+				if (((actions[i].maxCharges > 0 && actions[i].charges > 0) || actions[i].remainingCooldown <= 0) && actions[i].enabled) {
 					GUI.color = Color.white;
 					currentActionActive = true;
 				} else {
@@ -199,6 +199,33 @@ namespace MultiGame {
 				Instantiate(_action.spawnable, instantiationTransform.transform.position, instantiationTransform.transform.rotation);
 			if (source != null && _action.actionSound != null)
 				source.PlayOneShot(_action.actionSound);
+		}
+
+		public MessageHelp enableActionHelp = new MessageHelp("EnableAction", "Enables a Hotbar action so that the player can use it",2,"The action, by index, we want to enable");
+		public void EnableAction(int _selector) {
+			actions[_selector].enabled = true;
+		}
+
+		public MessageHelp disableActionHelp = new MessageHelp("DisableAction", "Disables a Hotbar action so that the player can't use it", 2, "The action, by index, we want to disable");
+		public void DisableAction(int _selector) {
+			actions[_selector].enabled = false;
+		}
+
+		public MessageHelp purgeActionHelp = new MessageHelp("PurgeActionCharges","Instantly remove all charges from an action and set it's cooldown to the max",2,"The action, by index, we want to purge");
+		public void PurgeActionCharges(int _selector) {
+			actions[_selector].charges = 0;
+			actions[_selector].remainingCooldown = actions[_selector].cooldown;
+		}
+
+		public MessageHelp selectActionHelp = new MessageHelp("SelectAction","Allows an action to be selected so that it's cooldown can be set with 'SetSelectedCooldown'",2,"The action, by index, we want to select");
+		int selectedAction = 0;
+		public void SelectAction(int _selector) {
+			selectedAction = _selector;
+		}
+
+		public MessageHelp setSelectedCooldownHelp = new MessageHelp("SetSelectedCooldown","Allows us to manually set the cooldown for a previously selected action. Default is the first action. use 'SelectAction' to select a different index",2,"The time in seconds we want the ability to cooldown for.");
+		public void SetSelectedCooldown(float _cooldown) {
+			actions[selectedAction].cooldown = _cooldown;
 		}
 
 		public MessageHelp addChargeHelp = new MessageHelp("AddCharge","Adds a charge to the selected action, or refreshes it's cooldown instantly.",2, "The index of the action we wish to recharge. These are zero-indexed, so the first Action in the list is 0, the second is 1 and so forth.");

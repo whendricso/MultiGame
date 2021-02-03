@@ -17,10 +17,9 @@ namespace MultiGame {
 		public string targetTag = "MainCamera";
 		[Tooltip("If not instant, what is our turning speed?")]
 		public float speed = 6.0f;
-
-		[Tooltip("If this is a sprite, is it facing the right side of the screen?")]
-		public bool spritesFaceRight = true;
-		public bool spriteFlip = false;
+		[Tooltip("Should the sprite flip directions left & right automatically depending on the facing of the object? Useful for characters.")]
+		public bool autoFlip = false;
+		[Tooltip("Toggle this if the sprite is flipping the wrong way.")]
 		public bool invert = false;
 
 		private List<Renderer> rends = new List<Renderer> ();
@@ -44,7 +43,7 @@ namespace MultiGame {
 				return;
 			}
 
-			if (spriteFlip)
+			if (autoFlip)
 				FlipSprite();
 
 			if (target != null) {
@@ -77,7 +76,7 @@ namespace MultiGame {
 			if (target == null)
 				return;
 			foreach (Renderer rend in rends) {
-				if (Vector3.Dot (transform.forward, spritesFaceRight ? transform.parent.TransformDirection (Vector3.left) : transform.parent.forward) < 0f) {
+				if (Vector3.Dot (transform.forward,transform.parent.TransformDirection (Vector3.left)) < 0f) {
 					rend.transform.localScale = new Vector3 ((originalScale.x * -1) * (invert ? 1 : -1), originalScale.y, originalScale.z);
 				} else {
 					rend.transform.localScale = new Vector3 (originalScale.x * (invert ? 1 : -1), originalScale.y, originalScale.z);

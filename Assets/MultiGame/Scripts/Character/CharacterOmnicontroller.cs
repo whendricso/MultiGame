@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using MultiGame;
 
 namespace MultiGame {
@@ -22,21 +23,39 @@ namespace MultiGame {
 		public bool autoTurn = false;
 		[Tooltip("Should this component rotate the character to face the mouse pointer using a raycast into the scene?")]
 		public bool rotateToPointer = false;
-
+		[Tooltip("Should the controller face in the direction of the movement stick? If true, the character will face one of 8 move directions instantly based on input (octodirectional), instead of turning (tank turning)")]
+		public bool octodirectional = false;
+		[Tooltip("For octodirectional movement, what is the input stick deadzone? This is also used for WASD movement, as Unity interprets this as stick input.")]
+		[Range(0,1)]
+		public float inputDeadzone = 0.2f;
+		[Tooltip("What key must be held to enable sprinting?")]
+		public KeyCode sprintKey = KeyCode.LeftShift;
+		[Tooltip("What is the UGUI Slider you would like to use to indicate stamina, if any?")]
+		public Slider staminaSlider;
 
 		[Header("Motion")]
 		[Tooltip("If true, will auto-parent to the object it stands on, for moving platform support.")]
 		public bool platformParent = true;
 		public ParentingModes parentingMode = ParentingModes.RootTransform;
-		[RequiredFieldAttribute("Moving forward, how fast can the character go at full sprint?")]
+		[RequiredFieldAttribute("Moving forward, how fast can the character go normally?")]
 		public float runSpeed = 7f;
+		[RequiredFieldAttribute("Moving forward, how fast can the character go at full sprint?")]
+		public float sprintSpeed = 11f;
+		[RequiredFieldAttribute("How long, in seconds, can the character sprint?")]
+		public float sprintStamina = 10f;
+		[RequiredFieldAttribute("When not sprinting, how quickly does the character's stamina recover?")]
+		public float staminaRecovery = 2f;
+		[RequiredField("What is the minimum amount of stamina we need to begin sprinting?")]
+		public float minimumStamina = 2f;
 		[RequiredFieldAttribute("How fast are we able to move sideways?")]
 		public float strafeSpeed = 4.5f;
 		[RequiredFieldAttribute("How fast can we move backwards?")]
 		public float backpedalSpeed = 3f;
 		[RequiredFieldAttribute("When rotating based on direction, how fast can we spin (in degrees per second)?")]
 		public float autoTurnSpeed = 8f;
+		[Tooltip("Maximum forward/backward speed even when airborne")]
 		public float maxZVelocity = 10f;
+		[Tooltip("Maximum left/right speed even when airborne")]
 		public float maxXVelocity = 10f;
 		[RequiredFieldAttribute("How close do we stop when chasing the pointer?")]
 		public float deadzone = 1.24f;
@@ -52,6 +71,8 @@ namespace MultiGame {
 		[Header("Animation")]
 		[RequiredFieldAttribute("Name of a floating-point value in the attached Animator, if any. Sends the Vertical axis.", RequiredFieldAttribute.RequirementLevels.Recommended)]
 		public string animatorRun = "Run";
+		[RequiredField("Name of a boolean value in the attached animator, if any. Indicates the state of character sprinting.",RequiredFieldAttribute.RequirementLevels.Recommended)]
+		public string animatorSprint = "Sprint";
 		[RequiredFieldAttribute("Name of a floating-point value in the attached Animator, if any. Sends the Horizontal axis", RequiredFieldAttribute.RequirementLevels.Recommended)]
 		public string animatorStrafe = "Strafe";
 		[RequiredFieldAttribute("Name of a trigger in the attached Animator, if any.", RequiredFieldAttribute.RequirementLevels.Recommended)]
@@ -110,6 +131,7 @@ namespace MultiGame {
 		[Header("Custom")]
 		[Tooltip("Custom input actions which respond to a key and/or button press. When activated, any supplied parameters for that CustomAction will be used and the rest ignored.")]
 		public List<CustomAction> customActions = new List<CustomAction>();
+
 
 		float totalDamage = 0;
 		float reach = 0;
@@ -178,9 +200,16 @@ namespace MultiGame {
 
 		List<MeleeWeapon> weapons = new List<MeleeWeapon>();
 
+		private float currentStamina = 0;
+		private bool sprinting = false;
+
 		float xSpd = 0;
 		float ySpd = 0;
 		float zSpd = 0;
+
+		int xDir = 0;
+		int zDir = 0;
+
 		Vector3 motionVector = new Vector3();
 
 		public HelpInfo help = new HelpInfo("Character Omnicontroller is an all-purpose player input controller which allows for various third person perspectives as well as first person " +
@@ -197,10 +226,10 @@ namespace MultiGame {
 			}
 		}
 
-
-		
-
 		void OnEnable () {
+
+			currentStamina = sprintStamina;
+
 			if (inventory == null)
 				inventory = GetComponentInChildren<Inventory>();
 			if (foleyAudio != null)
@@ -237,6 +266,10 @@ namespace MultiGame {
 				if (action.message.target == null)
 					action.message.target = gameObject;
 			}
+
+			if (Camera.main == null && octodirectional)
+				Debug.LogError("Character Omnicontroller " + gameObject.name + " requires a Main Camera in the scene for Octodirectional movement. Please make sure that your scene contains a camera tagged 'MainCamera'");
+
 		}
 
 		void FixedUpdate () {
@@ -244,6 +277,9 @@ namespace MultiGame {
 			stunDuration -= Time.deltaTime;
 
 			UpdateMeleeDamageValue();
+
+			if (staminaSlider != null)
+				staminaSlider.value = (currentStamina/sprintStamina);
 
 			if (stunDuration > 0) {
 				if (anim != null)
@@ -284,10 +320,22 @@ namespace MultiGame {
 			}
 		}
 
+		bool recovering = false;
+
 		/// <summary>
 		/// After everything else is processed, update and apply the motion vector
 		/// </summary>
 		void UpdateMotion() {
+			if (currentStamina > minimumStamina)
+				recovering = false;
+
+			sprinting = Input.GetKey(sprintKey) && !recovering;
+
+			if (currentStamina <= 0) {
+				sprinting = false;
+				recovering = true;
+			}
+
 			trueVelocity = transform.InverseTransformVector(controller.velocity);
 			if (anim != null) {
 				if (!string.IsNullOrEmpty(animatorRun)) {
@@ -300,10 +348,15 @@ namespace MultiGame {
 				}
 				if (!string.IsNullOrEmpty(animatorStrafe))
 					anim.SetFloat(animatorStrafe, Input.GetAxis("Horizontal"));
+				if (!string.IsNullOrEmpty(animatorSprint))
+					anim.SetBool(animatorSprint, sprinting);
+
 			}
 			if (Input.GetAxis("Vertical") > 0f) {
-				adjustedVertical = Input.GetAxis("Vertical") * runSpeed;
-					footFallCounter -= Time.deltaTime;
+				if (sprinting && !octodirectional)
+					currentStamina -= Time.deltaTime;
+				adjustedVertical = Input.GetAxis("Vertical") * ((sprinting) ? sprintSpeed : runSpeed);
+				footFallCounter -= Time.deltaTime;
 				if (foleyAudio != null && Input.GetAxis("Vertical") > minRunThreshold) {
 					if (footFallCounter < 0) {
 						footFallCounter = footstepInterval;
@@ -316,28 +369,68 @@ namespace MultiGame {
 			else
 				adjustedVertical = Input.GetAxis("Vertical") * backpedalSpeed;
 
+			if (octodirectional && sprinting)
+				adjustedVertical = Input.GetAxis("Vertical") * -sprintSpeed;
+
 			if (rotateToPointer || !autoTurn)
 				xSpd = Input.GetAxis("Horizontal") * strafeSpeed;
-			else
-				xSpd = 0;
+			else {
+				if (octodirectional)
+					xSpd = Input.GetAxis("Horizontal") * ((sprinting) ? sprintSpeed : runSpeed);
+			}
 			zSpd = adjustedVertical;
+
 			if (rotateToPointer) {
 				if (Vector3.Distance(transform.position, mouseHitPos) > deadzone)
 					motionVector.z = controller.isGrounded ? zSpd : (trueVelocity.z < maxZVelocity ? lastGroundVel.z + zSpd * airControlMultiplier : maxZVelocity);
 				else
 					motionVector.z = 0;
+			} else {
+				if (!octodirectional)
+					motionVector.z = controller.isGrounded ? zSpd : (trueVelocity.z < maxZVelocity ? lastGroundVel.z + zSpd * airControlMultiplier : maxZVelocity);
 			}
-			else
-				motionVector.z = controller.isGrounded ? zSpd : (trueVelocity.z < maxZVelocity ? lastGroundVel.z + zSpd * airControlMultiplier : maxZVelocity);
 
-			motionVector.x = controller.isGrounded ? xSpd : (trueVelocity.x < maxXVelocity ? lastGroundVel.x + xSpd * airControlMultiplier : maxXVelocity);
 			motionVector.y = ySpd;
+			if (!octodirectional)
+				motionVector.x = controller.isGrounded ? xSpd : (trueVelocity.x < maxXVelocity ? lastGroundVel.x + xSpd * airControlMultiplier : maxXVelocity);
+			else {
+				//motionVector.z = controller.isGrounded ? (xSpd + zSpd) * .5f : ((trueVelocity.z + trueVelocity.x) * .5f < (maxZVelocity + maxXVelocity) * .5f ? ((lastGroundVel.x + lastGroundVel.z) * .5f + (xSpd * airControlMultiplier + zSpd * airControlMultiplier) * .5f) : (maxXVelocity + maxZVelocity) * .5f);
+				//motionVector.x = 0;
+				motionVector.z = controller.isGrounded ? (Mathf.Abs(zSpd) > Mathf.Abs(xSpd) ? Mathf.Abs(zSpd) : Mathf.Abs(xSpd)) : (trueVelocity.z < maxZVelocity ? lastGroundVel.z + Mathf.Abs(zSpd) * airControlMultiplier : maxZVelocity);
+			}
+			if (!sprinting)
+				currentStamina += staminaRecovery * Time.deltaTime;
+			if (currentStamina > sprintStamina)
+				currentStamina = sprintStamina;
+
+			if (octodirectional) {
+				if (sprinting && (Mathf.Abs(Input.GetAxis("Horizontal")) > inputDeadzone || Mathf.Abs(Input.GetAxis("Vertical")) > inputDeadzone ))
+					currentStamina -= Time.deltaTime;
+			}
+
 			controller.Move(transform.TransformVector(motionVector * Time.fixedDeltaTime));//this is the only call to Move or SimpleMove
 		}
 
+		Vector3 octoRelativeIndex = Vector3.zero;
+
 		void UpdateRotation() {
+			if (Input.GetAxis("Horizontal") > inputDeadzone)
+				xDir = 1;
+			if (Input.GetAxis("Horizontal") < -inputDeadzone)
+				xDir = -1;
+			if (Input.GetAxis("Horizontal") < inputDeadzone && Input.GetAxis("Horizontal") > -inputDeadzone)
+				xDir = 0;
+
+			if (Input.GetAxis("Vertical") > inputDeadzone)
+				zDir = 1;
+			if (Input.GetAxis("Vertical") < -inputDeadzone)
+				zDir = -1;
+			if (Input.GetAxis("Vertical") < inputDeadzone && Input.GetAxis("Vertical") > -inputDeadzone)
+				zDir = 0;
+
 			if (!autoTurn)
-				return;
+					return;
+
 			if (rotateToPointer) {
 				mouseDidHit = Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hinfo, 1000f, walkRayMask);
 				if (mouseDidHit)
@@ -346,8 +439,34 @@ namespace MultiGame {
 					controller.transform.LookAt(new Vector3(mouseHitPos.x, transform.position.y, mouseHitPos.z));
 			}
 			else {
-				if (controller.isGrounded)
-					controller.transform.RotateAround(transform.position, Vector3.up, (autoTurnSpeed * Input.GetAxis("Horizontal")));
+				if (controller.isGrounded) {
+					if (octodirectional) {
+						if (xDir != 0 || zDir != 0) {
+							if (xDir == 0 && zDir == 1)
+								octoRelativeIndex = new Vector3(0, 0, 0);
+							if (xDir == 1 && zDir == 1)
+								octoRelativeIndex = new Vector3(0, 45, 0);
+							if (xDir == 1 && zDir == 0)
+								octoRelativeIndex = new Vector3(0, 90, 0);
+							if (xDir == 1 && zDir == -1)
+								octoRelativeIndex = new Vector3(0, 135, 0);
+							if (xDir == 0 && zDir == -1)
+								octoRelativeIndex = new Vector3(0, 180, 0);
+							if (xDir == -1 && zDir == -1)
+								octoRelativeIndex = new Vector3(0, 225, 0);
+							if (xDir == -1 && zDir == 0)
+								octoRelativeIndex = new Vector3(0, 270, 0);
+							if (xDir == -1 && zDir == 1)
+								octoRelativeIndex = new Vector3(0, 315, 0);
+
+							if (Camera.main != null) {
+								controller.transform.eulerAngles = (new Vector3(0, Camera.main.transform.eulerAngles.y + octoRelativeIndex.y, 0));
+							}
+
+						}
+					} else
+						controller.transform.RotateAround(transform.position, Vector3.up, (autoTurnSpeed * Input.GetAxis("Horizontal")));
+				}
 			}
 		}
 

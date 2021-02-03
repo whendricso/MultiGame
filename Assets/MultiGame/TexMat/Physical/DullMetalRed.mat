@@ -4,8 +4,9 @@
 Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_Name: DullMetalRed
   m_Shader: {fileID: 4800000, guid: e4c4a260fecb4d645a8e494bfb356ca8, type: 3}
   m_ShaderKeywords: 
@@ -72,5 +73,5 @@ Material:
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
-    - _Color: {r: 0.4705882, g: 0.17398134, b: 0.08658823, a: 1}
+    - _Color: {r: 0.45490196, g: 0.286144, b: 0.18823531, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}

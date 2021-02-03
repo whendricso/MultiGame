@@ -1,0 +1,308 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6985796703050275315
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6985796703050275314}
+  - component: {fileID: 2525126372959051023}
+  - component: {fileID: 2305663390972996348}
+  - component: {fileID: -998604325310775494}
+  - component: {fileID: 6937486351692647410}
+  m_Layer: 0
+  m_Name: RamdomPrize
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6985796703050275314
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6985796703050275315}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 29.07232, y: 20.118416, z: 55.352005}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 5993169178960846724}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2525126372959051023
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6985796703050275315}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1bd63d6d673646469484fe512bfac1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  poolObjects: 0
+  items:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  itemCounts: 010000000100000001000000
+  spawnOnStart: 1
+  help:
+    showInfo: 0
+    helpText: This component spawns objects, but with a limited quantity. To use,
+      supply a list of items, for each item supplying a corresponding count. So,
+      item #3 would have 6 availableif itemCounts #3 == 6. Each list must have exactly
+      the same size
+    videoLink: 
+  spawnRandomHelp:
+    showInfo: 0
+    messageName: SpawnRandom
+    helpText: Spawns a random item from the list of 'Items'.
+    argumentType: 0
+    argumentText: 
+  spawnItemHelp:
+    showInfo: 0
+    messageName: SpawnItem
+    helpText: 'Spawns an item from the list of ''Items'' '
+    argumentType: 2
+    argumentText: The index of the item in the 'Items' list you want to spawn. An
+      item must be available.
+--- !u!114 &2305663390972996348
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6985796703050275315}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d74835e3fb2f9c44b8b006b889dfce3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeDelay: 0.1
+  variance: 0
+  timerText: {fileID: 0}
+  message: 
+  managedMessage:
+    target: {fileID: 0}
+    message: SpawnRandom
+    msgOverride: 1
+    messageIndex: 1
+    possibleMessages:
+    - SpawnRandom
+    - SpawnItem
+    - SpawnItem
+    - StartTimer
+    - Abort
+    - StartTimer
+    - Abort
+    - Destruct
+    - FadeOut
+    - FadeIn
+    - SetRatePercent
+    - SetFadeDuration
+    - StartParticle
+    - StopParticle
+    - ToggleParticle
+    - BurstForDuration
+    isDirty: 0
+    sendMessageType: 0
+    parameter: 
+    parameterMode: 0
+  autoStart: 1
+  looping: 0
+  oneAtATime: 1
+  debug: 0
+  help:
+    showInfo: 0
+    helpText: This component sends messages based on a timer. Accepts the 'StartTimer'
+      and 'Abort' messages.
+    videoLink: 
+  startTimerHelp:
+    showInfo: 0
+    messageName: StartTimer
+    helpText: Starts this timer, useful if it doesn't start automatically.
+    argumentType: 0
+    argumentText: 
+  abortHelp:
+    showInfo: 0
+    messageName: Abort
+    helpText: Stops execution of the timer immediately.
+    argumentType: 0
+    argumentText: 
+--- !u!114 &-998604325310775494
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6985796703050275315}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d74835e3fb2f9c44b8b006b889dfce3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeDelay: 0.2
+  variance: 0
+  timerText: {fileID: 0}
+  message: 
+  managedMessage:
+    target: {fileID: 0}
+    message: Destruct
+    msgOverride: 1
+    messageIndex: 8
+    possibleMessages:
+    - SpawnRandom
+    - SpawnItem
+    - SpawnItem
+    - StartTimer
+    - Abort
+    - StartTimer
+    - Abort
+    - Destruct
+    - FadeOut
+    - FadeIn
+    - SetRatePercent
+    - SetFadeDuration
+    - StartParticle
+    - StopParticle
+    - ToggleParticle
+    - BurstForDuration
+    isDirty: 0
+    sendMessageType: 0
+    parameter: 
+    parameterMode: 0
+  autoStart: 1
+  looping: 0
+  oneAtATime: 1
+  debug: 0
+  help:
+    showInfo: 0
+    helpText: This component sends messages based on a timer. Accepts the 'StartTimer'
+      and 'Abort' messages.
+    videoLink: 
+  startTimerHelp:
+    showInfo: 0
+    messageName: StartTimer
+    helpText: Starts this timer, useful if it doesn't start automatically.
+    argumentType: 0
+    argumentText: 
+  abortHelp:
+    showInfo: 0
+    messageName: Abort
+    helpText: Stops execution of the timer immediately.
+    argumentType: 0
+    argumentText: 
+--- !u!114 &6937486351692647410
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6985796703050275315}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f33ce65a205b5b34a8ca4909a5557669, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pool: 0
+  deathPrefabs: []
+  help:
+    showInfo: 0
+    helpText: 'This component allows things to be destroyed by receiving the ''Destruct''
+      message. Very handy.
+
+
+      Drag and drop prefabs onto the ''Death Prefabs''
+      list to make handy things come to life when this one dies.'
+    videoLink: 
+  debug: 0
+  destructHelp:
+    showInfo: 0
+    messageName: Destruct
+    helpText: Deletes this object from the scene, and spawns the supplied list of
+      'Death Prefabs' if any
+    argumentType: 0
+    argumentText: 
+--- !u!1001 &3372500074525916343
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 6985796703050275314}
+    m_Modifications:
+    - target: {fileID: 8575306878277776334, guid: ad079e2e48909c04e919019dd03a5075,
+        type: 3}
+      propertyPath: m_Name
+      value: RedConfetti
+      objectReference: {fileID: 0}
+    - target: {fileID: 9070677833702941491, guid: ad079e2e48909c04e919019dd03a5075,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9070677833702941491, guid: ad079e2e48909c04e919019dd03a5075,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9070677833702941491, guid: ad079e2e48909c04e919019dd03a5075,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9070677833702941491, guid: ad079e2e48909c04e919019dd03a5075,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 9070677833702941491, guid: ad079e2e48909c04e919019dd03a5075,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9070677833702941491, guid: ad079e2e48909c04e919019dd03a5075,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9070677833702941491, guid: ad079e2e48909c04e919019dd03a5075,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 9070677833702941491, guid: ad079e2e48909c04e919019dd03a5075,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9070677833702941491, guid: ad079e2e48909c04e919019dd03a5075,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 270
+      objectReference: {fileID: 0}
+    - target: {fileID: 9070677833702941491, guid: ad079e2e48909c04e919019dd03a5075,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9070677833702941491, guid: ad079e2e48909c04e919019dd03a5075,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ad079e2e48909c04e919019dd03a5075, type: 3}
+--- !u!4 &5993169178960846724 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 9070677833702941491, guid: ad079e2e48909c04e919019dd03a5075,
+    type: 3}
+  m_PrefabInstance: {fileID: 3372500074525916343}
+  m_PrefabAsset: {fileID: 0}

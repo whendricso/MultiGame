@@ -9,8 +9,8 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: PerlinHard_2Iterations
   m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: _NORMALMAP _PARALLAXMAP
-  m_LightmapFlags: 4
+  m_ShaderKeywords: _DETAIL_MULX2 _EMISSION _METALLICGLOSSMAP _NORMALMAP _PARALLAXMAP
+  m_LightmapFlags: 1
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
@@ -25,26 +25,26 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
         m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
+        m_Scale: {x: 0.04, y: 0.04}
         m_Offset: {x: 0, y: 0}
     - _DetailMask:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailNormalMap:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: e599132d2c3daa244933d71dda9a02fd, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
+        m_Texture: {fileID: 2800000, guid: 261e2794e3f97684a967b0378dd2669c, type: 3}
+        m_Scale: {x: 0.02, y: 0.02}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 2800000, guid: ab85da4b4d8095e4791e95ba8f99021f, type: 3}
-        m_Scale: {x: 1, y: 1}
+        m_Scale: {x: 0.02, y: 0.02}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: b1ff4633b3946e64f913af07e380f0aa, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
@@ -60,18 +60,18 @@ Material:
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
-    - _GlossMapScale: 1
-    - _Glossiness: 0.5
+    - _GlossMapScale: 0.126
+    - _Glossiness: 0.419
     - _GlossyReflections: 1
-    - _Metallic: 0
+    - _Metallic: 0.218
     - _Mode: 0
-    - _OcclusionStrength: 1
-    - _Parallax: 0.005
+    - _OcclusionStrength: 0.652
+    - _Parallax: 0.0089
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _Color: {r: 0.14150941, g: 0.14150941, b: 0.14150941, a: 1}
+    - _EmissionColor: {r: 0.02970672, g: 0, b: 0.11372549, a: 1}

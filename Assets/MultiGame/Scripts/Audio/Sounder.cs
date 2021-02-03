@@ -9,6 +9,8 @@ namespace MultiGame {
 	[RequireComponent(typeof(AudioSource))]
 	public class Sounder : MultiModule {
 
+		[Tooltip("Should we silence the audio source immediately when it is created?")]
+		public bool startSilent = false;
 		[ReorderableAttribute]
 		[Header("Available sounds")]
 		[Tooltip("A list of clips we can play by using 'PlaySelectedSound' and sending an integer representing which clip we want. 0 for first, 1 for second and son forth")]
@@ -24,6 +26,14 @@ namespace MultiGame {
 		public float pitchOffset = 0f;
 		private float originalPitch;
 
+		private float originalVolume = 0;
+		private float fadeStart = 0;
+		private float fadeTotalTime = 0;
+		/// <summary>
+		/// Sets the fade direction. -1 for fade out, 1 for fade in, 0 to maintain current volume
+		/// </summary>
+		private int fadeDirection = 0;
+
 		[System.NonSerialized]
 		public AudioSource source;
 
@@ -34,17 +44,38 @@ namespace MultiGame {
 
 		public bool debug = false;
 
-		void Start () {
+		void Awake () {
 			source = GetComponent<AudioSource>();
 			if (source == null) {
 				Debug.LogError("Sounder " + gameObject.name + " does not have an audio source!");
 			}
+		}
+
+		private void Start() {
 			originalPitch = source.pitch;
+			originalVolume = source.volume;
+			if (startSilent)
+				source.volume = 0;
+				if (debug)
+			Debug.Log(""+source.volume);
 		}
 
 		void OnValidate () {
 			Mathf.Clamp (pitchVariance, 0, Mathf.Infinity);
 			Mathf.Clamp (pitchVariance, -1f, 1f);
+		}
+
+		private void Update() {
+			if (fadeTotalTime == 0 || Time.time - fadeStart > fadeTotalTime)
+				fadeDirection = 0;
+			else {
+				if (fadeDirection > 0)
+					source.volume = originalVolume * Mathf.Abs(((Time.time - fadeStart) / fadeTotalTime));
+				else
+					source.volume = originalVolume * Mathf.Abs(1- ((Time.time - fadeStart) / fadeTotalTime));
+				if (debug)
+					Debug.Log("Setting volume to " + source.volume);
+			}
 		}
 
 		public void PlayASound (AudioClip clip) {
@@ -56,7 +87,7 @@ namespace MultiGame {
 		}
 
 		[Header("Available Messages")]
-		public MessageHelp playSoundHelp = new MessageHelp("PlaySound","Plays the sound currently assigned to the Audio Source attached to this object");
+		public MessageHelp playSoundHelp = new MessageHelp("PlaySound","Plays the sound currently assigned to the Audio Source attached to this object. If none is assigned, selects a random clip from the list instead.");
 		public void PlaySound () {
 			if (!gameObject.activeInHierarchy)
 				return;
@@ -107,6 +138,20 @@ namespace MultiGame {
 			source.volume = newVolume;
 		}
 
+		public MessageHelp fadeInHelp = new MessageHelp("FadeIn","Fades the sound in to the initial volume of the Audio Source as set in the Inspector",3,"How long the fade should take in seconds.");
+		public void FadeIn(float _time) {
+			fadeStart = Time.time;
+			fadeTotalTime = _time;
+			fadeDirection = 1;
+		}
+
+		public MessageHelp fadeOutHelp = new MessageHelp("FadeOut", "Fades the sound out to zero", 3, "How long the fade should take in seconds.");
+		public void FadeOut(float _time) {
+			fadeStart = Time.time;
+			fadeTotalTime = _time;
+			fadeDirection = -1;
+		}
+
 		void InitiateCooldown () {
 			canSound = false;
 			StartCoroutine(ResetCooldown(cooldown));
@@ -130,4 +175,4 @@ namespace MultiGame {
 		}
 	}
 }
-	//Copyright 2014 William Hendrickson
+	//Copyright 2014-2020 William Hendrickson

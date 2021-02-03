@@ -22,7 +22,7 @@ namespace MultiGame {
 			MessageManager.UpdateMessageGUI(ref message, gameObject);
 		}
 
-		void OnJoinedRoom () {
+		public override void OnJoinedRoom () {
 			if (debug)
 				Debug.Log("Photon Room Joined Message " + gameObject.name + " is sending the message " + message.message);
 			MessageManager.Send(message);

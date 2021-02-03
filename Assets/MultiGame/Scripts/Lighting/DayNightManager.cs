@@ -25,25 +25,21 @@ namespace MultiGame {
 		private float originalIntensity;
 		private Light sunLight;
 
-		/// <summary>
-		/// The current time is (Time.time - startTime)/cycleDuration
-		/// </summary>
+		[Tooltip("The current time is (Time.time - startTime)/cycleDuration")]
 		private float currentTime = 0;
-		/// <summary>
-		/// The start of the current cycle as a float in seconds
-		/// </summary>
+		[Tooltip("The start of the current cycle as a float in seconds")]
 		private float startTime = 0;
-		/// <summary>
-		/// How fast the light will actually rotate in FixedUpdate (degrees/second)
-		/// </summary>
+		[Tooltip("How fast the light will actually rotate in FixedUpdate (degrees/second)")]
 		private float rotationSpeed = 0;
+
+		public bool debug = false;
 		
 		void Start () {
 			rotationSpeed = ((360f / cycleDuration) * Time.fixedDeltaTime);
 			startTime = Time.time;
 			transform.rotation = Quaternion.identity;
 			sunLight = GetComponent<Light> ();
-			if (sunLight == null) {
+			if (debug && sunLight == null) {
 				Debug.LogError ("DayNightManager " + gameObject.name + " could not find a light!");
 				enabled = false;
 				return;

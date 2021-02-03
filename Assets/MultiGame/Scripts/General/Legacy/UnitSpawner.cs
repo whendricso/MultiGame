@@ -19,6 +19,8 @@ namespace MultiGame {
 		public int unitLayer = 0;
 		public int maxUnits = 100;
 
+		public bool debug = false;
+
 		public HelpInfo help = new HelpInfo("This component has been deprecated, there are new systems that can do the same thing better, but since it's convenient to use" +
 			" it's still included with MultiGame" +
 			"\nThis component is designed to spawn enemies based on the player's position relative to it. You can attach a trigger to the object and set the mode to " +
@@ -31,8 +33,11 @@ namespace MultiGame {
 				enabled = false;
 				return;
 			}
-			if (spawnDelay > 0 && mode == Modes.Periodic)
+			if (spawnDelay > 0 && mode == Modes.Periodic) {
+				if (debug)
+					Debug.Log("Starting Periodic Spawn in " + spawnDelay + " seconds");
 				StartCoroutine(PeriodicSpawn(spawnDelay));
+			}
 		}
 		
 		void OnTriggerEnter (Collider other) {
@@ -47,6 +52,8 @@ namespace MultiGame {
 		
 		IEnumerator PeriodicSpawn(float delay) {
 			yield return new WaitForSeconds(delay);
+			if (debug)
+				Debug.Log("Periodic Spawner " + gameObject.name + " is spawning");
 			GameObject plyr = GameObject.FindGameObjectWithTag("Player");
 			if (plyr == null) {
 				StopAllCoroutines();

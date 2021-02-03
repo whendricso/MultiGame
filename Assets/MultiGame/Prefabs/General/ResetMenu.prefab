@@ -3,15 +3,16 @@
 --- !u!1 &136202
 GameObject:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
   m_Component:
-  - 4: {fileID: 476526}
-  - 114: {fileID: 11463966}
-  - 114: {fileID: 11410596}
-  - 114: {fileID: 11452628}
-  - 114: {fileID: 11493138}
+  - component: {fileID: 476526}
+  - component: {fileID: 11463966}
+  - component: {fileID: 11410596}
+  - component: {fileID: 11452628}
+  - component: {fileID: 11493138}
   m_Layer: 0
   m_Name: ResetMenu
   m_TagString: Untagged
@@ -21,22 +22,142 @@ GameObject:
   m_IsActive: 1
 --- !u!4 &476526
 Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 136202}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &11463966
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 136202}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 569fa80a32506d644b17f65df280c2ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  persistent: 0
+  asWindow: 0
+  guiSkin: {fileID: 0}
+  screenArea:
+    serializedVersion: 2
+    x: 0.3
+    y: 0.3
+    width: 0.3
+    height: 0.3
+  showGui: 0
+  closeOnSelect: 1
+  infoText: 
+  image: {fileID: 0}
+  maxImageSize: {x: 0, y: 0}
+  buttons:
+  - button: Reset
+    message:
+      target: {fileID: 0}
+      message: 
+      msgOverride: 0
+      messageIndex: 0
+      possibleMessages: []
+      isDirty: 0
+      sendMessageType: 0
+      parameter: 
+      parameterMode: 0
+    messages:
+    - target: {fileID: 0}
+      message: ChangeScene
+      msgOverride: 1
+      messageIndex: 4
+      possibleMessages:
+      - OpenMenu
+      - CloseMenu
+      - ToggleMenu
+      - ChangeScene
+      isDirty: 0
+      sendMessageType: 0
+      parameter: 
+      parameterMode: 0
+    - target: {fileID: 0}
+      message: CloseMenu
+      msgOverride: 1
+      messageIndex: 2
+      possibleMessages:
+      - OpenMenu
+      - CloseMenu
+      - ToggleMenu
+      - ChangeScene
+      isDirty: 0
+      sendMessageType: 0
+      parameter: 
+      parameterMode: 0
+  - button: Close
+    message:
+      target: {fileID: 0}
+      message: 
+      msgOverride: 0
+      messageIndex: 0
+      possibleMessages: []
+      isDirty: 0
+      sendMessageType: 0
+      parameter: 
+      parameterMode: 0
+    messages:
+    - target: {fileID: 0}
+      message: CloseMenu
+      msgOverride: 1
+      messageIndex: 2
+      possibleMessages:
+      - OpenMenu
+      - CloseMenu
+      - ToggleMenu
+      - ChangeScene
+      isDirty: 0
+      sendMessageType: 0
+      parameter: 
+      parameterMode: 0
+  debug: 0
+  help:
+    showInfo: 0
+    helpText: This is a generic implementation of Unity's built-in GUI. Not suitable
+      for mobile devices.By combining many of these together in a tree in the Heirarchy
+      and setting targets for each message manually, you can create dialogue trees.You
+      can also use this component to implement pause menus, save/load menus, graphics
+      settings menus for toggling postprocess effects, and really anything you likeas
+      long as what you like is based on text and buttons.
+    videoLink: 
+  openMenuHelp:
+    showInfo: 0
+    messageName: OpenMenu
+    helpText: Opens the IMGUI
+    argumentType: 0
+    argumentText: 
+  closeMenuHelp:
+    showInfo: 0
+    messageName: CloseMenu
+    helpText: Closes the IMGUI
+    argumentType: 0
+    argumentText: 
+  toggleMenuHelp:
+    showInfo: 0
+    messageName: ToggleMenu
+    helpText: Toggles the IMGUI
+    argumentType: 0
+    argumentText: 
 --- !u!114 &11410596
 MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 136202}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -93,11 +214,13 @@ MonoBehaviour:
     showInfo: 0
     helpText: This component sends messages based on the state of a key or button.
       Buttons are defined in (Edit -> Project Settings -> Input)
+    videoLink: 
 --- !u!114 &11452628
 MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 136202}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -111,130 +234,19 @@ MonoBehaviour:
     showInfo: 0
     helpText: This component implements single-player scene changes. Not suitable
       for multiplayer.
+    videoLink: 
   changeSceneHelp:
     showInfo: 0
     messageName: ChangeScene
     helpText: Go to the 'Target Scene'
     argumentType: 0
     argumentText: 
---- !u!114 &11463966
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 136202}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 569fa80a32506d644b17f65df280c2ad, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  persistent: 0
-  guiSkin: {fileID: 0}
-  screenArea:
-    serializedVersion: 2
-    x: 0.3
-    y: 0.3
-    width: 0.3
-    height: 0.3
-  showGui: 0
-  closeOnSelect: 1
-  infoText: 
-  debug: 0
-  help:
-    showInfo: 0
-    helpText: This is a generic implementation of Unity's built-in GUI. Not suitable
-      for mobile devices.By combining many of these together in a tree in the Heirarchy
-      and setting targets for each message manually, you can create dialogue trees.You
-      can also use this component to implement pause menus, save/load menus, graphics
-      settings menus for toggling postprocess effects, and really anything you likeas
-      long as what you like is based on text and buttons.
-  buttons:
-  - button: Reset
-    message:
-      target: {fileID: 0}
-      message: 
-      msgOverride: 0
-      messageIndex: 0
-      possibleMessages: []
-      isDirty: 0
-      sendMessageType: 0
-      parameter: 
-      parameterMode: 0
-    messages:
-    - target: {fileID: 0}
-      message: ChangeMission
-      msgOverride: 1
-      messageIndex: 4
-      possibleMessages:
-      - OpenMenu
-      - CloseMenu
-      - ToggleMenu
-      - ChangeScene
-      isDirty: 0
-      sendMessageType: 0
-      parameter: 
-      parameterMode: 0
-    - target: {fileID: 0}
-      message: CloseMenu
-      msgOverride: 1
-      messageIndex: 2
-      possibleMessages:
-      - OpenMenu
-      - CloseMenu
-      - ToggleMenu
-      - ChangeScene
-      isDirty: 0
-      sendMessageType: 0
-      parameter: 
-      parameterMode: 0
-  - button: Close
-    message:
-      target: {fileID: 0}
-      message: 
-      msgOverride: 0
-      messageIndex: 0
-      possibleMessages: []
-      isDirty: 0
-      sendMessageType: 0
-      parameter: 
-      parameterMode: 0
-    messages:
-    - target: {fileID: 0}
-      message: CloseMenu
-      msgOverride: 1
-      messageIndex: 2
-      possibleMessages:
-      - OpenMenu
-      - CloseMenu
-      - ToggleMenu
-      - ChangeScene
-      isDirty: 0
-      sendMessageType: 0
-      parameter: 
-      parameterMode: 0
-  openMenuHelp:
-    showInfo: 0
-    messageName: OpenMenu
-    helpText: Opens the IMGUI
-    argumentType: 0
-    argumentText: 
-  closeMenuHelp:
-    showInfo: 0
-    messageName: CloseMenu
-    helpText: Closes the IMGUI
-    argumentType: 0
-    argumentText: 
-  toggleMenuHelp:
-    showInfo: 0
-    messageName: ToggleMenu
-    helpText: Toggles the IMGUI
-    argumentType: 0
-    argumentText: 
 --- !u!114 &11493138
 MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 136202}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -291,14 +303,4 @@ MonoBehaviour:
     showInfo: 0
     helpText: This component sends messages based on the state of a key or button.
       Buttons are defined in (Edit -> Project Settings -> Input)
---- !u!1001 &100100000
-Prefab:
-  m_ObjectHideFlags: 1
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications: []
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 136202}
-  m_IsPrefabParent: 1
+    videoLink: 

@@ -20,9 +20,11 @@ namespace MultiGame {
 		public Vector3 uvScale = Vector3.one;
 		public Vector3 uvOffset = Vector3.zero;
 
-		Vector3 corner0 = Vector3.zero;
+		[SceneVector]
+		public Vector3 corner0 = new Vector3(-.5f,-.5f,-.5f);
 		Vector3 corner0Previous = Vector3.zero;
-		Vector3 corner1 = Vector3.zero;
+		[SceneVector]
+		public Vector3 corner1 = new Vector3(.5f, .5f, .5f);
 		Vector3 corner1Previous = Vector3.zero;
 
 		public HelpInfo help = new HelpInfo ("ProcCube is a powerful tool for object and level design. It allows you to make boxes of any given proportion, and properly changes the UV coordinates so that your " +
@@ -42,6 +44,9 @@ namespace MultiGame {
 		void Reset () {
 			AcquireMesh ();
 			BuildCube ();
+
+			corner0 = new Vector3(-.5f, -.5f, -.5f);
+			corner1 = new Vector3(.5f, .5f, .5f);
 		}
 
 		void Start () {
@@ -68,43 +73,39 @@ namespace MultiGame {
 			if (addCollider) {
 				SetupCollider ();
 			}
+
+
 		}
 
-		
+		/*
 		Vector3 translateDelta0 = Vector3.zero;
 		Vector3 translateDelta1 = Vector3.zero;
 		private void OnDrawGizmosSelected() {
 			if (lockEditing)
 				return;
-			if (corner0 == corner1)
-				return;
+
+			Gizmos.color = Color.white;
+			Gizmos.DrawSphere(transform.position, 3);
 
 			translateDelta0 = Vector3.zero;
 			translateDelta1 = Vector3.zero;
 
-			bool _mod = false;//key modifier held?
+			
 
-			if (Input.GetKey(KeyCode.LeftShift))
-				_mod = true;
-
-			if (Input.GetKey(KeyCode.Z)) {
-
-			}
-
-			Vector3 snap = Vector3.one * 0.01f;
 
 			float xDelta = (translateDelta0.x - corner0Previous.x) + (translateDelta1.x - corner1Previous.x);
 			float yDelta = (translateDelta0.y - corner0Previous.y) + (translateDelta1.y - corner1Previous.y);
 			float zDelta = (translateDelta0.z - corner0Previous.z) + (translateDelta1.z - corner1Previous.z);
 
-			transform.Translate(new Vector3(.5f * xDelta, .5f * yDelta, .5f * zDelta));
-			width += xDelta;
-			height += yDelta;
-			length += zDelta;
+				transform.Translate(new Vector3(.5f * xDelta, .5f * yDelta, .5f * zDelta));
+				width += xDelta;
+				height += yDelta;
+				length += zDelta;
+
 
 			corner0Previous = corner0;
 			corner1Previous = corner1;
-		}
+		}*/
 		
 		void BuildCube () {
 			if (mesh == null)

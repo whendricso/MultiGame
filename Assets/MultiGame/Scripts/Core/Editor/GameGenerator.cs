@@ -635,7 +635,7 @@ namespace MultiGame {
 				for (int j = 0; j < this.terrain.terrainData.heightmapResolution; j++) {
 
 
-					//Pus some noise into the heightmap,
+					//Put some noise into the heightmap,
 					newHeights[j,i] = Mathf.PerlinNoise(
 						((level.xSeed * level.amplitude) + (i * level.amplitude)) , 
 						((level.ySeed * level.amplitude) + (j * level.amplitude))

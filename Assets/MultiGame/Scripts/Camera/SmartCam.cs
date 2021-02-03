@@ -16,7 +16,7 @@ namespace MultiGame
 		//public string autoLookTag = "Player";
 		[Tooltip("Should we search for a new target if the current one is lost?")]
 		public bool autoRetarget = true;
-		[Tooltip("How long should we wait before trying to retarget?")]
+		[Tooltip("How long should we wait before trying to retarget? Longer delays = better performance when no object is being targeted.")]
 		public float autoRetargetTime = .6f;
 		private float autoRetargetCounter;
 		
@@ -61,10 +61,14 @@ namespace MultiGame
 		public LayerMask obstructionMask;
 
 		[Header("Shake Settings")]
+		[Tooltip("Should camera shake when the 'Shake' Message is received?")]
 		public bool shake = true;
 		//public bool wobble = true;
+		[Tooltip("Should the camera pulse it's Field Of View when the 'Shake' Message is received?")]
 		public bool pulse = true;
+		[RequiredField("How long should camera shake last? This can be changed with the 'SetShakeTime' Message")]
 		public float shakeTime = 1f;
+		[Tooltip("How should the intensity of the shake change over time?")]
 		public AnimationCurve shakeRolloff = new AnimationCurve(new Keyframe[] {new Keyframe(0,1), new Keyframe(1,0) });
 
 		private float shakeMagnitude = 0f;
@@ -81,7 +85,13 @@ namespace MultiGame
 		private Transform aimTrans;
 		private GameObject hiddenObject = null;
 
-		public HelpInfo help = new HelpInfo("Smart Cam automatically follows an object. If there is no object to follow, it will attempt to find the Player object by tag.");
+		public HelpInfo help = new HelpInfo("Smart Cam automatically follows an object. If there is no object to follow, it will attempt to find the Player object (default) by tag. " +
+			"\n\n" +
+			"To use, simply add this component to your Main Camera. The global offset is where the camera rests regardless of character orientation, whereas " +
+			"local offset takes player orientation into account. Look Offset is the actual point the camera follows, and it's added to the follow target's position. " +
+			"Camera shake is supported, simply send the 'Shake' message to this component by any means, with a magnitude (size of the shake) in floating point.\n" +
+			"The primary use for Smart Cam is for top-down or third-person games where you want a camera that is easy-to-use, familiar to players and works in " +
+			"most third-person situations.");
 
 		private void Awake() {
 			aimTrans = new GameObject("aimTrans").transform;
