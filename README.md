@@ -39,5 +39,3 @@ You will find several editor tools:
 # Components
 You can find many additional components in the Add Component -> MultiGame menu found at the top of the screen, or on the Inspector.
 ![alt text](https://preview.ibb.co/egTUVG/Multi_Game_Add_Component.png "Add Component MultiGame")
-
-## Looking for the Professional Edition? https://www.techdrone.com/product-page/multigame-professional
