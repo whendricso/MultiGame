@@ -15,10 +15,6 @@ The most common components to any game project can be found inside! I'm so confi
 ### Powerful!
 MultiGame has been developed and tested on multiple projects since January 2013. It's flexible ManagedMessage system provides a powerful event framework that works automatically with *any* script, even those not included in MultiGame.
 
-## I WANT MORE!
-### Click this: https://www.techdrone.com/product-page/multigame-professional
-It takes a lot of work to build a comprehensive toolset like MultiGame. If you enjoy using this free version, please consider buying more features. In the paid version you will find everything you need to make even more advanced games, and by purchasing the professional version, you can help support full-time development of MultiGame.
-
 Thank you to everyone who has contributed along the way.
 
 # Instructions
@@ -33,8 +29,6 @@ You will find several editor tools:
 - Rapid Dev Toolbar, contains the most common tools and components
 - Prefab Painter, to paint objects onto other objects quickly and easily with many useful settings
 - Splines, to place objects procedurally or move them along a procedural path
-
-![alt text](https://image.ibb.co/k2VHZb/Multi_Game_Toolbar.png "MultiGame Toolbar adds functionality fast and lets you focus on features!")
 
 # Components
 You can find many additional components in the Add Component -> MultiGame menu found at the top of the screen, or on the Inspector.
