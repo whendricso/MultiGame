@@ -1,3 +1,6 @@
+## Documentation:
+https://terpri.org/mgdoc/
+
 ## Tutorial video:
 https://youtu.be/8ptbRaj_qK8
 
