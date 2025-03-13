@@ -9,13 +9,9 @@ MultiGame makes game development in Unity fast and simple for artists, programme
 
 It works with all other scripts, tools, add-ons. It contains a plethora of tools to place objects and set up scenes. It also has programmer tools to send events, write smart Inspectors, and provide help to the user.
 
-### Create Freely
-No longer will mundane tasks limit your progress. Clean, well-documented components that are easy to use and work as expected make life easier. Additional tools in the Editor simplify the act of creating rich environments.
-
 ### Copious Code Base
 The most common components to any game project can be found inside! I'm so confident that you'll like MultiGame, I'm making half of it open source so that you can feel confident including it in your own projects.
 
-### Powerful!
 MultiGame has been developed and tested on multiple projects since January 2013. It's flexible ManagedMessage system provides a powerful event framework that works automatically with *any* script, even those not included in MultiGame.
 
 Thank you to everyone who has contributed along the way.
