@@ -17,6 +17,8 @@ namespace MultiGame {
 		[Tooltip("A message we should send if we are killed in this way")]
 		public MessageManager.ManagedMessage message;
 
+		private bool isDestructing = false;
+
 		public HelpInfo help = new HelpInfo("This component destroys an object if it passes below a given Y value. You definitely need to put this on yout Player object in case" +
 			" they fall through the level!");
 
@@ -25,11 +27,14 @@ namespace MultiGame {
 		}
 
 		void Update () {
-			if (transform.position.y <= minimumYLevel)
+			if (!isDestructing && transform.position.y <= minimumYLevel)
 				Destruct();
 		}
 
 		public void Destruct () {
+			if (isDestructing)
+				return;
+			isDestructing = true;
 			StartCoroutine(DestructCoroutine());
 		}
 
