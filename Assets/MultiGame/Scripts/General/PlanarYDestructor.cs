@@ -30,10 +30,22 @@ namespace MultiGame {
 		}
 
 		public void Destruct () {
+			StartCoroutine(DestructCoroutine());
+		}
+
+		IEnumerator DestructCoroutine () {
 			//if (deathPrefabs.Count >= 1) {
 			//foreach (GameObject _gobj in deathPrefabs)
 			//	Instantiate(_gobj,transform.position, transform.rotation);
 			//}
+			
+			// Send the message if one is configured
+			if (message.target != null && !string.IsNullOrEmpty(message.message) && message.message != "--none--") {
+				MessageManager.Send(message);
+				// Wait one frame to ensure the message is processed before destruction
+				yield return null;
+			}
+			
 			if (pool)
 				gameObject.SetActive(false);
 			else
