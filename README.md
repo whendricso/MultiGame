@@ -1,13 +1,14 @@
-## Component Documentation:
-https://terpri.org/mgdoc/
-
-## Tutorial video:
-https://youtu.be/8ptbRaj_qK8
 
 # MultiGame
 MultiGame makes game development in Unity fast and simple for artists, programmers, and designers!
 
 It works with all other scripts, tools, add-ons. It contains a plethora of tools to place objects and set up scenes. It also has programmer tools to send events, write smart Inspectors, and provide help to the user.
+
+## Component Documentation:
+https://terpri.org/mgdoc/
+
+## Tutorial video:
+https://youtu.be/8ptbRaj_qK8
 
 ### Copious Code Base
 The most common components to any game project can be found inside! I'm so confident that you'll like MultiGame, I'm making half of it open source so that you can feel confident including it in your own projects.
@@ -45,8 +46,24 @@ MultiGame uses `MessageManager.ManagedMessage` to communicate with and call func
 Because of this convention, submissions relying on delegates for communication are likely to be rejected. If you need a delegate for some other purpose, such as global registry to a singleton, that usage is expressly permitted, but should not be used as an alternative to ManagedMessage unless implementation constraints require it, and the delegate is not directly exposed to the user (which can cause confusion)
 
 ## MessageManager Guidelines ##
-- 
+- Messages are declared in the following format:  `public MessageManager.ManagedMessage message;`
+- `OnValidate` must be used to update the message GUI as follows: `MessageManager.UpdateMessageGUI(ref message, gameObject);` otherwise, the list of available messages will not be updated, leading to user frustration
+- Messages can be sent via the `MessageManager` as follows: `MessageManager.Send(message);`
 - Please avoid calling `Send` every frame from a large number of objects, because it is several times more expensive than a standard method call.
+
+###Example:###
+```csharp
+[Tooltip("What should we send when clicked?")]
+public MessageManager.ManagedMessage message;
+void OnValidate () {
+  MessageManager.UpdateMessageGUI(ref message, gameObject);
+}
+void OnMouseUpAsButton() {
+  MessageManager.Send(message);
+}
+```
+
+
 
 ## Automation policy
 When contributing changes, please limit machine learning use to code review and debugging purposes, and don't submit new features that have been "vibe-coded".
