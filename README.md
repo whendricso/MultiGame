@@ -37,6 +37,17 @@ You can find many additional components in the Add Component -> MultiGame menu f
 # Contribution
 If you'd like to contribute to MultiGame, please open an Issue and submit a pull request.
 
+Submissions should come in the form of a new component, and should follow conventions from similar files. For example, when writing new camera controllers, first review other camera controllers and other components it's likely to interact with.
+
+##Messages and Delegates##
+MultiGame uses `MessageManager.ManagedMessage` to communicate with and call functionality on other components. This system allows MultiGame to interface with third-party systems without breaking functionality and without tight coupling, and it provides several advantages over delegates at a small performance cost.
+
+Because of this convention, submissions relying on delegates for communication are likely to be rejected. If you need a delegate for some other purpose, such as global registry to a singleton, that usage is expressly permitted, but should not be used as an alternative to ManagedMessage unless implementation constraints require it, and the delegate is not directly exposed to the user (which can cause confusion)
+
+## MessageManager Guidelines ##
+- 
+- Please avoid calling `Send` every frame from a large number of objects, because it is several times more expensive than a standard method call.
+
 ## Automation policy
 When contributing changes, please limit machine learning use to code review and debugging purposes, and don't submit new features that have been "vibe-coded".
 
