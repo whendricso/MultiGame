@@ -21,9 +21,11 @@ Thank you to everyone who has contributed along the way.
 1. Click Window -> Package Management -> Package Manager and select the `+` sign at the top
 2. Click "Install Package from Git URL"
 3. Input `https://github.com/whendricso/MultiGame` and click "Install"
-4. Click Window -> MultiGame -> Rapid Dev Tool
+4. Click Window -> MultiGame -> Toolbar
 5. Dock the toolbar on the left or right side of the screen
-6. Select an object and click a button to quickly add functionality.
+6. Select an object and click a button to quickly add functionality, or clear selection and click a button to create a new object with that behavior
+7. Additional components can be found in the Add Component -> MultiGame menu on the Inspector (an object must be selected first)
+8. Additional Editor tools can be found in the MultiGame menu at the top of your screen.
 
 # Editor Tools
 You will find several editor tools:
