@@ -18,11 +18,12 @@ MultiGame has been developed and tested on multiple projects since January 2013.
 Thank you to everyone who has contributed along the way.
 
 # Instructions
-![alt text](https://preview.ibb.co/dxHNZb/Open_Multi_Game_Toolbar.png "Click Window MultiGame Rapid Dev Tool")
-1. Just open the .unitypackage file and it will open the Unity importer in your project.
-2. Click Window -> MultiGame -> Rapid Dev Tool
-3. Dock the toolbar on the left or right side of the screen
-4. Select an object and click a button to quickly add functionality.
+1. Click Window -> Package Management -> Package Manager and select the `+` sign at the top
+2. Click "Install Package from Git URL"
+3. Input `https://github.com/whendricso/MultiGame` and click "Install"
+4. Click Window -> MultiGame -> Rapid Dev Tool
+5. Dock the toolbar on the left or right side of the screen
+6. Select an object and click a button to quickly add functionality.
 
 # Editor Tools
 You will find several editor tools:
