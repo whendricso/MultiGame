@@ -65,7 +65,8 @@ void OnMouseUpAsButton() {
 
 ## Help and Documentation Requirements ##
 - All new component or system submissions must contain, at a minimum, in-editor documentation including a brief explanation of the component. These are created with `HelpInfo` public fields in the following format: `public HelpInfo help = new HelpInfo(string text, [string videoLink]);` where `videoLink` is optional.
-
+- Public methods that are intended to be called using the `MessageManager` system must have `MessageHelp` declared in the following format: `public MessageHelp relayHelp = new MessageHelp(string _messageName, string _text,[ int _argumentType, string _argumentHelp]);
+		public void Relay () { [...]`
 
 ## Automation policy ##
 When contributing changes, please limit machine learning use to code review and debugging purposes, and don't submit new features that have been "vibe-coded".
