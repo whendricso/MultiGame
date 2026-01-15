@@ -1,6 +1,6 @@
 
 # MultiGame
-MultiGame makes game development in Unity fast and simple(r) for artists, programmers, and designers!
+MultiGame makes game development in Unity faster for artists, programmers, and designers!
 
 It works with all other scripts, tools, add-ons. Seriously, MultiGame is built to be robust and will not break your existing systems. It contains a plethora of tools to place objects and set up scenes. It also has programmer tools to send events, write smart Inspectors, and provide help to the user.
 
