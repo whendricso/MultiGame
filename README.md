@@ -1,8 +1,8 @@
 
 # MultiGame
-MultiGame makes game development in Unity fast and simple for artists, programmers, and designers!
+MultiGame makes game development in Unity fast and simple(r) for artists, programmers, and designers!
 
-It works with all other scripts, tools, add-ons. It contains a plethora of tools to place objects and set up scenes. It also has programmer tools to send events, write smart Inspectors, and provide help to the user.
+It works with all other scripts, tools, add-ons. Seriously, MultiGame is built to be robust and will not break your existing systems. It contains a plethora of tools to place objects and set up scenes. It also has programmer tools to send events, write smart Inspectors, and provide help to the user.
 
 ## Component Documentation:
 https://terpri.org/mgdoc/
@@ -65,8 +65,8 @@ void OnMouseUpAsButton() {
 
 ## Help and Documentation Requirements ##
 - All new component or system submissions must contain, at a minimum, in-editor documentation including a brief explanation of the component. These are created with `HelpInfo` public fields in the following format: `public HelpInfo help = new HelpInfo(string text, [string videoLink]);` where `videoLink` is optional.
-- Public methods that are intended to be called using the `MessageManager` system must have `MessageHelp` declared in the following format: `public MessageHelp relayHelp = new MessageHelp(string _messageName, string _text,[ int _argumentType, string _argumentHelp]);
-		public void Relay () { [...]`
+- Public methods that are intended to be called using the `MessageManager` system must have `MessageHelp` declared in the following format: `public MessageHelp methodHelp = new MessageHelp(string _messageName, string _text,[ int _argumentType, string _argumentHelp]); public void Method () { [...]`
+- Public fields must have a `Tooltip`, `RequiredFieldAttribute`, or other Editor hinting to allow users to quickly understand components and refresh prior knowledge.
 
 ## Automation policy ##
 When contributing changes, please limit machine learning use to code review and debugging purposes, and don't submit new features that have been "vibe-coded".
