@@ -32,7 +32,7 @@ void OnMouseUpAsButton() {
 - Public fields must have a `Tooltip`, `RequiredFieldAttribute`, or other Editor hinting to allow users to quickly understand components and refresh prior knowledge.
 
 ## Automation policy ##
-When contributing changes, please limit machine learning use to code review and debugging purposes, and don't submit new features that have been "vibe-coded".
+When contributing changes, please limit machine learning use to code review and debugging purposes, and **don't submit new features that have been "vibe-coded".**
 
 Use of documentation generators or other non-machine-learning automation systems is unrestricted.
 
