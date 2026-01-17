@@ -1,5 +1,5 @@
 # Automation Policy #
-**A policy guiding, i.e. limiting, the use of automation tools is vital to the purpose of MultiGame. MultiGame is, after all, itself a form of automation software.**
+**A policy guiding, i.e. limiting, the use of automation tools is vital to the purpose of MultiGame:**
 - When contributing changes, please limit machine learning use to code review and debugging purposes, and **don't submit new features that have been "vibe-coded".**
 - Use of documentation generators or implementation of other non-machine-learning automation systems is unrestricted and in fact encouraged.
 - To ensure high-quality software, follow the `AgentInstructions.md` found in the project to adhere to best practices.
