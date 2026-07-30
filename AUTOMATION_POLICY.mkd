@@ -1,5 +1,6 @@
 # Automation Policy #
 
+
 **Rules:**
 1. AI slop is detrimental to the integrity of the code base and will be rejected outright
 2. Users submitting AI slop that goes undetected may be banned at my sole discretion
