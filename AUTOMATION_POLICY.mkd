@@ -1,5 +1,5 @@
 # Automation Policy #
-
+"AI SLOP" or "VIBE CODE" is code "generated" (regurgitated) by an AI algorithm.
 
 **Rules:**
 1. AI slop is detrimental to the integrity of the code base and will be rejected outright
