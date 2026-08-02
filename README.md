@@ -15,7 +15,7 @@ The most common components to any game project can be found inside, and MultiGam
 
 MultiGame has been developed and tested on multiple projects since January 2013. It's flexible ManagedMessage system provides a powerful event framework that works automatically with *any* script, even those not included in MultiGame.
 
-Thank you to everyone who has contributed along the way.
+Since there's often nothing more permanent than a temporary solution, MultiGame is designed to be used at all stages of development.
 
 # Instructions
 1. Click Window -> Package Management -> Package Manager and select the `+` sign at the top
