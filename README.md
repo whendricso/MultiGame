@@ -2,6 +2,8 @@
 # MultiGame
 MultiGame makes game development in Unity faster for artists, programmers, and designers!
 
+MultiGame contains a massive amount of game behaviors, all heavily-tested and refined over years of professional development use. Everything from editor tools, character & camera control, scene building, spawning and destruction, object pooling, serialization, enemy and NPC functionality, and may more (far too many to list - check the component doc for a more comprehensive list of features) components supply most or all of the gameplay you'll need. It's all held together by a robust event and messaging system that's designed to continue to work even as you change the game. MultiGame also has built-in documentation on components and fields, and a series of tutorial videos accessible from the toolbar.
+
 It works with all other scripts, tools, add-ons. Seriously, MultiGame is built to be robust and will not break your existing systems. It contains a plethora of tools to place objects and set up scenes. It also has programmer tools to send events, write smart Inspectors, and provide help to the user.
 
 ## Component Documentation:
