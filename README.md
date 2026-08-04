@@ -37,3 +37,5 @@ You will find several editor tools:
 You can find many additional components in the Add Component -> MultiGame menu found at the top of the screen, or on the Inspector.
 
 ![alt text](https://preview.ibb.co/egTUVG/Multi_Game_Add_Component.png "Add Component MultiGame")
+
+![alt text](https://i.ibb.co/YB8S8Wyn/Screenshot-From-2026-08-04-09-47-03.png "MultiGame Toolbar")
